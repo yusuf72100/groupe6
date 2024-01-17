@@ -53,6 +53,5 @@ public class SlitherLink extends JFrame {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
