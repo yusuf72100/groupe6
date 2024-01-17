@@ -17,7 +17,6 @@ public class SlitherLink extends JFrame {
         grille.width = 5;
         grille.height = 5;
 
-        // Définir la grille
         grille.grid = Arrays.asList(
             Arrays.asList(1, 0, 0, 0, 0),
             Arrays.asList(0, 1, 0, 0, 0),
@@ -26,7 +25,6 @@ public class SlitherLink extends JFrame {
             Arrays.asList(0, 0, 0, 0, 1)
         );
 
-        // Définir le niveau
         Map<String, Object> level = new HashMap<>();
         level.put("width", grille.width);
         level.put("height", grille.height);
