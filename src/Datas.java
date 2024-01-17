@@ -1,10 +1,14 @@
+/**
+ * @author Yusuf Ulas
+ */
+
 package src;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-//
+
 /**
  * Cette classe s'occupera de la sauvegarde et du chargement des objets
  */
