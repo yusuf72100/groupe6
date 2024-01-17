@@ -57,7 +57,6 @@ public class Datas {
 
         Datas datas = new Datas();
 
-        // ceci est un test
         saveDatas();
         loadDatas();
         System.out.print(grille.height);
