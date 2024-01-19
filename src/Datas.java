@@ -37,7 +37,7 @@ public class Datas {
     }
 
     public static void loadDatas() throws IOException, ClassNotFoundException {
-        try (FileInputStream fis = new FileInputStream("./src/save.yml");
+        try (FileInputStream fis = new FileInputStream("./src/grids.yml");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
             Grille myObject = (Grille) ois.readObject();
@@ -47,7 +47,7 @@ public class Datas {
 
     public static void saveDatas() throws IOException {
         try (
-            FileOutputStream fos = new FileOutputStream("./src/save.yml");
+            FileOutputStream fos = new FileOutputStream("./src/grids.yml");
             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
             oos.writeObject(grille);
@@ -57,10 +57,9 @@ public class Datas {
     }
 
     public static void main(String[] var) throws IOException, ClassNotFoundException {
-        System.out.print("-----------------------Ceci est un test jeune truite-----------------------------\n");
-
         Datas datas = new Datas();
-
+        System.out.print("-----------------------Ceci est un test jeune truite-----------------------------\n");
+    
         saveDatas();
         loadDatas();
         System.out.print(grille.height);
