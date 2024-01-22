@@ -13,14 +13,14 @@ import java.util.Map;
  * Cette classe s'occupera de la sauvegarde et du chargement des objets
  */
 public class Datas {
-    private static Grille grille;
+    private static Grid grid;
     public Datas(){
-        grille = new Grille();
+        grid = new Grid();
 
-        grille.width = 5;
-        grille.height = 5;
+        grid.width = 5;
+        grid.height = 5;
 
-        grille.grid = Arrays.asList(
+        grid.grid = Arrays.asList(
             Arrays.asList(1, 0, 0, 0, 0),
             Arrays.asList(0, 1, 0, 0, 0),
             Arrays.asList(0, 0, 1, 0, 0),
@@ -29,18 +29,18 @@ public class Datas {
         );
 
         Map<String, Object> level = new HashMap<>();
-        level.put("width", grille.width);
-        level.put("height", grille.height);
-        level.put("grid", grille.grid);
+        level.put("width", grid.width);
+        level.put("height", grid.height);
+        level.put("grid", grid.grid);
 
-        grille.level = Arrays.asList(level);
+        grid.level = Arrays.asList(level);
     }
 
     public static void loadDatas() throws IOException, ClassNotFoundException {
         try (FileInputStream fis = new FileInputStream("./src/grids.yml");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
-            Grille grid = (Grille) ois.readObject();
+            Grid grid = (Grid) ois.readObject();
             System.out.println("Objet chargé avec succès: " + grid);
         }
     }
@@ -50,7 +50,7 @@ public class Datas {
             FileOutputStream fos = new FileOutputStream("./src/grids.yml");
             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
-            oos.writeObject(grille);
+            oos.writeObject(grid);
             System.out.println("Objet sauvegardé avec succès.");
         }
     }
@@ -61,6 +61,6 @@ public class Datas {
     
         saveDatas();
         loadDatas();
-        System.out.print("Donnée de test reçu: " + grille.height);
+        System.out.print("Donnée de test reçu: " + grid.height);
     }
 }
