@@ -57,7 +57,7 @@ public class Datas {
 
     public static void main(String[] var) throws IOException, ClassNotFoundException {
         Datas datas = new Datas();
-        System.out.print("-----------------------|Ceci est un test jeune truite|-----------------------------\n");
+        System.out.print("-----------------------| Ceci est un test jeune truite |-----------------------------\n");
     
         saveDatas();
         loadDatas();
