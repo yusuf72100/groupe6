@@ -52,16 +52,15 @@ public class Datas {
 
             oos.writeObject(grille);
             System.out.println("Objet sauvegardé avec succès.");
-
         }
     }
 
     public static void main(String[] var) throws IOException, ClassNotFoundException {
         Datas datas = new Datas();
-        System.out.print("-----------------------Ceci est un test jeune truite-----------------------------\n");
+        System.out.print("-----------------------|Ceci est un test jeune truite|-----------------------------\n");
     
         saveDatas();
         loadDatas();
-        System.out.print(grille.height);
+        System.out.print("Donnée de test reçu: " + grille.height);
     }
 }
