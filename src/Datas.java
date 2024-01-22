@@ -40,8 +40,8 @@ public class Datas {
         try (FileInputStream fis = new FileInputStream("./src/grids.yml");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
-            Grille myObject = (Grille) ois.readObject();
-            System.out.println("Objet chargé avec succès: " + myObject);
+            Grille grid = (Grille) ois.readObject();
+            System.out.println("Objet chargé avec succès: " + grid);
         }
     }
 
