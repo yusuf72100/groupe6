@@ -24,7 +24,7 @@ public class Main extends Application {
 
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Bouton cliqué à la position (" + i + ", " + j + ")");
+            System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
 
             // toggle
@@ -45,6 +45,8 @@ public class Main extends Application {
         VBox layout_v = new VBox(2);
         GridPane gridPane = new GridPane();
         Puzzle puzzle = new Puzzle(8, 8);
+        VBox container = new VBox(layout_v, gridPane);
+        Scene scene = new Scene(container, 1000, 800);
         int compteur = 0;
 
         charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -78,31 +80,30 @@ public class Main extends Application {
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(puzzle.cellules[i][j].cellule[0], i * 2 + 1, j * 2);          // top
+                    gridPane.add(puzzle.cellules[i][j].cellule[0], i * 2 + 1, j * 2);   // top
                     puzzle.cellules[i][j].cellule[0].setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(puzzle.cellules[i][j].cellule[1], i * 2 + 1, j * 2 + 2);      // bottom
+                gridPane.add(puzzle.cellules[i][j].cellule[1], i * 2 + 1, j * 2 + 2);   // bottom
                 puzzle.cellules[i][j].cellule[1].setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(puzzle.cellules[i][j].cellule[2], i * 2, j * 2 + 1);          // left
+                    gridPane.add(puzzle.cellules[i][j].cellule[2], i * 2, j * 2 + 1);   // left
                     puzzle.cellules[i][j].cellule[2].setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(puzzle.cellules[i][j].cellule[3], i * 2 + 2, j * 2 + 1);      // right
+                gridPane.add(puzzle.cellules[i][j].cellule[3], i * 2 + 2, j * 2 + 1);   // right
                 puzzle.cellules[i][j].cellule[3].setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
             }
         }
 
-        System.out.println(compteur + " barres comptées");
+        System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
         layout_v.setAlignment(Pos.TOP_RIGHT);
-        VBox container = new VBox(layout_v, gridPane);
-        Scene scene = new Scene(container, 1000, 800);
+        container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("button-square");
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
