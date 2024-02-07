@@ -33,4 +33,11 @@ public class Cellule {
         return square;
     }
 
+    public void changeCellulesCss(String css) {
+        cellule[0].getStyleClass().addAll(css + "-top");
+        cellule[1].getStyleClass().addAll(css + "-bottom");
+        cellule[2].getStyleClass().addAll(css + "-left");
+        cellule[3].getStyleClass().addAll(css + "-right");
+    }
+
 }

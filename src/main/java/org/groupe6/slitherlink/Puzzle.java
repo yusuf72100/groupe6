@@ -8,17 +8,11 @@ import java.io.Serializable;
 
 class Puzzle implements Serializable {
 
-    private String difficulte;
-    private int longueur;
-    private int largeur;
-    private Cellule[][] grilleCellules;
+    Cellule[][] cellules;
 
     // Constructeur
-    public Puzzle(String difficulte, int longueur, int largeur, Cellule[][] grilleCellules) {
-        this.difficulte = difficulte;
-        this.longueur = longueur;
-        this.largeur = largeur;
-        this.grilleCellules = grilleCellules;
+    public Puzzle(int l, int L) {
+        cellules = new Cellule[l][L];
     }
 
     // Méthode pour sauvegarder le puzzle
@@ -41,26 +35,5 @@ class Puzzle implements Serializable {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public String toString() {
-        // parcourir la martice et affiche le nombre dans la chauque cellule
-        String str = "";
-        str += "Difficulté : " + difficulte + "\n";
-        str += "Longueur : " + longueur + "\n";
-        str += "Largeur : " + largeur + "\n";
-        str += "Grille : \n";
-        for (int i = 0; i < grilleCellules.length; i++) {
-            for (int j = 0; j < grilleCellules[i].length; j++) {
-                str += grilleCellules[i][j] + " ";
-            }
-            str += "\n";
-        }
-        return str;
-    }
-
-    public Cellule getCellule(int i, int j) {
-        return grilleCellules[i][j];
     }
 }
