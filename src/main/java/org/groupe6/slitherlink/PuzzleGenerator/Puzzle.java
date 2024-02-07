@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink;
+package org.groupe6.slitherlink.PuzzleGenerator;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

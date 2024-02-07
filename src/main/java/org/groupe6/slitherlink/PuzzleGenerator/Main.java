@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink;
+package org.groupe6.slitherlink.PuzzleGenerator;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

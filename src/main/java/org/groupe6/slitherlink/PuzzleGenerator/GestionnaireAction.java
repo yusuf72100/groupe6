@@ -1,6 +1,5 @@
-package org.groupe6.slitherlink;
+package org.groupe6.slitherlink.PuzzleGenerator;
 
-import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
