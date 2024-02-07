@@ -100,7 +100,10 @@ public class Main extends Application {
         }
 
         System.out.println(compteur + " barres comptées");
+        sauvegarder.setVisible(true);
+        charger.setVisible(true);
         gridPane.setAlignment(Pos.CENTER);
+        layout_v.setAlignment(Pos.TOP_RIGHT);
         Scene scene = new Scene(gridPane, 1000, 800);
         gridPane.getStyleClass().add("button-square");
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
