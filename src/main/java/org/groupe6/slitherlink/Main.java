@@ -44,58 +44,58 @@ public class Main extends Application {
         Button charger = new Button("Charger");
         VBox layout_v = new VBox(2);
         GridPane gridPane = new GridPane();
-        Puzzle puzzle = new Puzzle(8, 8);
         VBox container = new VBox(layout_v, gridPane);
+        Cellule[][] cellules = new Cellule[8][8];
         Scene scene = new Scene(container, 1000, 800);
         int compteur = 0;
 
         charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                Puzzle.chargerPuzzle("puzzle.ser");
+                //chargerPuzzle("ser");
             }
         });
 
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                Puzzle.sauvegarderPuzzle(puzzle, "puzzle.ser" );
+                //sauvegarderPuzzle(puzzle, "ser" );
             }
         });
 
         layout_v.getChildren().addAll(charger,sauvegarder);
 
         // Colonnes
-        for (int i = 0; i < puzzle.cellules.length; i++) {
+        for (int i = 0; i < cellules.length; i++) {
             // Lignes
-            for (int j = 0; j < puzzle.cellules[i].length; j++) {
-                puzzle.cellules[i][j] = new Cellule();
+            for (int j = 0; j < cellules[i].length; j++) {
+                cellules[i][j] = new Cellule();
 
                 // Coins
-                gridPane.add(puzzle.cellules[i][j].coins[0], i * 2, j * 2);            // top left
-                gridPane.add(puzzle.cellules[i][j].coins[1], i * 2 + 2, j * 2);        // top right
-                gridPane.add(puzzle.cellules[i][j].coins[2], i * 2, j * 2 + 2);        // bottom left
-                gridPane.add(puzzle.cellules[i][j].coins[3], i * 2 + 2, j * 2 + 2);    // bottom right
+                gridPane.add(cellules[i][j].coins[0], i * 2, j * 2);            // top left
+                gridPane.add(cellules[i][j].coins[1], i * 2 + 2, j * 2);        // top right
+                gridPane.add(cellules[i][j].coins[2], i * 2, j * 2 + 2);        // bottom left
+                gridPane.add(cellules[i][j].coins[3], i * 2 + 2, j * 2 + 2);    // bottom right
 
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(puzzle.cellules[i][j].cellule[0], i * 2 + 1, j * 2);   // top
-                    puzzle.cellules[i][j].cellule[0].setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].cellule[0], i * 2 + 1, j * 2);   // top
+                    cellules[i][j].cellule[0].setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(puzzle.cellules[i][j].cellule[1], i * 2 + 1, j * 2 + 2);   // bottom
-                puzzle.cellules[i][j].cellule[1].setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].cellule[1], i * 2 + 1, j * 2 + 2);   // bottom
+                cellules[i][j].cellule[1].setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(puzzle.cellules[i][j].cellule[2], i * 2, j * 2 + 1);   // left
-                    puzzle.cellules[i][j].cellule[2].setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].cellule[2], i * 2, j * 2 + 1);   // left
+                    cellules[i][j].cellule[2].setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(puzzle.cellules[i][j].cellule[3], i * 2 + 2, j * 2 + 1);   // right
-                puzzle.cellules[i][j].cellule[3].setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].cellule[3], i * 2 + 2, j * 2 + 1);   // right
+                cellules[i][j].cellule[3].setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
             }
         }
