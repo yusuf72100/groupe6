@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -100,11 +99,10 @@ public class Main extends Application {
         }
 
         System.out.println(compteur + " barres comptées");
-        sauvegarder.setVisible(true);
-        charger.setVisible(true);
         gridPane.setAlignment(Pos.CENTER);
         layout_v.setAlignment(Pos.TOP_RIGHT);
-        Scene scene = new Scene(gridPane, 1000, 800);
+        VBox container = new VBox(layout_v, gridPane);
+        Scene scene = new Scene(container, 1000, 800);
         gridPane.getStyleClass().add("button-square");
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
