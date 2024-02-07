@@ -4,7 +4,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -26,11 +29,42 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Button sauvegarder = new Button("Sauvegarder");
+        Button charger = new Button("Charger");
+        VBox layout_v=new VBox(2);
         GridPane gridPane = new GridPane();
         Cellule[][] cellules = new Cellule[8][8];
         Scene scene = new Scene(gridPane, 200, 200);
         int compteur = 0;
-        
+
+        // puzzle
+        Cellule.ValeurCote[] cotes = {ValeurCote.VIDE,ValeurCote.VIDE,ValeurCote.VIDE,ValeurCote.VIDE};
+        int lignes=5;
+        int colonnes=5;
+        Cellule[][] grille = new Cellule[lignes][colonnes];
+        for (int i=0;i<2;i++){
+            for (int j=0;j<2;j++){
+                grille[i][j]= new Cellule(i*j,cotes);
+            }
+        }
+        Puzzle puzzle = new Puzzle("facile", 2, 2,grille);
+
+        charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                Puzzle.chargerPuzzle("puzzle.ser");
+            }
+        });
+
+        sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                Puzzle.sauvegarderPuzzle(puzzle, "puzzle.ser" );
+            }
+        });
+
+        layout_v.getChildren().addAll(charger,sauvegarder);
+
         // Colonnes
         for (int i = 0; i < cellules.length; i++) {
             // Lignes
