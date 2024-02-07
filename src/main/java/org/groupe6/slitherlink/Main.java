@@ -72,30 +72,30 @@ public class Main extends Application {
                 cellules[i][j] = new Cellule();
 
                 // Coins
-                gridPane.add(cellules[i][j].coins[0], i * 2, j * 2);            // top left
-                gridPane.add(cellules[i][j].coins[1], i * 2 + 2, j * 2);        // top right
-                gridPane.add(cellules[i][j].coins[2], i * 2, j * 2 + 2);        // bottom left
-                gridPane.add(cellules[i][j].coins[3], i * 2 + 2, j * 2 + 2);    // bottom right
+                gridPane.add(cellules[i][j].getCoin(0), i * 2, j * 2);            // top left
+                gridPane.add(cellules[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
+                gridPane.add(cellules[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
+                gridPane.add(cellules[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
 
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(cellules[i][j].cellule[0], i * 2 + 1, j * 2);   // top
-                    cellules[i][j].cellule[0].setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].getCellule(0), i * 2 + 1, j * 2);   // top
+                    cellules[i][j].getCellule(0).setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].cellule[1], i * 2 + 1, j * 2 + 2);   // bottom
-                cellules[i][j].cellule[1].setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].getCellule(1), i * 2 + 1, j * 2 + 2);   // bottom
+                cellules[i][j].getCellule(1).setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(cellules[i][j].cellule[2], i * 2, j * 2 + 1);   // left
-                    cellules[i][j].cellule[2].setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].getCellule(2), i * 2, j * 2 + 1);   // left
+                    cellules[i][j].getCellule(2).setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].cellule[3], i * 2 + 2, j * 2 + 1);   // right
-                cellules[i][j].cellule[3].setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].getCellule(3), i * 2 + 2, j * 2 + 1);   // right
+                cellules[i][j].getCellule(3).setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
             }
         }

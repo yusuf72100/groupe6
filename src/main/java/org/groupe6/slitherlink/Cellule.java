@@ -4,8 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
 
 public class Cellule {
-    Button[] cellule;
-    Rectangle[] coins;
+    private static Button[] cellule;
+    private static Rectangle[] coins;
 
     Cellule() {
         cellule = new Button[4];
@@ -40,4 +40,11 @@ public class Cellule {
         cellule[3].getStyleClass().addAll(css + "-right");
     }
 
+    public Rectangle getCoin(int c) {
+        return coins[c];
+    }
+
+    public Button getCellule(int c) {
+        return cellule[c];
+    }
 }
