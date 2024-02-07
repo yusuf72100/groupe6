@@ -1,0 +1,27 @@
+.button-square {
+    -fx-padding: 5px;
+}
+
+.button-top, .button-bottom {
+    -fx-min-width: 60px;
+    -fx-max-width: 60px;
+    -fx-min-height: 5px;
+    -fx-max-height: 5px;
+    -fx-background-color: transparent;
+}
+
+.button-left, .button-right {
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+    -fx-min-width: 5px;
+    -fx-max-width: 5px;
+    -fx-background-color: transparent;
+}
+
+.button-top:hover, .button-bottom:hover, .button-left:hover, .button-right:hover {
+    -fx-background-color: lightgray;
+}
+
+.black-square {
+    -fx-fill: black;
+}
