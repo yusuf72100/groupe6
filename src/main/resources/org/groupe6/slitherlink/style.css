@@ -14,6 +14,10 @@
     -fx-opacity: 1.0;
 }
 
+.button-top.clicked:hover, .button-bottom.clicked:hover, .button-left.clicked:hover, .button-right.clicked:hover {
+    -fx-opacity: 1.0;
+}
+
 .button-top:pressed, .button-bottom:pressed, .button-left:pressed, .button-right:pressed {
     -fx-opacity: 1.0;
 }
@@ -28,7 +32,7 @@
 
 .button-top:hover, .button-bottom:hover, .button-left:hover, .button-right:hover {
     -fx-background-color: lightgray;
-    -fx-opacity: 0.5;
+    -fx-opacity: 1.0;
 }
 
 .black-square {
