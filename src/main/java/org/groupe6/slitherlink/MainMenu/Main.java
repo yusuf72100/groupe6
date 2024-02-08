@@ -46,16 +46,19 @@ public class Main extends Application {
                 labels[i].setTranslateY((buttons[i].getPrefHeight() / 2) - 20);
                 //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
 
-                // hover boutons
+                // hover on
                 buttons[i].setOnMouseEntered(e -> {
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
                     labels[finalI].setText("PlaceHolder #" + (finalI + 1));
                 });
+
+                // hover off
                 buttons[i].setOnMouseExited(e -> {
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
                     labels[finalI].setText("");
                 });
 
+                // button click
                 buttons[i].setOnAction(event -> {
                     // animation de click
                     Timeline timeline = new Timeline(
@@ -75,7 +78,7 @@ public class Main extends Application {
                 buttonContainers[i].setAlignment(Pos.CENTER);
             }
 
-            // text de chaque bouton
+            // texte de chaque bouton
             buttons[0].setText("Jouer");
             buttons[1].setText("Options");
             buttons[2].setText("Entraînement");
