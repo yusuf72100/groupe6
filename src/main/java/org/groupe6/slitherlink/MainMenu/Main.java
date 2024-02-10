@@ -16,9 +16,15 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
 
+    /**
+     * Programme principal jfx
+     * @param primary
+     * @throws IOException
+     */
     @Override
     public void start(Stage primary) throws IOException {
         try {
@@ -89,7 +95,7 @@ public class Main extends Application {
 
             // gestion de la scène
             Scene Main = new Scene(hBox, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
-            Main.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            Main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
             // gestion de la fenêtre
             primary.initStyle(StageStyle.DECORATED);

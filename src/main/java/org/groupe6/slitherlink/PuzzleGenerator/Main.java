@@ -11,8 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
-    // Event handler
+    /**
+     * Gestion de chaque bouton (barre)
+     */
     public static class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i;
         private final int j;
@@ -22,6 +26,10 @@ public class Main extends Application {
             this.j = j;
         }
 
+        /**
+         * Execute l'action demandée sur le bouton
+         * @param event
+         */
         @Override
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
@@ -38,6 +46,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Programme principal jfx
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         Button sauvegarder = new Button("Sauvegarder");
@@ -80,23 +92,25 @@ public class Main extends Application {
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(cellules[i][j].getCellule(0), i * 2 + 1, j * 2);   // top
-                    cellules[i][j].getCellule(0).setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].getButton(0), i * 2 + 1, j * 2);   // top
+                    cellules[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].getCellule(1), i * 2 + 1, j * 2 + 2);   // bottom
-                cellules[i][j].getCellule(1).setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
+                gridPane.add(cellules[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
+                cellules[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(cellules[i][j].getCellule(2), i * 2, j * 2 + 1);   // left
-                    cellules[i][j].getCellule(2).setOnAction(new CelluleButtonEventHandler(i,j));
+                    gridPane.add(cellules[i][j].getButton(2), i * 2, j * 2 + 1);   // left
+                    cellules[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].getCellule(3), i * 2 + 2, j * 2 + 1);   // right
-                cellules[i][j].getCellule(3).setOnAction(new CelluleButtonEventHandler(i,j));
+                gridPane.add(cellules[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
+                cellules[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j));
                 compteur++;
+
             }
         }
 
@@ -105,7 +119,7 @@ public class Main extends Application {
         layout_v.setAlignment(Pos.TOP_RIGHT);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("button-square");
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
         primaryStage.setTitle("Button Square");
         primaryStage.setScene(scene);
