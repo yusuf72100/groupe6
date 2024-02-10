@@ -35,7 +35,6 @@ public class Cellule {
         for (int i = 0; i < 4; i++) {
             coins[i] = createBlackSquare(cellSize / 5);
         }
-
     }
 
     /**
@@ -44,13 +43,11 @@ public class Cellule {
      */
     private StackPane createCenterContent() {
         TextField centerTextField = new TextField();
+        double cellSize = 50;
 
         centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
-
-        double cellSize = 50;
         centerTextField.setMaxSize(cellSize, cellSize);
-
-        centerTextField.setFont(new Font(25)); // Ajustez la taille de la police en conséquence
+        centerTextField.setFont(new Font(25));
         centerTextField.setAlignment(Pos.CENTER);
 
         centerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
