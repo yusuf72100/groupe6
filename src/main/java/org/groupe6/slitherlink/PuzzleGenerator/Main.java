@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+import static org.groupe6.slitherlink.PuzzleGenerator.Puzzle.sauvegarderPuzzle;
+
 public class Main extends Application {
     /**
      * Gestion de chaque bouton (barre)

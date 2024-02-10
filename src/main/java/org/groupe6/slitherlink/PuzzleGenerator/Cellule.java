@@ -52,7 +52,10 @@ public class Cellule {
 
         centerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 1) {
-                centerTextField.setText(newValue.substring(0, 1));
+                centerTextField.setText(oldValue);
+            }
+            else if (!newValue.matches("[0-3]")) {
+                centerTextField.setText("");
             }
         });
 

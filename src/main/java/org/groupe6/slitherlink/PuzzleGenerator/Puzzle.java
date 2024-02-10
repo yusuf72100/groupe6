@@ -23,22 +23,28 @@ class Puzzle implements Serializable {
     private Cellule[][] grilleCellules; // Grille de cellules
     private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
 
-    // Méthode pour obtenir la difficulté
+    // Getter difficulté
     public DifficultePuzzle getDifficulte() {
         return difficulte;
     }
 
-    // Méthode pour obtenir la largeur
+    // Getter largeur
     public int getLargeur() {
         return largeur;
     }
 
-    // Méthode pour obtenir la longueur
+    // Getter longueur
     public int getLongueur() {
         return longueur;
     }
 
-    // Constructeur de la classe Puzzle
+    /**
+     * Constructeur global de la classe puzzle
+     * @param difficulte
+     * @param largeur
+     * @param longueur
+     * @param grilleCellules
+     */
     public Puzzle(DifficultePuzzle difficulte, int largeur, int longueur, Cellule[][] grilleCellules) {
         if (grilleCellules.length != largeur || grilleCellules[0].length != longueur) {
             throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
