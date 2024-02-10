@@ -38,6 +38,10 @@ public class Cellule {
 
     }
 
+    /**
+     * Création du label de la cellule
+     * @return
+     */
     private StackPane createCenterContent() {
         TextField centerTextField = new TextField();
 
@@ -58,13 +62,21 @@ public class Cellule {
         return new StackPane(centerTextField);
     }
 
-    // Coins de chaque case
+    /**
+     * Méthode de création d'un carré noir
+     * @param v
+     * @return
+     */
     private Rectangle createBlackSquare(double v) {
         Rectangle square = new Rectangle(5, 5);
         square.getStyleClass().add("black-square");
         return square;
     }
 
+    /**
+     * Changer le css de la cellule
+     * @param css
+     */
     public void changeCellulesCss(String css) {
         cellule[0].getStyleClass().addAll(css + "-top");
         cellule[1].getStyleClass().addAll(css + "-bottom");
@@ -72,13 +84,31 @@ public class Cellule {
         cellule[3].getStyleClass().addAll(css + "-right");
     }
 
+    /**
+     * Getter coin
+     * @param c
+     * @return
+     */
     public Rectangle getCoin(int c) { return coins[c]; }
 
+    /**
+     * Getter bouton
+     * @param c
+     * @return
+     */
     public Button getButton(int c) {
         return cellule[c];
     }
 
+    /**
+     * Getter pane de la cellule
+     * @return
+     */
     public StackPane getCenterPane() { return centerPane; }
 
+    /**
+     * Getter label cellule
+     * @return
+     */
     public int getLabel() { return label; }
 }
