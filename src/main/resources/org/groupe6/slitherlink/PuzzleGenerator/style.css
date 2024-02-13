@@ -1,0 +1,40 @@
+.button-square {
+    -fx-padding: 5px;
+}
+
+.button-top, .button-bottom {
+    -fx-min-width: 60px;
+    -fx-max-width: 60px;
+    -fx-min-height: 5px;
+    -fx-max-height: 5px;
+    -fx-background-color: transparent;
+}
+
+.button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
+    -fx-opacity: 1.0;
+}
+
+.button-top.clicked:hover, .button-bottom.clicked:hover, .button-left.clicked:hover, .button-right.clicked:hover {
+    -fx-opacity: 1.0;
+}
+
+.button-top:pressed, .button-bottom:pressed, .button-left:pressed, .button-right:pressed {
+    -fx-opacity: 1.0;
+}
+
+.button-left, .button-right {
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+    -fx-min-width: 5px;
+    -fx-max-width: 5px;
+    -fx-background-color: transparent;
+}
+
+.button-top:hover, .button-bottom:hover, .button-left:hover, .button-right:hover {
+    -fx-background-color: lightgray;
+    -fx-opacity: 1.0;
+}
+
+.black-square {
+    -fx-fill: black;
+}
