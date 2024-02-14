@@ -10,8 +10,6 @@ import javax.swing.text.html.ParagraphView;
 
 /**
  * Cette classe mod\u00e8lise un profil d'utilisateur.
- * 
- * @author William
  */
 public class Profil implements Serializable {
 
@@ -33,11 +31,14 @@ public class Profil implements Serializable {
     /**
      * Constructeur
      * 
+     * @param nom            Nom de l'utilisateur
+     * @param cheminIMG      Chemin vers l'image utilisee dans le profil
+     * @param niveauAventure Niveau de progression dans le mode aventure
      */
-    public Profil(String nom, String cheminIMG, int niveauAventure) {
+    public Profil(String nom, String cheminIMG) {
         this.nom = nom;
         this.cheminIMG = cheminIMG;
-        this.niveauAventure = niveauAventure;
+        this.niveauAventure = 0;
         // this.historique = new Historique();
         // this.parametre = new Parametre();
     }
@@ -61,28 +62,28 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Methode de get pour l'attribue nom
+     * Methode pour obtenir le nom
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * Methode de get pour l'attribue IMG
+     * Methode pour obtenir le chemin vers l'image (IMG)
      */
     public String getIMG() {
         return cheminIMG;
     }
 
     /**
-     * Methode de get pour l'attribue IMG
+     * Methode pour obtenir le niveauAventure
      */
     public int getNiveauAventure() {
         return niveauAventure;
     }
 
     /**
-     * Methode de get pour l'attribue IMG
+     * Methode pour obtenir l'historique
      */
     /*
      * public historique getHistorique() {
@@ -91,7 +92,7 @@ public class Profil implements Serializable {
      */
 
     /**
-     * Methode de get pour l'attribue IMG
+     * Methode pour obtenir les parametres
      */
     /*
      * public int getParametre() {

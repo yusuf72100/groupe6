@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * Cette classe mod\u00e8lise un glossaire contenant la liste des techniques
  * possibles a appliquer
  * 
- * @author William
  */
 public class Glossaire {
     /** Liste d'objet InfoTechnique */
