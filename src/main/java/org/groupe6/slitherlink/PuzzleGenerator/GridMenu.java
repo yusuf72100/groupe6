@@ -58,7 +58,7 @@ public class GridMenu extends Application {
      * Renvoi le menu de la grille
      * @return VBox
      */
-    public static VBox getGridMenu() {
+    public static VBox getGridMenu(int longueur, int largeur) {
         Button sauvegarder = new Button("Sauvegarder");
         Button charger = new Button("Charger");
 
@@ -66,7 +66,7 @@ public class GridMenu extends Application {
         GridPane gridPane = new GridPane();
         VBox container = new VBox(layout_v, gridPane);
 
-        Cellule[][] cellules = new Cellule[8][8];
+        Cellule[][] cellules = new Cellule[longueur][largeur];
         Scene scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
         int compteur = 0;
 

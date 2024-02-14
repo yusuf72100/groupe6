@@ -17,8 +17,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void showGridMenu() {
-        scene.setRoot(GridMenu.getGridMenu());
+    public static void showGridMenu(int longueur, int largeur) {
+        scene.setRoot(GridMenu.getGridMenu(longueur, largeur));
     }
 
     public static void main(String[] args) {

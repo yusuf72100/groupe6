@@ -47,7 +47,7 @@ public class MainMenu extends Application {
                     System.out.println("Longueur: " + Integer.parseInt(longueurValue));
                     System.out.println("Largeur: " + Integer.parseInt(largeurValue));
 
-                    Main.showGridMenu();
+                    Main.showGridMenu(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue));
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
                 }
