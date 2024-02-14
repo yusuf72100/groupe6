@@ -15,6 +15,14 @@ import java.util.Objects;
 
 public class GridMenu extends Application {
     /**
+     * Inutile ici
+     * @param stage
+     * @throws Exception
+     */
+    @Override
+    public void start(Stage stage) throws Exception { }
+
+    /**
      * Gestion de chaque bouton (barre)
      */
     public static class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
@@ -47,11 +55,10 @@ public class GridMenu extends Application {
     }
 
     /**
-     * Programme principal jfx
-     * @param primaryStage
+     * Renvoi le menu de la grille
+     * @return VBox
      */
-    @Override
-    public void start(Stage primaryStage) {
+    public static VBox getGridMenu() {
         Button sauvegarder = new Button("Sauvegarder");
         Button charger = new Button("Charger");
 
@@ -122,5 +129,7 @@ public class GridMenu extends Application {
         layout_v.setAlignment(Pos.TOP_RIGHT);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("button-square");
+
+        return container;
     }
 }

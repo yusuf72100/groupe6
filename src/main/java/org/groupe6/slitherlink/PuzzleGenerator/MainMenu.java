@@ -15,6 +15,10 @@ import java.util.function.UnaryOperator;
 
 public class MainMenu extends Application {
 
+    /**
+     * Renvoi le menu principal
+     * @return VBox
+     */
     public static VBox getMainMenu(){
         VBox layout_v = new VBox(10);
         Button valider = new Button("Valider");
@@ -42,6 +46,8 @@ public class MainMenu extends Application {
                     System.out.println("Bouton Valider cliqué !");
                     System.out.println("Longueur: " + Integer.parseInt(longueurValue));
                     System.out.println("Largeur: " + Integer.parseInt(largeurValue));
+
+                    Main.showGridMenu();
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
                 }
@@ -51,6 +57,11 @@ public class MainMenu extends Application {
         return layout_v;
     }
 
+    /**
+     * Vérifie les valeurs entrées dans les textfields
+     * @param prompt
+     * @return TextField
+     */
     private static TextField createUnrestrictedTextField(String prompt) {
         TextField textField = new TextField();
         textField.setPromptText(prompt);
@@ -69,8 +80,11 @@ public class MainMenu extends Application {
         return textField;
     }
 
+    /**
+     * Inutile ici
+     * @param stage
+     * @throws Exception
+     */
     @Override
-    public void start(Stage stage) throws Exception {
-
-    }
+    public void start(Stage stage) throws Exception { }
 }

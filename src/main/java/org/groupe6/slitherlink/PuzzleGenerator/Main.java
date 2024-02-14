@@ -7,14 +7,18 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class Main extends Application {
+    private static Scene scene;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
-
+        scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         primaryStage.setTitle("Puzzle Generator");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static void showGridMenu() {
+        scene.setRoot(GridMenu.getGridMenu());
     }
 
     public static void main(String[] args) {
