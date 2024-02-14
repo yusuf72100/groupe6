@@ -1,6 +1,4 @@
 
-
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +7,7 @@ import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class Main extends Application {
+public class save_load extends Application {
 
 
 
@@ -62,3 +60,4 @@ public class Main extends Application {
         primaryStage.show();
     }
 }
+
