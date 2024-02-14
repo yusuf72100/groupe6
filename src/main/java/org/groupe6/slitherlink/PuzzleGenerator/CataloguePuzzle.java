@@ -1,49 +1,58 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
+import org.groupe6.slitherlink.PuzzleGenerator.PartieInfos;
+import org.groupe6.slitherlink.PuzzleGenerator.Puzzle;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Yamis
+ */
 
 // Classe CataloguePuzzle qui permet de gérer un catalogue de puzzles
 public class CataloguePuzzle {
 
   // Catalogue des puzzles répartis selon la difficulté
-  private HashMap<Puzzle.DifficultePuzzle, ArrayList<Puzzle>> listePuzzle;
+  private Map<PartieInfos.DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
 
   // Constructeur de la classe CataloguePuzzle
   public CataloguePuzzle() {
-    listePuzzle = new HashMap<Puzzle.DifficultePuzzle, ArrayList<Puzzle>>();
+    cataloguePuzzle = new HashMap<PartieInfos.DifficultePuzzle, List<Puzzle>>();
 
-    for (Puzzle.DifficultePuzzle d : Puzzle.DifficultePuzzle.values()) {
-      listePuzzle.put(d, new ArrayList<Puzzle>());
+    for (PartieInfos.DifficultePuzzle d : PartieInfos.DifficultePuzzle.values()) {
+      cataloguePuzzle.put(d, new ArrayList<Puzzle>());
     }
 
   }
 
   // Méthode pour ajouter un puzzle au catalogue
   public void ajouterPuzzle(Puzzle puzzle) {
-    listePuzzle.get(puzzle.getDifficulte()).add(puzzle);
+    cataloguePuzzle.get(puzzle.getInfoPartie().getDifficulte()).add(puzzle);
   }
 
   // Méthode pour obtenir la liste des puzzles selon la difficulté
-  public ArrayList<Puzzle> getListePuzzle(Puzzle.DifficultePuzzle difficulte) {
-    return listePuzzle.get(difficulte);
+  public List<Puzzle> getListePuzzle(PartieInfos.DifficultePuzzle difficulte) {
+    return cataloguePuzzle.get(difficulte);
   }
 
   // Méthode pour obtenier la liste de tous les puzzles
-  public ArrayList<Puzzle> getListePuzzle() {
-    ArrayList<Puzzle> liste = new ArrayList<Puzzle>();
+  public List<Puzzle> getListePuzzle() {
+    List<Puzzle> liste = new ArrayList<Puzzle>();
 
-    for (Puzzle.DifficultePuzzle d : Puzzle.DifficultePuzzle.values()) {
-      liste.addAll(listePuzzle.get(d));
+    for (PartieInfos.DifficultePuzzle d : PartieInfos.DifficultePuzzle.values()) {
+      liste.addAll(cataloguePuzzle.get(d));
     }
 
     return liste;
   }
 
   // Méthode pour obtenir un puzzle du catalogue selon la difficulté
-  public Puzzle getPuzzle(Puzzle.DifficultePuzzle difficulte, int numero) {
-    return listePuzzle.get(difficulte).get(numero);
+  public Puzzle getPuzzle(PartieInfos.DifficultePuzzle difficulte, int numero) {
+    return cataloguePuzzle.get(difficulte).get(numero);
   }
 
   // Méthode pour charger un catalogue de puzzle

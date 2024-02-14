@@ -6,68 +6,83 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
+
+/**
+ * @author Yamis
+ */
 
 // Classe Puzzle qui implémente Serializable
-class Puzzle implements Serializable {
+public class Puzzle implements Serializable {
 
-    // Enum pour les difficultés
-    public enum DifficultePuzzle {
-        FACILE,
-        MOYEN,
-        DIFFICILE;
-    }
-
-    private DifficultePuzzle difficulte; // Difficulté du puzzle
+    private PartieInfos infoPartie; // Les informations de la partie
     private int largeur; // Nombre de lignes
     private int longueur; // Nombre de colonnes
-    private Cellule[][] grilleCellules; // Grille de cellules
-    private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
+    private Cellule_Data[][] grilleCellules; // Grille de cellules
+    private Cellule_Data[][] sollutionPuzzle; // Solution du puzzle
+    // private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
+    // private List<AideInfos> historiqueAide; // Historique des aides
 
-    // Getter difficulté
-    public DifficultePuzzle getDifficulte() {
-        return difficulte;
+    // Méthode pour obtenir les informations de la partie
+    public PartieInfos getInfoPartie() {
+        return infoPartie;
     }
 
-    // Getter largeur
+    // Méthode pour obtenir la largeur
     public int getLargeur() {
         return largeur;
     }
 
-    // Getter longueur
+    // Méthode pour obtenir la longueur
     public int getLongueur() {
         return longueur;
     }
 
-    /**
-     * Constructeur global de la classe puzzle
-     * @param difficulte
-     * @param largeur
-     * @param longueur
-     * @param grilleCellules
-     */
-    public Puzzle(DifficultePuzzle difficulte, int largeur, int longueur, Cellule[][] grilleCellules) {
-        if (grilleCellules.length != largeur || grilleCellules[0].length != longueur) {
+    // Constructeur de la classe Puzzle
+    public Puzzle(PartieInfos infoPartie, int largeur, int longueur, Cellule_Data[][] sollutionPuzzle) {
+        if (sollutionPuzzle.length != largeur || sollutionPuzzle[0].length != longueur) {
             throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
         }
 
-        this.difficulte = difficulte;
+        this.infoPartie = infoPartie;
         this.largeur = largeur;
         this.longueur = longueur;
-        this.grilleCellules = grilleCellules;
+        this.sollutionPuzzle = sollutionPuzzle;
+        this.grilleCellules = genererGrillePropre();
+    }
+
+    // Méthode pour générer un puzzle propre a partir de la solution
+    private Cellule_Data[][] genererGrillePropre() {
+        Cellule_Data[][] grillePropre = new Cellule_Data[largeur][longueur];
+
+        for (int y = 0; y < sollutionPuzzle.length; y++) {
+            for (int x = 0; x < sollutionPuzzle[y].length; x++) {
+                Cellule_Data.ValeurCote[] cotesVide = new Cellule_Data.ValeurCote[4];
+                Arrays.fill(cotesVide, Cellule_Data.ValeurCote.VIDE);
+                grillePropre[y][x] = new Cellule_Data(sollutionPuzzle[y][x].getValeur(), cotesVide);
+            }
+        }
+
+        return grillePropre;
     }
 
     // Méthode pour afficher le puzzle dans la console
     @Override
     public String toString() {
         String str = "";
-        str += "Difficulté : " + difficulte + "\n";
+        str += "Date : " + infoPartie.getDate() + "\n";
+        str += "Score : " + infoPartie.getScore() + "\n";
+        str += "Chrono : " + infoPartie.getChrono() + "\n";
+        str += "Complète : " + infoPartie.getComplete() + "\n";
+        str += "Mode de jeu : " + infoPartie.getModeJeu() + "\n";
+        str += "Difficulté : " + infoPartie.getDifficulte() + "\n";
         str += "Largeur : " + largeur + "\n";
         str += "Longueur : " + longueur + "\n";
         str += "Grille : \n";
 
         for (int y = 0; y < grilleCellules.length; y++) {
             for (int x = 0; x < grilleCellules[y].length; x++) {
-                str += grilleCellules[y][x] + " ";
+                str += grilleCellules[y][x].getValeur() + " ";
             }
             str += "\n";
         }
@@ -76,7 +91,7 @@ class Puzzle implements Serializable {
     }
 
     // Méthode pour obenir une cellule dans la grille
-    public Cellule getCellule(int y, int x) {
+    public Cellule_Data getCellule(int y, int x) {
         return grilleCellules[y][x];
     }
 

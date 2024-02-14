@@ -17,8 +17,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void showGridMenu(int longueur, int largeur) {
-        scene.setRoot(GridMenu.getGridMenu(longueur, largeur));
+    public static void showGridMenu(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
+        scene.setRoot(GridMenu.getGridMenu(longueur, largeur, diff));
     }
 
     public static void main(String[] args) {

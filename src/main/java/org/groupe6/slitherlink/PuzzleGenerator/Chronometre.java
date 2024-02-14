@@ -1,6 +1,10 @@
-package org.groupe6.slitherlink.PuzzleGenerator;
+package model;
 
 import java.time.Duration;
+
+/**
+ * @author Yamis
+ */
 
 // Classe qui correspond au chronomètre
 public class Chronometre {

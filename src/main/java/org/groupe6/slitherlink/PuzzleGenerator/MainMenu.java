@@ -32,6 +32,7 @@ public class MainMenu extends Application {
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setPrefSize(200, 50);
         comboBox.getItems().addAll("Facile", "Moyen", "Difficile");
+        comboBox.setValue("Facile");
 
         layout_v.getChildren().addAll(longueur, largeur, comboBox, valider);
         layout_v.setAlignment(Pos.CENTER);
@@ -47,7 +48,13 @@ public class MainMenu extends Application {
                     System.out.println("Longueur: " + Integer.parseInt(longueurValue));
                     System.out.println("Largeur: " + Integer.parseInt(largeurValue));
 
-                    Main.showGridMenu(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue));
+                    PartieInfos.DifficultePuzzle diff = switch (comboBox.getValue()) {
+                        case "Moyen" -> PartieInfos.DifficultePuzzle.MOYEN;
+                        case "Difficile" -> PartieInfos.DifficultePuzzle.DIFFICILE;
+                        default -> PartieInfos.DifficultePuzzle.FACILE;
+                    };
+
+                    Main.showGridMenu(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
                 }

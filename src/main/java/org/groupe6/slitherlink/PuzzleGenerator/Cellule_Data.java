@@ -2,8 +2,12 @@ package org.groupe6.slitherlink.PuzzleGenerator;
 
 import java.io.Serializable;
 
+/**
+ * @author Yamis
+ */
+
 // Classe Cellule qui implémente Serializable
-class Cellule_Data implements Serializable {
+public class Cellule_Data implements Serializable {
 
   // Constantes pour les cotés
   public static final int HAUT = 0;
@@ -42,8 +46,8 @@ class Cellule_Data implements Serializable {
   }
 
   // Constructeur de la classe Cellule
-  public void Cellule(int valeur, ValeurCote[] cotes) {
-    if (valeur < 0 || valeur > 3) {
+  public Cellule_Data(int valeur, ValeurCote[] cotes) {
+    if (valeur < -1 || valeur > 3) {
       throw new IllegalArgumentException("La valeur de la cellule doit être entre 0 et 3");
     }
 

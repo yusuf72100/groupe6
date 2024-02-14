@@ -47,6 +47,8 @@ public class GridMenu extends Application {
             if (clickedButton.getStyleClass().contains("clicked")) {
                 clickedButton.getStyleClass().remove("clicked");
                 clickedButton.setStyle("-fx-background-color: transparent;");
+
+
             } else {
                 clickedButton.getStyleClass().add("clicked");
                 clickedButton.setStyle("-fx-background-color: lightgray;");
@@ -58,7 +60,7 @@ public class GridMenu extends Application {
      * Renvoi le menu de la grille
      * @return VBox
      */
-    public static VBox getGridMenu(int longueur, int largeur) {
+    public static VBox getGridMenu(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
         Button sauvegarder = new Button("Sauvegarder");
         Button charger = new Button("Charger");
 
@@ -67,6 +69,15 @@ public class GridMenu extends Application {
         VBox container = new VBox(layout_v, gridPane);
 
         Cellule[][] cellules = new Cellule[longueur][largeur];
+        Cellule_Data[][] cellules_data = new Cellule_Data[longueur][largeur];
+
+        for (int i = 0; i < longueur; i++) {
+            for (int j = 0; j < largeur; j++) {
+                cellules_data[i][j] = new Cellule_Data(-1, new Cellule_Data.ValeurCote[]{Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE});
+            }
+        }
+
+        Puzzle puzzle = new Puzzle(new PartieInfos(null, null, 0, false, null, diff), longueur, largeur,cellules_data);
         Scene scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
         int compteur = 0;
 
