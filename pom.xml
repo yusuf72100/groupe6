@@ -65,7 +65,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.groupe6.slitherlink/org.groupe6.slitherlink.PuzzleGenerator.Main</mainClass>
+                            <mainClass>org.groupe6.slitherlink/org.groupe6.slitherlink.PuzzleGenerator.GridMenu</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
