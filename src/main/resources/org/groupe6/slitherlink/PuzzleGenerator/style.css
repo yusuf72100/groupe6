@@ -12,6 +12,7 @@
 
 .button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
     -fx-opacity: 1.0;
+    -fx-background-color: lightgray;
 }
 
 .button-top.clicked:hover, .button-bottom.clicked:hover, .button-left.clicked:hover, .button-right.clicked:hover {

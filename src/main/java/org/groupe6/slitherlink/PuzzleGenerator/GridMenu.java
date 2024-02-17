@@ -71,11 +71,10 @@ public class GridMenu extends Application {
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
                 clickedButton.getStyleClass().remove("clicked");
-                clickedButton.setStyle("-fx-background-color: transparent;");
 
             } else {
                 clickedButton.getStyleClass().add("clicked");
-                clickedButton.setStyle("-fx-background-color: lightgray;");
+
                 valeur = Cellule_Data.ValeurCote.TRAIT;
             }
 
@@ -118,14 +117,12 @@ public class GridMenu extends Application {
 
                         for (int k = 0; k < 4; k++) {
                             switch (cellulesData[i][j].getCote(k)) {
-                                case VIDE : cellules[i][j].getButton(k).getStyleClass().remove("clicked");
+                                case VIDE :
                                     System.out.println("VIDE");
-                                    cellules[i][j].getButton(k).setStyle("-fx-background-color: transparent;");
                                     break ;
-                                case TRAIT: cellules[i][j].getButton(k).getStyleClass().add("clicked");
+                                case TRAIT:
                                     System.out.println("TRAIT");
-                                    cellules[i][j].getButton(k).setStyle("-fx-background-color: lightgray;");
-                                    System.out.println(cellules[i][j].getButton(k).getStyle());
+                                    cellules[i][j].getButton(k).getStyleClass().add("clicked");
                                     break ;
                                 default: // rien
                                     break;
@@ -191,8 +188,7 @@ public class GridMenu extends Application {
         for (int i = 0; i < cellules.length; i++) {
             // Lignes
             for (int j = 0; j < cellules[i].length; j++) {
-                if(nouveau )
-                    cellules[i][j] = new Cellule();
+                if(nouveau) cellules[i][j] = new Cellule();
 
                 // Coins
                 gridPane.add(cellules[i][j].getCoin(0), i * 2, j * 2);            // top left
