@@ -25,7 +25,7 @@ public class GridMenu extends Application {
     private static Scene scene;
     private static int longueur;
     private static int largeur;
-    PartieInfos.DifficultePuzzle difficulte;
+    private PartieInfos.DifficultePuzzle difficulte;
 
     GridMenu(int l, int L, PartieInfos.DifficultePuzzle diff){
         compteur = 0;
