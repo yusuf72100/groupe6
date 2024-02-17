@@ -12,14 +12,16 @@ import java.util.Arrays;
  * @author Yamis
  */
 
-// Classe Puzzle qui implémente Serializable
+/**
+ * Classe Puzzle qui implémente Serializable
+ */
 public class Puzzle implements Serializable {
 
-    private PartieInfos infoPartie; // Les informations de la partie
-    private int largeur; // Nombre de lignes
-    private int longueur; // Nombre de colonnes
-    private Cellule_Data[][] grilleCellules; // Grille de cellules
-    private Cellule_Data[][] sollutionPuzzle; // Solution du puzzle
+    private final PartieInfos infoPartie; // Les informations de la partie
+    private final int largeur; // Nombre de lignes
+    private final int longueur; // Nombre de colonnes
+    private final Cellule_Data[][] grilleCellules; // Grille de cellules
+    private final Cellule_Data[][] sollutionPuzzle; // Solution du puzzle
     // private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
     // private List<AideInfos> historiqueAide; // Historique des aides
 
@@ -28,7 +30,10 @@ public class Puzzle implements Serializable {
         return infoPartie;
     }
 
-    // Méthode pour obtenir la largeur
+    /**
+     * Méthode pour obtenir la largeur
+     * @return
+     */
     public int getLargeur() {
         return largeur;
     }
@@ -38,7 +43,13 @@ public class Puzzle implements Serializable {
         return longueur;
     }
 
-    // Constructeur de la classe Puzzle
+    /**
+     * Constructeur de la classe Puzzle
+     * @param infoPartie
+     * @param largeur
+     * @param longueur
+     * @param sollutionPuzzle
+     */
     public Puzzle(PartieInfos infoPartie, int largeur, int longueur, Cellule_Data[][] sollutionPuzzle) {
         if (sollutionPuzzle.length != largeur || sollutionPuzzle[0].length != longueur) {
             throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
@@ -51,7 +62,10 @@ public class Puzzle implements Serializable {
         this.grilleCellules = genererGrillePropre();
     }
 
-    // Méthode pour générer un puzzle propre a partir de la solution
+    /**
+     * Méthode pour générer un puzzle propre a partir de la solution
+     * @return Cellule_Data[][]
+     */
     private Cellule_Data[][] genererGrillePropre() {
         Cellule_Data[][] grillePropre = new Cellule_Data[largeur][longueur];
 
@@ -66,7 +80,10 @@ public class Puzzle implements Serializable {
         return grillePropre;
     }
 
-    // Méthode pour afficher le puzzle dans la console
+    /**
+     * Méthode pour afficher le puzzle dans la console
+     * @return
+     */
     @Override
     public String toString() {
         String str = "";
@@ -90,10 +107,17 @@ public class Puzzle implements Serializable {
         return str;
     }
 
-    // Méthode pour obenir une cellule dans la grille
+    /**
+     * Méthode pour obenir une cellule dans la grille
+     * @param y
+     * @param x
+     * @return
+     */
     public Cellule_Data getCellule(int y, int x) {
         return grilleCellules[y][x];
     }
+
+    public Cellule_Data[][] getCelluleData() { return this.sollutionPuzzle; }
 
     // Méthode pour sauvegarder le puzzle
     public static void sauvegarderPuzzle(Puzzle puzzle, String chemin) {
@@ -104,7 +128,11 @@ public class Puzzle implements Serializable {
         }
     }
 
-    // Méthode pour charger le puzzle
+    /**
+     * Méthode pour charger le puzzle
+     * @param chemin
+     * @return
+     */
     public static Puzzle chargerPuzzle(String chemin) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
             Puzzle puzzle = (Puzzle) ois.readObject();

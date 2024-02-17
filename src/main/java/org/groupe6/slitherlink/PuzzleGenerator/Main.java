@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class Main extends Application {
     private static Scene scene;
+    private static GridMenu grid;
     @Override
     public void start(Stage primaryStage) throws Exception {
         scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
@@ -18,10 +19,12 @@ public class Main extends Application {
     }
 
     public static void showGridMenu(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
-        scene.setRoot(GridMenu.getGridMenu(longueur, largeur, diff));
+        grid = new GridMenu(longueur, largeur, diff);
+        scene.setRoot(GridMenu.getGridMenu());
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+    

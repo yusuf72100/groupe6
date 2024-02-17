@@ -29,6 +29,9 @@ public class Cellule_Data implements Serializable {
   public int getValeur() {
     return valeur;
   }
+  public void setValeur(int valeur) {
+    this.valeur = valeur;
+  }
 
   // Méthode pour obtenir la valeur d'un coté
   public ValeurCote getCote(int cote) {

@@ -7,13 +7,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
+import java.util.function.Function;
+
 public class Cellule {
     private Button[] cellule;
     private Rectangle[] coins;
     private StackPane centerPane;
+    private TextField centerTextField;
     private int label;
 
     Cellule() {
+        this.label = -1;
         cellule = new Button[4];
         coins = new Rectangle[4];
         centerPane = new StackPane();
@@ -39,10 +43,10 @@ public class Cellule {
 
     /**
      * Création du label de la cellule
-     * @return
+     * @return StackPane
      */
     private StackPane createCenterContent() {
-        TextField centerTextField = new TextField();
+        centerTextField = new TextField();
         double cellSize = 50;
 
         centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
@@ -53,9 +57,14 @@ public class Cellule {
         centerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 1) {
                 centerTextField.setText(oldValue);
+                this.label = Integer.parseInt(oldValue);
             }
             else if (!newValue.matches("[0-3]")) {
                 centerTextField.setText("");
+                this.label = -1;
+            }
+            else{
+                this.label = Integer.parseInt(newValue);
             }
         });
 
@@ -65,7 +74,7 @@ public class Cellule {
     /**
      * Méthode de création d'un carré noir
      * @param v
-     * @return
+     * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
         Rectangle square = new Rectangle(5, 5);
@@ -75,7 +84,7 @@ public class Cellule {
 
     /**
      * Changer le css de la cellule
-     * @param css
+     * @param
      */
     public void changeCellulesCss(String css) {
         cellule[0].getStyleClass().addAll(css + "-top");
@@ -84,17 +93,25 @@ public class Cellule {
         cellule[3].getStyleClass().addAll(css + "-right");
     }
 
+    public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
+        Button button = cellule[buttonIndex];
+        String cssClass = cssFunction.apply(label);
+
+        button.getStyleClass().clear();
+        button.getStyleClass().addAll(cssClass);
+    }
+
     /**
      * Getter coin
      * @param c
-     * @return
+     * @return Rectangle
      */
     public Rectangle getCoin(int c) { return coins[c]; }
 
     /**
      * Getter bouton
      * @param c
-     * @return
+     * @return Button
      */
     public Button getButton(int c) {
         return cellule[c];
@@ -102,13 +119,19 @@ public class Cellule {
 
     /**
      * Getter pane de la cellule
-     * @return
+     * @return StackPane
      */
     public StackPane getCenterPane() { return centerPane; }
 
     /**
      * Getter label cellule
-     * @return
+     * @return int
      */
     public int getLabel() { return label; }
+
+    public void setLabel(int label) { this.label = label; }
+
+    public void setLabeText(int i) {
+        centerTextField.setPromptText(Integer.toString(i));
+    }
 }
