@@ -18,13 +18,13 @@ public class GridMenu extends Application {
     private static VBox layout_v;
     private static GridPane gridPane;
     private static VBox container;
-    static Cellule[][] cellules;
-    static Cellule_Data[][] cellulesData;
-    static int compteur;
-    static Puzzle puzzle;
-    static Scene scene;
-    static int longueur;
-    static int largeur;
+    private static Cellule[][] cellules;
+    private static Cellule_Data[][] cellulesData;
+    private static int compteur;        // utilisé à des fins de test
+    private static Puzzle puzzle;
+    private static Scene scene;
+    private static int longueur;
+    private static int largeur;
     PartieInfos.DifficultePuzzle difficulte;
 
     GridMenu(int l, int L, PartieInfos.DifficultePuzzle diff){
@@ -92,7 +92,7 @@ public class GridMenu extends Application {
     }
 
     /**
-     * Renvoi le menu de la grille
+     * Renvoi le menu de la grille et gère les évènements de boutons
      * @return VBox
      */
     public static VBox getGridMenu() {
@@ -163,6 +163,11 @@ public class GridMenu extends Application {
         return container;
     }
 
+    /**
+     * Initialise les données de l'affichage et de stockage du puzzle
+     * @param l
+     * @param L
+     */
     private static void initCellules(int l, int L) {
         cellules = null;
         cellulesData = null;
@@ -177,6 +182,10 @@ public class GridMenu extends Application {
         }
     }
 
+    /**
+     * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
+     * @param nouveau
+     */
     private static void afficher(boolean nouveau) {
         // Colonnes
         for (int i = 0; i < cellules.length; i++) {
