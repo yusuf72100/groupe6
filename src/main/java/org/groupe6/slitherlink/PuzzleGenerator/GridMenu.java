@@ -90,7 +90,7 @@ public class GridMenu extends Application {
      * Renvoi le menu de la grille et gère les évènements de boutons
      * @return VBox
      */
-    public static VBox getGridMenu() {
+    public static VBox getGridMenu(boolean newPuzzle) {
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -105,7 +105,7 @@ public class GridMenu extends Application {
 
         layout_v.getChildren().addAll(sauvegarder);
 
-        afficher(true);
+        afficher(newPuzzle);
 
         System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
@@ -168,7 +168,6 @@ public class GridMenu extends Application {
                 }
             }
         }
-        afficher(false);
     }
 
     /**

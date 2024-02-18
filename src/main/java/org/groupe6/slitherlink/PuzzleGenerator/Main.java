@@ -29,7 +29,7 @@ public class Main extends Application {
      */
     public static void showNewPuzzle(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
         grid = new GridMenu(longueur, largeur, diff);
-        scene.setRoot(GridMenu.getGridMenu());
+        scene.setRoot(GridMenu.getGridMenu(true));
     }
 
     /**
@@ -39,7 +39,7 @@ public class Main extends Application {
     public static void showLoadedPuzzle(java.io.File selectedFile) {
         grid = new GridMenu(1, 1, PartieInfos.DifficultePuzzle.FACILE);             // on charge un puzzle random
         GridMenu.initNewPuzzle(selectedFile.getAbsolutePath());
-        scene.setRoot(GridMenu.getGridMenu());
+        scene.setRoot(GridMenu.getGridMenu(false));
     }
 
     /**
