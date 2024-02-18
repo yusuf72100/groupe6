@@ -1,6 +1,7 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -8,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.util.function.UnaryOperator;
@@ -22,7 +25,9 @@ public class MainMenu extends Application {
     public static VBox getMainMenu(){
         VBox layout_v = new VBox(10);
         Button valider = new Button("Valider");
+        Button charger = new Button("Charger");
         valider.setPrefSize(200, 50);
+        charger.setPrefSize(200, 50);
 
         TextField longueur = createUnrestrictedTextField("Longueur");
         TextField largeur = createUnrestrictedTextField("Largeur");
@@ -34,7 +39,7 @@ public class MainMenu extends Application {
         comboBox.getItems().addAll("Facile", "Moyen", "Difficile");
         comboBox.setValue("Facile");
 
-        layout_v.getChildren().addAll(longueur, largeur, comboBox, valider);
+        layout_v.getChildren().addAll(longueur, largeur, comboBox, valider, charger);
         layout_v.setAlignment(Pos.CENTER);
 
         valider.setOnAction(new EventHandler<ActionEvent>() {
@@ -54,9 +59,31 @@ public class MainMenu extends Application {
                         default -> PartieInfos.DifficultePuzzle.FACILE;
                     };
 
-                    Main.showGridMenu(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
+                    Main.showNewPuzzle(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
+                }
+            }
+        });
+
+        charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Sélectionnez un fichier");
+
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Fichiers Texte", "*.bin"),
+                        new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
+                );
+
+                java.io.File selectedFile = fileChooser.showOpenDialog(Main.getStage());
+
+                if (selectedFile != null) {
+                    System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
+                    Main.showLoadedPuzzle(selectedFile);
+                } else {
+                    System.out.println("Aucun fichier sélectionné.");
                 }
             }
         });

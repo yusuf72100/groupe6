@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 public class GridMenu extends Application {
     private static Button sauvegarder;
-    private static Button charger;
     private static VBox layout_v;
     private static GridPane gridPane;
     private static VBox container;
@@ -25,18 +24,15 @@ public class GridMenu extends Application {
     private static Scene scene;
     private static int longueur;
     private static int largeur;
-    private PartieInfos.DifficultePuzzle difficulte;
 
     GridMenu(int l, int L, PartieInfos.DifficultePuzzle diff){
         compteur = 0;
         sauvegarder = new Button("Sauvegarder");
-        charger = new Button("Charger");
         layout_v = new VBox(2);
         gridPane = new GridPane();
         container = new VBox(layout_v, gridPane);
         longueur = l;
         largeur = L;
-        difficulte = diff;
         initCellules(longueur, largeur);
         puzzle = new Puzzle(new PartieInfos(null, null, 0, false, null, diff), longueur, largeur, cellulesData);
         scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
@@ -95,46 +91,6 @@ public class GridMenu extends Application {
      * @return VBox
      */
     public static VBox getGridMenu() {
-        charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event){
-                puzzle = null;
-                puzzle = Puzzle.chargerPuzzle("puzzle.bin");
-                longueur = puzzle.getLongueur();
-                largeur = puzzle.getLargeur();
-                cellules = null;
-                cellules = new Cellule[longueur][largeur];
-
-                initCellules(longueur, largeur);
-                cellulesData = null;
-                cellulesData = puzzle.getCelluleData();
-
-                for (int i  = 0 ; i < cellulesData.length; i++) {
-                    for (int j = 0; j < cellulesData[i].length; j++) {
-                        cellules[i][j].setLabel(cellulesData[i][j].getValeur());
-
-                        if(cellulesData[i][j].getValeur() != -1) { cellules[i][j].setLabeText(cellulesData[i][j].getValeur()); }
-
-                        for (int k = 0; k < 4; k++) {
-                            switch (cellulesData[i][j].getCote(k)) {
-                                case VIDE :
-                                    System.out.println("VIDE");
-                                    break ;
-                                case TRAIT:
-                                    System.out.println("TRAIT");
-                                    cellules[i][j].getButton(k).getStyleClass().add("clicked");
-                                    break ;
-                                default: // rien
-                                    break;
-                            }
-                        }
-                    }
-                }
-                Platform.runLater(container::requestLayout);
-                afficher(false);
-            }
-        });
-
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -147,7 +103,7 @@ public class GridMenu extends Application {
             }
         });
 
-        layout_v.getChildren().addAll(charger,sauvegarder);
+        layout_v.getChildren().addAll(sauvegarder);
 
         afficher(true);
 
@@ -177,6 +133,42 @@ public class GridMenu extends Application {
                 cellulesData[i][j] = new Cellule_Data(-1, new Cellule_Data.ValeurCote[]{Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE});
             }
         }
+    }
+
+    public static void initNewPuzzle(String path) {
+        puzzle = null;
+        puzzle = Puzzle.chargerPuzzle(path);
+        longueur = puzzle.getLongueur();
+        largeur = puzzle.getLargeur();
+        cellules = null;
+        cellules = new Cellule[longueur][largeur];
+
+        initCellules(longueur, largeur);
+        cellulesData = null;
+        cellulesData = puzzle.getCelluleData();
+
+        for (int i  = 0 ; i < cellulesData.length; i++) {
+            for (int j = 0; j < cellulesData[i].length; j++) {
+                cellules[i][j].setLabel(cellulesData[i][j].getValeur());
+
+                if(cellulesData[i][j].getValeur() != -1) { cellules[i][j].setLabeText(cellulesData[i][j].getValeur()); }
+
+                for (int k = 0; k < 4; k++) {
+                    switch (cellulesData[i][j].getCote(k)) {
+                        case VIDE :
+                            System.out.println("VIDE");
+                            break ;
+                        case TRAIT:
+                            System.out.println("TRAIT");
+                            cellules[i][j].getButton(k).getStyleClass().add("clicked");
+                            break ;
+                        default: // rien
+                            break;
+                    }
+                }
+            }
+        }
+        afficher(false);
     }
 
     /**
