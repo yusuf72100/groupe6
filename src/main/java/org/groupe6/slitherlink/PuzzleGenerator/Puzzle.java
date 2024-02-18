@@ -64,7 +64,7 @@ public class Puzzle implements Serializable {
 
     /**
      * Méthode pour générer un puzzle propre a partir de la solution
-     * @return Cellule_Data[][]
+     * @return grillePropre
      */
     private Cellule_Data[][] genererGrillePropre() {
         Cellule_Data[][] grillePropre = new Cellule_Data[largeur][longueur];
