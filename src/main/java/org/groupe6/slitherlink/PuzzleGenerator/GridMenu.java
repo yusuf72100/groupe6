@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class GridMenu extends Application {
+public class GridMenu implements Menu{
     private static Button sauvegarder;
     private static VBox layout_v;
     private static GridPane gridPane;
@@ -35,11 +35,8 @@ public class GridMenu extends Application {
         largeur = L;
         initCellules(longueur, largeur);
         puzzle = new Puzzle(new PartieInfos(null, null, 0, false, null, diff), longueur, largeur, cellulesData);
-        scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
+        scene = new Scene(MainMenu.getMenu(), 1000, 800);
     }
-
-    @Override
-    public void start(Stage stage) throws Exception { }
 
     /**
      * Gestion de chaque bouton (barre)
@@ -67,10 +64,8 @@ public class GridMenu extends Application {
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
                 clickedButton.getStyleClass().remove("clicked");
-
             } else {
                 clickedButton.getStyleClass().add("clicked");
-
                 valeur = Cellule_Data.ValeurCote.TRAIT;
             }
 
@@ -87,10 +82,12 @@ public class GridMenu extends Application {
     }
 
     /**
-     * Renvoi le menu de la grille et gère les évènements de boutons
-     * @return VBox
+     * Méthode d'interface pour récupérer le menu
+     * @param args
+     * @return
+     * @param <T>
      */
-    public static VBox getGridMenu(boolean newPuzzle) {
+    public static <T> VBox getMenu(T... args) {
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -105,7 +102,7 @@ public class GridMenu extends Application {
 
         layout_v.getChildren().addAll(sauvegarder);
 
-        afficher(newPuzzle);
+        afficher((boolean) args[0]);
 
         System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);

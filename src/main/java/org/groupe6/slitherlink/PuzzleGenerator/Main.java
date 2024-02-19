@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainStage = primaryStage;
-        scene = new Scene(MainMenu.getMainMenu(), 1000, 800);
+        scene = new Scene(MainMenu.getMenu(), 1000, 800);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
         primaryStage.setTitle("Puzzle Generator");
@@ -29,7 +29,7 @@ public class Main extends Application {
      */
     public static void showNewPuzzle(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
         grid = new GridMenu(longueur, largeur, diff);
-        scene.setRoot(GridMenu.getGridMenu(true));
+        scene.setRoot(GridMenu.getMenu(true));
     }
 
     /**
@@ -37,9 +37,9 @@ public class Main extends Application {
      * @param selectedFile
      */
     public static void showLoadedPuzzle(java.io.File selectedFile) {
-        grid = new GridMenu(1, 1, PartieInfos.DifficultePuzzle.FACILE);             // on charge un puzzle random
+        grid = new GridMenu(1, 1, PartieInfos.DifficultePuzzle.FACILE);             // on charge un puzzle de base
         GridMenu.initNewPuzzle(selectedFile.getAbsolutePath());
-        scene.setRoot(GridMenu.getGridMenu(false));
+        scene.setRoot(GridMenu.getMenu(false));
     }
 
     /**

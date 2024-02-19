@@ -16,13 +16,38 @@ import javafx.stage.Stage;
 
 import java.util.function.UnaryOperator;
 
-public class MainMenu extends Application {
+public class MainMenu implements Menu {
 
     /**
-     * Renvoi le menu principal
-     * @return VBox
+     * Vérifie les valeurs entrées dans les textfields
+     * @param prompt
+     * @return TextField
      */
-    public static VBox getMainMenu(){
+    private static TextField createUnrestrictedTextField(String prompt) {
+        TextField textField = new TextField();
+        textField.setPromptText(prompt);
+
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        };
+
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        textField.setTextFormatter(textFormatter);
+
+        return textField;
+    }
+
+    /**
+     * Méthode d'interface pour récupérer le menu
+     * @param args
+     * @return
+     * @param <T>
+     */
+    public static <T> VBox getMenu(T... args) {
         VBox layout_v = new VBox(10);
         Button valider = new Button("Valider");
         Button charger = new Button("Charger");
@@ -90,35 +115,4 @@ public class MainMenu extends Application {
 
         return layout_v;
     }
-
-    /**
-     * Vérifie les valeurs entrées dans les textfields
-     * @param prompt
-     * @return TextField
-     */
-    private static TextField createUnrestrictedTextField(String prompt) {
-        TextField textField = new TextField();
-        textField.setPromptText(prompt);
-
-        UnaryOperator<TextFormatter.Change> filter = change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d*")) {
-                return change;
-            }
-            return null;
-        };
-
-        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
-        textField.setTextFormatter(textFormatter);
-
-        return textField;
-    }
-
-    /**
-     * Inutile ici
-     * @param stage
-     * @throws Exception
-     */
-    @Override
-    public void start(Stage stage) throws Exception { }
 }
