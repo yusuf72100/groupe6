@@ -1,19 +1,22 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.Priority;
 
 public class GridMenu implements Menu{
     private static Button sauvegarder;
+    private static Label infos;
     private static VBox layout_v;
     private static GridPane gridPane;
     private static VBox container;
@@ -27,10 +30,15 @@ public class GridMenu implements Menu{
 
     GridMenu(int l, int L, PartieInfos.DifficultePuzzle diff){
         compteur = 0;
-        sauvegarder = new Button("Sauvegarder");
-        layout_v = new VBox(2);
+        infos = new Label();
+        infos.setAlignment(Pos.CENTER);
+
+        sauvegarder = new Button();
+        sauvegarder.getStyleClass().add("button-sauvegarder");
+        sauvegarder.setPrefSize(30, 30);
+
         gridPane = new GridPane();
-        container = new VBox(layout_v, gridPane);
+        container = new VBox(infos, gridPane);
         longueur = l;
         largeur = L;
         initCellules(longueur, largeur);
@@ -87,7 +95,7 @@ public class GridMenu implements Menu{
      * @return
      * @param <T>
      */
-    public static <T> VBox getMenu(T... args) {
+    public static <T> HBox getMenu(T... args) {
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -100,17 +108,21 @@ public class GridMenu implements Menu{
             }
         });
 
-        layout_v.getChildren().addAll(sauvegarder);
-
         afficher((boolean) args[0]);
 
         System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
-        layout_v.setAlignment(Pos.TOP_RIGHT);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("button-square");
 
-        return container;
+        VBox buttonContainer = new VBox(sauvegarder);
+        buttonContainer.setAlignment(Pos.TOP_LEFT);
+
+        HBox globalContainer = new HBox(buttonContainer, container);
+        HBox.setHgrow(container, Priority.ALWAYS);
+
+        return globalContainer;
+
     }
 
     /**
@@ -133,11 +145,9 @@ public class GridMenu implements Menu{
     }
 
     public static void initNewPuzzle(String path) {
-        puzzle = null;
         puzzle = Puzzle.chargerPuzzle(path);
         longueur = puzzle.getLongueur();
         largeur = puzzle.getLargeur();
-        cellules = null;
         cellules = new Cellule[longueur][largeur];
 
         initCellules(longueur, largeur);
@@ -172,6 +182,12 @@ public class GridMenu implements Menu{
      * @param nouveau
      */
     private static void afficher(boolean nouveau) {
+        switch (puzzle.getInfoPartie().getDifficulte()) {
+            case FACILE -> infos.setText("Difficulté : Facile\nDimensions : " + longueur + " X " + largeur);
+            case MOYEN -> infos.setText("Difficulté : Moyen\nDimensions : " + longueur + " X " + largeur);
+            case DIFFICILE -> infos.setText("Difficulté : Difficile\nDimensions : " + longueur + " X " + largeur);
+        }
+
         // Colonnes
         for (int i = 0; i < cellules.length; i++) {
             // Lignes
