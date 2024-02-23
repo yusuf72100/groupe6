@@ -169,6 +169,10 @@ public class GridMenu implements Menu{
         }
     }
 
+    /**
+     * Initialise un nouveau puzzle
+     * @param path
+     */
     public static void initNewPuzzle(String path) {
         puzzle = Puzzle.chargerPuzzle(path);
         longueur = puzzle.getLongueur();
