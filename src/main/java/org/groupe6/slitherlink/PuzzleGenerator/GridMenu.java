@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class GridMenu implements Menu{
     private static Button sauvegarder;
@@ -102,7 +104,18 @@ public class GridMenu implements Menu{
                         cellulesData[i][j].setValeur(cellules[i][j].getLabel());
                     }
                 }
-                Puzzle.sauvegarderPuzzle(puzzle, "puzzle.bin");
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Sauvegarder le fichier");
+
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers BIN (*.bin)", "*.bin");
+                fileChooser.getExtensionFilters().add(extFilter);
+
+                Stage stage = (Stage) sauvegarder.getScene().getWindow();
+                java.io.File file = fileChooser.showSaveDialog(Main.getStage());
+
+                if (file != null) {
+                    Puzzle.sauvegarderPuzzle(puzzle, file.getAbsolutePath());
+                }
             }
         });
 
