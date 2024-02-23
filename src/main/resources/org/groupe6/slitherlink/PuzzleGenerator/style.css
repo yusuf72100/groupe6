@@ -1,4 +1,5 @@
 .button-sauvegarder {
+    -fx-background-color: rgba(208, 208, 208, 0);
     -fx-background-image: url('sauvegarder.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -6,8 +7,17 @@
     -fx-padding: 5 10;
 }
 
-.button-sauvegarder:hover {
-    -fx-opacity: 0.8;
+.button-home {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('home.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-sauvegarder:hover, .button-home:hover {
+    -fx-opacity: 0.2;
 }
 
 .button-top, .button-bottom {

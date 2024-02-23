@@ -21,6 +21,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public static void showMainMenu() {
+        scene.setRoot(MainMenu.getMenu());
+    }
+
     /**
      * On affiche une toute nouvelle grille
      * @param longueur

@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class GridMenu implements Menu{
     private static Button sauvegarder;
+    private static Button home;
     private static Label infos;
     private static VBox layout_v;
     private static GridPane gridPane;
@@ -33,6 +34,9 @@ public class GridMenu implements Menu{
         infos = new Label();
         infos.setAlignment(Pos.CENTER);
 
+        home = new Button();
+        home.getStyleClass().add("button-home");
+        home.setPrefSize(30, 30);
         sauvegarder = new Button();
         sauvegarder.getStyleClass().add("button-sauvegarder");
         sauvegarder.setPrefSize(30, 30);
@@ -118,6 +122,13 @@ public class GridMenu implements Menu{
             }
         });
 
+        home.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                Main.showMainMenu();
+            }
+        });
+
         afficher((boolean) args[0]);
 
         System.out.println(compteur + " bars counted");
@@ -125,8 +136,10 @@ public class GridMenu implements Menu{
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("button-square");
 
-        VBox buttonContainer = new VBox(sauvegarder);
+        VBox buttonContainer = new VBox(home, sauvegarder);
         buttonContainer.setAlignment(Pos.TOP_LEFT);
+        buttonContainer.setSpacing(10);
+        buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
 
         HBox globalContainer = new HBox(buttonContainer, container);
         HBox.setHgrow(container, Priority.ALWAYS);
