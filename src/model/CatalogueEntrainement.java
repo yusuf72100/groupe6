@@ -1,5 +1,7 @@
+package model;
+
 /**
- * Cette classe mod\u00e8lise un catalogue d'entrainement
+ * Cette classe mod\u00e8lise un catalogue d'entrainement.
  * 
  * @author William Sardon
  */

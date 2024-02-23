@@ -1,9 +1,11 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Cette classe mod\u00e8lise un glossaire contenant la liste des informations
- * sur les techniques possibles a appliquer
+ * sur les techniques.
  * 
  * @author William Sardon
  */

@@ -1,3 +1,5 @@
+package model;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.io.Serializable;
  */
 public class Profil implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /** Nom de l'utilisateur */
     private String nom;
 
@@ -22,10 +26,10 @@ public class Profil implements Serializable {
     private int niveauAventure;
 
     /** Historique de jeu de l'utilisateur */
-    // private Historique historique;
+    private Historique historique;
 
     /** Parametre de l'utilisateur */
-    // private Parametre parametre;
+    private Parametre parametre;
 
     /**
      * Constructeur
@@ -38,8 +42,8 @@ public class Profil implements Serializable {
         this.nom = nom;
         this.cheminIMG = cheminIMG;
         this.niveauAventure = 0;
-        // this.historique = new Historique();
-        // this.parametre = new Parametre();
+        this.historique = new Historique();
+        this.parametre = new Parametre();
     }
 
     /**
@@ -84,20 +88,18 @@ public class Profil implements Serializable {
     /**
      * Methode pour obtenir l'historique
      */
-    /*
-     * public historique getHistorique() {
-     * return historique;
-     * }
-     */
+
+    public historique getHistorique() {
+        return historique;
+    }
 
     /**
      * Methode pour obtenir les parametres
      */
-    /*
-     * public int getParametre() {
-     * return parametre;
-     * }
-     */
+
+    public int getParametre() {
+        return parametre;
+    }
 
     @Override
     public String toString() {
@@ -109,6 +111,7 @@ public class Profil implements Serializable {
     }
 
     /**
+     * Methode de saauvegarde de profil
      * 
      * @param profil
      * @param chemin
@@ -122,6 +125,7 @@ public class Profil implements Serializable {
     }
 
     /**
+     * Methode de chargement de profil
      * 
      * @param chemin
      * @return le profil à charger

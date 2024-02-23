@@ -1,3 +1,4 @@
+package model;
 
 /**
  * Cette classe mod\u00e8lise les informations données sur chaque technique.
