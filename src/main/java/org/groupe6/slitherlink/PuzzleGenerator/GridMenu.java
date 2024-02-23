@@ -101,6 +101,7 @@ public class GridMenu implements Menu{
      */
     public static <T> HBox getMenu(T... args) {
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            // handler bouton de sauvegarde
             @Override
             public void handle(MouseEvent event){
                 for (int i = 0; i < cellules.length; i++) {
@@ -122,6 +123,7 @@ public class GridMenu implements Menu{
             }
         });
 
+        // handler bouton retour au menyu principal
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
