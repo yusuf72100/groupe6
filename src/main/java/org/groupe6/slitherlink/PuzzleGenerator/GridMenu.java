@@ -6,8 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -20,7 +18,7 @@ public class GridMenu implements Menu{
     private static VBox layout_v;
     private static GridPane gridPane;
     private static VBox container;
-    private static Cellule[][] cellules;
+    private static CelluleNode[][] cellules;
     private static Cellule_Data[][] cellulesData;
     private static int compteur;        // utilisé à des fins de test
     private static Puzzle puzzle;
@@ -133,12 +131,12 @@ public class GridMenu implements Menu{
     private static void initCellules(int l, int L) {
         cellules = null;
         cellulesData = null;
-        cellules = new Cellule[l][L];
+        cellules = new CelluleNode[l][L];
         cellulesData = new Cellule_Data[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
-                cellules[i][j] = new Cellule();
+                cellules[i][j] = new CelluleNode();
                 cellulesData[i][j] = new Cellule_Data(-1, new Cellule_Data.ValeurCote[]{Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE});
             }
         }
@@ -148,7 +146,7 @@ public class GridMenu implements Menu{
         puzzle = Puzzle.chargerPuzzle(path);
         longueur = puzzle.getLongueur();
         largeur = puzzle.getLargeur();
-        cellules = new Cellule[longueur][largeur];
+        cellules = new CelluleNode[longueur][largeur];
 
         initCellules(longueur, largeur);
         cellulesData = null;
@@ -192,7 +190,7 @@ public class GridMenu implements Menu{
         for (int i = 0; i < cellules.length; i++) {
             // Lignes
             for (int j = 0; j < cellules[i].length; j++) {
-                if(nouveau) cellules[i][j] = new Cellule();
+                if(nouveau) cellules[i][j] = new CelluleNode();
 
                 // Coins
                 gridPane.add(cellules[i][j].getCoin(0), i * 2, j * 2);            // top left
