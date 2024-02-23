@@ -25,7 +25,10 @@ public class Puzzle implements Serializable {
     // private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
     // private List<AideInfos> historiqueAide; // Historique des aides
 
-    // Méthode pour obtenir les informations de la partie
+    /**
+     * Méthode pour obtenir les informations de la partie
+     * @return
+     */
     public PartieInfos getInfoPartie() {
         return infoPartie;
     }
@@ -38,7 +41,10 @@ public class Puzzle implements Serializable {
         return largeur;
     }
 
-    // Méthode pour obtenir la longueur
+    /**
+     * Méthode pour obtenir la longueur
+     * @return
+     */
     public int getLongueur() {
         return longueur;
     }
@@ -119,7 +125,11 @@ public class Puzzle implements Serializable {
 
     public Cellule_Data[][] getCelluleData() { return this.sollutionPuzzle; }
 
-    // Méthode pour sauvegarder le puzzle
+    /**
+     * Méthode pour sauvegarder le puzzle
+     * @param puzzle
+     * @param chemin
+     */
     public static void sauvegarderPuzzle(Puzzle puzzle, String chemin) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))) {
             oos.writeObject(puzzle);

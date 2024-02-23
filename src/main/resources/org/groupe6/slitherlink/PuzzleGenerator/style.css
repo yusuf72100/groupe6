@@ -10,25 +10,24 @@
     -fx-opacity: 0.8;
 }
 
-.button-square {
-    -fx-padding: 5px;
-}
-
 .button-top, .button-bottom {
     -fx-min-width: 60px;
     -fx-max-width: 60px;
     -fx-min-height: 5px;
     -fx-max-height: 5px;
     -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
 }
 
 .button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
     -fx-opacity: 1.0;
-    -fx-background-color: lightgray;
+    -fx-background-color: black;
+    -fx-border-radius: 0;
 }
 
 .button-top.clicked:hover, .button-bottom.clicked:hover, .button-left.clicked:hover, .button-right.clicked:hover {
-    -fx-opacity: 1.0;
+    -fx-opacity: 0.5;
 }
 
 .button-top:pressed, .button-bottom:pressed, .button-left:pressed, .button-right:pressed {
@@ -41,6 +40,8 @@
     -fx-min-width: 5px;
     -fx-max-width: 5px;
     -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
 }
 
 .button-top:hover, .button-bottom:hover, .button-left:hover, .button-right:hover {
@@ -50,4 +51,5 @@
 
 .black-square {
     -fx-fill: black;
+    -fx-padding: 5px;
 }

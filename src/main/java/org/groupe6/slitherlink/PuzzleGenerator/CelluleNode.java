@@ -19,6 +19,7 @@ public class CelluleNode extends Node {
 
     CelluleNode() {
         this.label = -1;
+        double cellSize = 50;
         cellule = new Button[4];
         coins = new Rectangle[4];
         centerPane = new StackPane();
@@ -36,7 +37,6 @@ public class CelluleNode extends Node {
         cellule[2].getStyleClass().addAll("button-left");
         cellule[3].getStyleClass().addAll("button-right");
 
-        double cellSize = 50;
         for (int i = 0; i < 4; i++) {
             coins[i] = createBlackSquare(cellSize / 5);
         }
