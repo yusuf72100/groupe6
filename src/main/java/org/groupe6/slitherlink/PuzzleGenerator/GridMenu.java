@@ -1,5 +1,6 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GridMenu implements Menu{
     private static Button sauvegarder;
@@ -40,6 +42,36 @@ public class GridMenu implements Menu{
         sauvegarder = new Button();
         sauvegarder.getStyleClass().add("button-sauvegarder");
         sauvegarder.setPrefSize(30, 30);
+
+        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), sauvegarder);
+        fadeSauvegarder.setFromValue(1.0);
+        fadeSauvegarder.setToValue(0.2);
+
+        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), home);
+        fadeHome.setFromValue(1.0);
+        fadeHome.setToValue(0.2);
+
+        sauvegarder.setOnMouseEntered(event -> {
+            fadeSauvegarder.setRate(1);
+            fadeSauvegarder.play();
+        });
+
+        sauvegarder.setOnMouseExited(event -> {
+            fadeSauvegarder.setRate(-1);
+            fadeSauvegarder.play();
+            fadeSauvegarder.jumpTo(Duration.ZERO);
+        });
+
+        home.setOnMouseEntered(event -> {
+            fadeHome.setRate(1);
+            fadeHome.play();
+        });
+
+        home.setOnMouseExited(event -> {
+            fadeHome.setRate(-1);
+            fadeHome.play();
+            fadeHome.jumpTo(Duration.ZERO);
+        });
 
         gridPane = new GridPane();
         container = new VBox(infos, gridPane);
@@ -123,7 +155,7 @@ public class GridMenu implements Menu{
             }
         });
 
-        // handler bouton retour au menyu principal
+        // handler bouton retour au menu principal
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -147,11 +179,10 @@ public class GridMenu implements Menu{
         HBox.setHgrow(container, Priority.ALWAYS);
 
         return globalContainer;
-
     }
 
     /**
-     * Initialise les données de l'affichage et de stockage du puzzle
+     * Initialise les données de l'affichage et le stockage du puzzle
      * @param l
      * @param L
      */
@@ -228,6 +259,29 @@ public class GridMenu implements Menu{
                 gridPane.add(cellules[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
                 gridPane.add(cellules[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
                 gridPane.add(cellules[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
+
+                // animation fade
+                for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
+                    Button button = cellules[i][j].getButton(boutonIndex);
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
+                    fadeTransition.setFromValue(0.2);
+                    fadeTransition.setToValue(1.0);
+
+                    button.setOnMouseEntered(event -> {
+                        if(button.getStyleClass().contains("clicked")) {
+                            fadeTransition.setFromValue(1.0);
+                            fadeTransition.setToValue(0.2);
+                        }
+                        fadeTransition.setRate(1);
+                        fadeTransition.play();
+                    });
+
+                    button.setOnMouseExited(event -> {
+                        fadeTransition.setRate(-1);
+                        fadeTransition.play();
+                        fadeTransition.jumpTo(Duration.ZERO);
+                    });
+                }
 
                 // Barres
                 // Avoid horizontal bar duplication
