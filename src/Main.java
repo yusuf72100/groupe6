@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * @author Nathan
+ */
+
 public class Main extends Application {
 
 

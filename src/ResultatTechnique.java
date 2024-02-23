@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * @author Nathan
+ */
+
 public class ResultatTechnique {
     private boolean techniqueTrouvee;
     private ArrayList<int[]> coordonnees;

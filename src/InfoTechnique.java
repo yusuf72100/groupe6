@@ -1,3 +1,7 @@
+/**
+ * @author Nathan
+ */
+
 public class InfoTechnique {
     /** Texte d'explication d'une technique */
     private String explicationTxt;

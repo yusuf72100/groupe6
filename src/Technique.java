@@ -1,10 +1,10 @@
-import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 public class Technique{
     private InfoTechnique.DifficulteTechnique difficulte;
     private int ordre;
-    private Callable<ResultatTechnique> codeTechnique;
-    Technique(InfoTechnique.DifficulteTechnique uneDifficulte, int unOrdre, Callable<ResultatTechnique> unCodeTechnique){
+    private Function<Puzzle, ResultatTechnique> codeTechnique;
+    Technique(InfoTechnique.DifficulteTechnique uneDifficulte, int unOrdre, Function<Puzzle, ResultatTechnique> unCodeTechnique){
         this.difficulte = uneDifficulte;
         this.ordre = unOrdre;
         this.codeTechnique=unCodeTechnique;
@@ -16,7 +16,7 @@ public class Technique{
         return difficulte;
     }
     public ResultatTechnique appliquerTechnique(Puzzle puzzle) throws Exception{
-        ResultatTechnique resultat=codeTechnique.call();
+        ResultatTechnique resultat=codeTechnique.apply(puzzle);
         return resultat;
     }
 }
