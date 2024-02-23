@@ -1,21 +1,28 @@
-public class InfoTechnique {
+
+/**
+ * Cette classe mod\u00e8lise les informations données sur chaque technique.
+ * 
+ * @author William Sardon
+ */
+public class TechniqueInfos {
     /** Texte d'explication d'une technique */
     private String explicationTxt;
 
-    /** Chemin vers une image démontrant l'utilisation d'une technique */
+    /** Chemin vers une image demontrant l'utilisation d'une technique */
     private String schemaIMG;
-
-    /** Enum pour les difficultes des techniques */
-    public enum DifficulteTechnique {
-        DEMARRAGE,
-        BASIQUE,
-        AVANCEE;
-    }
 
     /** Niveau de difficulté de la technique : 'FACILE', 'MOYEN', 'DIFFICILE' */
     private DifficulteTechnique difficulte;
 
-    public InfoTechnique(String explicationTxt, String schemaIMG, DifficulteTechnique difficulte) {
+    /**
+     * Constructeur
+     * 
+     * @param explicationTxt explication textuelle de la technique
+     * @param schemaIMG      chemin vers l'image demontrant l'utilisation d'une
+     *                       technique
+     * @param difficulte     niveau de difficulte des techniques
+     */
+    public TechniqueInfos(String explicationTxt, String schemaIMG, DifficulteTechnique difficulte) {
         this.explicationTxt = explicationTxt;
         this.schemaIMG = schemaIMG;
         this.difficulte = difficulte;

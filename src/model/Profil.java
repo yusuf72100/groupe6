@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.ProviderNotFoundException;
-
-import javax.swing.text.html.ParagraphView;
 
 /**
  * Cette classe mod\u00e8lise un profil d'utilisateur.
+ * 
+ * @author William Sardon
  */
 public class Profil implements Serializable {
 
