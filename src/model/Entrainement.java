@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import javax.swing.Action;
 
 /**
@@ -9,23 +9,31 @@ import javax.swing.Action;
  */
 public class Entrainement extends Partie {
     /** liste d'action pouvant etre realisées pour finir l'entrainement */
-    private List<Action> listeActionSolution;
+    private Stack<Action> listeAction;
 
     /** Constructeur de la classe Entrainement */
-    public Entrainement(DifficultePuzzle difficulte, int largeur, int longueur, Cellule[][] grilleCellules) {
-        super(difficulte, largeur, longueur, grilleCellules);
+    public Entrainement(Puzzle puzzle) {
+        super(puzzle);
 
-        listeActionSolution = new ArrayList<Action>();
+        listeAction = new Stack<Action>();
     }
 
     public void ajouterActionSolution(Action nouvelleAction) {
-        listeActionSolution.add(nouvelleAction);
+        listeAction.push(nouvelleAction);
+    }
+
+    public Action effacerActionSolution() {
+        return listeAction.pop();
     }
 
     @Override
-    public void ajouterAction(Action nouvelleAction) {
-        if (listeAction.contains(nouvelleAction)) {
-            // ajouter l'action
+    public void actionBasculeTroisEtats(int x, int y) {
+        Action action = new Action(/* a remplir */);
+        if (listeAction.peek() == action) {
+            gestionnaireAction.ajouterAction(action);
+            action.appliquerAction();
+
+            this.listeAction.pop();
         }
     }
 
