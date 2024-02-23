@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,27 +52,10 @@ public class GridMenu implements Menu{
         fadeHome.setFromValue(1.0);
         fadeHome.setToValue(0.2);
 
-        sauvegarder.setOnMouseEntered(event -> {
-            fadeSauvegarder.setRate(1);
-            fadeSauvegarder.play();
-        });
-
-        sauvegarder.setOnMouseExited(event -> {
-            fadeSauvegarder.setRate(-1);
-            fadeSauvegarder.play();
-            fadeSauvegarder.jumpTo(Duration.ZERO);
-        });
-
-        home.setOnMouseEntered(event -> {
-            fadeHome.setRate(1);
-            fadeHome.play();
-        });
-
-        home.setOnMouseExited(event -> {
-            fadeHome.setRate(-1);
-            fadeHome.play();
-            fadeHome.jumpTo(Duration.ZERO);
-        });
+        sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, sauvegarder); });
+        sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, sauvegarder); });
+        home.setOnMouseEntered(event -> { mouseEntered(fadeHome, home); });
+        home.setOnMouseExited(event -> { mouseExited(fadeHome, home); });
 
         gridPane = new GridPane();
         container = new VBox(infos, gridPane);
@@ -272,14 +256,11 @@ public class GridMenu implements Menu{
                             fadeTransition.setFromValue(1.0);
                             fadeTransition.setToValue(0.2);
                         }
-                        fadeTransition.setRate(1);
-                        fadeTransition.play();
+                        mouseEntered(fadeTransition, button);
                     });
 
                     button.setOnMouseExited(event -> {
-                        fadeTransition.setRate(-1);
-                        fadeTransition.play();
-                        fadeTransition.jumpTo(Duration.ZERO);
+                        mouseExited(fadeTransition, button);
                     });
                 }
 
@@ -306,5 +287,28 @@ public class GridMenu implements Menu{
                 compteur++;
             }
         }
+    }
+
+    /**
+     * Règle l'animation d'entrée sur le bouton souhaité
+     * @param fade
+     * @param button
+     */
+    private static void mouseEntered(FadeTransition fade, Button button) {
+        fade.setRate(1);
+        fade.play();
+        button.setCursor(Cursor.HAND);
+    }
+
+    /**
+     * Règle l'animation de sortie sur le bouton souhaité
+     * @param fade
+     * @param button
+     */
+    private static void mouseExited(FadeTransition fade, Button button) {
+        fade.setRate(-1);
+        fade.play();
+        fade.jumpTo(Duration.ZERO);
+        button.setCursor(Cursor.DEFAULT);
     }
 }
