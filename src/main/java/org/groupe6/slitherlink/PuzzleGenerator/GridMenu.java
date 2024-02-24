@@ -207,10 +207,8 @@ public class GridMenu implements Menu{
                 for (int k = 0; k < 4; k++) {
                     switch (cellulesData[i][j].getCote(k)) {
                         case VIDE :
-                            System.out.println("VIDE");
                             break ;
                         case TRAIT:
-                            System.out.println("TRAIT");
                             cellules[i][j].getButton(k).getStyleClass().add("clicked");
                             break ;
                         default: // rien
@@ -248,13 +246,14 @@ public class GridMenu implements Menu{
                 for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
                     Button button = cellules[i][j].getButton(boutonIndex);
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
-                    fadeTransition.setFromValue(0.2);
-                    fadeTransition.setToValue(1.0);
 
                     button.setOnMouseEntered(event -> {
                         if(button.getStyleClass().contains("clicked")) {
                             fadeTransition.setFromValue(1.0);
                             fadeTransition.setToValue(0.2);
+                        } else {
+                            fadeTransition.setFromValue(0.2);
+                            fadeTransition.setToValue(1.0);
                         }
                         mouseEntered(fadeTransition, button);
                     });
