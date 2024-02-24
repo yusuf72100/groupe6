@@ -24,7 +24,7 @@ public class GridMenu implements Menu{
     private static VBox layout_v;
     private static GridPane gridPane;
     private static VBox container;
-    private static CelluleNode[][] cellules;
+    private static CelluleNode[][] celluleNodes;
     private static CelluleData[][] cellulesData;
     private static int compteur;        // utilisé à des fins de test
     private static Puzzle puzzle;
@@ -70,8 +70,7 @@ public class GridMenu implements Menu{
      * Gestion de chaque bouton (barre)
      */
     public static class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
-        private final int i;
-        private final int j;
+        private final int i, j;
 
         public CelluleButtonEventHandler(int i, int j, CelluleData[][] data) {
             this.i = i;
@@ -120,9 +119,9 @@ public class GridMenu implements Menu{
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                for (int i = 0; i < cellules.length; i++) {
-                    for (int j = 0; j < cellules[i].length; j++) {
-                        cellulesData[i][j].setValeur(cellules[i][j].getLabel());
+                for (int i = 0; i < celluleNodes.length; i++) {
+                    for (int j = 0; j < celluleNodes[i].length; j++) {
+                        cellulesData[i][j].setValeur(celluleNodes[i][j].getLabel());
                     }
                 }
                 // File chooser
@@ -171,12 +170,12 @@ public class GridMenu implements Menu{
      * @param L
      */
     private static void initCellules(int l, int L) {
-        cellules = new CelluleNode[l][L];
+        celluleNodes = new CelluleNode[l][L];
         cellulesData = new CelluleData[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
-                cellules[i][j] = new CelluleNode();
+                celluleNodes[i][j] = new CelluleNode();
                 cellulesData[i][j] = new CelluleData(-1, new CelluleData.ValeurCote[]{CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE});
             }
         }
@@ -199,10 +198,10 @@ public class GridMenu implements Menu{
         for (int i  = 0 ; i < cellulesData.length; i++) {
             for (int j = 0; j < cellulesData[i].length; j++) {
                 System.out.println(i + " " + j);
-                cellules[i][j].setLabel(cellulesData[i][j].getValeur());
+                celluleNodes[i][j].setLabel(cellulesData[i][j].getValeur());
 
                 if(cellulesData[i][j].getValeur() != -1) {
-                    cellules[i][j].setLabeText(cellulesData[i][j].getValeur());
+                    celluleNodes[i][j].setLabeText(cellulesData[i][j].getValeur());
                 }
 
                 for (int k = 0; k < 4; k++) {
@@ -210,7 +209,7 @@ public class GridMenu implements Menu{
                         case VIDE :
                             break ;
                         case TRAIT:
-                            cellules[i][j].getButton(k).getStyleClass().add("clicked");
+                            celluleNodes[i][j].getButton(k).getStyleClass().add("clicked");
                             break ;
                         default: // rien
                             break;
@@ -232,20 +231,20 @@ public class GridMenu implements Menu{
         }
 
         // Colonnes
-        for (int i = 0; i < cellules.length; i++) {
+        for (int i = 0; i < celluleNodes.length; i++) {
             // Lignes
-            for (int j = 0; j < cellules[i].length; j++) {
-                if(nouveau) cellules[i][j] = new CelluleNode();
+            for (int j = 0; j < celluleNodes[i].length; j++) {
+                if(nouveau) celluleNodes[i][j] = new CelluleNode();
 
                 // Coins
-                gridPane.add(cellules[i][j].getCoin(0), i * 2, j * 2);            // top left
-                gridPane.add(cellules[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
-                gridPane.add(cellules[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
-                gridPane.add(cellules[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
+                gridPane.add(celluleNodes[i][j].getCoin(0), i * 2, j * 2);            // top left
+                gridPane.add(celluleNodes[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
+                gridPane.add(celluleNodes[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
+                gridPane.add(celluleNodes[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
 
                 // animation fade
                 for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
-                    Button button = cellules[i][j].getButton(boutonIndex);
+                    Button button = celluleNodes[i][j].getButton(boutonIndex);
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
 
                     button.setOnMouseEntered(event -> {
@@ -267,23 +266,23 @@ public class GridMenu implements Menu{
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(cellules[i][j].getButton(0), i * 2 + 1, 0);   // top
-                    cellules[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
+                    gridPane.add(celluleNodes[i][j].getButton(0), i * 2 + 1, 0);   // top
+                    celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
-                gridPane.add(cellules[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
-                cellules[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
+                gridPane.add(celluleNodes[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
+                gridPane.add(celluleNodes[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
+                celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
                 compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(cellules[i][j].getButton(2), 0, j * 2 + 1);   // left
-                    cellules[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
+                    gridPane.add(celluleNodes[i][j].getButton(2), 0, j * 2 + 1);   // left
+                    celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
                     compteur++;
                 }
-                gridPane.add(cellules[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
-                cellules[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
+                gridPane.add(celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
+                celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
                 compteur++;
             }
         }
