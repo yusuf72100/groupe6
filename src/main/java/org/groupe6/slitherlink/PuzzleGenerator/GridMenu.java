@@ -151,7 +151,7 @@ public class GridMenu implements Menu{
         System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
-        gridPane.getStyleClass().add("button-square");
+        gridPane.getStyleClass().addAll("button-square");
 
         VBox buttonContainer = new VBox(home, sauvegarder);
         buttonContainer.setAlignment(Pos.TOP_LEFT);
@@ -176,7 +176,7 @@ public class GridMenu implements Menu{
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 celluleNodes[i][j] = new CelluleNode();
-                cellulesData[i][j] = new CelluleData(-1, new CelluleData.ValeurCote[]{CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE});
+                cellulesData[i][j] = new CelluleData(-1, new CelluleData.ValeurCote[] { CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE } );
             }
         }
     }
@@ -191,13 +191,11 @@ public class GridMenu implements Menu{
         largeur = puzzle.getLongueur();
 
         initCellules(longueur, largeur);
-        System.out.println(longueur + " " + largeur);
 
         cellulesData = puzzle.getCelluleData();
 
         for (int i  = 0 ; i < cellulesData.length; i++) {
             for (int j = 0; j < cellulesData[i].length; j++) {
-                System.out.println(i + " " + j);
                 celluleNodes[i][j].setLabel(cellulesData[i][j].getValeur());
 
                 if(cellulesData[i][j].getValeur() != -1) {
