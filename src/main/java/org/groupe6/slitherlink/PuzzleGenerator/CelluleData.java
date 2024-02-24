@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 // Classe Cellule qui implémente Serializable
-public class Cellule_Data implements Serializable {
+public class CelluleData implements Serializable {
 
   // Constantes pour les cotés
   public static final int HAUT = 0;
@@ -49,7 +49,7 @@ public class Cellule_Data implements Serializable {
   }
 
   // Constructeur de la classe Cellule
-  public Cellule_Data(int valeur, ValeurCote[] cotes) {
+  public CelluleData(int valeur, ValeurCote[] cotes) {
     if (valeur < -1 || valeur > 3) {
       throw new IllegalArgumentException("La valeur de la cellule doit être entre 0 et 3");
     }

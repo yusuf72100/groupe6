@@ -25,7 +25,7 @@ public class GridMenu implements Menu{
     private static GridPane gridPane;
     private static VBox container;
     private static CelluleNode[][] cellules;
-    private static Cellule_Data[][] cellulesData;
+    private static CelluleData[][] cellulesData;
     private static int compteur;        // utilisé à des fins de test
     private static Puzzle puzzle;
     private static Scene scene;
@@ -73,7 +73,7 @@ public class GridMenu implements Menu{
         private final int i;
         private final int j;
 
-        public CelluleButtonEventHandler(int i, int j, Cellule_Data[][] data) {
+        public CelluleButtonEventHandler(int i, int j, CelluleData[][] data) {
             this.i = i;
             this.j = j;
             cellulesData = data;
@@ -87,14 +87,14 @@ public class GridMenu implements Menu{
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
-            Cellule_Data.ValeurCote valeur = Cellule_Data.ValeurCote.VIDE;
+            CelluleData.ValeurCote valeur = CelluleData.ValeurCote.VIDE;
 
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
                 clickedButton.getStyleClass().remove("clicked");
             } else {
                 clickedButton.getStyleClass().add("clicked");
-                valeur = Cellule_Data.ValeurCote.TRAIT;
+                valeur = CelluleData.ValeurCote.TRAIT;
             }
 
             switch(clickedButton.getText()){
@@ -171,15 +171,13 @@ public class GridMenu implements Menu{
      * @param L
      */
     private static void initCellules(int l, int L) {
-        cellules = null;
-        cellulesData = null;
         cellules = new CelluleNode[l][L];
-        cellulesData = new Cellule_Data[l][L];
+        cellulesData = new CelluleData[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 cellules[i][j] = new CelluleNode();
-                cellulesData[i][j] = new Cellule_Data(-1, new Cellule_Data.ValeurCote[]{Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE, Cellule_Data.ValeurCote.VIDE});
+                cellulesData[i][j] = new CelluleData(-1, new CelluleData.ValeurCote[]{CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE});
             }
         }
     }
@@ -190,19 +188,22 @@ public class GridMenu implements Menu{
      */
     public static void initNewPuzzle(String path) {
         puzzle = Puzzle.chargerPuzzle(path);
-        longueur = puzzle.getLongueur();
-        largeur = puzzle.getLargeur();
-        cellules = new CelluleNode[longueur][largeur];
+        longueur = puzzle.getLargeur();
+        largeur = puzzle.getLongueur();
 
         initCellules(longueur, largeur);
-        cellulesData = null;
+        System.out.println(longueur + " " + largeur);
+
         cellulesData = puzzle.getCelluleData();
 
         for (int i  = 0 ; i < cellulesData.length; i++) {
             for (int j = 0; j < cellulesData[i].length; j++) {
+                System.out.println(i + " " + j);
                 cellules[i][j].setLabel(cellulesData[i][j].getValeur());
 
-                if(cellulesData[i][j].getValeur() != -1) { cellules[i][j].setLabeText(cellulesData[i][j].getValeur()); }
+                if(cellulesData[i][j].getValeur() != -1) {
+                    cellules[i][j].setLabeText(cellulesData[i][j].getValeur());
+                }
 
                 for (int k = 0; k < 4; k++) {
                     switch (cellulesData[i][j].getCote(k)) {

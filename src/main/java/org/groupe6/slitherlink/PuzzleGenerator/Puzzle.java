@@ -20,8 +20,8 @@ public class Puzzle implements Serializable {
     private final PartieInfos infoPartie; // Les informations de la partie
     private final int largeur; // Nombre de lignes
     private final int longueur; // Nombre de colonnes
-    private final Cellule_Data[][] grilleCellules; // Grille de cellules
-    private final Cellule_Data[][] sollutionPuzzle; // Solution du puzzle
+    private final CelluleData[][] grilleCellules; // Grille de cellules
+    private final CelluleData[][] sollutionPuzzle; // Solution du puzzle
     // private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
     // private List<AideInfos> historiqueAide; // Historique des aides
 
@@ -56,7 +56,7 @@ public class Puzzle implements Serializable {
      * @param longueur
      * @param sollutionPuzzle
      */
-    public Puzzle(PartieInfos infoPartie, int largeur, int longueur, Cellule_Data[][] sollutionPuzzle) {
+    public Puzzle(PartieInfos infoPartie, int largeur, int longueur, CelluleData[][] sollutionPuzzle) {
         if (sollutionPuzzle.length != largeur || sollutionPuzzle[0].length != longueur) {
             throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
         }
@@ -72,14 +72,14 @@ public class Puzzle implements Serializable {
      * Méthode pour générer un puzzle propre a partir de la solution
      * @return grillePropre
      */
-    private Cellule_Data[][] genererGrillePropre() {
-        Cellule_Data[][] grillePropre = new Cellule_Data[largeur][longueur];
+    private CelluleData[][] genererGrillePropre() {
+        CelluleData[][] grillePropre = new CelluleData[largeur][longueur];
 
         for (int y = 0; y < sollutionPuzzle.length; y++) {
             for (int x = 0; x < sollutionPuzzle[y].length; x++) {
-                Cellule_Data.ValeurCote[] cotesVide = new Cellule_Data.ValeurCote[4];
-                Arrays.fill(cotesVide, Cellule_Data.ValeurCote.VIDE);
-                grillePropre[y][x] = new Cellule_Data(sollutionPuzzle[y][x].getValeur(), cotesVide);
+                CelluleData.ValeurCote[] cotesVide = new CelluleData.ValeurCote[4];
+                Arrays.fill(cotesVide, CelluleData.ValeurCote.VIDE);
+                grillePropre[y][x] = new CelluleData(sollutionPuzzle[y][x].getValeur(), cotesVide);
             }
         }
 
@@ -119,11 +119,11 @@ public class Puzzle implements Serializable {
      * @param x
      * @return
      */
-    public Cellule_Data getCellule(int y, int x) {
+    public CelluleData getCellule(int y, int x) {
         return grilleCellules[y][x];
     }
 
-    public Cellule_Data[][] getCelluleData() { return this.sollutionPuzzle; }
+    public CelluleData[][] getCelluleData() { return this.sollutionPuzzle; }
 
     /**
      * Méthode pour sauvegarder le puzzle

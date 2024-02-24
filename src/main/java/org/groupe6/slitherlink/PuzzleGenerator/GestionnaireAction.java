@@ -1,7 +1,5 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
-import org.groupe6.slitherlink.PuzzleGenerator.Action;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ public class GestionnaireAction implements Serializable {
   }
 
   // Méthode qui permet de créé une nouvelle action
-  public void nouvelleAction(Cellule_Data cellule1, Cellule_Data cellule2, int coteCellule1, Cellule_Data.ValeurCote valeurCote) {
+  public void nouvelleAction(CelluleData cellule1, CelluleData cellule2, int coteCellule1, CelluleData.ValeurCote valeurCote) {
     Action action = new Action(cellule1, cellule2, coteCellule1, valeurCote);
     listeAction.add(action);
     index = listeAction.size() - 1;
