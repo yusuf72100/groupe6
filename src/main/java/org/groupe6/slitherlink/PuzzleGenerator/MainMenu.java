@@ -1,7 +1,5 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -12,8 +10,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.util.function.UnaryOperator;
 
 public class MainMenu implements Menu {

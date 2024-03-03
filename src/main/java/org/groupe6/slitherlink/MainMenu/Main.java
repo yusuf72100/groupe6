@@ -78,7 +78,6 @@ public class Main extends Application {
                     timeline.play();
                 });
 
-                // Créer un conteneur StackPane pour chaque bouton avec le bouton en arrière-plan et le texte en avant-plan
                 buttonContainers[i] = new StackPane();
                 buttonContainers[i].getChildren().addAll(buttons[i], labels[i]);
                 buttonContainers[i].setAlignment(Pos.CENTER);

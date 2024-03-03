@@ -49,7 +49,7 @@ public class PartieInfos implements Serializable {
     }
 
     /**
-     * Getter de l'attribute date
+     * Getter de l'attribut date
      * 
      * @return La date de la partie
      */
@@ -58,14 +58,14 @@ public class PartieInfos implements Serializable {
     }
 
     /**
-     * Setter de l'attribute date
+     * Setter de l'attribut date
      */
     public void setDate() {
         this.date = new Date();
     }
 
     /**
-     * Initialisation de la date a la date actuelle
+     * Initialisation de la date à la date actuelle
      * 
      * @return La date actuelle
      */
