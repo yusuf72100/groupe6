@@ -67,27 +67,21 @@ public class Main extends Application {
 
                 // hover on
                 buttonContainers[i].setOnMouseEntered(e -> {
-                    // Style et texte lorsque la souris entre
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
                     descriptionTexts[finalI].setText("PlaceHolder #" + (finalI + 1));
-
-                    // Arrêter l'animation inverse si elle est en cours
                     translateTransitionsReverse[finalI].stop();
                     translateTransitions[finalI].play();
                 });
 
                 // hover off
                 buttonContainers[i].setOnMouseExited(e -> {
-                    // Arrêter l'animation normale si elle est en cours
                     translateTransitions[finalI].stop();
                     translateTransitionsReverse[finalI].play();
 
-                    // Gérer l'événement lorsque l'animation inverse est terminée
                     translateTransitionsReverse[finalI].setOnFinished(event -> {
                         descriptionTexts[finalI].setText("");
                     });
 
-                    // Rétablir le style du bouton
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
                 });
 
