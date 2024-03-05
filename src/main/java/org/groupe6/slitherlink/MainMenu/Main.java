@@ -3,6 +3,7 @@ package org.groupe6.slitherlink.MainMenu;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -35,7 +37,9 @@ public class Main extends Application {
             // gestion des boutons
             StackPane[] buttonContainers = new StackPane[3];
             Button[] buttons = new Button[3];
-            Label[] labels = new Label[3];
+            Text[] texts = new Text[3];
+            TranslateTransition[] translateTransitions = new TranslateTransition[3];
+            TranslateTransition[] translateTransitionsReverse = new TranslateTransition[3];
 
             // instanciation et initialisation des boutons et des labels
             for (int i = 0; i < buttons.length; i++) {
@@ -46,41 +50,37 @@ public class Main extends Application {
                 buttons[i].getStyleClass().add("button-rounded");
 
                 // positionnement de la description
-                labels[i] = new Label();
-                labels[i].setAlignment(Pos.CENTER);
-                labels[i].setPrefWidth(350);
-                labels[i].setTranslateY((buttons[i].getPrefHeight() / 2) - 20);
+                texts[i] = new Text();
+                texts[i].setFocusTraversable(false);
+                texts[i].setMouseTransparent(true);
                 //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
+                buttonContainers[i] = new StackPane();
+                buttonContainers[i].getChildren().addAll(buttons[i], texts[i]);
+                buttonContainers[i].setAlignment(Pos.CENTER);
+                //translation text animation
+                translateTransitions[finalI] = new TranslateTransition(Duration.seconds(0.5), texts[finalI]);
+                translateTransitions[finalI].setFromY(200);
+                translateTransitions[finalI].setToY(150);
+                //translation text animation reverse
+                translateTransitionsReverse[finalI] = new TranslateTransition(Duration.seconds(0.5), texts[finalI]);
+                translateTransitionsReverse[finalI].setFromY(150);
+                translateTransitionsReverse[finalI].setToY(200);
 
                 // hover on
-                buttons[i].setOnMouseEntered(e -> {
+                buttonContainers[i].setOnMouseEntered(e -> {
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
-                    labels[finalI].setText("PlaceHolder #" + (finalI + 1));
+                    texts[finalI].setText("PlaceHolder #" + (finalI + 1));
+                    translateTransitions[finalI].play();
                 });
 
                 // hover off
-                buttons[i].setOnMouseExited(e -> {
+                buttonContainers[i].setOnMouseExited(e -> {
+                    translateTransitionsReverse[finalI].play();
+                    translateTransitionsReverse[finalI].setOnFinished(event -> { texts[finalI].setText(""); });
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
-                    labels[finalI].setText("");
                 });
 
-                // button click
-                buttons[i].setOnAction(event -> {
-                    // animation de click
-                    Timeline timeline = new Timeline(
-                            new KeyFrame(Duration.seconds(0), new KeyValue(buttons[finalI].scaleXProperty(), 1)),
-                            new KeyFrame(Duration.seconds(0), new KeyValue(buttons[finalI].scaleYProperty(), 1)),
-                            new KeyFrame(Duration.seconds(0.25), new KeyValue(buttons[finalI].scaleXProperty(), 1.2)),
-                            new KeyFrame(Duration.seconds(0.25), new KeyValue(buttons[finalI].scaleYProperty(), 1.2)),
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(buttons[finalI].scaleXProperty(), 1)),
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(buttons[finalI].scaleYProperty(), 1))
-                    );
-                    timeline.play();
-                });
-
-                buttonContainers[i] = new StackPane();
-                buttonContainers[i].getChildren().addAll(buttons[i], labels[i]);
-                buttonContainers[i].setAlignment(Pos.CENTER);
+                buttonContainers[finalI].setMaxSize(buttonContainers[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
             }
 
             // texte de chaque bouton
