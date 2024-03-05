@@ -2,6 +2,7 @@ package org.groupe6.slitherlink.PuzzleGenerator;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ public class Main extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
         primaryStage.setTitle("Puzzle Generator");
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("icon.png")).toExternalForm()));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
