@@ -67,7 +67,7 @@ public class Main extends Application {
 
                 // hover on
                 buttonContainers[i].setOnMouseEntered(e -> {
-                    buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
+                    buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
                     descriptionTexts[finalI].setText("PlaceHolder #" + (finalI + 1));
                     translateTransitionsReverse[finalI].stop();
                     translateTransitions[finalI].play();
@@ -82,7 +82,7 @@ public class Main extends Application {
                         descriptionTexts[finalI].setText("");
                     });
 
-                    buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
+                    buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #D9D9D9;");
                 });
 
                 buttonContainers[finalI].setMaxSize(buttonContainers[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
