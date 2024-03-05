@@ -70,11 +70,13 @@ public class Main extends Application {
                 buttonContainers[i].setOnMouseEntered(e -> {
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
                     texts[finalI].setText("PlaceHolder #" + (finalI + 1));
+                    translateTransitionsReverse[finalI].stop();
                     translateTransitions[finalI].play();
                 });
 
                 // hover off
                 buttonContainers[i].setOnMouseExited(e -> {
+                    translateTransitions[finalI].stop();
                     translateTransitionsReverse[finalI].play();
                     translateTransitionsReverse[finalI].setOnFinished(event -> { texts[finalI].setText(""); });
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
