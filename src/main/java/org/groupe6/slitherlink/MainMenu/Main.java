@@ -31,15 +31,14 @@ public class Main extends Application {
     public void start(Stage primary) throws IOException {
         try {
             HBox hBox = new HBox();
-            hBox.setPrefSize(primary.getWidth(), 512);
-            hBox.setSpacing(200); // espacement entre les enfants
-
-            // gestion des boutons
             StackPane[] buttonContainers = new StackPane[3];
             Button[] buttons = new Button[3];
-            Text[] texts = new Text[3];
+            Text[] descriptionTexts = new Text[3];
             TranslateTransition[] translateTransitions = new TranslateTransition[3];
             TranslateTransition[] translateTransitionsReverse = new TranslateTransition[3];
+
+            hBox.setPrefSize(primary.getWidth(), 512);
+            hBox.setSpacing(200);       // espacement entre les enfants
 
             // instanciation et initialisation des boutons et des labels
             for (int i = 0; i < buttons.length; i++) {
@@ -50,35 +49,45 @@ public class Main extends Application {
                 buttons[i].getStyleClass().add("button-rounded");
 
                 // positionnement de la description
-                texts[i] = new Text();
-                texts[i].setFocusTraversable(false);
-                texts[i].setMouseTransparent(true);
+                descriptionTexts[i] = new Text();
+                descriptionTexts[i].setFocusTraversable(false);
+                descriptionTexts[i].setMouseTransparent(true);
                 //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
                 buttonContainers[i] = new StackPane();
-                buttonContainers[i].getChildren().addAll(buttons[i], texts[i]);
+                buttonContainers[i].getChildren().addAll(buttons[i], descriptionTexts[i]);
                 buttonContainers[i].setAlignment(Pos.CENTER);
                 //translation text animation
-                translateTransitions[finalI] = new TranslateTransition(Duration.seconds(0.5), texts[finalI]);
+                translateTransitions[finalI] = new TranslateTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
                 translateTransitions[finalI].setFromY(200);
                 translateTransitions[finalI].setToY(150);
-                //translation text animation reverse
-                translateTransitionsReverse[finalI] = new TranslateTransition(Duration.seconds(0.5), texts[finalI]);
+
+                translateTransitionsReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
                 translateTransitionsReverse[finalI].setFromY(150);
                 translateTransitionsReverse[finalI].setToY(200);
 
                 // hover on
                 buttonContainers[i].setOnMouseEntered(e -> {
+                    // Style et texte lorsque la souris entre
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #e0ac1e;");
-                    texts[finalI].setText("PlaceHolder #" + (finalI + 1));
+                    descriptionTexts[finalI].setText("PlaceHolder #" + (finalI + 1));
+
+                    // Arrêter l'animation inverse si elle est en cours
                     translateTransitionsReverse[finalI].stop();
                     translateTransitions[finalI].play();
                 });
 
                 // hover off
                 buttonContainers[i].setOnMouseExited(e -> {
+                    // Arrêter l'animation normale si elle est en cours
                     translateTransitions[finalI].stop();
                     translateTransitionsReverse[finalI].play();
-                    translateTransitionsReverse[finalI].setOnFinished(event -> { texts[finalI].setText(""); });
+
+                    // Gérer l'événement lorsque l'animation inverse est terminée
+                    translateTransitionsReverse[finalI].setOnFinished(event -> {
+                        descriptionTexts[finalI].setText("");
+                    });
+
+                    // Rétablir le style du bouton
                     buttons[finalI].setStyle("-fx-background-radius: 0; -fx-background-color: #D9D9D9;");
                 });
 
@@ -104,8 +113,8 @@ public class Main extends Application {
             primary.setTitle("SlitherLink");
             primary.setResizable(true);
             primary.setMaximized(true);
-
             primary.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
