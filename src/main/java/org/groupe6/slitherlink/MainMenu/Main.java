@@ -1,9 +1,6 @@
 package org.groupe6.slitherlink.MainMenu;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -30,15 +28,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primary) throws IOException {
         try {
-            HBox hBox = new HBox();
+            HBox MainMenu = new HBox();
+            HBox[] descriptionBackground = new HBox[3];
             StackPane[] buttonContainers = new StackPane[3];
             Button[] buttons = new Button[3];
             Text[] descriptionTexts = new Text[3];
-            TranslateTransition[] translateTransitions = new TranslateTransition[3];
-            TranslateTransition[] translateTransitionsReverse = new TranslateTransition[3];
 
-            hBox.setPrefSize(primary.getWidth(), 512);
-            hBox.setSpacing(200);       // espacement entre les enfants
+            // animations
+            TranslateTransition[] rectangleTransition = new TranslateTransition[3];
+            TranslateTransition[] rectangleTransitionReverse = new TranslateTransition[3];
+            FadeTransition[] fadeTransition = new FadeTransition[3];
+            FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
+            Rectangle[] clipRectangle = new Rectangle[3];
+
+            MainMenu.setPrefSize(primary.getWidth(), 512);
+            MainMenu.setSpacing(200);       // espacement entre les enfants
 
             // instanciation et initialisation des boutons et des labels
             for (int i = 0; i < buttons.length; i++) {
@@ -48,40 +52,55 @@ public class Main extends Application {
                 buttons[i].setPrefSize(350, 512);
                 buttons[i].getStyleClass().add("button-rounded");
 
+                descriptionBackground[i] = new HBox();
+                descriptionBackground[i].setMaxSize(buttons[i].getPrefWidth(), 100);
+                descriptionBackground[i].setStyle("-fx-background-color: transparent;");
+                StackPane.setAlignment(descriptionBackground[i], Pos.BOTTOM_CENTER);
+
                 // positionnement de la description
                 descriptionTexts[i] = new Text();
                 descriptionTexts[i].setFocusTraversable(false);
                 descriptionTexts[i].setMouseTransparent(true);
+                descriptionTexts[i].setTranslateY(200);
                 //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
                 buttonContainers[i] = new StackPane();
-                buttonContainers[i].getChildren().addAll(buttons[i], descriptionTexts[i]);
+                buttonContainers[i].getChildren().addAll(buttons[i], descriptionTexts[i], descriptionBackground[i]);
                 buttonContainers[i].setAlignment(Pos.CENTER);
                 //translation text animation
-                translateTransitions[finalI] = new TranslateTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
-                translateTransitions[finalI].setFromY(200);
-                translateTransitions[finalI].setToY(150);
 
-                translateTransitionsReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
-                translateTransitionsReverse[finalI].setFromY(150);
-                translateTransitionsReverse[finalI].setToY(200);
+                clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), 100);
+                descriptionBackground[finalI].setClip(clipRectangle[finalI]);
+                rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
+                rectangleTransition[finalI].setFromY(100);
+                rectangleTransition[finalI].setToY(-100);
+
+                rectangleTransitionReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
+                rectangleTransitionReverse[finalI].setFromY(-100);
+                rectangleTransitionReverse[finalI].setToY(100);
+
+                fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.5), descriptionTexts[finalI]);
+                fadeTransition[finalI].setFromValue(0.0);
+                fadeTransition[finalI].setToValue(1.0);
+
+                fadeTransitionReverse[finalI] = new FadeTransition(Duration.seconds(0.2), descriptionTexts[finalI]);
+                fadeTransitionReverse[finalI].setFromValue(1.0);
+                fadeTransitionReverse[finalI].setToValue(0.0);
 
                 // hover on
                 buttonContainers[i].setOnMouseEntered(e -> {
                     buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
                     descriptionTexts[finalI].setText("PlaceHolder #" + (finalI + 1));
-                    translateTransitionsReverse[finalI].stop();
-                    translateTransitions[finalI].play();
+                    descriptionBackground[finalI].setStyle("-fx-background-color: gray;");
+                    rectangleTransition[finalI].play();
+                    fadeTransition[finalI].play();
                 });
 
                 // hover off
                 buttonContainers[i].setOnMouseExited(e -> {
-                    translateTransitions[finalI].stop();
-                    translateTransitionsReverse[finalI].play();
-
-                    translateTransitionsReverse[finalI].setOnFinished(event -> {
-                        descriptionTexts[finalI].setText("");
-                    });
-
+                    rectangleTransition[finalI].stop();
+                    fadeTransition[finalI].stop();
+                    rectangleTransitionReverse[finalI].play();
+                    fadeTransitionReverse[finalI].play();
                     buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #D9D9D9;");
                 });
 
@@ -94,11 +113,11 @@ public class Main extends Application {
             buttons[2].setText("Entraînement");
 
             // alignement de ma boîte
-            hBox.setAlignment(Pos.CENTER);
-            hBox.getChildren().addAll(buttonContainers);
+            MainMenu.setAlignment(Pos.CENTER);
+            MainMenu.getChildren().addAll(buttonContainers);
 
             // gestion de la scène
-            Scene Main = new Scene(hBox, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
+            Scene Main = new Scene(MainMenu, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
             Main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
             // gestion de la fenêtre
