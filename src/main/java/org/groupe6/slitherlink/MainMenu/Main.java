@@ -64,19 +64,21 @@ public class Main extends Application {
                 descriptionTexts[i].setTranslateY(200);
                 //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
                 buttonContainers[i] = new StackPane();
-                buttonContainers[i].getChildren().addAll(buttons[i], descriptionTexts[i], descriptionBackground[i]);
+                buttonContainers[i].getChildren().addAll(buttons[i], descriptionBackground[i], descriptionTexts[i]);
                 buttonContainers[i].setAlignment(Pos.CENTER);
                 //translation text animation
 
                 clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), 100);
                 descriptionBackground[finalI].setClip(clipRectangle[finalI]);
                 rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
-                rectangleTransition[finalI].setFromY(100);
-                rectangleTransition[finalI].setToY(-100);
+                rectangleTransition[finalI].setFromY(150);
+                rectangleTransition[finalI].setToY(0);
+                descriptionBackground[i].setFocusTraversable(false);
+                descriptionBackground[i].setMouseTransparent(true);
 
                 rectangleTransitionReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
-                rectangleTransitionReverse[finalI].setFromY(-100);
-                rectangleTransitionReverse[finalI].setToY(100);
+                rectangleTransitionReverse[finalI].setFromY(0);
+                rectangleTransitionReverse[finalI].setToY(150);
 
                 fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.5), descriptionTexts[finalI]);
                 fadeTransition[finalI].setFromValue(0.0);
