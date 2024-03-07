@@ -56,6 +56,7 @@ public class Main extends Application {
                 descriptionBackground[i].setMaxSize(buttons[i].getPrefWidth(), 100);
                 descriptionBackground[i].setStyle("-fx-background-color: transparent;");
                 StackPane.setAlignment(descriptionBackground[i], Pos.BOTTOM_CENTER);
+                descriptionBackground[i].setTranslateY(1);
 
                 // positionnement de la description
                 descriptionTexts[i] = new Text();
@@ -69,16 +70,18 @@ public class Main extends Application {
                 //translation text animation
 
                 clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), 100);
+                descriptionBackground[finalI].getStyleClass().add("description-background");
                 descriptionBackground[finalI].setClip(clipRectangle[finalI]);
-                rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
-                rectangleTransition[finalI].setFromY(150);
-                rectangleTransition[finalI].setToY(0);
                 descriptionBackground[i].setFocusTraversable(false);
                 descriptionBackground[i].setMouseTransparent(true);
 
+                rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
+                rectangleTransition[finalI].setFromY(200);
+                rectangleTransition[finalI].setToY(0);
+
                 rectangleTransitionReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
                 rectangleTransitionReverse[finalI].setFromY(0);
-                rectangleTransitionReverse[finalI].setToY(150);
+                rectangleTransitionReverse[finalI].setToY(200);
 
                 fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.5), descriptionTexts[finalI]);
                 fadeTransition[finalI].setFromValue(0.0);

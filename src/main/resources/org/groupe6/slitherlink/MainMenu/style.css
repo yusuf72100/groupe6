@@ -1,3 +1,8 @@
+.description-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 0 10px 10px;
+}
+
 .button-rounded {
     -fx-background-radius: 10px;
 }
