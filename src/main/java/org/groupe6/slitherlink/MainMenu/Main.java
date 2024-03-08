@@ -75,15 +75,15 @@ public class Main extends Application {
                 descriptionBackground[i].setFocusTraversable(false);
                 descriptionBackground[i].setMouseTransparent(true);
 
-                rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
+                rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.2), clipRectangle[finalI]);
                 rectangleTransition[finalI].setFromY(200);
                 rectangleTransition[finalI].setToY(0);
 
-                rectangleTransitionReverse[finalI] = new TranslateTransition(Duration.seconds(0.3), clipRectangle[finalI]);
+                rectangleTransitionReverse[finalI] = new TranslateTransition(Duration.seconds(0.2), clipRectangle[finalI]);
                 rectangleTransitionReverse[finalI].setFromY(0);
                 rectangleTransitionReverse[finalI].setToY(200);
 
-                fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.5), descriptionTexts[finalI]);
+                fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
                 fadeTransition[finalI].setFromValue(0.0);
                 fadeTransition[finalI].setToValue(1.0);
 
