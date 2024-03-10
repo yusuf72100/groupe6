@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink.MainMenu;
+package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.application.Application;
 

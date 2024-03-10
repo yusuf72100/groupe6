@@ -3,6 +3,13 @@
     -fx-background-radius: 0 0 10px 10px;
 }
 
+.description-text {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-text-fill: black;
+}
+
 .button-rounded {
     -fx-background-radius: 10px;
 }
@@ -10,11 +17,16 @@
 .button {
     -fx-background-radius: 10px;
     -fx-background-color: #D9D9D9;
-    -fx-text-fill: #ffffff;
     -fx-padding: 10 20;
     -fx-cursor: hand;
-    -fx-font-size: 16;
     -fx-transition: background 0.3s, color 0.3s;
+}
+
+.button-text {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 35;
+    -fx-text-fill: black;
 }
 
 .clicked-button {

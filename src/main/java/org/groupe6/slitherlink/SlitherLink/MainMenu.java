@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink.MainMenu;
+package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -21,11 +21,13 @@ import java.util.Objects;
 public class MainMenu implements Menu {
 
     public static HBox getMenu() {
+        String[] buttonTextsLabels = {"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
         HBox MainMenu = new HBox();
-        HBox[] descriptionBackground = new HBox[3];
-        StackPane[] buttonContainers = new StackPane[3];
+        HBox[] descriptionsBackground = new HBox[3];
+        StackPane[] buttonsContainer = new StackPane[3];
         Button[] buttons = new Button[3];
-        Text[] descriptionTexts = new Text[3];
+        Text[] descriptionText = new Text[3];
+        Text[] buttonsText = new Text[3];
 
         // animations
         TranslateTransition[] rectangleTransition = new TranslateTransition[3];
@@ -40,32 +42,36 @@ public class MainMenu implements Menu {
         for (int i = 0; i < buttons.length; i++) {
             int finalI = i;
 
-            buttons[i] = new Button();
-            buttons[i].setPrefSize(350, 512);
-            buttons[i].getStyleClass().add("button-rounded");
+            buttons[finalI] = new Button();
+            buttons[finalI].setPrefSize(350, 512);
+            buttons[finalI].getStyleClass().add("button-rounded");
 
-            descriptionBackground[i] = new HBox();
-            descriptionBackground[i].setMaxSize(buttons[i].getPrefWidth(), 100);
-            descriptionBackground[i].setStyle("-fx-background-color: transparent;");
-            StackPane.setAlignment(descriptionBackground[i], Pos.BOTTOM_CENTER);
-            descriptionBackground[i].setTranslateY(1);
+            buttonsText[finalI] = new Text(buttonTextsLabels[finalI]);
+            buttonsText[finalI].getStyleClass().add("button-text");
+
+            descriptionsBackground[finalI] = new HBox();
+            descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(), 100);
+            descriptionsBackground[finalI].setStyle("-fx-background-color: transparent;");
+            descriptionsBackground[finalI].setTranslateY(1);
+            StackPane.setAlignment(descriptionsBackground[finalI], Pos.BOTTOM_CENTER);
 
             // positionnement de la description
-            descriptionTexts[i] = new Text();
-            descriptionTexts[i].setFocusTraversable(false);
-            descriptionTexts[i].setMouseTransparent(true);
-            descriptionTexts[i].setTranslateY(200);
-            //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
-            buttonContainers[i] = new StackPane();
-            buttonContainers[i].getChildren().addAll(buttons[i], descriptionBackground[i], descriptionTexts[i]);
-            buttonContainers[i].setAlignment(Pos.CENTER);
+            descriptionText[finalI] = new Text();
+            descriptionText[finalI].setFocusTraversable(false);
+            descriptionText[finalI].setMouseTransparent(true);
+            descriptionText[finalI].setTranslateY(200);
+            descriptionText[finalI].getStyleClass().add("description-text");
+            //labels[finalI].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
+            buttonsContainer[finalI] = new StackPane();
+            buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI], descriptionsBackground[finalI], descriptionText[finalI]);
+            buttonsContainer[finalI].setAlignment(Pos.CENTER);
             //translation text animation
 
             clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), 100);
-            descriptionBackground[finalI].getStyleClass().add("description-background");
-            descriptionBackground[finalI].setClip(clipRectangle[finalI]);
-            descriptionBackground[i].setFocusTraversable(false);
-            descriptionBackground[i].setMouseTransparent(true);
+            descriptionsBackground[finalI].getStyleClass().add("description-background");
+            descriptionsBackground[finalI].setClip(clipRectangle[finalI]);
+            descriptionsBackground[finalI].setFocusTraversable(false);
+            descriptionsBackground[finalI].setMouseTransparent(true);
 
             rectangleTransition[finalI] = new TranslateTransition(Duration.seconds(0.2), clipRectangle[finalI]);
             rectangleTransition[finalI].setFromY(200);
@@ -75,25 +81,25 @@ public class MainMenu implements Menu {
             rectangleTransitionReverse[finalI].setFromY(0);
             rectangleTransitionReverse[finalI].setToY(200);
 
-            fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.3), descriptionTexts[finalI]);
+            fadeTransition[finalI] = new FadeTransition(Duration.seconds(0.3), descriptionText[finalI]);
             fadeTransition[finalI].setFromValue(0.0);
             fadeTransition[finalI].setToValue(1.0);
 
-            fadeTransitionReverse[finalI] = new FadeTransition(Duration.seconds(0.2), descriptionTexts[finalI]);
+            fadeTransitionReverse[finalI] = new FadeTransition(Duration.seconds(0.2), descriptionText[finalI]);
             fadeTransitionReverse[finalI].setFromValue(1.0);
             fadeTransitionReverse[finalI].setToValue(0.0);
 
             // hover on
-            buttonContainers[i].setOnMouseEntered(e -> {
+            buttonsContainer[finalI].setOnMouseEntered(e -> {
                 buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
-                descriptionTexts[finalI].setText("PlaceHolder #" + (finalI + 1));
-                descriptionBackground[finalI].setStyle("-fx-background-color: gray;");
+                descriptionText[finalI].setText("PlaceHolder #" + (finalI + 1));
+                descriptionsBackground[finalI].setStyle("-fx-background-color: gray;");
                 rectangleTransition[finalI].play();
                 fadeTransition[finalI].play();
             });
 
             // hover off
-            buttonContainers[i].setOnMouseExited(e -> {
+            buttonsContainer[finalI].setOnMouseExited(e -> {
                 rectangleTransition[finalI].stop();
                 fadeTransition[finalI].stop();
                 rectangleTransitionReverse[finalI].play();
@@ -101,17 +107,12 @@ public class MainMenu implements Menu {
                 buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #D9D9D9;");
             });
 
-            buttonContainers[finalI].setMaxSize(buttonContainers[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
+            buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
         }
-
-        // texte de chaque bouton
-        buttons[0].setText("Jouer");
-        buttons[1].setText("Options");
-        buttons[2].setText("Entraînement");
 
         // alignement de ma boîte
         MainMenu.setAlignment(Pos.CENTER);
-        MainMenu.getChildren().addAll(buttonContainers);
+        MainMenu.getChildren().addAll(buttonsContainer);
 
         return MainMenu;
     }
