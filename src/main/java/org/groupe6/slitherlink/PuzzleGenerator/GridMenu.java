@@ -190,7 +190,7 @@ public class GridMenu implements Menu{
         this.largeur = this.puzzle.getLongueur();
 
         initCellules(this.longueur, this.largeur);
-        this.cellulesData = puzzle.getSolutionCelluleData();
+        this.cellulesData = this.puzzle.getSolutionCelluleData();
 
         for (int i  = 0 ; i < this.cellulesData.length; i++) {
             for (int j = 0; j < this.cellulesData[i].length; j++) {
