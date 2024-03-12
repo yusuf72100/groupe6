@@ -36,9 +36,8 @@ public class MainMenu implements Menu {
         FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
         Rectangle[] clipRectangle = new Rectangle[3];
 
-        MainMenu.setSpacing(200);       // espacement entre les enfants
+        MainMenu.setSpacing(200);       // espacement entre les éléments
 
-        // instanciation et initialisation des boutons et des labels
         for (int i = 0; i < buttons.length; i++) {
             int finalI = i;
 
@@ -48,6 +47,8 @@ public class MainMenu implements Menu {
 
             buttonsText[finalI] = new Text(buttonTextsLabels[finalI]);
             buttonsText[finalI].getStyleClass().add("button-text");
+            buttonsText[finalI].setFocusTraversable(false);
+            buttonsText[finalI].setMouseTransparent(true);
 
             descriptionsBackground[finalI] = new HBox();
             descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(), 100);

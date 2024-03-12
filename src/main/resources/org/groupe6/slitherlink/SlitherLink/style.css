@@ -27,28 +27,12 @@
     -fx-font-weight: bold;
     -fx-font-size: 35;
     -fx-text-fill: black;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
 }
 
 .clicked-button {
     -fx-background-color: #e74c3c;
     -fx-text-fill: #ffffff;
     -fx-animation: pulse 0.5s ease-out;
-}
-
-@keyframes pulse {
-    0% {
-        -fx-background-radius: 5;
-        -fx-scale-x: 1;
-        -fx-scale-y: 1;
-    }
-    50% {
-        -fx-background-radius: 50;
-        -fx-scale-x: 1.2;
-        -fx-scale-y: 1.2;
-    }
-    100% {
-        -fx-background-radius: 5;
-        -fx-scale-x: 1;
-        -fx-scale-y: 1;
-    }
 }
