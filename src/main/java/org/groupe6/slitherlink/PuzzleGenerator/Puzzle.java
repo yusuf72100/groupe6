@@ -6,99 +6,75 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * @author Yamis
  */
 
-/**
- * Classe Puzzle qui implémente Serializable
- */
+// Classe Puzzle qui implémente Serializable
 public class Puzzle implements Serializable {
 
-    private final PartieInfos infoPartie; // Les informations de la partie
-    private final int largeur; // Nombre de lignes
-    private final int longueur; // Nombre de colonnes
-    private final CelluleData[][] grilleCellules; // Grille de cellules
-    private final CelluleData[][] sollutionPuzzle; // Solution du puzzle
-    // private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
-    // private List<AideInfos> historiqueAide; // Historique des aides
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Méthode pour obtenir les informations de la partie
-     * @return
-     */
-    public PartieInfos getInfoPartie() {
-        return infoPartie;
+    private int largeur; // Nombre de lignes
+    private int longueur; // Nombre de colonnes
+    private CelluleData[][] solutionPuzzle; // Grille avec la solution du puzzle
+    private CelluleData[][] grilleCellules; // Grille de cellules du puzzle
+    private DifficultePuzzle difficulte; // Difficulté du puzzle
+
+    // Constructeur de la classe Puzzle
+    public Puzzle(int largeur, int longueur, CelluleData[][] solutionPuzzle, DifficultePuzzle difficulte) {
+        if (solutionPuzzle.length != largeur || solutionPuzzle[0].length != longueur) {
+            throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
+        }
+
+        this.largeur = largeur;
+        this.longueur = longueur;
+        this.solutionPuzzle = solutionPuzzle;
+        this.grilleCellules = genererGrillePropre();
+        this.difficulte = difficulte;
     }
 
-    /**
-     * Méthode pour obtenir la largeur
-     * @return
-     */
+    // Méthode pour obtenir la largeur
     public int getLargeur() {
         return largeur;
     }
 
-    /**
-     * Méthode pour obtenir la longueur
-     * @return
-     */
+    // Méthode pour obtenir la longueur
     public int getLongueur() {
         return longueur;
     }
 
-    /**
-     * Constructeur de la classe Puzzle
-     * @param infoPartie
-     * @param largeur
-     * @param longueur
-     * @param sollutionPuzzle
-     */
-    public Puzzle(PartieInfos infoPartie, int largeur, int longueur, CelluleData[][] sollutionPuzzle) {
-        if (sollutionPuzzle.length != largeur || sollutionPuzzle[0].length != longueur) {
-            throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
-        }
-
-        this.infoPartie = infoPartie;
-        this.largeur = largeur;
-        this.longueur = longueur;
-        this.sollutionPuzzle = sollutionPuzzle;
-        this.grilleCellules = genererGrillePropre();
+    public DifficultePuzzle getDifficulte() {
+        return difficulte;
     }
 
-    /**
-     * Méthode pour générer un puzzle propre a partir de la solution
-     * @return grillePropre
-     */
+    // Méthode pour générer un puzzle propre a partir de la solution
     private CelluleData[][] genererGrillePropre() {
         CelluleData[][] grillePropre = new CelluleData[largeur][longueur];
 
-        for (int y = 0; y < sollutionPuzzle.length; y++) {
-            for (int x = 0; x < sollutionPuzzle[y].length; x++) {
-                CelluleData.ValeurCote[] cotesVide = new CelluleData.ValeurCote[4];
-                Arrays.fill(cotesVide, CelluleData.ValeurCote.VIDE);
-                grillePropre[y][x] = new CelluleData(sollutionPuzzle[y][x].getValeur(), cotesVide);
+        for (int y = 0; y < solutionPuzzle.length; y++) {
+            for (int x = 0; x < solutionPuzzle[y].length; x++) {
+                ValeurCote[] cotesVide = new ValeurCote[4];
+                for (int i = 0; i < cotesVide.length; i++) {
+                    cotesVide[i] = ValeurCote.VIDE;
+                }
+                grillePropre[y][x] = new CelluleData(solutionPuzzle[y][x].getValeur(), cotesVide);
             }
         }
 
         return grillePropre;
     }
 
-    /**
-     * Méthode pour afficher le puzzle dans la console
-     * @return
-     */
+    public CelluleData[][] getSolutionCelluleData() {
+        return this.solutionPuzzle;
+    }
+
+    // Méthode pour afficher le puzzle dans la console
     @Override
     public String toString() {
         String str = "";
-        str += "Date : " + infoPartie.getDate() + "\n";
-        str += "Score : " + infoPartie.getScore() + "\n";
-        str += "Chrono : " + infoPartie.getChrono() + "\n";
-        str += "Complète : " + infoPartie.getComplete() + "\n";
-        str += "Mode de jeu : " + infoPartie.getModeJeu() + "\n";
-        str += "Difficulté : " + infoPartie.getDifficulte() + "\n";
+        str += "Difficulté : " + difficulte + "\n";
         str += "Largeur : " + largeur + "\n";
         str += "Longueur : " + longueur + "\n";
         str += "Grille : \n";
@@ -113,23 +89,68 @@ public class Puzzle implements Serializable {
         return str;
     }
 
-    /**
-     * Méthode pour obenir une cellule dans la grille
-     * @param y
-     * @param x
-     * @return
-     */
+    // Méthode pour obenir une cellule dans la grille
     public CelluleData getCellule(int y, int x) {
         return grilleCellules[y][x];
     }
 
-    public CelluleData[][] getCelluleData() { return this.sollutionPuzzle; }
+    // Méthode pour savoir si le puzzle est complet
+    public boolean estComplet() {
+        for (int y = 0; y < solutionPuzzle.length; y++) {
+            for (int x = 0; x < solutionPuzzle[y].length; x++) {
+                System.out.print("-----------------");
+                System.out.println();
+                System.out.print(solutionPuzzle[y][x].getValeur() + "-");
+                for (int i = 0; i < 4; i++) {
+                    System.out.print(solutionPuzzle[y][x].getCote(i) + ",");
+                }
+                System.out.println();
+                System.out.print(grilleCellules[y][x].getValeur() + "-");
+                for (int i = 0; i < 4; i++) {
+                    System.out.print(grilleCellules[y][x].getCote(i) + ",");
+                }
+                System.out.println();
 
-    /**
-     * Méthode pour sauvegarder le puzzle
-     * @param puzzle
-     * @param chemin
-     */
+                if (!solutionPuzzle[y][x].equals(grilleCellules[y][x])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public CelluleData getCelluleAdjacente(int y, int x, int cote) {
+        int yAdj = y;
+        int xAdj = x;
+
+        switch (cote) {
+            case CelluleData.HAUT:
+                yAdj--;
+                break;
+            case CelluleData.BAS:
+                yAdj++;
+                break;
+            case CelluleData.GAUCHE:
+                xAdj--;
+                break;
+            case CelluleData.DROITE:
+                xAdj++;
+                break;
+        }
+
+        if (estDansGrille(yAdj, xAdj)) {
+            return grilleCellules[yAdj][xAdj];
+        } else {
+            return null;
+        }
+    }
+
+    public boolean estDansGrille(int y, int x) {
+        return y >= 0 && y < largeur && x >= 0 && x < longueur;
+    }
+
+    // Méthode pour sauvegarder le puzzle
     public static void sauvegarderPuzzle(Puzzle puzzle, String chemin) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))) {
             oos.writeObject(puzzle);
@@ -138,11 +159,7 @@ public class Puzzle implements Serializable {
         }
     }
 
-    /**
-     * Méthode pour charger le puzzle
-     * @param chemin
-     * @return
-     */
+    // Méthode pour charger le puzzle
     public static Puzzle chargerPuzzle(String chemin) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
             Puzzle puzzle = (Puzzle) ois.readObject();

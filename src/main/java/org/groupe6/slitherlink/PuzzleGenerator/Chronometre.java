@@ -1,4 +1,4 @@
-package model;
+package org.groupe6.slitherlink.PuzzleGenerator;
 
 import java.time.Duration;
 

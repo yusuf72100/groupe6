@@ -8,12 +8,15 @@ import java.util.Objects;
 
 public class Main extends Application {
     private static Scene scene;
+    private static MainMenu main;
     private static GridMenu grid;
     private static Stage MainStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainStage = primaryStage;
-        scene = new Scene(MainMenu.getMenu(), 1000, 800);
+        main = new MainMenu();
+        scene = new Scene(main.getMenu(), 1000, 800);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
         primaryStage.setTitle("Puzzle Generator");
@@ -23,7 +26,7 @@ public class Main extends Application {
     }
 
     public static void showMainMenu() {
-        scene.setRoot(MainMenu.getMenu());
+        scene.setRoot(main.getMenu());
     }
 
     /**
@@ -32,9 +35,9 @@ public class Main extends Application {
      * @param largeur
      * @param diff
      */
-    public static void showNewPuzzle(int longueur, int largeur, PartieInfos.DifficultePuzzle diff) {
+    public static void showNewPuzzle(int longueur, int largeur, DifficultePuzzle diff) {
         grid = new GridMenu(longueur, largeur, diff);
-        scene.setRoot(GridMenu.getMenu(true));
+        scene.setRoot(grid.getMenu(true));
     }
 
     /**
@@ -42,9 +45,9 @@ public class Main extends Application {
      * @param selectedFile
      */
     public static void showLoadedPuzzle(java.io.File selectedFile) {
-        grid = new GridMenu(1, 1, PartieInfos.DifficultePuzzle.FACILE);             // on charge un puzzle de base
-        GridMenu.initNewPuzzle(selectedFile.getAbsolutePath());
-        scene.setRoot(GridMenu.getMenu(false));
+        grid = new GridMenu(1, 1, DifficultePuzzle.FACILE);             // on charge un puzzle de base
+        grid.initNewPuzzle(selectedFile.getAbsolutePath());
+        scene.setRoot(grid.getMenu(false));
     }
 
     /**

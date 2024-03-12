@@ -18,58 +18,57 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GridMenu implements Menu{
-    private static Button sauvegarder;
-    private static Button home;
-    private static Label infos;
-    private static VBox layout_v;
-    private static GridPane gridPane;
-    private static VBox container;
-    private static CelluleNode[][] celluleNodes;
-    private static CelluleData[][] cellulesData;
-    private static int compteur;        // utilisé à des fins de test
-    private static Puzzle puzzle;
-    private static Scene scene;
-    private static int longueur;
-    private static int largeur;
+    private Button sauvegarder;
+    private Button home;
+    private Label infos;
+    private VBox layout_v;
+    private GridPane gridPane;
+    private VBox container;
+    private CelluleNode[][] celluleNodes;
+    private CelluleData[][] cellulesData;
+    private int compteur;        // utilisé à des fins de test
+    private Puzzle puzzle;
+    private Scene scene;
+    private int longueur;
+    private int largeur;
 
-    GridMenu(int l, int L, PartieInfos.DifficultePuzzle diff){
-        compteur = 0;
-        infos = new Label();
-        infos.setAlignment(Pos.CENTER);
+    GridMenu(int l, int L, DifficultePuzzle diff){
+        this.compteur = 0;
+        this.infos = new Label();
+        this.infos.setAlignment(Pos.CENTER);
 
-        home = new Button();
-        home.getStyleClass().add("button-home");
-        home.setPrefSize(30, 30);
-        sauvegarder = new Button();
-        sauvegarder.getStyleClass().add("button-sauvegarder");
-        sauvegarder.setPrefSize(30, 30);
+        this.home = new Button();
+        this.home.getStyleClass().add("button-home");
+        this.home.setPrefSize(30, 30);
+        this.sauvegarder = new Button();
+        this.sauvegarder.getStyleClass().add("button-sauvegarder");
+        this.sauvegarder.setPrefSize(30, 30);
 
-        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), sauvegarder);
+        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), this.sauvegarder);
         fadeSauvegarder.setFromValue(1.0);
         fadeSauvegarder.setToValue(0.2);
 
-        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), home);
+        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), this.home);
         fadeHome.setFromValue(1.0);
         fadeHome.setToValue(0.2);
 
-        sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, sauvegarder); });
-        sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, sauvegarder); });
-        home.setOnMouseEntered(event -> { mouseEntered(fadeHome, home); });
-        home.setOnMouseExited(event -> { mouseExited(fadeHome, home); });
+        this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
+        this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
+        this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
+        this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
 
-        gridPane = new GridPane();
-        container = new VBox(infos, gridPane);
-        longueur = l;
-        largeur = L;
-        initCellules(longueur, largeur);
-        puzzle = new Puzzle(new PartieInfos(null, null, 0, false, null, diff), longueur, largeur, cellulesData);
-        scene = new Scene(MainMenu.getMenu(), 1000, 800);
+        this.gridPane = new GridPane();
+        this.container = new VBox(infos, gridPane);
+        this.longueur = l;
+        this.largeur = L;
+        initCellules(this.longueur, this.largeur);
+        this.puzzle = new Puzzle(l, L, this.cellulesData, diff);
     }
 
     /**
      * Gestion de chaque bouton (barre)
      */
-    public static class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
+    public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i, j;
 
         public CelluleButtonEventHandler(int i, int j, CelluleData[][] data) {
@@ -86,14 +85,14 @@ public class GridMenu implements Menu{
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
-            CelluleData.ValeurCote valeur = CelluleData.ValeurCote.VIDE;
+            ValeurCote valeur = ValeurCote.VIDE;
 
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
                 clickedButton.getStyleClass().remove("clicked");
             } else {
                 clickedButton.getStyleClass().add("clicked");
-                valeur = CelluleData.ValeurCote.TRAIT;
+                valeur = ValeurCote.TRAIT;
             }
 
             switch(clickedButton.getText()){
@@ -114,7 +113,7 @@ public class GridMenu implements Menu{
      * @return
      * @param <T>
      */
-    public static <T> HBox getMenu(T... args) {
+    public <T> HBox getMenu(T... args) {
         // handler bouton de sauvegarde
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -169,14 +168,14 @@ public class GridMenu implements Menu{
      * @param l
      * @param L
      */
-    private static void initCellules(int l, int L) {
-        celluleNodes = new CelluleNode[l][L];
-        cellulesData = new CelluleData[l][L];
+    private void initCellules(int l, int L) {
+        this.celluleNodes = new CelluleNode[l][L];
+        this.cellulesData = new CelluleData[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
-                celluleNodes[i][j] = new CelluleNode();
-                cellulesData[i][j] = new CelluleData(-1, new CelluleData.ValeurCote[] { CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE, CelluleData.ValeurCote.VIDE } );
+                this.celluleNodes[i][j] = new CelluleNode();
+                this.cellulesData[i][j] = new CelluleData(-1, new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE } );
             }
         }
     }
@@ -185,29 +184,28 @@ public class GridMenu implements Menu{
      * Initialise un nouveau puzzle
      * @param path
      */
-    public static void initNewPuzzle(String path) {
-        puzzle = Puzzle.chargerPuzzle(path);
-        longueur = puzzle.getLargeur();
-        largeur = puzzle.getLongueur();
+    public void initNewPuzzle(String path) {
+        this.puzzle = Puzzle.chargerPuzzle(path);
+        this.longueur = this.puzzle.getLargeur();
+        this.largeur = this.puzzle.getLongueur();
 
-        initCellules(longueur, largeur);
+        initCellules(this.longueur, this.largeur);
+        this.cellulesData = puzzle.getSolutionCelluleData();
 
-        cellulesData = puzzle.getCelluleData();
+        for (int i  = 0 ; i < this.cellulesData.length; i++) {
+            for (int j = 0; j < this.cellulesData[i].length; j++) {
+                this.celluleNodes[i][j].setLabel(this.cellulesData[i][j].getValeur());
 
-        for (int i  = 0 ; i < cellulesData.length; i++) {
-            for (int j = 0; j < cellulesData[i].length; j++) {
-                celluleNodes[i][j].setLabel(cellulesData[i][j].getValeur());
-
-                if(cellulesData[i][j].getValeur() != -1) {
-                    celluleNodes[i][j].setLabeText(cellulesData[i][j].getValeur());
+                if(this.cellulesData[i][j].getValeur() != -1) {
+                    this.celluleNodes[i][j].setLabeText(this.cellulesData[i][j].getValeur());
                 }
 
                 for (int k = 0; k < 4; k++) {
-                    switch (cellulesData[i][j].getCote(k)) {
+                    switch (this.cellulesData[i][j].getCote(k)) {
                         case VIDE :
                             break ;
                         case TRAIT:
-                            celluleNodes[i][j].getButton(k).getStyleClass().add("clicked");
+                            this.celluleNodes[i][j].getButton(k).getStyleClass().add("clicked");
                             break ;
                         default: // rien
                             break;
@@ -221,28 +219,28 @@ public class GridMenu implements Menu{
      * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
      * @param nouveau
      */
-    private static void afficher(boolean nouveau) {
-        switch (puzzle.getInfoPartie().getDifficulte()) {
-            case FACILE -> infos.setText("Difficulté : Facile\nDimensions : " + longueur + " X " + largeur);
-            case MOYEN -> infos.setText("Difficulté : Moyen\nDimensions : " + longueur + " X " + largeur);
-            case DIFFICILE -> infos.setText("Difficulté : Difficile\nDimensions : " + longueur + " X " + largeur);
+    private void afficher(boolean nouveau) {
+        switch (this.puzzle.getDifficulte()) {
+            case FACILE -> this.infos.setText("Difficulté : Facile\nDimensions : " + this.longueur + " X " + this.largeur);
+            case MOYEN -> this.infos.setText("Difficulté : Moyen\nDimensions : " + this.longueur + " X " + this.largeur);
+            case DIFFICILE -> this.infos.setText("Difficulté : Difficile\nDimensions : " + this.longueur + " X " + this.largeur);
         }
 
         // Colonnes
-        for (int i = 0; i < celluleNodes.length; i++) {
+        for (int i = 0; i < this.celluleNodes.length; i++) {
             // Lignes
-            for (int j = 0; j < celluleNodes[i].length; j++) {
-                if(nouveau) celluleNodes[i][j] = new CelluleNode();
+            for (int j = 0; j < this.celluleNodes[i].length; j++) {
+                if(nouveau) this.celluleNodes[i][j] = new CelluleNode();
 
                 // Coins
-                gridPane.add(celluleNodes[i][j].getCoin(0), i * 2, j * 2);            // top left
-                gridPane.add(celluleNodes[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
-                gridPane.add(celluleNodes[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
-                gridPane.add(celluleNodes[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(0), i * 2, j * 2);            // top left
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(1), i * 2 + 2, j * 2);        // top right
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(2), i * 2, j * 2 + 2);        // bottom left
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(3), i * 2 + 2, j * 2 + 2);    // bottom right
 
                 // animation fade
                 for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
-                    Button button = celluleNodes[i][j].getButton(boutonIndex);
+                    Button button = this.celluleNodes[i][j].getButton(boutonIndex);
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
 
                     button.setOnMouseEntered(event -> {
@@ -264,24 +262,24 @@ public class GridMenu implements Menu{
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
-                    gridPane.add(celluleNodes[i][j].getButton(0), i * 2 + 1, 0);   // top
-                    celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
-                    compteur++;
+                    this.gridPane.add(this.celluleNodes[i][j].getButton(0), i * 2 + 1, 0);   // top
+                    this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
+                    this.compteur++;
                 }
-                gridPane.add(celluleNodes[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
-                gridPane.add(celluleNodes[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
-                celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
-                compteur++;
+                this.gridPane.add(this.celluleNodes[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
+                this.gridPane.add(this.celluleNodes[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
+                this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
+                this.compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
-                    gridPane.add(celluleNodes[i][j].getButton(2), 0, j * 2 + 1);   // left
-                    celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
-                    compteur++;
+                    this.gridPane.add(this.celluleNodes[i][j].getButton(2), 0, j * 2 + 1);   // left
+                    this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
+                    this.compteur++;
                 }
-                gridPane.add(celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
-                celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, cellulesData));
-                compteur++;
+                this.gridPane.add(this.celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
+                this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
+                this.compteur++;
             }
         }
     }

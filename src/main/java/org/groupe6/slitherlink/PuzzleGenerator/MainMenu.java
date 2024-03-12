@@ -43,7 +43,8 @@ public class MainMenu implements Menu {
      * @return
      * @param <T>
      */
-    public static <T> VBox getMenu(T... args) {
+    public <T> VBox getMenu(T... args) {
+        Main main = new Main();
         VBox layout_v = new VBox(10);
         Button valider = new Button("Valider");
         Button charger = new Button("Charger");
@@ -74,13 +75,13 @@ public class MainMenu implements Menu {
                     System.out.println("Longueur: " + Integer.parseInt(longueurValue));
                     System.out.println("Largeur: " + Integer.parseInt(largeurValue));
 
-                    PartieInfos.DifficultePuzzle diff = switch (comboBox.getValue()) {
-                        case "Moyen" -> PartieInfos.DifficultePuzzle.MOYEN;
-                        case "Difficile" -> PartieInfos.DifficultePuzzle.DIFFICILE;
-                        default -> PartieInfos.DifficultePuzzle.FACILE;
+                    DifficultePuzzle diff = switch (comboBox.getValue()) {
+                        case "Moyen" -> DifficultePuzzle.MOYEN;
+                        case "Difficile" -> DifficultePuzzle.DIFFICILE;
+                        default -> DifficultePuzzle.FACILE;
                     };
 
-                    Main.showNewPuzzle(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
+                    main.showNewPuzzle(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
                 }
@@ -98,11 +99,11 @@ public class MainMenu implements Menu {
                         new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
                 );
 
-                java.io.File selectedFile = fileChooser.showOpenDialog(Main.getStage());
+                java.io.File selectedFile = fileChooser.showOpenDialog(main.getStage());
 
                 if (selectedFile != null) {
                     System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
-                    Main.showLoadedPuzzle(selectedFile);
+                    main.showLoadedPuzzle(selectedFile);
                 } else {
                     System.out.println("Aucun fichier sélectionné.");
                 }

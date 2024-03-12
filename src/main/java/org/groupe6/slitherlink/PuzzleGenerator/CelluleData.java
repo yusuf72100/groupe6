@@ -9,28 +9,34 @@ import java.io.Serializable;
 // Classe Cellule qui implémente Serializable
 public class CelluleData implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Constantes pour les cotés
   public static final int HAUT = 0;
   public static final int BAS = 1;
   public static final int GAUCHE = 2;
   public static final int DROITE = 3;
 
-  // Enum pour les valeurs des cotés
-  public enum ValeurCote {
-    VIDE,
-    TRAIT,
-    CROIX
-  }
-
   private int valeur; // Valeur Numerique de la cellule
   private ValeurCote[] cotes; // Tableau des ValeurCote des cotés
+
+  // Constructeur de la classe Cellule
+  public CelluleData(int valeur, ValeurCote[] cotes) {
+    if (valeur < -1 || valeur > 3) {
+      throw new IllegalArgumentException("La valeur de la cellule doit être entre -1 et 3");
+    }
+
+    this.valeur = valeur;
+    this.cotes = cotes;
+  }
 
   // Méthode pour obtenir la valeur numérique de la cellule
   public int getValeur() {
     return valeur;
   }
-  public void setValeur(int valeur) {
-    this.valeur = valeur;
+
+  public void setValeur(int data) {
+    this.valeur = data;
   }
 
   // Méthode pour obtenir la valeur d'un coté
@@ -48,16 +54,6 @@ public class CelluleData implements Serializable {
     this.cotes[cote] = valeur;
   }
 
-  // Constructeur de la classe Cellule
-  public CelluleData(int valeur, ValeurCote[] cotes) {
-    if (valeur < -1 || valeur > 3) {
-      throw new IllegalArgumentException("La valeur de la cellule doit être entre 0 et 3");
-    }
-
-    this.valeur = valeur;
-    this.cotes = cotes;
-  }
-
   // Méthode obntenir le nombre de trait d'une cellule
   private int nbTrait() {
     int nbTrait = 0;
@@ -72,7 +68,7 @@ public class CelluleData implements Serializable {
   }
 
   // Méthode pour verifier si le nomre de trait maximal est atteint
-  public boolean maxTrait() {
+  private boolean maxTrait() {
     if (nbTrait() >= this.valeur) {
       return true;
     } else {
@@ -89,6 +85,60 @@ public class CelluleData implements Serializable {
           cotes[i] = ValeurCote.CROIX;
         }
       }
+    }
+  }
+
+  // Méthode pour comparer si deux cellules sont equavalentes
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (obj == this) {
+      return true;
+    }
+    if (obj.getClass() != this.getClass()) {
+      return false;
+    }
+
+    if (!(obj instanceof CelluleData)) {
+      return false;
+    }
+
+    CelluleData cellule = (CelluleData) obj;
+
+    if (this.getValeur() != cellule.getValeur()) {
+      return false;
+    }
+
+    for (int i = 0; i < cotes.length; i++) {
+      if (this.getCote(i) != cellule.getCote(i)) {
+        // Si l'un des côtés est TRAIT, la comparaison est fausse
+        if (this.getCote(i) == ValeurCote.TRAIT || cellule.getCote(i) == ValeurCote.TRAIT) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  public ValeurCote basculeTroisEtats(int cote) {
+    if (cote < 0 || cote > 3) {
+      throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+    }
+
+    ValeurCote valeur = this.getCote(cote);
+
+    switch (valeur) {
+      case VIDE:
+        return ValeurCote.TRAIT;
+      case TRAIT:
+        return ValeurCote.CROIX;
+      case CROIX:
+        return ValeurCote.VIDE;
+      default:
+        throw new IllegalArgumentException("État invalide : " + valeur);
     }
   }
 

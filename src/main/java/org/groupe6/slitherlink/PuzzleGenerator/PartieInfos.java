@@ -14,42 +14,34 @@ import java.util.Date;
  */
 public class PartieInfos implements Serializable {
 
-    // Enum pour les difficultés
-    public enum DifficultePuzzle {
-        FACILE,
-        MOYEN,
-        DIFFICILE;
-    }
+    private static final long serialVersionUID = 1L;
 
     private Date date;
     private int score;
     private Duration chrono;
     private boolean complete;
-    private String modeJeu;
-    private DifficultePuzzle difficulte;
+    private ModeJeu modeJeu;
 
     /**
      * Constructeur de la classe PartieInfos
      * 
-     * @param chrono     Le chrono de la partie
-     * @param score      Le score de la partie
-     * @param complete   Si la partie est complète ou non
-     * @param mode       Le mode de jeu de la partie
-     * @param difficulte La difficulté de la partie
+     * @param chrono   Le chrono de la partie
+     * @param score    Le score de la partie
+     * @param complete Si la partie est complète ou non
+     * @param mode     Le mode de jeu de la partie
      */
-    public PartieInfos(Date date, Duration chrono, int score, boolean complete, String mode, DifficultePuzzle difficulte) {
-        this.date = date;
+    public PartieInfos(Duration chrono, int score, boolean complete, ModeJeu mode) {
+        this.setDate();
         this.score = score;
 
         // Chrono au format DateFormat -> HH:mm:ss
         this.chrono = chrono;
         this.complete = complete;
         this.modeJeu = mode;
-        this.difficulte = difficulte;
     }
 
     /**
-     * Getter de l'attribut date
+     * Getter de l'attribute date
      * 
      * @return La date de la partie
      */
@@ -58,7 +50,7 @@ public class PartieInfos implements Serializable {
     }
 
     /**
-     * Setter de l'attribut date
+     * Setter de l'attribute date
      */
     public void setDate() {
         this.date = new Date();
@@ -143,11 +135,7 @@ public class PartieInfos implements Serializable {
      * 
      * @return Le mode de jeu de la partie
      */
-    public String getModeJeu() {
+    public ModeJeu getModeJeu() {
         return modeJeu;
-    }
-
-    public DifficultePuzzle getDifficulte() {
-        return difficulte;
     }
 }

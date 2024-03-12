@@ -1,8 +1,5 @@
 package org.groupe6.slitherlink.PuzzleGenerator;
 
-import org.groupe6.slitherlink.PuzzleGenerator.PartieInfos;
-import org.groupe6.slitherlink.PuzzleGenerator.Puzzle;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +14,13 @@ import java.util.Map;
 public class CataloguePuzzle {
 
   // Catalogue des puzzles répartis selon la difficulté
-  private Map<PartieInfos.DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
+  private Map<DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
 
   // Constructeur de la classe CataloguePuzzle
   public CataloguePuzzle() {
-    cataloguePuzzle = new HashMap<PartieInfos.DifficultePuzzle, List<Puzzle>>();
+    cataloguePuzzle = new HashMap<DifficultePuzzle, List<Puzzle>>();
 
-    for (PartieInfos.DifficultePuzzle d : PartieInfos.DifficultePuzzle.values()) {
+    for (DifficultePuzzle d : DifficultePuzzle.values()) {
       cataloguePuzzle.put(d, new ArrayList<Puzzle>());
     }
 
@@ -31,11 +28,11 @@ public class CataloguePuzzle {
 
   // Méthode pour ajouter un puzzle au catalogue
   public void ajouterPuzzle(Puzzle puzzle) {
-    cataloguePuzzle.get(puzzle.getInfoPartie().getDifficulte()).add(puzzle);
+    cataloguePuzzle.get(puzzle.getDifficulte()).add(puzzle);
   }
 
   // Méthode pour obtenir la liste des puzzles selon la difficulté
-  public List<Puzzle> getListePuzzle(PartieInfos.DifficultePuzzle difficulte) {
+  public List<Puzzle> getListePuzzle(DifficultePuzzle difficulte) {
     return cataloguePuzzle.get(difficulte);
   }
 
@@ -43,7 +40,7 @@ public class CataloguePuzzle {
   public List<Puzzle> getListePuzzle() {
     List<Puzzle> liste = new ArrayList<Puzzle>();
 
-    for (PartieInfos.DifficultePuzzle d : PartieInfos.DifficultePuzzle.values()) {
+    for (DifficultePuzzle d : DifficultePuzzle.values()) {
       liste.addAll(cataloguePuzzle.get(d));
     }
 
@@ -51,7 +48,7 @@ public class CataloguePuzzle {
   }
 
   // Méthode pour obtenir un puzzle du catalogue selon la difficulté
-  public Puzzle getPuzzle(PartieInfos.DifficultePuzzle difficulte, int numero) {
+  public Puzzle getPuzzle(DifficultePuzzle difficulte, int numero) {
     return cataloguePuzzle.get(difficulte).get(numero);
   }
 
