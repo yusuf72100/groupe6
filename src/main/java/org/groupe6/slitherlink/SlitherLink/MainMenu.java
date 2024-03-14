@@ -4,17 +4,24 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+
+import java.io.File;
+import java.util.Objects;
 
 public class MainMenu implements Menu {
 
-    public static HBox getMenu() {
+    public static StackPane getMenu() {
         String[] buttonTextsLabels = {"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
-        HBox MainMenu = new HBox();
+        HBox mainHbox = new HBox();
+        StackPane mainPane = new StackPane();
         HBox[] descriptionsBackground = new HBox[3];
         StackPane[] buttonsContainer = new StackPane[3];
         Button[] buttons = new Button[3];
@@ -28,7 +35,11 @@ public class MainMenu implements Menu {
         FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
         Rectangle[] clipRectangle = new Rectangle[3];
 
-        MainMenu.setSpacing(200);       // espacement entre les éléments
+        Text title = new Text("Slitherlink");
+        title.getStyleClass().add("title");
+        title.setTranslateY(50);
+
+        mainHbox.setSpacing(200);       // espacement entre les éléments
 
         for (int i = 0; i < buttons.length; i++) {
             int finalI = i;
@@ -85,7 +96,15 @@ public class MainMenu implements Menu {
             // hover on
             buttonsContainer[finalI].setOnMouseEntered(e -> {
                 buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
-                descriptionText[finalI].setText("PlaceHolder #" + (finalI + 1));
+                descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
+
+                switch (finalI) {
+                    case 0 : descriptionText[finalI].setText("Choisissez un mode de jeu"); break;
+                    case 1 : descriptionText[finalI].setText("Personnalisez les options du jeu"); break;
+                    case 2 : descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu"); break;
+                    default : descriptionText[finalI].setText("Placeholder #" + finalI); break;
+                }
+
                 descriptionsBackground[finalI].setStyle("-fx-background-color: gray;");
                 rectangleTransition[finalI].play();
                 fadeTransition[finalI].play();
@@ -104,9 +123,14 @@ public class MainMenu implements Menu {
         }
 
         // alignement de ma boîte
-        MainMenu.setAlignment(Pos.CENTER);
-        MainMenu.getChildren().addAll(buttonsContainer);
+        mainHbox.setAlignment(Pos.CENTER);
+        mainHbox.getChildren().addAll(buttonsContainer);
+        Image image = new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm());
+        ImageView imgview = new ImageView(image);
 
-        return MainMenu;
+        mainPane.getChildren().addAll(imgview, title, mainHbox);
+        StackPane.setAlignment(title, Pos.TOP_CENTER);
+
+        return mainPane;
     }
 }

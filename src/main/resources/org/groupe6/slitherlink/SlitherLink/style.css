@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Snake Venom';
+    src: url('SNAKV___.TTF');
+}
+
+.title {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 80;
+    -fx-fill: black;
+    -fx-stroke: black;            /* #ff005b */
+    -fx-stroke-width: 2;
+    /*-fx-effect: dropshadow(gaussian, #ff005b, 30, 0.1, 0, 0);*/
+}
+
 .description-background {
     -fx-background-color: transparent;
     -fx-background-radius: 0 0 10px 10px;
@@ -21,6 +36,12 @@
     -fx-cursor: hand;
     -fx-transition: background 0.3s, color 0.3s;
 }
+
+/*.button-rounded:hover {
+    -fx-effect: dropshadow(gaussian, #FF004E, 70, 0.05, 0, 0);
+    -fx-transition: -fx-effect 1.0s;
+}*/
+
 
 .button-text {
     -fx-font-family: 'Inter';
