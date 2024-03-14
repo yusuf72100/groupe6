@@ -81,7 +81,7 @@ public class Profil implements Serializable {
     /**
      * Methode pour obtenir le niveauAventure
      */
-    public Parametre getNiveauAventure() {
+    public int getNiveauAventure() {
         return niveauAventure;
     }
 
@@ -97,7 +97,7 @@ public class Profil implements Serializable {
      * Methode pour obtenir les parametres
      */
 
-    public int getParametre() {
+    public Parametre getParametre() {
         return parametre;
     }
 
