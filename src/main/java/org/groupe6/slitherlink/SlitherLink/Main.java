@@ -1,20 +1,10 @@
 package org.groupe6.slitherlink.SlitherLink;
 
-import javafx.animation.*;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -29,8 +19,23 @@ public class Main extends Application {
     public void start(Stage primary) throws IOException {
         try {
             // gestion de la scène
-            Scene Main = new Scene(MainMenu.getMenu(), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
+            Scene Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
             Main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+
+            /*double windowWidth = primary.getWidth();
+            double windowHeight = primary.getHeight();
+
+            Main.widthProperty().addListener((obs, oldVal, newVal) -> {
+                for (Button button : buttons) {
+                    button.setPrefWidth(newVal.doubleValue() * 0.1823);
+                }
+            });
+
+            Main.heightProperty().addListener((obs, oldVal, newVal) -> {
+                for (Button button : buttons) {
+                    button.setPrefHeight(newVal.doubleValue() * 0.47);
+                }
+            });*/
 
             // gestion de la fenêtre
             primary.initStyle(StageStyle.DECORATED);
