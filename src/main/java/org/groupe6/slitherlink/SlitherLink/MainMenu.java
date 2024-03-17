@@ -5,6 +5,7 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -41,8 +42,49 @@ public class MainMenu implements Menu {
 
         mainHbox.setSpacing(200);       // espacement entre les éléments
 
-        profilSelector.getItems().addAll("PlaceHolder");
+        profilSelector.getItems().addAll("PlaceHolder #1", "PlaceHolder #2", "PlaceHolder #3");
         profilSelector.getSelectionModel().selectFirst();
+        profilSelector.setTranslateX(Menu.toPourcentWidth(700.0, windowWidth));
+        profilSelector.setTranslateY(Menu.toPourcentHeight(-450.0, windowHeigth));
+        profilSelector.getStyleClass().add("combo-box");
+
+        // Header
+        profilSelector.setCellFactory(param -> new ListCell<String>() {
+            private final ImageView imageView = new ImageView();
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);
+                    // Chargement de l'image
+                    Image image = new Image(getClass().getResourceAsStream("avatard-50x50.png"));
+                    imageView.setImage(image);
+                    setGraphic(imageView);
+                }
+            }
+        });
+
+        // Elements
+        profilSelector.setButtonCell(new ListCell<String>() {
+            private final ImageView imageView = new ImageView();
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);
+                    // Chargement de l'image
+                    Image image = new Image(getClass().getResourceAsStream("avatard-50x50.png"));
+                    imageView.setImage(image);
+                    setGraphic(imageView);
+                }
+            }
+        });
 
         for (int i = 0; i < buttons.length; i++) {
             int finalI = i;
@@ -75,8 +117,8 @@ public class MainMenu implements Menu {
             buttonsContainer[finalI] = new StackPane();
             buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI], descriptionsBackground[finalI], descriptionText[finalI]);
             buttonsContainer[finalI].setAlignment(Pos.CENTER);
-            //translation text animation
 
+            //translation text animation
             clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), Menu.toPourcentHeight(100.0, windowHeigth));
             descriptionsBackground[finalI].getStyleClass().add("description-background");
             descriptionsBackground[finalI].setClip(clipRectangle[finalI]);
@@ -127,8 +169,6 @@ public class MainMenu implements Menu {
 
             buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
         }
-
-        profilSelector.setTranslateX(800);
 
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
