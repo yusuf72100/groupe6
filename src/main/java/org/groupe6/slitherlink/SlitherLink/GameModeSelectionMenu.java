@@ -1,11 +1,8 @@
 package org.groupe6.slitherlink.SlitherLink;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class GameModeSelectionMenu extends MainMenu {
@@ -20,7 +17,6 @@ public class GameModeSelectionMenu extends MainMenu {
             MainMenu.buttonsText[finalI].setText(MainMenu.buttonTextsLabels[finalI]);
 
             MainMenu.buttonsContainer[finalI].setOnMouseEntered(e -> {
-                MainMenu.buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
                 MainMenu.descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
 
                 switch (finalI) {

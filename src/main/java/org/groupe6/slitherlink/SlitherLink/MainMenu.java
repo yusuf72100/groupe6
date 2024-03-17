@@ -198,7 +198,6 @@ public class MainMenu implements Menu {
                 fadeTransition[finalI].stop();
                 rectangleTransitionReverse[finalI].play();
                 fadeTransitionReverse[finalI].play();
-                buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #D9D9D9;");
             });
 
             buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());

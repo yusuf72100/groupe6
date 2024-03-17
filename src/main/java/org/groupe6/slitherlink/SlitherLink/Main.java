@@ -2,6 +2,7 @@ package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,6 +44,7 @@ public class Main extends Application {
             primary.initStyle(StageStyle.DECORATED);
             primary.setScene(Main);
             primary.setTitle("SlitherLink");
+            primary.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("icon.png")).toExternalForm()));
             primary.setResizable(true);
             primary.setMaximized(true);
             primary.show();

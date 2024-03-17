@@ -27,6 +27,7 @@
 
 .button-rounded {
     -fx-background-radius: 10px;
+    -fx-background-color: #D9D9D9;
 }
 
 .button-rounded:hover {
