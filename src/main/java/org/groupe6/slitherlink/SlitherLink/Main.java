@@ -10,6 +10,8 @@ import java.util.Objects;
 
 public class Main extends Application {
 
+    private static Scene Main;
+
     /**
      * Programme principal jfx
      * @param primary
@@ -19,7 +21,8 @@ public class Main extends Application {
     public void start(Stage primary) throws IOException {
         try {
             // gestion de la scène
-            Scene Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
+            MainMenu.initMenu();
+            Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
             Main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
             /*double windowWidth = primary.getWidth();
@@ -48,6 +51,11 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showGameModeMenu() {
+        MainMenu.initMenu();
+        Main.setRoot(GameModeSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     // programme principal

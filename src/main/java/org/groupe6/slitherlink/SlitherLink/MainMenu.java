@@ -1,7 +1,8 @@
 package org.groupe6.slitherlink.SlitherLink;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -17,24 +18,45 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class MainMenu implements Menu {
-    protected static ComboBox<String> profilSelector = new ComboBox<>();
-    protected static String[] buttonTextsLabels = {"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
-    protected static HBox mainHbox = new HBox();
-    protected static StackPane mainPane = new StackPane();
-    protected static HBox[] descriptionsBackground = new HBox[3];
-    protected static StackPane[] buttonsContainer = new StackPane[3];
-    protected static Button[] buttons = new Button[3];
-    protected static Text[] descriptionText = new Text[3];
-    protected static Text[] buttonsText = new Text[3];
+    protected static ComboBox<String> profilSelector;
+    protected static String[] buttonTextsLabels;
+    protected static HBox mainHbox;
+    protected static StackPane mainPane;
+    protected static HBox[] descriptionsBackground;
+    protected static StackPane[] buttonsContainer;
+    protected static Button[] buttons;
+    protected static Text[] descriptionText;
+    protected static Text[] buttonsText;
 
     // animations
-    protected static TranslateTransition[] rectangleTransition = new TranslateTransition[3];
-    protected static TranslateTransition[] rectangleTransitionReverse = new TranslateTransition[3];
-    protected static FadeTransition[] fadeTransition = new FadeTransition[3];
-    protected static FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
-    protected static Rectangle[] clipRectangle = new Rectangle[3];
+    protected static TranslateTransition[] rectangleTransition;
+    protected static TranslateTransition[] rectangleTransitionReverse;
+    protected static FadeTransition[] fadeTransition;
+    protected static FadeTransition[] fadeTransitionReverse;
+    protected static Rectangle[] clipRectangle;
 
     protected static Text title = new Text("Slitherlink");
+
+    public static void initMenu() {
+        profilSelector = new ComboBox<>();
+        buttonTextsLabels = new String[]{"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
+        mainHbox = new HBox();
+        mainPane = new StackPane();
+        descriptionsBackground = new HBox[3];
+        buttonsContainer = new StackPane[3];
+        buttons = new Button[3];
+        descriptionText = new Text[3];
+        buttonsText = new Text[3];
+
+        // animations
+        rectangleTransition = new TranslateTransition[3];
+        rectangleTransitionReverse = new TranslateTransition[3];
+        fadeTransition = new FadeTransition[3];
+        fadeTransitionReverse = new FadeTransition[3];
+        clipRectangle = new Rectangle[3];
+
+        title = new Text("Slitherlink");
+    }
 
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         title.getStyleClass().add("title");
@@ -59,7 +81,7 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    Image image = new Image(getClass().getResourceAsStream("avatard-50x50.png"));
+                    Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("avatard-50x50.png")));
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
@@ -78,7 +100,7 @@ public class MainMenu implements Menu {
                 } else {
                     setText(item);
                     // Chargement de l'image
-                    Image image = new Image(getClass().getResourceAsStream("avatard-50x50.png"));
+                    Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("avatard-50x50.png")));
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
@@ -146,7 +168,16 @@ public class MainMenu implements Menu {
                 descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
 
                 switch (finalI) {
-                    case 0 : descriptionText[finalI].setText("Choisissez un mode de jeu"); break;
+                    // bouton jouer
+                    case 0 :
+                        buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                Main.showGameModeMenu();
+                            }
+                        });
+                        descriptionText[finalI].setText("Choisissez un mode de jeu");
+                        break;
                     case 1 : descriptionText[finalI].setText("Personnalisez les options du jeu"); break;
                     case 2 : descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu"); break;
                     default : descriptionText[finalI].setText("Placeholder #" + finalI); break;
@@ -171,10 +202,7 @@ public class MainMenu implements Menu {
 
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
-        Image image = new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm());
-        ImageView imgview = new ImageView(image);
-
-        mainPane.getChildren().addAll(imgview, title, mainHbox, profilSelector);
+        mainPane.getChildren().addAll(new ImageView(new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm())), title, mainHbox, profilSelector);
         StackPane.setAlignment(title, Pos.TOP_CENTER);
 
         return mainPane;
