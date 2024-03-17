@@ -1,21 +1,7 @@
 package org.groupe6.slitherlink.SlitherLink;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
-
-import java.util.Objects;
 
 public class GameModeSelectionMenu extends MainMenu{
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
@@ -26,7 +12,6 @@ public class GameModeSelectionMenu extends MainMenu{
             int finalI = i;
 
             MainMenu.buttonsText[finalI].setText(MainMenu.buttonTextsLabels[finalI]);
-            System.out.println(MainMenu.buttonTextsLabels[finalI]);
 
             MainMenu.buttonsContainer[finalI].setOnMouseEntered(e -> {
                 MainMenu.buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");

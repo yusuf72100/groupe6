@@ -61,6 +61,7 @@
     -fx-padding: 5px;
     -fx-pref-height: 55px;
     -fx-pref-width: 200px;
+    -fx-cursor: hand;
 }
 
 .combo-box .arrow-button {
@@ -87,6 +88,7 @@
 .combo-box .list-view .list-cell:hover {
     -fx-background-color: #e0ac1e;
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .combo-box .list-view .list-cell:selected {
