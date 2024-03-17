@@ -17,26 +17,26 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class MainMenu implements Menu {
+    protected static ComboBox<String> profilSelector = new ComboBox<>();
+    protected static String[] buttonTextsLabels = {"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
+    protected static HBox mainHbox = new HBox();
+    protected static StackPane mainPane = new StackPane();
+    protected static HBox[] descriptionsBackground = new HBox[3];
+    protected static StackPane[] buttonsContainer = new StackPane[3];
+    protected static Button[] buttons = new Button[3];
+    protected static Text[] descriptionText = new Text[3];
+    protected static Text[] buttonsText = new Text[3];
+
+    // animations
+    protected static TranslateTransition[] rectangleTransition = new TranslateTransition[3];
+    protected static TranslateTransition[] rectangleTransitionReverse = new TranslateTransition[3];
+    protected static FadeTransition[] fadeTransition = new FadeTransition[3];
+    protected static FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
+    protected static Rectangle[] clipRectangle = new Rectangle[3];
+
+    protected static Text title = new Text("Slitherlink");
 
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
-        ComboBox<String> profilSelector = new ComboBox<>();
-        String[] buttonTextsLabels = {"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
-        HBox mainHbox = new HBox();
-        StackPane mainPane = new StackPane();
-        HBox[] descriptionsBackground = new HBox[3];
-        StackPane[] buttonsContainer = new StackPane[3];
-        Button[] buttons = new Button[3];
-        Text[] descriptionText = new Text[3];
-        Text[] buttonsText = new Text[3];
-
-        // animations
-        TranslateTransition[] rectangleTransition = new TranslateTransition[3];
-        TranslateTransition[] rectangleTransitionReverse = new TranslateTransition[3];
-        FadeTransition[] fadeTransition = new FadeTransition[3];
-        FadeTransition[] fadeTransitionReverse = new FadeTransition[3];
-        Rectangle[] clipRectangle = new Rectangle[3];
-
-        Text title = new Text("Slitherlink");
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeigth));
 
@@ -59,7 +59,6 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    // Chargement de l'image
                     Image image = new Image(getClass().getResourceAsStream("avatard-50x50.png"));
                     imageView.setImage(image);
                     setGraphic(imageView);
