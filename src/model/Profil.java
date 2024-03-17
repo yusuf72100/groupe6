@@ -1,11 +1,10 @@
 package model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import javax.swing.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Cette classe mod\u00e8lise un profil d'utilisateur.
@@ -56,15 +55,6 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Modifie la photo du profil
-     * 
-     * @param newIMG
-     */
-    public void modifierIMG(String newIMG) {
-        this.cheminIMG = newIMG;
-    }
-
-    /**
      * Methode pour obtenir le nom
      */
     public String getNom() {
@@ -99,6 +89,58 @@ public class Profil implements Serializable {
 
     public Parametre getParametre() {
         return parametre;
+    }
+
+    /**
+     * Modifie la photo de profil
+     * 
+     */
+    public void choisirImage() {
+        JFileChooser selecteurFichiers = new JFileChooser();
+        selecteurFichiers.setDialogTitle("Choisir une image de profil");
+
+        // Afficher uniquement les fichiers images
+        selecteurFichiers.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                String extension = getExtension(f);
+                return extension != null && (extension.equals("jpg") || extension.equals("jpeg") ||
+                        extension.equals("png"));
+            }
+
+            public String getDescription() {
+                return "Images (*.jpg, *.jpeg, *.png)";
+            }
+
+            private String getExtension(File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+        });
+
+        int selectionUtilisateur = selecteurFichiers.showOpenDialog(null);
+        if (selectionUtilisateur == JFileChooser.APPROVE_OPTION) {
+            File fichierSelectionne = selecteurFichiers.getSelectedFile();
+            String dossierDestination = "ressources/profils/" + this.nom;
+
+            try {
+                Path cheminSource = fichierSelectionne.toPath();
+                Path cheminDestination = Paths.get(dossierDestination, fichierSelectionne.getName());
+                Files.copy(cheminSource, cheminDestination);
+                System.out.println("Le fichier a été copié avec succès dans " + cheminDestination.toString());
+                cheminIMG = cheminDestination.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
