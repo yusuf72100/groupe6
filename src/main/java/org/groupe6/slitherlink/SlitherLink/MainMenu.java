@@ -1,6 +1,7 @@
 package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,6 +19,8 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class MainMenu implements Menu {
+    protected static Button backButton;
+    protected static Text backText;
     protected static ComboBox<String> profilSelector;
     protected static String[] buttonTextsLabels;
     protected static HBox mainHbox;
@@ -38,6 +41,8 @@ public class MainMenu implements Menu {
     protected static Text title = new Text("Slitherlink");
 
     public static void initMenu() {
+        backButton = new Button();
+        backText = new Text("QUITTER");
         profilSelector = new ComboBox<>();
         buttonTextsLabels = new String[]{"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
         mainHbox = new HBox();
@@ -59,6 +64,7 @@ public class MainMenu implements Menu {
     }
 
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
+        initMenu();
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeigth));
 
@@ -99,7 +105,6 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    // Chargement de l'image
                     Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("avatard-50x50.png")));
                     imageView.setImage(image);
                     setGraphic(imageView);
@@ -164,7 +169,6 @@ public class MainMenu implements Menu {
 
             // hover on
             buttonsContainer[finalI].setOnMouseEntered(e -> {
-                buttons[finalI].setStyle("-fx-background-radius: 10px; -fx-background-color: #e0ac1e;");
                 descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
 
                 switch (finalI) {
@@ -200,9 +204,26 @@ public class MainMenu implements Menu {
             buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
         }
 
+        backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeigth));
+        backButton.setTranslateY(Menu.toPourcentHeight(400.0, windowHeigth));
+        backButton.getStyleClass().add("button-rounded");
+
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Platform.exit();
+            }
+        });
+
+        backText.setTranslateY(Menu.toPourcentHeight(400.0, windowHeigth));
+        backText.getStyleClass().add("button-text");
+        backText.setFocusTraversable(false);
+        backText.setMouseTransparent(true);
+        Menu.adaptTextSize(backText, 35, windowWidth, windowHeigth);
+
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
-        mainPane.getChildren().addAll(new ImageView(new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm())), title, mainHbox, profilSelector);
+        mainPane.getChildren().addAll(new ImageView(new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm())), title, mainHbox, profilSelector, backButton, backText);
         StackPane.setAlignment(title, Pos.TOP_CENTER);
 
         return mainPane;

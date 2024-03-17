@@ -21,7 +21,6 @@ public class Main extends Application {
     public void start(Stage primary) throws IOException {
         try {
             // gestion de la scène
-            MainMenu.initMenu();
             Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
             Main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
@@ -54,8 +53,11 @@ public class Main extends Application {
     }
 
     public static void showGameModeMenu() {
-        MainMenu.initMenu();
         Main.setRoot(GameModeSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    public static void showMainMenu() {
+        Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     // programme principal

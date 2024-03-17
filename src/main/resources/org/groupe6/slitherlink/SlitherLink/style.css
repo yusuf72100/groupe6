@@ -29,6 +29,10 @@
     -fx-background-radius: 10px;
 }
 
+.button-rounded:hover {
+    -fx-background-color: #e0ac1e;
+}
+
 .button {
     -fx-background-radius: 10px;
     -fx-background-color: #D9D9D9;
