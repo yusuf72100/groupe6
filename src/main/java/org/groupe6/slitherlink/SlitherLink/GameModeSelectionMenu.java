@@ -6,7 +6,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
 public class GameModeSelectionMenu extends MainMenu {
-
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         MainMenu.initMenu();
         MainMenu.getMenu(windowWidth, windowHeigth);

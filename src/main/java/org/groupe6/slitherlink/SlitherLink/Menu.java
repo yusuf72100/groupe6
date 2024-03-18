@@ -1,6 +1,7 @@
 package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -12,8 +13,8 @@ public interface Menu {
      * @return
      * @param <T>
      */
-    static <T> Node getMenu(T... args) {
-        return new VBox();
+    static <T extends Parent> Parent getMenu(T... args) {
+        return new Parent() { };
     }
 
     /**
