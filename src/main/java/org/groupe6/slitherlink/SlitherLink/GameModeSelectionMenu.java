@@ -10,6 +10,7 @@ public class GameModeSelectionMenu extends MainMenu {
         MainMenu.initMenu();
         MainMenu.getMenu(windowWidth, windowHeigth);
         MainMenu.buttonTextsLabels = new String[]{"CLASSIQUE", "AVENTURE", "CONTRE\nLA\nMONTRE"};
+        MainMenu.backText.setText("RETOUR");
 
         for (int i = 0; i < MainMenu.buttons.length; i++) {
             int finalI = i;
@@ -32,8 +33,6 @@ public class GameModeSelectionMenu extends MainMenu {
                 MainMenu.fadeTransition[finalI].play();
             });
         }
-
-        MainMenu.backText.setText("RETOUR");
 
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

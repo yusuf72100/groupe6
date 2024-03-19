@@ -203,7 +203,6 @@ public class MainMenu implements Menu {
             });
 
             buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
-            System.out.println(buttonsText[finalI].getLayoutBounds().getWidth() + " > " + buttons[finalI].getPrefWidth());
         }
 
         backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeigth));
