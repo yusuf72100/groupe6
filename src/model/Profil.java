@@ -101,19 +101,23 @@ public class Profil implements Serializable {
 
         // Afficher uniquement les fichiers images
         selecteurFichiers.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            // Condition d'acceptation par le filtre pour le fichier
             public boolean accept(File f) {
                 if (f.isDirectory()) {
                     return true;
                 }
                 String extension = getExtension(f);
+                // Accepte si l'extension est en jpg, jpeg ou png
                 return extension != null && (extension.equals("jpg") || extension.equals("jpeg") ||
                         extension.equals("png"));
             }
 
+            // Description du filtre
             public String getDescription() {
                 return "Images (*.jpg, *.jpeg, *.png)";
             }
 
+            // Recupère l'extension du fichier
             private String getExtension(File f) {
                 String ext = null;
                 String s = f.getName();
@@ -129,7 +133,7 @@ public class Profil implements Serializable {
         int selectionUtilisateur = selecteurFichiers.showOpenDialog(null);
         if (selectionUtilisateur == JFileChooser.APPROVE_OPTION) {
             File fichierSelectionne = selecteurFichiers.getSelectedFile();
-            String dossierDestination = "ressources/profils/" + this.nom;
+            String dossierDestination = "ressources/profil/" + this.nom;
 
             try {
                 Path cheminSource = fichierSelectionne.toPath();
