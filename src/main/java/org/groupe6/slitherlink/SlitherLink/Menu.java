@@ -2,6 +2,7 @@ package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -50,7 +51,7 @@ public interface Menu {
      * @param windowWidth
      * @param windowHeight
      */
-    static void adaptTextSize(Text label, double initialSize, double windowWidth, double windowHeight) {
+    static void adaptTextSize(Label label, double initialSize, double windowWidth, double windowHeight) {
         double newSize = initialSize * Math.min(windowWidth / 1920, windowHeight / 1080);
         label.setStyle("-fx-font-size: " + newSize + "px;");
     }

@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +21,7 @@ import java.util.Objects;
 
 public class MainMenu implements Menu {
     protected static Button backButton;
-    protected static Text backText;
+    protected static Label backText;
     protected static ComboBox<String> profilSelector;
     protected static String[] buttonTextsLabels;
     protected static HBox mainHbox;
@@ -28,8 +29,8 @@ public class MainMenu implements Menu {
     protected static HBox[] descriptionsBackground;
     protected static StackPane[] buttonsContainer;
     protected static Button[] buttons;
-    protected static Text[] descriptionText;
-    protected static Text[] buttonsText;
+    protected static Label[] descriptionText;
+    protected static Label[] buttonsText;
 
     // animations
     protected static TranslateTransition[] rectangleTransition;
@@ -42,7 +43,7 @@ public class MainMenu implements Menu {
 
     public static void initMenu() {
         backButton = new Button();
-        backText = new Text("QUITTER");
+        backText = new Label("QUITTER");
         profilSelector = new ComboBox<>();
         buttonTextsLabels = new String[]{"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
         mainHbox = new HBox();
@@ -50,8 +51,8 @@ public class MainMenu implements Menu {
         descriptionsBackground = new HBox[3];
         buttonsContainer = new StackPane[3];
         buttons = new Button[3];
-        descriptionText = new Text[3];
-        buttonsText = new Text[3];
+        descriptionText = new Label[3];
+        buttonsText = new Label[3];
 
         // animations
         rectangleTransition = new TranslateTransition[3];
@@ -119,10 +120,11 @@ public class MainMenu implements Menu {
             buttons[finalI].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
             buttons[finalI].getStyleClass().add("button-rounded");
 
-            buttonsText[finalI] = new Text(buttonTextsLabels[finalI]);
+            buttonsText[finalI] = new Label(buttonTextsLabels[finalI]);
             buttonsText[finalI].getStyleClass().add("button-text");
             buttonsText[finalI].setFocusTraversable(false);
             buttonsText[finalI].setMouseTransparent(true);
+            buttonsText[finalI].setTextAlignment(TextAlignment.CENTER);
             Menu.adaptTextSize(buttonsText[finalI], 35, windowWidth, windowHeigth);
 
             descriptionsBackground[finalI] = new HBox();
@@ -132,7 +134,7 @@ public class MainMenu implements Menu {
             StackPane.setAlignment(descriptionsBackground[finalI], Pos.BOTTOM_CENTER);
 
             // positionnement de la description
-            descriptionText[finalI] = new Text();
+            descriptionText[finalI] = new Label();
             descriptionText[finalI].setFocusTraversable(false);
             descriptionText[finalI].setMouseTransparent(true);
             descriptionText[finalI].setTranslateY(Menu.toPourcentHeight(200.0, windowHeigth));
@@ -141,8 +143,8 @@ public class MainMenu implements Menu {
 
             //labels[finalI].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
             buttonsContainer[finalI] = new StackPane();
-            buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI], descriptionsBackground[finalI], descriptionText[finalI]);
             buttonsContainer[finalI].setAlignment(Pos.CENTER);
+            buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI], descriptionsBackground[finalI], descriptionText[finalI]);
 
             //translation text animation
             clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), Menu.toPourcentHeight(100.0, windowHeigth));
@@ -201,6 +203,7 @@ public class MainMenu implements Menu {
             });
 
             buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
+            System.out.println(buttonsText[finalI].getLayoutBounds().getWidth() + " > " + buttons[finalI].getPrefWidth());
         }
 
         backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeigth));
@@ -222,6 +225,7 @@ public class MainMenu implements Menu {
 
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
+        mainPane.setAlignment(Pos.CENTER);
         mainPane.getChildren().addAll(new ImageView(new Image(Objects.requireNonNull(MainMenu.class.getResource("bg.png")).toExternalForm())), title, mainHbox, profilSelector, backButton, backText);
         StackPane.setAlignment(title, Pos.TOP_CENTER);
 
