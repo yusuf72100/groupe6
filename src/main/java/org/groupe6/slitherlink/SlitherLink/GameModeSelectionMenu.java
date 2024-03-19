@@ -2,6 +2,7 @@ package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
@@ -15,9 +16,7 @@ public class GameModeSelectionMenu extends MainMenu {
         for (int i = 0; i < MainMenu.buttons.length; i++) {
             int finalI = i;
 
-
             MainMenu.buttonsText[finalI].setText(MainMenu.buttonTextsLabels[finalI]);
-
             MainMenu.buttonsContainer[finalI].setOnMouseEntered(e -> {
                 MainMenu.descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
 
@@ -34,13 +33,21 @@ public class GameModeSelectionMenu extends MainMenu {
             });
         }
 
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
+        MainMenu.backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Main.showMainMenu();
             }
         });
 
+        MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.showGridMenu();
+            }
+        });
+
         return MainMenu.mainPane;
+
     }
 }

@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink.PuzzleGenerator;
+package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+
 import java.util.function.Function;
 
 public class CelluleNode extends Node {
@@ -16,7 +17,7 @@ public class CelluleNode extends Node {
     private TextField centerTextField;
     private int label;
 
-    public CelluleNode() {
+    CelluleNode() {
         this.label = -1;
         double cellSize = 50;
         cellule = new Button[4];

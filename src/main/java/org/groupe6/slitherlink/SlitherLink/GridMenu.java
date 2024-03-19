@@ -1,4 +1,4 @@
-package org.groupe6.slitherlink.PuzzleGenerator;
+package org.groupe6.slitherlink.SlitherLink;
 
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -11,13 +11,18 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.groupe6.slitherlink.PuzzleGenerator.CelluleData;
+import org.groupe6.slitherlink.PuzzleGenerator.CelluleNode;
+import org.groupe6.slitherlink.PuzzleGenerator.Main;
+import org.groupe6.slitherlink.PuzzleGenerator.Menu;
+import org.groupe6.slitherlink.PuzzleGenerator.*;
 
-public class GridMenu implements Menu{
+public class GridMenu implements Menu {
     private Button sauvegarder;
     private Button home;
     private Label infos;
@@ -71,7 +76,7 @@ public class GridMenu implements Menu{
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i, j;
 
-        public CelluleButtonEventHandler(int i, int j, CelluleData[][] data) {
+        public CelluleButtonEventHandler(int i, int j, org.groupe6.slitherlink.PuzzleGenerator.CelluleData[][] data) {
             this.i = i;
             this.j = j;
             cellulesData = data;
@@ -129,7 +134,7 @@ public class GridMenu implements Menu{
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers BIN (*.bin)", "*.bin"));
 
                 Stage stage = (Stage) sauvegarder.getScene().getWindow();
-                java.io.File file = fileChooser.showSaveDialog(Main.getStage());
+                java.io.File file = fileChooser.showSaveDialog(org.groupe6.slitherlink.PuzzleGenerator.Main.getStage());
 
                 if (file != null) {
                     Puzzle.sauvegarderPuzzle(puzzle, file.getAbsolutePath());
@@ -169,8 +174,8 @@ public class GridMenu implements Menu{
      * @param L
      */
     private void initCellules(int l, int L) {
-        this.celluleNodes = new CelluleNode[l][L];
-        this.cellulesData = new CelluleData[l][L];
+        this.celluleNodes = new org.groupe6.slitherlink.PuzzleGenerator.CelluleNode[l][L];
+        this.cellulesData = new org.groupe6.slitherlink.PuzzleGenerator.CelluleData[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {

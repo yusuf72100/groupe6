@@ -42,10 +42,11 @@ public class MainMenu implements Menu {
     protected static Text title = new Text("Slitherlink");
 
     public static void initMenu() {
-        backButton = new Button();
         backText = new Label("QUITTER");
-        profilSelector = new ComboBox<>();
         buttonTextsLabels = new String[]{"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
+        title = new Text("Slitherlink");
+        backButton = new Button();
+        profilSelector = new ComboBox<>();
         mainHbox = new HBox();
         mainPane = new StackPane();
         descriptionsBackground = new HBox[3];
@@ -60,8 +61,6 @@ public class MainMenu implements Menu {
         fadeTransition = new FadeTransition[3];
         fadeTransitionReverse = new FadeTransition[3];
         clipRectangle = new Rectangle[3];
-
-        title = new Text("Slitherlink");
     }
 
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {

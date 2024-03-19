@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Main extends Application {
 
     private static Scene Main;
+    private static GridMenu grid;
 
     /**
      * Programme principal jfx
@@ -60,6 +61,11 @@ public class Main extends Application {
 
     public static void showMainMenu() {
         Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    public static void showGridMenu() {
+        grid = new GridMenu(11, 11, DifficultePuzzle.DIFFICILE);
+        Main.setRoot(grid.getMenu(true));
     }
 
     // programme principal
