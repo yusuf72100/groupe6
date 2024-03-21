@@ -204,7 +204,7 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
-        //throw new IllegalStateException("Lancer le programme en étant dans le même dossier que le .jar !");
+        throw new IllegalStateException("Veillez à lancer le programme en étant dans le même dossier que le .jar !");
     }
 
     try {
