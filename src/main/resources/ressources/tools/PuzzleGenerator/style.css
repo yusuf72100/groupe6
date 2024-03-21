@@ -1,0 +1,52 @@
+.button-sauvegarder {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('sauvegarder.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-home {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('home.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-top, .button-bottom {
+    -fx-min-width: 60px;
+    -fx-max-width: 60px;
+    -fx-min-height: 5px;
+    -fx-max-height: 5px;
+    -fx-background-color: lightgray;
+    -fx-opacity: 0.0;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}
+
+.button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
+    -fx-background-color: black;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-left, .button-right {
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+    -fx-min-width: 5px;
+    -fx-max-width: 5px;
+    -fx-background-color: lightgray;
+    -fx-opacity: 0.0;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}
+
+.black-square {
+    -fx-fill: black;
+    -fx-padding: 5px;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}
