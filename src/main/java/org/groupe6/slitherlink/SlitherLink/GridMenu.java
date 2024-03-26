@@ -13,7 +13,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.groupe6.slitherlink.PuzzleGenerator.CelluleData;
-import org.groupe6.slitherlink.PuzzleGenerator.CelluleNode;
 import org.groupe6.slitherlink.PuzzleGenerator.Main;
 import org.groupe6.slitherlink.PuzzleGenerator.Menu;
 import org.groupe6.slitherlink.PuzzleGenerator.*;
@@ -25,8 +24,8 @@ public class GridMenu implements Menu {
     private HBox layout_v;
     private GridPane gridPane;
     private StackPane container;
-    private CelluleNode[][] celluleNodes;
-    private CelluleData[][] cellulesData;
+    private org.groupe6.slitherlink.SlitherLink.CelluleNode[][] celluleNodes;
+    private org.groupe6.slitherlink.SlitherLink.CelluleData[][] cellulesData;
     private int compteur;        // utilisé à des fins de test
     private Puzzle puzzle;
     private Scene scene;
@@ -63,7 +62,6 @@ public class GridMenu implements Menu {
         this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
         this.pause.setOnMouseEntered(event -> { mouseEntered(fadePause, this.pause); });
         this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
-
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
         this.longueur = l;
@@ -78,7 +76,7 @@ public class GridMenu implements Menu {
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i, j;
 
-        public CelluleButtonEventHandler(int i, int j, org.groupe6.slitherlink.PuzzleGenerator.CelluleData[][] data) {
+        public CelluleButtonEventHandler(int i, int j, org.groupe6.slitherlink.SlitherLink.CelluleData[][] data) {
             this.i = i;
             this.j = j;
             cellulesData = data;
@@ -92,25 +90,97 @@ public class GridMenu implements Menu {
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
-            ValeurCote valeur = ValeurCote.VIDE;
-
-            // toggle
-            if (clickedButton.getStyleClass().contains("clicked")) {
-                clickedButton.getStyleClass().remove("clicked");
-            } else {
-                clickedButton.getStyleClass().add("clicked");
-                valeur = ValeurCote.TRAIT;
-            }
 
             switch(clickedButton.getText()){
-                case "Top" : cellulesData[i][j].setCote(0, valeur); break;
-                case "Bottom" : cellulesData[i][j].setCote(1, valeur); break;
-                case "Left" : cellulesData[i][j].setCote(2, valeur); break;
-                case "Right" : cellulesData[i][j].setCote(3, valeur); break;
+                case "Top" :
+                    switch (cellulesData[i][j].getCote(0)) {
+                        case VIDE:
+                            System.out.println("Vide");
+                            clickedButton.getStyleClass().add("clicked");
+                            cellulesData[i][j].setCote(0, ValeurCote.getValeurSuivante(ValeurCote.VIDE));
+                            break;
+                        case TRAIT:
+                            System.out.println("Trait");
+                            clickedButton.getStyleClass().remove("clicked");
+                            clickedButton.getStyleClass().add("croix");
+                            cellulesData[i][j].setCote(0, ValeurCote.getValeurSuivante(ValeurCote.TRAIT));
+                            break;
+                        default:
+                            System.out.println("Default");
+                            clickedButton.getStyleClass().remove("croix");
+                            cellulesData[i][j].setCote(0, ValeurCote.getValeurSuivante(ValeurCote.CROIX));
+                            break;
+                    }
+                    break;
+
+                case "Bottom" :
+                    switch (cellulesData[i][j].getCote(1)) {
+                        case VIDE:
+                            System.out.println("Vide");
+                            clickedButton.getStyleClass().add("clicked");
+                            cellulesData[i][j].setCote(1, ValeurCote.getValeurSuivante(ValeurCote.VIDE));
+                            break;
+                        case TRAIT:
+                            System.out.println("Trait");
+                            clickedButton.getStyleClass().add("croix");
+                            cellulesData[i][j].setCote(1, ValeurCote.getValeurSuivante(ValeurCote.TRAIT));
+                            break;
+                        default:
+                            System.out.println("Default");
+                            clickedButton.getStyleClass().remove("clicked");
+                            clickedButton.getStyleClass().remove("croix");
+                            cellulesData[i][j].setCote(1, ValeurCote.getValeurSuivante(ValeurCote.CROIX));
+                            break;
+                    }
+                    break;
+
+                case "Left" :
+                    switch (cellulesData[i][j].getCote(2)) {
+                        case VIDE:
+                            System.out.println("Vide");
+                            clickedButton.getStyleClass().add("clicked");
+                            cellulesData[i][j].setCote(2, ValeurCote.getValeurSuivante(ValeurCote.VIDE));
+                            break;
+                        case TRAIT:
+                            System.out.println("Trait");
+                            clickedButton.getStyleClass().add("croix");
+                            cellulesData[i][j].setCote(2, ValeurCote.getValeurSuivante(ValeurCote.TRAIT));
+                            break;
+                        default:
+                            System.out.println("Default");
+                            clickedButton.getStyleClass().remove("clicked");
+                            clickedButton.getStyleClass().remove("croix");
+                            cellulesData[i][j].setCote(2, ValeurCote.getValeurSuivante(ValeurCote.CROIX));
+                            break;
+                    }
+                    break;
+
+                case "Right" :
+                    switch (cellulesData[i][j].getCote(3)) {
+                        case VIDE:
+                            System.out.println("Vide");
+                            clickedButton.getStyleClass().add("clicked");
+                            cellulesData[i][j].setCote(3, ValeurCote.getValeurSuivante(ValeurCote.VIDE));
+                            break;
+                        case TRAIT:
+                            System.out.println("Trait");
+                            clickedButton.getStyleClass().add("croix");
+                            cellulesData[i][j].setCote(3, ValeurCote.getValeurSuivante(ValeurCote.TRAIT));
+                            break;
+                        default:
+                            System.out.println("Default");
+                            clickedButton.getStyleClass().remove("clicked");
+                            clickedButton.getStyleClass().remove("croix");
+                            cellulesData[i][j].setCote(3, ValeurCote.getValeurSuivante(ValeurCote.CROIX));
+                            break;
+                    }
+                    break;
 
                 default: // rien
+                    System.out.println("Rien");
                     break;
             }
+            System.out.println(clickedButton.getText());
         }
     }
 
@@ -181,13 +251,13 @@ public class GridMenu implements Menu {
      * @param L
      */
     private void initCellules(int l, int L) {
-        this.celluleNodes = new org.groupe6.slitherlink.PuzzleGenerator.CelluleNode[l][L];
-        this.cellulesData = new org.groupe6.slitherlink.PuzzleGenerator.CelluleData[l][L];
+        this.celluleNodes = new org.groupe6.slitherlink.SlitherLink.CelluleNode[l][L];
+        this.cellulesData = new org.groupe6.slitherlink.SlitherLink.CelluleData[l][L];
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
-                this.celluleNodes[i][j] = new CelluleNode();
-                this.cellulesData[i][j] = new CelluleData(-1, new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE } );
+                this.celluleNodes[i][j] = new org.groupe6.slitherlink.SlitherLink.CelluleNode();
+                this.cellulesData[i][j] = new org.groupe6.slitherlink.SlitherLink.CelluleData(-1, new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE } );
             }
         }
     }

@@ -152,6 +152,15 @@
     -fx-border-radius: 0;
 }
 
+.button-top.croix, .button-bottom.croix, .button-left.croix, .button-right.croix {
+    -fx-background-color: #fc4c4c;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+
+    -fx-background-image: url('croix.png');
+    -fx-background-size: cover;
+}
+
 .button-left, .button-right {
     -fx-min-height: 60px;
     -fx-max-height: 60px;

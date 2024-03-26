@@ -4,7 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -16,28 +15,27 @@ public class CelluleNode extends Node {
     private Rectangle[] coins;
     private StackPane centerPane;
     private Label centerTextField;
-    private int bascule;
     private int label;
 
-    CelluleNode() {
+    public CelluleNode() {
         this.label = -1;
         double cellSize = 50;
-        cellule = new Button[4];
-        coins = new Rectangle[4];
-        centerPane = new StackPane();
+        this.cellule = new Button[4];
+        this.coins = new Rectangle[4];
+        this.centerPane = new StackPane();
 
-        centerPane.getChildren().add(createCenterContent());
-        centerPane.setAlignment(Pos.CENTER);
+        this.centerPane.getChildren().add(createCenterContent());
+        this.centerPane.setAlignment(Pos.CENTER);
 
-        cellule[0] = new Button("Top");
-        cellule[1] = new Button("Bottom");
-        cellule[2] = new Button("Left");
-        cellule[3] = new Button("Right");
+        this.cellule[0] = new Button("Top");
+        this.cellule[1] = new Button("Bottom");
+        this.cellule[2] = new Button("Left");
+        this.cellule[3] = new Button("Right");
 
-        cellule[0].getStyleClass().addAll("button-top");
-        cellule[1].getStyleClass().addAll("button-bottom");
-        cellule[2].getStyleClass().addAll("button-left");
-        cellule[3].getStyleClass().addAll("button-right");
+        this.cellule[0].getStyleClass().addAll("button-top");
+        this.cellule[1].getStyleClass().addAll("button-bottom");
+        this.cellule[2].getStyleClass().addAll("button-left");
+        this.cellule[3].getStyleClass().addAll("button-right");
 
         for (int i = 0; i < 4; i++) {
             coins[i] = createBlackSquare(cellSize / 5);
@@ -49,13 +47,13 @@ public class CelluleNode extends Node {
      * @return StackPane
      */
     private StackPane createCenterContent() {
-        centerTextField = new Label();
+        this.centerTextField = new Label();
         double cellSize = 50;
 
-        centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
-        centerTextField.setMaxSize(cellSize, cellSize);
-        centerTextField.setFont(new Font(25));
-        centerTextField.setAlignment(Pos.CENTER);
+        this.centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
+        this.centerTextField.setMaxSize(cellSize, cellSize);
+        this.centerTextField.setFont(new Font(25));
+        this.centerTextField.setAlignment(Pos.CENTER);
 
         return new StackPane(centerTextField);
     }
@@ -76,10 +74,10 @@ public class CelluleNode extends Node {
      * @param
      */
     public void changeCellulesCss(String css) {
-        cellule[0].getStyleClass().addAll(css + "-top");
-        cellule[1].getStyleClass().addAll(css + "-bottom");
-        cellule[2].getStyleClass().addAll(css + "-left");
-        cellule[3].getStyleClass().addAll(css + "-right");
+        this.cellule[0].getStyleClass().addAll(css + "-top");
+        this.cellule[1].getStyleClass().addAll(css + "-bottom");
+        this.cellule[2].getStyleClass().addAll(css + "-left");
+        this.cellule[3].getStyleClass().addAll(css + "-right");
     }
 
     public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
@@ -121,6 +119,6 @@ public class CelluleNode extends Node {
     public void setLabel(int label) { this.label = label; }
 
     public void setLabeText(int i) {
-        centerTextField.setPromptText(Integer.toString(i));
+        centerTextField.setText(Integer.toString(i));
     }
 }

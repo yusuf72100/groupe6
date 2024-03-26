@@ -1,7 +1,6 @@
 package org.groupe6.slitherlink.SlitherLink;
 
 import org.groupe6.slitherlink.PuzzleGenerator.CelluleData;
-import org.groupe6.slitherlink.PuzzleGenerator.DifficultePuzzle;
 import org.groupe6.slitherlink.PuzzleGenerator.ValeurCote;
 
 import java.io.*;
@@ -17,12 +16,12 @@ public class Puzzle implements Serializable {
 
     private int largeur; // Nombre de lignes
     private int longueur; // Nombre de colonnes
-    private CelluleData[][] solutionPuzzle; // Grille avec la solution du puzzle
-    private CelluleData[][] grilleCellules; // Grille de cellules du puzzle
+    private org.groupe6.slitherlink.SlitherLink.CelluleData[][] solutionPuzzle; // Grille avec la solution du puzzle
+    private org.groupe6.slitherlink.SlitherLink.CelluleData[][] grilleCellules; // Grille de cellules du puzzle
     private org.groupe6.slitherlink.SlitherLink.DifficultePuzzle difficulte; // Difficulté du puzzle
 
     // Constructeur de la classe Puzzle
-    public Puzzle(int largeur, int longueur, CelluleData[][] solutionPuzzle, org.groupe6.slitherlink.SlitherLink.DifficultePuzzle difficulte) {
+    public Puzzle(int largeur, int longueur, org.groupe6.slitherlink.SlitherLink.CelluleData[][] solutionPuzzle, org.groupe6.slitherlink.SlitherLink.DifficultePuzzle difficulte) {
         if (solutionPuzzle.length != largeur || solutionPuzzle[0].length != longueur) {
             throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
         }
@@ -49,8 +48,8 @@ public class Puzzle implements Serializable {
     }
 
     // Méthode pour générer un puzzle propre a partir de la solution
-    private org.groupe6.slitherlink.PuzzleGenerator.CelluleData[][] genererGrillePropre() {
-        org.groupe6.slitherlink.PuzzleGenerator.CelluleData[][] grillePropre = new org.groupe6.slitherlink.PuzzleGenerator.CelluleData[largeur][longueur];
+    private org.groupe6.slitherlink.SlitherLink.CelluleData[][] genererGrillePropre() {
+        org.groupe6.slitherlink.SlitherLink.CelluleData[][] grillePropre = new org.groupe6.slitherlink.SlitherLink.CelluleData[largeur][longueur];
 
         for (int y = 0; y < solutionPuzzle.length; y++) {
             for (int x = 0; x < solutionPuzzle[y].length; x++) {
@@ -58,14 +57,14 @@ public class Puzzle implements Serializable {
                 for (int i = 0; i < cotesVide.length; i++) {
                     cotesVide[i] = ValeurCote.VIDE;
                 }
-                grillePropre[y][x] = new org.groupe6.slitherlink.PuzzleGenerator.CelluleData(solutionPuzzle[y][x].getValeur(), cotesVide);
+                grillePropre[y][x] = new org.groupe6.slitherlink.SlitherLink.CelluleData(solutionPuzzle[y][x].getValeur(), cotesVide);
             }
         }
 
         return grillePropre;
     }
 
-    public org.groupe6.slitherlink.PuzzleGenerator.CelluleData[][] getSolutionCelluleData() {
+    public org.groupe6.slitherlink.SlitherLink.CelluleData[][] getSolutionCelluleData() {
         return this.solutionPuzzle;
     }
 
@@ -89,7 +88,7 @@ public class Puzzle implements Serializable {
     }
 
     // Méthode pour obenir une cellule dans la grille
-    public org.groupe6.slitherlink.PuzzleGenerator.CelluleData getCellule(int y, int x) {
+    public org.groupe6.slitherlink.SlitherLink.CelluleData getCellule(int y, int x) {
         return grilleCellules[y][x];
     }
 
@@ -119,7 +118,7 @@ public class Puzzle implements Serializable {
         return true;
     }
 
-    public org.groupe6.slitherlink.PuzzleGenerator.CelluleData getCelluleAdjacente(int y, int x, int cote) {
+    public org.groupe6.slitherlink.SlitherLink.CelluleData getCelluleAdjacente(int y, int x, int cote) {
         int yAdj = y;
         int xAdj = x;
 
