@@ -3,6 +3,7 @@ package org.groupe6.slitherlink.SlitherLink;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -14,7 +15,8 @@ public class CelluleNode extends Node {
     private Button[] cellule;
     private Rectangle[] coins;
     private StackPane centerPane;
-    private TextField centerTextField;
+    private Label centerTextField;
+    private int bascule;
     private int label;
 
     CelluleNode() {
@@ -47,27 +49,13 @@ public class CelluleNode extends Node {
      * @return StackPane
      */
     private StackPane createCenterContent() {
-        centerTextField = new TextField();
+        centerTextField = new Label();
         double cellSize = 50;
 
         centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
         centerTextField.setMaxSize(cellSize, cellSize);
         centerTextField.setFont(new Font(25));
         centerTextField.setAlignment(Pos.CENTER);
-
-        centerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > 1) {
-                centerTextField.setText(oldValue);
-                this.label = Integer.parseInt(oldValue);
-            }
-            else if (!newValue.matches("[0-3]")) {
-                centerTextField.setText("");
-                this.label = -1;
-            }
-            else{
-                this.label = Integer.parseInt(newValue);
-            }
-        });
 
         return new StackPane(centerTextField);
     }
