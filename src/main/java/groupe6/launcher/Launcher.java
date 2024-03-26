@@ -204,7 +204,8 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
-        throw new IllegalStateException("Veillez à lancer le programme en étant dans le même dossier que le .jar !");
+      Application.launch(FenetreMauvaisDossier.class);
+      return;
     }
 
     try {
@@ -225,6 +226,23 @@ public class Launcher {
         System.out.println("---------------------------");
         System.out.println("Lancement de l'application");
         System.out.println("---------------------------");
+      }
+
+      // Detection du paramètre --tools-puzzle-generator ( seulement ce paramètre )
+      for (String arg : args) {
+        if (arg.equals("--tools-puzzle-generator")) {
+        Application.launch(groupe6.tools.puzzleGenerator.Main.class, args);
+        return;
+        }
+      }
+
+      // Detection du paramètre --test ( seulement ce paramètre )
+      for (String arg : args) {
+        if (arg.equals("--test")) {
+
+        groupe6.test.TestMain.main(args);
+        return;
+        }
       }
 
       Application.launch(Main.class, args);

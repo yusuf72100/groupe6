@@ -1,9 +1,9 @@
-module groupe6.launcher {
+module groupe6 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
 
-    opens groupe6.launcher to javafx.fxml;
+    opens groupe6 to javafx.fxml;
 
     exports groupe6.launcher;
     exports groupe6.affichage;
