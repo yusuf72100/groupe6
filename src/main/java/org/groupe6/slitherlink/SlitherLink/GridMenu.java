@@ -7,12 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,10 +21,10 @@ import org.groupe6.slitherlink.PuzzleGenerator.*;
 public class GridMenu implements Menu {
     private Button sauvegarder;
     private Button home;
-    private Label infos;
-    private VBox layout_v;
+    private Button pause;
+    private HBox layout_v;
     private GridPane gridPane;
-    private VBox container;
+    private StackPane container;
     private CelluleNode[][] celluleNodes;
     private CelluleData[][] cellulesData;
     private int compteur;        // utilisé à des fins de test
@@ -39,12 +35,12 @@ public class GridMenu implements Menu {
 
     public GridMenu(int l, int L, DifficultePuzzle diff){
         this.compteur = 0;
-        this.infos = new Label();
-        this.infos.setAlignment(Pos.CENTER);
-
         this.home = new Button();
         this.home.getStyleClass().add("button-home");
         this.home.setPrefSize(30, 30);
+        this.pause = new Button();
+        this.pause.getStyleClass().add("button-pause");
+        this.pause.setPrefSize(30, 30);
         this.sauvegarder = new Button();
         this.sauvegarder.getStyleClass().add("button-sauvegarder");
         this.sauvegarder.setPrefSize(30, 30);
@@ -57,13 +53,19 @@ public class GridMenu implements Menu {
         fadeHome.setFromValue(1.0);
         fadeHome.setToValue(0.2);
 
+        FadeTransition fadePause = new FadeTransition(Duration.millis(150), this.pause);
+        fadePause.setFromValue(1.0);
+        fadePause.setToValue(0.2);
+
         this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
         this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
         this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
         this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
+        this.pause.setOnMouseEntered(event -> { mouseEntered(fadePause, this.pause); });
+        this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
 
         this.gridPane = new GridPane();
-        this.container = new VBox(infos, gridPane);
+        this.container = new StackPane(gridPane);
         this.longueur = l;
         this.largeur = L;
         initCellules(this.longueur, this.largeur);
@@ -118,7 +120,7 @@ public class GridMenu implements Menu {
      * @return
      * @param <T>
      */
-    public <T> HBox getMenu(T... args) {
+    public <T> AnchorPane getMenu(T... args) {
         // handler bouton de sauvegarde
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -146,7 +148,7 @@ public class GridMenu implements Menu {
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                Main.showMainMenu();
+                org.groupe6.slitherlink.SlitherLink.Main.showMainMenu();
             }
         });
 
@@ -157,15 +159,20 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        VBox buttonContainer = new VBox(home, sauvegarder);
-        buttonContainer.setAlignment(Pos.TOP_LEFT);
+        HBox buttonContainer = new HBox(home, sauvegarder, pause);
+        buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
+        //HBox.setHgrow(buttonContainer, Priority.ALWAYS);
 
-        HBox globalContainer = new HBox(buttonContainer, container);
-        HBox.setHgrow(container, Priority.ALWAYS);
+        AnchorPane anchorPane = new AnchorPane(container, buttonContainer);
+        AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
+        AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
+        AnchorPane.setRightAnchor(container, 0.0);
+        AnchorPane.setBottomAnchor(container, 0.0);
+        buttonContainer.prefWidthProperty().bind(anchorPane.widthProperty());
 
-        return globalContainer;
+        return anchorPane;
     }
 
     /**
@@ -225,12 +232,6 @@ public class GridMenu implements Menu {
      * @param nouveau
      */
     private void afficher(boolean nouveau) {
-        switch (this.puzzle.getDifficulte()) {
-            case FACILE -> this.infos.setText("Difficulté : Facile\nDimensions : " + this.longueur + " X " + this.largeur);
-            case MOYEN -> this.infos.setText("Difficulté : Moyen\nDimensions : " + this.longueur + " X " + this.largeur);
-            case DIFFICILE -> this.infos.setText("Difficulté : Difficile\nDimensions : " + this.longueur + " X " + this.largeur);
-        }
-
         // Colonnes
         for (int i = 0; i < this.celluleNodes.length; i++) {
             // Lignes
