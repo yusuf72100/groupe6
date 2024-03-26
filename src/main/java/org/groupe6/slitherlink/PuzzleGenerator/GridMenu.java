@@ -126,7 +126,7 @@ public class GridMenu implements Menu{
                 // File chooser
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Sauvegarder le puzzle");
-                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers BIN (*.bin)", "*.bin"));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers PUZZLE (*.puzzle)", "*.puzzle"));
 
                 Stage stage = (Stage) sauvegarder.getScene().getWindow();
                 java.io.File file = fileChooser.showSaveDialog(Main.getStage());

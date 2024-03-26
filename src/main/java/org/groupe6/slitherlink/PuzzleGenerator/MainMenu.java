@@ -95,8 +95,7 @@ public class MainMenu implements Menu {
                 fileChooser.setTitle("Sélectionnez un fichier");
 
                 fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Fichiers Texte", "*.bin"),
-                        new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
+                        new FileChooser.ExtensionFilter("Fichier PUZZLE", "*.puzzle")
                 );
 
                 java.io.File selectedFile = fileChooser.showOpenDialog(main.getStage());
