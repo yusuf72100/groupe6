@@ -190,6 +190,9 @@ public class Launcher {
 
     // Extrait le chemin du dossier parent du fichier JAR
     String cheminDossierParentJar = cheminFichierJar.substring(0, cheminFichierJar.lastIndexOf("/") + 1);
+    // Replace file: by ""
+    cheminDossierParentJar = cheminDossierParentJar.replace("file:","");
+    cheminDossierParentJar = cheminDossierParentJar.replace("Gr6.jar!/BOOT-INF/classes!/","");
 
     // Enleve le slash initial pour les chemins Windows
     if (cheminDossierParentJar.matches("^/[A-Za-z]:/.*")) {
@@ -197,12 +200,16 @@ public class Launcher {
     }
 
     // Chemins des dossiers de ressources
-    final String cheminDossierRessourcesJAR = "ressources";
+    final String cheminDossierRessourcesJAR = "BOOT-INF/classes/ressources";
     final String cheminDossierDestinationRessourceSlitherLink = "Slitherlink";
 
     // Vérifie si le programme est lancé dans le même dossier que le .jar ( compare les dossier parent du .jar et du dossier de ressources local )
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
+
+    System.out.println("cheminDossierParentJar : '"+normaliserChemin(cheminDossierParentJar)+"'");
+    System.out.println("cheminDossierParentRessourcesLocal : '"+normaliserChemin(cheminDossierParentRessourcesLocal)+"'");
+
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
       Application.launch(FenetreMauvaisDossier.class);
       return;
@@ -214,7 +221,8 @@ public class Launcher {
         System.out.println("---------------------------");
       }
 
-      JarFile fichierJar = new JarFile(cheminFichierJar);
+      System.out.println("cheminFichierJar : '"+cheminDossierParentJar+"Gr6.jar"+"'");
+      JarFile fichierJar = new JarFile(cheminDossierParentJar+"Gr6.jar");
 
       if (!isRessourcesCompletes(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink)) {
         extraireRessourcesDepuisJar(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink);

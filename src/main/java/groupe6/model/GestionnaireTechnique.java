@@ -30,9 +30,9 @@ public class GestionnaireTechnique{
         
     }
 
-    public ResultatTechnique rechercheAideTechnique(Puzzle puzzle){
+    public ResultatTechnique rechercheAideTechnique(Partie partie){
         for(Technique t: listeTechnique){
-            ResultatTechnique r=t.appliquerTechnique(puzzle);
+            ResultatTechnique r=t.run(partie);
             if(r.isTechniqueTrouvee()){
                 return r;
             }

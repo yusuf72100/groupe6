@@ -17,12 +17,15 @@ public class Action implements Serializable {
   private ValeurCote ancienneValeurCote; // ancienne valeur u cote
   private ValeurCote nouvelleValeurCote; // nouvelle valeur du cote
 
+  // Coordonée necessaire pour deep copy une action
+  private Coordonnee coordsCellule1;
+
   // Constructeur de la classe Action
-  public Action(Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote) {
+  public Action(Coordonnee coordsCellule1,Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote) {
     if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
       throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
     }
-
+    this.coordsCellule1 = coordsCellule1;
     this.cellule1 = cellule1;
     this.cellule2 = cellule2;
     this.coteCellule1 = coteCellule1;
@@ -42,8 +45,20 @@ public class Action implements Serializable {
     cellule2.setCote(Cellule.getCoteAdjacent(this.coteCellule1), ancienneValeurCote);
   }
 
-  @Override
-  public Object clone() {
-    throw new UnsupportedOperationException("Pas encore implementé !");
+  public Coordonnee getCoordsCellule1() {
+    return this.coordsCellule1;
+  }
+
+  public Object clone(Puzzle puzzle) {
+    int coordsCelluleY = this.coordsCellule1.getY();
+    int coordsCelluleX = this.coordsCellule1.getX();
+    Coordonnee coordsCelluleAdjacente = Puzzle.getCoordoneeAdjacente(coordsCelluleY,coordsCelluleX);
+      Action newAction = new Action(
+          this.coordsCellule1,
+          puzzle.getCellule(coordsCelluleY,coordsCelluleX),
+
+      );
+
+      return newAction;
   }
 }

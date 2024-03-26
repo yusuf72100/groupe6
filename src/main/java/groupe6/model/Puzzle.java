@@ -189,6 +189,18 @@ public class Puzzle implements Serializable, Cloneable {
   }
 
   public Cellule getCelluleAdjacente(int y, int x, int cote) {
+    Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
+    int coordsAdjacenteY = coordsAdjacente.getY();
+    int coordsAdjacenteX = coordsAdjacente.getX();
+    if ( estDansGrille(coordsAdjacenteY,coordsAdjacenteX) ) {
+      return getCellule(coordsAdjacenteY,coordsAdjacenteX);
+    }
+    else {
+      return null;
+    }
+  }
+
+  public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
     int yAdj = y;
     int xAdj = x;
 
@@ -208,13 +220,11 @@ public class Puzzle implements Serializable, Cloneable {
     }
 
     if (estDansGrille(yAdj, xAdj)) {
-      return grilleCellules[yAdj][xAdj];
+      return new Coordonnee(yAdj,xAdj);
     } else {
       return null;
     }
   }
-
-
 
   public boolean estDansGrille(int y, int x) {
     return y >= 0 && y < largeur && x >= 0 && x < longueur;
