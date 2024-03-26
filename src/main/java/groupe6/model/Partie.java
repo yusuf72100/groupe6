@@ -1,0 +1,184 @@
+package groupe6.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * @author Yamis
+ */
+
+public class Partie {
+
+  private Puzzle puzzle; // Le puzzle qui correspond à la partie
+  private PartieInfos infos; // Les informations de la partie
+  private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
+  private List<AideInfos> historiqueAide; // Historique des aides
+  private Hypothese hypothese; // Hypothese en cours
+
+  private Profil profil; // Le profil qui joue la partie
+
+  public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
+    this.puzzle = puzzle;
+    this.infos = new PartieInfos(null, 0, modeJeu, null);
+    this.infos.initDate();
+    this.gestionnaireAction = new GestionnaireAction();
+    this.historiqueAide = new ArrayList<AideInfos>();
+    this.profil = profil;
+  }
+
+  public Partie(PartieSauvegarde save, Profil profil) {
+    this.puzzle = save.getPuzzle();
+    this.infos = save.getInfos();
+    this.gestionnaireAction = save.getGestionnaireAction();
+    this.historiqueAide = save.getHistoriqueAide();
+    this.profil = profil;
+  }
+
+  public Puzzle getPuzzle() {
+    return this.puzzle;
+  }
+
+  public PartieInfos getInfos() {
+    return this.infos;
+  }
+
+  public List<AideInfos> getHistoriqueAide() {
+    return this.historiqueAide;
+  }
+
+  public Profil getProfil() {
+    return this.profil;
+  }
+
+  public GestionnaireAction getGestionnaireAction() {
+    return this.gestionnaireAction;
+  }
+
+  public boolean verifierErreur(int y, int x, int cote, Action action) {
+    Cellule cellSol1 = this.puzzle.getCelluleSolution(y, x);
+    // Cellule cellSol2 = this.puzzle.getCelluleAdjacenteSolution(y,x,cote);
+    //
+    // return cellSol1.equals(action.getCellule1()) &&
+    // cellSol2.equals(action.getCellule2());
+
+    return true;
+  }
+
+  // Méthode pour faire une action de type bascule à trois etats
+  public void actionBasculeTroisEtat(int y, int x, int cote) {
+    Cellule cellule1 = puzzle.getCellule(y, x);
+    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
+    ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
+
+    Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote);
+    gestionnaireAction.ajouterAction(action);
+
+    action.appliquerAction();
+    verifierErreur(y, x, cote, action);
+  }
+
+  // Méthode pour faire une action de type Vide
+  public void actionVide(int y, int x, int cote) {
+    Cellule cellule = puzzle.getCellule(y, x);
+    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
+    ValeurCote nouvelleValeurCote = ValeurCote.VIDE;
+
+    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    gestionnaireAction.ajouterAction(action);
+
+    action.appliquerAction();
+  }
+
+  // Méthode pour faire une action de type Trait
+  public void actionTrait(int y, int x, int cote) {
+    Cellule cellule = puzzle.getCellule(y, x);
+    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
+    ValeurCote nouvelleValeurCote = ValeurCote.TRAIT;
+
+    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    gestionnaireAction.ajouterAction(action);
+
+    action.appliquerAction();
+  }
+
+  // Méthode pour faire une action de type Croix
+  public void actionCroix(int y, int x, int cote) {
+    Cellule cellule = puzzle.getCellule(y, x);
+    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
+    ValeurCote nouvelleValeurCote = ValeurCote.CROIX;
+
+    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    gestionnaireAction.ajouterAction(action);
+
+    action.appliquerAction();
+  }
+
+  // Méthode qui verifie si la partie est terminée et agit en conséquence
+  public boolean estTermine() {
+    if (this.puzzle.estComplet()) {
+      this.infos.setChrono(null); // TODO
+
+      DifficultePuzzle difficulte = this.puzzle.getDifficulte();
+      boolean gagnee = true;
+      if (this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
+          this.infos.getChrono().compareTo(null) >= 0) {
+        gagnee = false;
+      }
+
+      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, true, gagnee);
+      this.profil.getHistorique().addResultParties(partieFinieInfos);
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void annuler() {
+    this.gestionnaireAction.annulerAction();
+  }
+
+  public void retablir() {
+    this.gestionnaireAction.retablirAction();
+  }
+
+  // Méthode pour afficher dans la console les informations de la partie
+  @Override
+  public String toString() {
+    StringBuilder strBuild = new StringBuilder();
+    strBuild.append(infos.toString());
+    strBuild.append(puzzle.toString());
+
+    return strBuild.toString();
+  }
+
+  // Méthode pour commencer une nouvelle partie
+  public static Partie nouvellePartie(CataloguePuzzle catalogue, DifficultePuzzle difficulte, int numero,
+      ModeJeu modeJeu, Profil profil) {
+    Puzzle puzzleVide = catalogue.getCopyPuzzle(difficulte, numero);
+    return new Partie(puzzleVide, modeJeu, profil);
+  }
+
+  public void activerHypothese() throws CloneNotSupportedException {
+    this.hypothese=new Hypothese((Puzzle) puzzle.clone(), (GestionnaireAction) gestionnaireAction.clone());
+  }
+
+  public void validerHypothese(){
+    this.puzzle=hypothese.getPuzzle();
+    this.gestionnaireAction=hypothese.getGestionnaireAction();
+  }
+
+  public void annulerHypothese(){
+    this.hypothese=null;
+  }
+
+  public void sauvegarder() {
+    PartieSauvegarde.creerSauvegardePartie(this);
+  }
+
+  // Charger une partie
+  public static Partie chargerPartie(PartieSauvegarde save, Profil profil) {
+    return new Partie(save, profil);
+  }
+}
