@@ -5,21 +5,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
+ * Classe qui représente le gestionnaire des techniques
+ *
  * @author Nathan
  */
-
 public class GestionnaireTechnique{
-    private ArrayList<Technique> listeTechnique;
+    private final ArrayList<Technique> listeTechnique;
     GestionnaireTechnique(){
         this.listeTechnique=new ArrayList<Technique>();
     }
 
     public void chargerTechnique(){
-        File dir = new File("/techniques");
+        File dir = new File("Slitherlinkl/techniques/");
         File[] liste = dir.listFiles();
-        for(File item : liste){
+        for(File item : Objects.requireNonNull(liste)){
             try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(item.getPath()))) {
                 Technique technique=(Technique) ois.readObject();
                 this.listeTechnique.add(technique);

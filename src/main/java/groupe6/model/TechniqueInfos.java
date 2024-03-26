@@ -1,32 +1,31 @@
 package groupe6.model;
 
 /**
- * Cette classe mod\u00e8lise les informations données sur chaque technique.
+ * Cette classe modélise les informations données sur chaque technique.
  * 
  * @author William Sardon
  */
 public class TechniqueInfos {
-    /** Texte d'explication d'une technique */
-    private String explicationTxt;
 
-    /** Chemin vers une image demontrant l'utilisation d'une technique */
-    private String schemaIMG;
+  /** Chemin vers une image demontrant l'utilisation d'une technique */
+
+    private final String explicationTxt; // Texte d'explication d'une technique
+    private final String schemaIMG;
 
     /** Niveau de difficulté de la technique : 'FACILE', 'MOYEN', 'DIFFICILE' */
-    private DifficulteTechnique difficulte;
+    private final DifficulteTechnique difficulte;
 
     /**
      * Constructeur
      * 
      * @param explicationTxt explication textuelle de la technique
-     * @param schemaIMG      chemin vers l'image demontrant l'utilisation d'une
-     *                       technique
+     * @param schemaIMG      chemin vers l'image demontrant l'utilisation d'une technique
      * @param difficulte     niveau de difficulte des techniques
      */
     public TechniqueInfos(String explicationTxt, String schemaIMG, DifficulteTechnique difficulte) {
-        this.explicationTxt = explicationTxt;
-        this.schemaIMG = schemaIMG;
-        this.difficulte = difficulte;
+      this.explicationTxt = explicationTxt;
+      this.schemaIMG = schemaIMG;
+      this.difficulte = difficulte;
     }
 
     /** Methode pour obtenir la difficulte */

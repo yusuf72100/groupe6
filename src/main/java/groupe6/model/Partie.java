@@ -11,17 +11,16 @@ import java.util.List;
 public class Partie {
 
   private Puzzle puzzle; // Le puzzle qui correspond à la partie
-  private PartieInfos infos; // Les informations de la partie
+  private final PartieInfos infos; // Les informations de la partie
   private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
-  private List<AideInfos> historiqueAide; // Historique des aides
+  private final List<AideInfos> historiqueAide; // Historique des aides
   private Hypothese hypothese; // Hypothese en cours
 
-  private Profil profil; // Le profil qui joue la partie
+  private final Profil profil; // Le profil qui joue la partie
 
   public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
     this.puzzle = puzzle;
     this.infos = new PartieInfos(null, 0, modeJeu, null);
-    this.infos.initDate();
     this.gestionnaireAction = new GestionnaireAction();
     this.historiqueAide = new ArrayList<AideInfos>();
     this.profil = profil;
@@ -71,7 +70,7 @@ public class Partie {
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
     ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
 
-    Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote);
+    Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote,new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
@@ -82,47 +81,47 @@ public class Partie {
   public void actionVide(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-    ValeurCote nouvelleValeurCote = ValeurCote.VIDE;
 
-    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    Action action = new Action(cellule, cellule2, cote, ValeurCote.VIDE,new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
+    verifierErreur(y, x, cote, action);
   }
 
   // Méthode pour faire une action de type Trait
   public void actionTrait(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-    ValeurCote nouvelleValeurCote = ValeurCote.TRAIT;
 
-    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    Action action = new Action(cellule, cellule2, cote, ValeurCote.TRAIT,new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
+    verifierErreur(y, x, cote, action);
   }
 
   // Méthode pour faire une action de type Croix
   public void actionCroix(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-    ValeurCote nouvelleValeurCote = ValeurCote.CROIX;
 
-    Action action = new Action(cellule, cellule2, cote, nouvelleValeurCote);
+    Action action = new Action(cellule, cellule2, cote, ValeurCote.CROIX, new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
+    verifierErreur(y, x, cote, action);
   }
 
   // Méthode qui verifie si la partie est terminée et agit en conséquence
   public boolean estTermine() {
     if (this.puzzle.estComplet()) {
-      this.infos.setChrono(null); // TODO
+      this.infos.setChrono(null); // TODO recupéré le chrono et update les infos
 
       DifficultePuzzle difficulte = this.puzzle.getDifficulte();
       boolean gagnee = true;
       if (this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
-          this.infos.getChrono().compareTo(null) >= 0) {
+          this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0) {
         gagnee = false;
       }
 
@@ -135,22 +134,18 @@ public class Partie {
     }
   }
 
-  public void annuler() {
+  public void undo() {
     this.gestionnaireAction.annulerAction();
   }
 
-  public void retablir() {
+  public void redo() {
     this.gestionnaireAction.retablirAction();
   }
 
   // Méthode pour afficher dans la console les informations de la partie
   @Override
   public String toString() {
-    StringBuilder strBuild = new StringBuilder();
-    strBuild.append(infos.toString());
-    strBuild.append(puzzle.toString());
-
-    return strBuild.toString();
+    return infos.toString() + puzzle.toString();
   }
 
   // Méthode pour commencer une nouvelle partie
@@ -160,13 +155,21 @@ public class Partie {
     return new Partie(puzzleVide, modeJeu, profil);
   }
 
-  public void activerHypothese() throws CloneNotSupportedException {
-    this.hypothese=new Hypothese((Puzzle) puzzle.clone(), (GestionnaireAction) gestionnaireAction.clone());
+  public void activerHypothese() {
+    Puzzle puzzleClone = null;
+    try {
+      puzzleClone = (Puzzle) puzzle.clone();
+      GestionnaireAction gestionnaireActionClone = gestionnaireAction.clone(puzzleClone);
+      this.hypothese = new Hypothese(puzzleClone, gestionnaireActionClone);
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
   public void validerHypothese(){
-    this.puzzle=hypothese.getPuzzle();
-    this.gestionnaireAction=hypothese.getGestionnaireAction();
+    this.puzzle = hypothese.getPuzzle();
+    this.gestionnaireAction = hypothese.getGestionnaireAction();
   }
 
   public void annulerHypothese(){

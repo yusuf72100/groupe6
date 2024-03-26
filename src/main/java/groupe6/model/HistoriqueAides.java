@@ -2,6 +2,12 @@ package groupe6.model;
 
 import java.util.ArrayList;
 
+
+/**
+ * Classe qui représente l'historique des aides
+ *
+ * @autor Nathan
+ */
 public class HistoriqueAides {
     ArrayList<AideInfos> listeAides;
     HistoriqueAides(){

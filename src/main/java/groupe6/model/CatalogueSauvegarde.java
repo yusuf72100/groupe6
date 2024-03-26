@@ -3,14 +3,17 @@ package groupe6.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
+ * Classe qui modélise un catalogue de sauvegardes
+ *
  * @author Yamis
  */
 
 public class CatalogueSauvegarde {
 
-  private List<PartieSauvegarde> catalogueSaves;
+  private final List<PartieSauvegarde> catalogueSaves;
 
   public CatalogueSauvegarde() {
     this.catalogueSaves = new ArrayList<PartieSauvegarde>();
@@ -34,7 +37,7 @@ public class CatalogueSauvegarde {
     String cheminDossier = "ressources/profils/" + profil.getNom() + "/saves/";
     File dossierSauvegardes = new File(cheminDossier);
     File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
-    for (File fichier : fichiersSauvegardes) {
+    for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
       if (fichier.getName().endsWith(".save")) {
         // Ajouter a la liste le nom du fichier sans .save
         String nom = fichier.getName().substring(0, fichier.getName().length() - 5); //

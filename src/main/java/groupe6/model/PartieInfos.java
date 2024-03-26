@@ -1,11 +1,11 @@
 package groupe6.model;
 
+import java.io.Serial;
 import java.time.Duration;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Classe PartieInfos
@@ -13,16 +13,32 @@ import java.util.Locale;
  * @author Tom MARSURA
  */
 public class PartieInfos implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private Date date;
-    private int score;
-    private Duration chrono;
-    private ModeJeu modeJeu;
-    private Duration limiteTemps;
+    private final Date date; // Date de création de la partie
+    private int score; // Score de la partie
+    private Duration chrono; // Chrono de la partie ( format HH:mm:ss )
+    private final ModeJeu modeJeu; // Mode de jeu de la partie
+    private final Duration limiteTemps; // Limite de temps de la partie selon le mode de jeu
 
     /**
-     * Constructeur de la classe PartieInfos
+     * Constructeur de la classe PartieInfos ( pas de limite de temps )
+     *
+     * @param chrono Le chrono de la partie
+     * @param score Le score de la partie
+     * @param mode Le mode de jeu de la partie
+     */
+    public PartieInfos(Duration chrono, int score, ModeJeu mode){
+        this.date = new Date();
+        this.score = score;
+        this.chrono = chrono;
+        this.modeJeu = mode;
+        this.limiteTemps = null;
+    }
+
+    /**
+     * Constructeur de la classe PartieInfos ( avec limite de temps )
      * 
      * @param chrono Le chrono de la partie
      * @param score Le score de la partie
@@ -30,12 +46,11 @@ public class PartieInfos implements Serializable{
      * @param limiteTemps La limite de temps de la partie
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode, Duration limiteTemps){
-        this.initDate();
+        this.date = new Date();
         this.score = score;
-
-        //Chrono au format DateFormat -> HH:mm:ss
         this.chrono = chrono;
         this.modeJeu = mode;
+        this.limiteTemps = limiteTemps;
     }
 
     /**
@@ -44,20 +59,6 @@ public class PartieInfos implements Serializable{
      */
     public Date getDate(){
         return date;
-    }
-
-    /**
-     * Setter de l'attribut date
-     */
-    public void setDate(Date date){
-        this.date = date;
-    }
-
-    /**
-     * Méthode qui permet d'initialiser la date de la partie
-     */
-    public void initDate(){
-        this.date = new Date();
     }
 
     /**
@@ -71,7 +72,7 @@ public class PartieInfos implements Serializable{
 
     /**
      * Méthode qui permet de convertir la date de la partie en String avec des tirets
-     * @return
+     * @return La date de la partie au format String avec des tirets
      */
     public String dateToStringTiret(){
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
@@ -120,7 +121,7 @@ public class PartieInfos implements Serializable{
 
     /**
      * Getter de l'attribut limiteTemps
-     * @return
+     * @return La limite de temps de la partie
      */
     public Duration getLimiteTemps(){
         return limiteTemps;

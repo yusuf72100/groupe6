@@ -1,14 +1,18 @@
 package groupe6.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
+ * Classe Cellule qui permet de stocker les informations d'une cellule
+ *
  * @author Yamis
  */
 
 // Classe Cellule qui implémente Serializable et Cloneable
 public class Cellule implements Serializable, Cloneable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   // Constantes pour les cotés
@@ -73,11 +77,7 @@ public class Cellule implements Serializable, Cloneable {
 
   // Méthode pour verifier si le nomre de trait maximal est atteint
   private boolean maxTrait() {
-    if (nbTrait() >= this.valeur) {
-      return true;
-    } else {
-      return false;
-    }
+    return nbTrait() >= this.valeur;
   }
 
   // Méthode pour completer les croix d'une cellule quand le nombre de trait
@@ -102,10 +102,6 @@ public class Cellule implements Serializable, Cloneable {
       return true;
     }
     if (obj.getClass() != this.getClass()) {
-      return false;
-    }
-
-    if (!(obj instanceof Cellule)) {
       return false;
     }
 
@@ -163,7 +159,8 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   @Override
-  public Object clone() {
+  public Object clone() throws CloneNotSupportedException {
+    Cellule cellule = (Cellule) super.clone();
 
     ValeurCote[] nouveauxCotes = new ValeurCote[4];
     for (int i = 0; i < 4; i++) {

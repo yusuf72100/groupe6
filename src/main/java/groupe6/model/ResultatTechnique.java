@@ -3,6 +3,8 @@ package groupe6.model;
 import java.util.ArrayList;
 
 /**
+ * La classe qui représente un résultat technique
+ *
  * @author Nathan
  */
 

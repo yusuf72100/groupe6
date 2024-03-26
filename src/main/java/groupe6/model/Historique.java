@@ -2,20 +2,16 @@ package groupe6.model;
 /*
  * Importations des librairies
  */
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Classe Historique qui stocke l'historique des parties
  * @author Tom MARSURA
  */
 public class Historique implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static List<PartieFinieInfos> historique;
@@ -41,7 +37,7 @@ public class Historique implements Serializable{
     /**
      * Méthode de chargement de l'historique des parties
      * @param chemin Le chemin du fichier de sauvegarde
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException Si la classe n'est pas trouvée
      */
     public static Historique chargerHistorique (String chemin) throws ClassNotFoundException{
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))){
@@ -79,15 +75,16 @@ public class Historique implements Serializable{
         int nbParties = historique.size();
 
         int nbPartiesGagnees = 0;
-        for(int i = 0; i < historique.size(); i++){
-            if(historique.get(i).getComplete())
+        for (PartieFinieInfos partieFinieInfos : historique) {
+            if (partieFinieInfos.getGagner())
                 nbPartiesGagnees++;
         }
 
+
         int meilleurScore = 0;
-        for(int i = 0; i < historique.size(); i++){
-            if(historique.get(i).getScore() > meilleurScore)
-                meilleurScore = historique.get(i).getScore();
+        for (PartieFinieInfos partieFinieInfos : historique) {
+            if (partieFinieInfos.getScore() > meilleurScore)
+                meilleurScore = partieFinieInfos.getScore();
         }
         stat.add(nbParties);
         stat.add(nbPartiesGagnees);

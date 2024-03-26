@@ -1,12 +1,13 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
+ * Cette classe modélise un catalogue de puzzles
+ *
  * @author Yamis
  */
 
@@ -14,7 +15,7 @@ import java.util.Map;
 public class CataloguePuzzle {
 
   // Catalogue des puzzles répartis selon la difficulté
-  private Map<DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
+  private final Map<DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
 
   // Constructeur de la classe CataloguePuzzle
   public CataloguePuzzle() {
@@ -53,12 +54,17 @@ public class CataloguePuzzle {
   }
 
   public Puzzle getCopyPuzzle(DifficultePuzzle difficulte, int numero) {
-    return (Puzzle) this.getPuzzle(difficulte, numero).clone();
+    try {
+      return (Puzzle) this.getPuzzle(difficulte, numero).clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   // Méthode pour afficher le catalogue de puzzles
   public String toString() {
-    StringBuilder strBuilder = new StringBuilder("");
+    StringBuilder strBuilder = new StringBuilder();
 
     // Affichage pôur chaque puzzle de chaque difficulté sa difficulté et sa taille
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
@@ -72,18 +78,18 @@ public class CataloguePuzzle {
   }
 
   // Méthode pour charger un catalogue de puzzle
-  static public CataloguePuzzle chargerCataloguePuzzle(String cheminDossier) {
+  static public CataloguePuzzle chargerCataloguePuzzle() {
     CataloguePuzzle catalogue = new CataloguePuzzle();
 
-    File pathDossier = new File(cheminDossier);
-    String contenu[] = pathDossier.list();
+    String cheminRessourcesPuzzles = Launcher.normaliserChemin("Slitherlink/puzzles");
+    File pathDossier = new File(cheminRessourcesPuzzles);
+    String[] contenu = pathDossier.list();
 
     if (contenu != null) {
       for (String s : contenu) {
         if (s.endsWith(".puzzle")) {
-
-          Puzzle puzzle = Puzzle.chargerPuzzle(cheminDossier + File.separator + s);
-          catalogue.ajouterPuzzle(puzzle);
+          Puzzle puzzle = Puzzle.chargerPuzzle(cheminRessourcesPuzzles + File.separator + s);
+          catalogue.ajouterPuzzle(Objects.requireNonNull(puzzle));
         }
       }
     }

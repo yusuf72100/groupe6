@@ -1,6 +1,8 @@
 package groupe6.model;
 
 /**
+ * L'énumération des valeurs possibles pour les cotés d'une cellule.
+ *
  * @author Yamis
  */
 

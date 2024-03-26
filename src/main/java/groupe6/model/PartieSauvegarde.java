@@ -1,25 +1,23 @@
 package groupe6.model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 
 /**
+ * Classe qui représente une sauvegarde de partie
+ *
  * @author Yamis
  */
 
 public class PartieSauvegarde implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
-  private Puzzle puzzle; // Le puzzle qui correspond à la partie
-  private PartieInfos infos; // Les informations de la partie
-  private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
-  private List<AideInfos> historiqueAide; // Historique des aides
+  private final Puzzle puzzle; // Le puzzle qui correspond à la partie
+  private final PartieInfos infos; // Les informations de la partie
+  private final GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
+  private final List<AideInfos> historiqueAide; // Historique des aides
 
   public PartieSauvegarde(Puzzle puzzle, PartieInfos infos, GestionnaireAction gestionnaireAction,
       List<AideInfos> historiqueAide) {
@@ -54,7 +52,7 @@ public class PartieSauvegarde implements Serializable {
 
     String cheminDossier = "ressources/profils/" + partie.getProfil().getNom() + "/saves/";
 
-    StringBuilder nomFichier = new StringBuilder("");
+    StringBuilder nomFichier = new StringBuilder();
     nomFichier.append(partie.getPuzzle().getDifficulte().toString());
     nomFichier.append("_");
     nomFichier.append(partie.getPuzzle().getLargeur() + "x" + partie.getPuzzle().getLongueur());
@@ -77,8 +75,7 @@ public class PartieSauvegarde implements Serializable {
 
   public static PartieSauvegarde chargerSauvegarde(String cheminFichier) {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cheminFichier))) {
-      PartieSauvegarde save = (PartieSauvegarde) ois.readObject();
-      return save;
+      return (PartieSauvegarde) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       return null;

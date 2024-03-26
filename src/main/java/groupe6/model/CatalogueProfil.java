@@ -1,48 +1,137 @@
 package groupe6.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Cette classe modélise un catalogue de profils
- * 
+ *
  * @author William Sardon
  */
 public class CatalogueProfil {
-    private static List<Profil> listeProfil;
+  private static List<Profil> listeProfil;
 
-    private Profil profilActuel;
+  private Profil profilActuel;
 
-    public static void parcourirProfils() {
-        // Parcours les elements du dossier "ressources/profil/"
-        File dossierProfils = new File("ressources/profil/");
-        File[] profils = dossierProfils.listFiles();
-        for (File profil : profils) {
-            if (profil.isDirectory()) {
-                // Parcours les elements du dossier "ressources/profil/nomProfil/saves/"
-                for (File file : profil.listFiles()) {
-                    // File termine par .profil
-                    if (file.getName().endsWith(".profil")) {
-                        // On charge le profil
-                        Profil p = Profil.chargerProfil(file.getAbsolutePath());
-                        ajouterProfil(p);
-                    }
-                }
-            }
+  public CatalogueProfil() {
+    listeProfil = new ArrayList<Profil>();
+    this.profilActuel = null;
+  }
+
+  public List<Profil> getListeProfils() {
+      return listeProfil;
+  }
+
+  public void ajouterProfil(Profil profil) {
+      listeProfil.add(profil);
+  }
+
+  public Profil getProfilActuel() {
+    return profilActuel;
+  }
+
+  public void setProfilActuel(Profil profil) {
+    this.profilActuel = profil;
+  }
+
+  public String toString() {
+    StringBuilder strBuilder = new StringBuilder();
+    strBuilder.append("Liste des profils :\n");
+    for (Profil profil : listeProfil) {
+      strBuilder.append(profil.toString());
+      strBuilder.append("\n");
+    }
+    strBuilder.append("Profil actuel : ");
+    strBuilder.append(profilActuel.getNom());
+    return strBuilder.toString();
+  }
+
+  public static CatalogueProfil chargerCatalogueProfil() {
+    CatalogueProfil catalogueProfil = new CatalogueProfil();
+
+    // Dossier ressources contenant les profils
+    File dossierRessourceProfils = new File("Slitherlink/profils/");
+    File[] listeDossierProfils = dossierRessourceProfils.listFiles();
+
+    // Parcours les elements du dossier "Slitherlink/profils/"
+    for (File dossierProfil : Objects.requireNonNull(listeDossierProfils)) {
+      if (dossierProfil.isDirectory()) {
+        // Parcours les elements du dossier "Slitherlink/profils/nomProfil/saves/"
+        for (File file : Objects.requireNonNull(dossierProfil.listFiles())) {
+          // File termine par .profil
+          if (file.getName().endsWith(".profil")) {
+            // On charge le profil
+            Profil p = Profil.chargerProfil(file.getAbsolutePath());
+            catalogueProfil.ajouterProfil(p);
+          }
         }
+      }
+    }
+    // Verifie si au moins un profil a été chargé
+    if (catalogueProfil.getListeProfils().isEmpty()) {
+      throw new RuntimeException("Erreur : aucun profil n'a été trouvé");
     }
 
-    public CatalogueProfil() {
-        listeProfil = new ArrayList<Profil>();
-        parcourirProfils();
+    // Ouvre le fichier profilActuel.config
+    File profilActuelConfig = new File("Slitherlink/profils/profilActuel.config");
+    if (profilActuelConfig.exists()) {
+      try {
+        // On lit le contenu du fichier profilActuel.config et on met le texte dans nomProfilActuel
+        Scanner scanner = new Scanner(profilActuelConfig);
+        String nomProfilActuel = scanner.nextLine();
+        scanner.close();
+
+        Profil defaut = null;
+        for (Profil profil : catalogueProfil.getListeProfils()) {
+          if (profil.getNom().equals(nomProfilActuel)) {
+            catalogueProfil.setProfilActuel(profil);
+          }
+          if (profil.getNom().equals("utilisateur")) {
+            defaut = profil;
+          }
+        }
+        if (catalogueProfil.getProfilActuel() == null) {
+          if (defaut != null) {
+            catalogueProfil.setProfilActuel(defaut);
+          } else {
+            catalogueProfil.setProfilActuel(catalogueProfil.getListeProfils().get(0));
+          }
+        }
+      } catch (FileNotFoundException e) {
+        System.err.println("Erreur : Impossible de lire le fichier profilActuel.config");
+        e.printStackTrace();
+      }
+    } else {
+      System.err.println("Erreur : fichier profilActuel.config non trouvé");
     }
 
-    public List<Profil> getListeProfils() {
-        return listeProfil;
-    }
+    return catalogueProfil;
+  }
 
-    public static void ajouterProfil(Profil profil) {
-        listeProfil.add(profil);
+  public static void sauvegarderProfilActuel(CatalogueProfil catalogueProfil) {
+    try {
+      // Fichier ou sera sauvegardé le profil actuel
+      File profilActuelConfig = new File("Slitherlink/profils/profilActuel.config");
+      // Créer le fichier profilActuel.config s'il n'existe pas
+      if (!profilActuelConfig.exists()) {
+        profilActuelConfig.createNewFile();
+      }
+      // Ecrire dans le fichier profilActuel.config le nom du profil actuel
+      FileWriter writer = new FileWriter(profilActuelConfig);
+      writer.write(catalogueProfil.getProfilActuel().getNom());
+      writer.close();
+    } catch (FileNotFoundException e) {
+      System.err.println("Erreur : Impossible de lire le fichier profilActuel.config");
+      e.printStackTrace();
+    } catch (Exception e) {
+      System.err.println("Erreur : Impossible de créer le fichier profilActuel.config");
+      e.printStackTrace();
     }
+  }
+
 }

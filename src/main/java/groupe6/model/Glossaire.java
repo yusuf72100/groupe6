@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Cette classe mod\u00e8lise un glossaire contenant la liste des informations
+ * Cette classe modélise un glossaire contenant la liste des informations
  * sur les techniques.
  * 
  * @author William Sardon
  */
 public class Glossaire {
     /** Liste d'objet InfoTechnique */
-    private List<TechniqueInfos> listeInfoTechnique;
+    private final List<TechniqueInfos> listeInfoTechnique;
 
     public Glossaire() {
         listeInfoTechnique = new ArrayList<TechniqueInfos>();

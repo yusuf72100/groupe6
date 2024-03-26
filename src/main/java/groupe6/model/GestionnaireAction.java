@@ -1,16 +1,20 @@
 package groupe6.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe qui représente le gestionnaire des actions
+ *
  * @author Yamis
  */
 
 // Classe GestionnaireAction qui implémente Serializable
 public class GestionnaireAction implements Serializable,Cloneable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private List<Action> listeAction; // Liste des actions
@@ -69,22 +73,24 @@ public class GestionnaireAction implements Serializable,Cloneable {
     }
   }
 
-  @Override
-  public Object clone() throws CloneNotSupportedException {
+  public GestionnaireAction clone(Puzzle puzzle) {
     GestionnaireAction gestionnaireClone = new GestionnaireAction();
-    gestionnaireClone.setListeAction(clonerListeAction());
+    gestionnaireClone.setListeAction(clonerListeAction(puzzle));
     gestionnaireClone.setIndex(this.index);
 
     return gestionnaireClone;
   }
 
-  private List<Action> clonerListeAction() {
+  private List<Action> clonerListeAction(Puzzle puzzle) {
     List<Action> newListe = new ArrayList<Action>();
     for (Action action : this.listeAction) {
-      newListe.add((Action) action.clone());
+      newListe.add((Action) action.clone(puzzle));
     }
     return newListe;
   }
 
-
+  @Override
+  public GestionnaireAction clone() {
+    throw new UnsupportedOperationException("Une action peut seulement être clonée avec un puzzle en paramètre");
+  }
 }

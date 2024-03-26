@@ -10,37 +10,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gr6_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Gr6_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/yamis.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Gr6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/font/SNAKV___.TTF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/icon/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/icon/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/icon/sauvegarder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/img/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/assets/style/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/glossaire/advanced/technique1/img1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/main.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/utilisateur/avatard-50x50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/utilisateur/saves/FACILE_5x5_19_03_2024.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/utilisateur/utilisateur.profil" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/yamis/saves/classique_facile_01_16-02-24-18h42.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/yamis/saves/test.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/yamis/yamis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/profils/yamis/yamis.profil" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/puzzle/facile_5x5.puzzle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/puzzle/facile_5x5_2.puzzle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/tools/PuzzleGenerator/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/tools/PuzzleGenerator/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/tools/PuzzleGenerator/sauvegarder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gr6_jar/Slitherlink/tools/PuzzleGenerator/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/AideInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/AideInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueEntrainement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueEntrainement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CataloguePuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CataloguePuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Cellule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Cellule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficultePuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficultePuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficulteTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficulteTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Entrainement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Entrainement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Glossaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Glossaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Historique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Historique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/HistoriqueAides.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/HistoriqueAides.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Hypothese.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Hypothese.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ModeJeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ModeJeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Parametre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieFinieInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieFinieInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/TechniqueInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/TechniqueInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ValeurCote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ValeurCote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/testPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/glossaire/advanced/technique1/img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/main.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/avatard-50x50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/saves/FACILE_5x5_19_03_2024.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/utilisateur.profil" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/yamis/saves/classique_facile_01_16-02-24-18h42.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/yamis/saves/test.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/yamis/yamis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/yamis/yamis.profil" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/puzzle/facile_5x5.puzzle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/puzzle/facile_5x5_2.puzzle" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +85,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+        <option name="mavenHome" value="Use Maven wrapper" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -91,9 +112,10 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.mvnw.executor": "Run",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/info/etu/l3info/s2101681/Documents/Projet_GL2/doc/diag_uml_26_03_2024",
+    "last_opened_file_path": "C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/main/groupe6/src/main/resources/ressources/profils/yamis/saves",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,10 +124,19 @@
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.37847868",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils" />
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn install" />
@@ -146,11 +177,23 @@
       <workItem from="1711398345239" duration="5168000" />
       <workItem from="1711403660942" duration="21000" />
       <workItem from="1711459767880" duration="7042000" />
+      <workItem from="1711472554641" duration="13610000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

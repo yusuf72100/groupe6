@@ -8,7 +8,7 @@ import java.time.Duration;
 
 // Classe qui correspond au chronomètre
 public class Chronometre {
-
+  // TODO
   private long debut; // Temps de début du chronomètre
   private Duration tempsEcoule; // Temps écoulé
 

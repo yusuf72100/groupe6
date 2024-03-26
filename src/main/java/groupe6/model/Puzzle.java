@@ -1,26 +1,25 @@
 package groupe6.model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.util.Arrays;
 
 /**
+ * La classe qui représente un puzzle
+ *
  * @author Yamis
  */
 
 // Classe Puzzle qui implémente Serializable et Cloneable
 public class Puzzle implements Serializable, Cloneable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
-  private int largeur; // Nombre de lignes
-  private int longueur; // Nombre de colonnes
+  private final int largeur; // Nombre de lignes
+  private final int longueur; // Nombre de colonnes
   private Cellule[][] solutionPuzzle; // Grille avec la solution du puzzle
   private Cellule[][] grilleCellules; // Grille de cellules du puzzle
-  private DifficultePuzzle difficulte; // Difficulté du puzzle
+  private final DifficultePuzzle difficulte; // Difficulté du puzzle
 
   // Constructeur de la classe Puzzle
   public Puzzle(int largeur, int longueur, Cellule[][] solutionPuzzle, DifficultePuzzle difficulte) {
@@ -74,9 +73,7 @@ public class Puzzle implements Serializable, Cloneable {
     for (int y = 0; y < solutionPuzzle.length; y++) {
       for (int x = 0; x < solutionPuzzle[y].length; x++) {
         ValeurCote[] cotesVide = new ValeurCote[4];
-        for (int i = 0; i < cotesVide.length; i++) {
-          cotesVide[i] = ValeurCote.VIDE;
-        }
+        Arrays.fill(cotesVide, ValeurCote.VIDE);
         grillePropre[y][x] = new Cellule(solutionPuzzle[y][x].getValeur(), cotesVide);
       }
     }
@@ -232,14 +229,11 @@ public class Puzzle implements Serializable, Cloneable {
 
   // Méthode pour faire cloner recursivement un puzzle
   @Override
-  public Object clone() {
-    Cellule[][] solutionPuzzleClone = clonerMatriceCellule(solutionPuzzle);
-    Cellule[][] grilleCellulesClone = clonerMatriceCellule(grilleCellules);
-
-    Puzzle puzzleClone = new Puzzle(this.largeur, this.longueur, solutionPuzzleClone, grilleCellulesClone,
-        this.difficulte);
-
-    return puzzleClone;
+  public Object clone() throws CloneNotSupportedException {
+    Puzzle nouveauPuzzle = (Puzzle) super.clone();
+    nouveauPuzzle.solutionPuzzle = clonerMatriceCellule(solutionPuzzle);
+    nouveauPuzzle.grilleCellules = clonerMatriceCellule(grilleCellules);
+    return nouveauPuzzle;
   }
 
   // Méthode pour cloner un tableau de Cellules de manière récursive
@@ -248,11 +242,16 @@ public class Puzzle implements Serializable, Cloneable {
     int longueur = grille[0].length;
     Cellule[][] nouvelleGrille = new Cellule[largeur][longueur];
 
-    for (int i = 0; i < nouvelleGrille.length; i++) {
-      for (int j = 0; j < nouvelleGrille[0].length; j++) {
-        nouvelleGrille[i][j] = (Cellule) grille[i][j].clone();
+    try {
+      for (int i = 0; i < nouvelleGrille.length; i++) {
+        for (int j = 0; j < nouvelleGrille[0].length; j++) {
+          nouvelleGrille[i][j] = (Cellule) grille[i][j].clone();
+        }
       }
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
     }
+
     return nouvelleGrille;
   }
 
@@ -268,8 +267,7 @@ public class Puzzle implements Serializable, Cloneable {
   // Méthode pour charger le puzzle
   public static Puzzle chargerPuzzle(String chemin) {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-      Puzzle puzzle = (Puzzle) ois.readObject();
-      return puzzle;
+      return (Puzzle) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       return null;

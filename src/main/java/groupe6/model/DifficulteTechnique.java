@@ -1,6 +1,10 @@
 package groupe6.model;
 
-/** Enum pour les difficultes des techniques */
+/**
+ * Enumération qui correspond à la difficulté technique d'une technique
+ *
+ * @author Nathan
+ */
 public enum DifficulteTechnique {
     DEMARRAGE,
     BASIQUE,

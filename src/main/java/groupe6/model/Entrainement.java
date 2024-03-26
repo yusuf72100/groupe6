@@ -1,5 +1,6 @@
 package groupe6.model;
 
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Stack;
  */
 public class Entrainement extends Partie {
     /** liste d'action pouvant etre realisées pour finir l'entrainement */
-    private Stack<Action> listeAction;
+    private final Stack<Action> listeAction;
 
     /**
      * Constructeur de la classe Entrainement
@@ -44,8 +45,9 @@ public class Entrainement extends Partie {
 
     /**
      * 
-     * @param x
-     * @param y
+     * @param y La coordonnée y de la cellule
+     * @param x La coordonnée x de la cellule
+     * @param cote Le cote de la cellule
      */
     @Override
     // Méthode pour faire une action de type bascule à trois etats
@@ -54,14 +56,22 @@ public class Entrainement extends Partie {
         Cellule cellule2 = this.getPuzzle().getCelluleAdjacente(y, x, cote);
         ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
 
-        Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote);
-        if (listeAction.peek() == action) {
+        Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote, new Coordonnee(y, x));
+        if (Objects.equals(listeAction.peek(), action)) {
             this.getGestionnaireAction().ajouterAction(action);
             action.appliquerAction();
 
             this.listeAction.pop();
         }
 
+    }
+
+    public static Partie chargerPartie() {
+        throw new UnsupportedOperationException("Utilisé chargerEntrainement() à la place");
+    }
+
+    public static Entrainement chargerEntrainement() {
+        throw new UnsupportedOperationException("Pas encore implémenté");
     }
 
 }

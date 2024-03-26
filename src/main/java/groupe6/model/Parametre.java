@@ -1,12 +1,17 @@
 package groupe6.model;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
+
 import javafx.scene.input.KeyCode;
 
 /**
  * Classe Parametre qui gère les paramètres de l'application
+ *
  * @author Tom MARSURA
  */
 public class Parametre implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private boolean aideRemplissageCroix;
@@ -104,8 +109,8 @@ public class Parametre implements Serializable{
 
     /**
      * Setter de l'attribut aideTechniqueDemarrage
-     * @param aideTechniqueDemmarage L'aide d'application auto des techniques de démarrage
-     * @param difficule Difficulte du puzzle où appliquer l'aide
+     * @param aideTechniqueDemarrage L'aide d'application auto des techniques de démarrage
+     * @param difficulte Difficulte du puzzle où appliquer l'aide
      */
     public void setAideTechniqueDemarrage (boolean aideTechniqueDemarrage, DifficultePuzzle difficulte){
         this.aideTechniqueDemarrage[difficulte.ordinal()] = aideTechniqueDemarrage;
@@ -116,7 +121,7 @@ public class Parametre implements Serializable{
      */
     public String toString(){
         return "Aide au remplissage de la croix : " + this.aideRemplissageCroix + "\n" +
-        "Aide technique au démarrage : " + this.aideTechniqueDemarrage + "\n" +
+        "Aide technique au démarrage : " + Arrays.toString(this.aideTechniqueDemarrage) + "\n" +
         "Touche pour les vides : " + this.toucheVide + "\n" +
         "Touche pour les traits : " + this.toucheTrait + "\n" +
         "Touche pour les croix : " + this.toucheCroix + "\n";

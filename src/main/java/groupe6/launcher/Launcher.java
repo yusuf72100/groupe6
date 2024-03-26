@@ -21,6 +21,41 @@ import javafx.scene.image.Image;
 public class Launcher {
 
   static boolean verbose = false;
+  private static Launcher instance;
+
+  private String cheminDossierParentJar;
+  private Launcher() {}
+
+  public static Launcher getInstance() {
+    if (instance == null) {
+      instance = new Launcher();
+    }
+    return instance;
+  }
+
+  public void setCheminDossierParentJar(String cheminDossierParentJar) {
+    this.cheminDossierParentJar = cheminDossierParentJar;
+  }
+
+  public String getCheminDossierParentJar() {
+    return cheminDossierParentJar;
+  }
+
+  public static boolean copier(File source, File dest) {
+    try (InputStream sourceFile = new java.io.FileInputStream(source);
+         OutputStream destinationFile = new FileOutputStream(dest)) {
+      // Lecture par segment de 0.5Mo
+      byte[] buffer = new byte[512 * 1024];
+      int nbLecture;
+      while ((nbLecture = sourceFile.read(buffer)) != -1){
+        destinationFile.write(buffer, 0, nbLecture);
+      }
+    } catch (IOException e){
+      e.printStackTrace();
+      return false; // Erreur
+    }
+    return true; // Résultat OK
+  }
 
   private static boolean isRessourcesCompletes(JarFile fichierJar, String cheminDossierRessourcesJar,
       String cheminDossierRessourcesLocal) throws IOException {
@@ -171,6 +206,7 @@ public class Launcher {
     }
   }
 
+
   public static void main(String[] args) {
     for (String arg : args) {
       if (arg.equals("--verbose")) {
@@ -184,6 +220,7 @@ public class Launcher {
       System.out.println("Mode verbose active");
       System.out.println("---------------------------");
     }
+
 
     // Obtient le chemin vers le fichier JAR en cours d'execution
     final String cheminFichierJar = Launcher.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -207,9 +244,6 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
 
-    System.out.println("cheminDossierParentJar : '"+normaliserChemin(cheminDossierParentJar)+"'");
-    System.out.println("cheminDossierParentRessourcesLocal : '"+normaliserChemin(cheminDossierParentRessourcesLocal)+"'");
-
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
       Application.launch(FenetreMauvaisDossier.class);
       return;
@@ -221,12 +255,16 @@ public class Launcher {
         System.out.println("---------------------------");
       }
 
-      System.out.println("cheminFichierJar : '"+cheminDossierParentJar+"Gr6.jar"+"'");
       JarFile fichierJar = new JarFile(cheminDossierParentJar+"Gr6.jar");
 
       if (!isRessourcesCompletes(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink)) {
         extraireRessourcesDepuisJar(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink);
       }
+
+      // Création de l'objet Launcher
+      Launcher launcher = Launcher.getInstance();
+      // Ajout du chemin du dossier parent du fichier JAR a l'objet Launcher
+      launcher.setCheminDossierParentJar(normaliserChemin(cheminDossierParentJar));
 
       fichierJar.close();
 
@@ -239,8 +277,8 @@ public class Launcher {
       // Detection du paramètre --tools-puzzle-generator ( seulement ce paramètre )
       for (String arg : args) {
         if (arg.equals("--tools-puzzle-generator")) {
-        Application.launch(groupe6.tools.puzzleGenerator.Main.class, args);
-        return;
+          Application.launch(groupe6.tools.puzzleGenerator.Main.class, args);
+          return;
         }
       }
 
@@ -248,8 +286,8 @@ public class Launcher {
       for (String arg : args) {
         if (arg.equals("--test")) {
 
-        groupe6.test.TestMain.main(args);
-        return;
+          groupe6.test.TestMain.main(args);
+          return;
         }
       }
 

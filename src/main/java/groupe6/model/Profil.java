@@ -1,18 +1,22 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
- * Cette classe mod\u00e8lise un profil d'utilisateur.
- * 
+ * Cette classe modélise un profil d'utilisateur.
+ *
  * @author William Sardon
  */
 public class Profil implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** Nom de l'utilisateur */
@@ -25,17 +29,16 @@ public class Profil implements Serializable {
     private int niveauAventure;
 
     /** Historique de jeu de l'utilisateur */
-    private Historique historique;
+    private final Historique historique;
 
     /** Parametre de l'utilisateur */
-    private Parametre parametre;
+    private final Parametre parametre;
 
     /**
      * Constructeur
-     * 
+     *
      * @param nom            Nom de l'utilisateur
      * @param cheminIMG      Chemin vers l'image utilisee dans le profil
-     * @param niveauAventure Niveau de progression dans le mode aventure
      */
     public Profil(String nom, String cheminIMG) {
         this.nom = nom;
@@ -47,8 +50,8 @@ public class Profil implements Serializable {
 
     /**
      * Modifie le nom du profil
-     * 
-     * @param newNom
+     *
+     * @param newNom Nouveau nom
      */
     public void modifierNom(String newNom) {
         this.nom = newNom;
@@ -93,9 +96,10 @@ public class Profil implements Serializable {
 
     /**
      * Modifie la photo de profil
-     * 
+     *
      */
     public void choisirImage() {
+        // TODO : Probleme copie de l'image selectionnee
         JFileChooser selecteurFichiers = new JFileChooser();
         selecteurFichiers.setDialogTitle("Choisir une image de profil");
 
@@ -109,7 +113,7 @@ public class Profil implements Serializable {
                 String extension = getExtension(f);
                 // Accepte si l'extension est en jpg, jpeg ou png
                 return extension != null && (extension.equals("jpg") || extension.equals("jpeg") ||
-                        extension.equals("png"));
+                    extension.equals("png"));
             }
 
             // Description du filtre
@@ -133,17 +137,14 @@ public class Profil implements Serializable {
         int selectionUtilisateur = selecteurFichiers.showOpenDialog(null);
         if (selectionUtilisateur == JFileChooser.APPROVE_OPTION) {
             File fichierSelectionne = selecteurFichiers.getSelectedFile();
-            String dossierDestination = "ressources/profil/" + this.nom;
-
-            try {
-                Path cheminSource = fichierSelectionne.toPath();
-                Path cheminDestination = Paths.get(dossierDestination, fichierSelectionne.getName());
-                Files.copy(cheminSource, cheminDestination);
-                System.out.println("Le fichier a été copié avec succès dans " + cheminDestination.toString());
-                cheminIMG = cheminDestination.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String dossierDestination = "Slitherlink/profils/" + this.nom + File.separator;
+            String cheminDestination = Launcher.normaliserChemin(dossierDestination + fichierSelectionne.getName());
+            System.out.println("cheminDestination : "+cheminDestination);
+            File destination = new File(cheminDestination);
+            System.out.println(destination.getAbsolutePath());
+            Launcher.copier(fichierSelectionne, destination);
+            System.out.println("Le fichier a été copié avec succès dans " + cheminDestination);
+            cheminIMG = cheminDestination;
         }
     }
 
@@ -158,28 +159,45 @@ public class Profil implements Serializable {
 
     /**
      * Methode de saauvegarde de profil
-     * 
-     * @param profil
-     * @param chemin
+     *
+     * @param profil Le profil à sauvegarder
      */
-    public static void sauvegarderProfil(Profil profil, String chemin) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))) {
+    public static String sauvegarderProfil(Profil profil) {
+        // Dossier ressources contenant les profils
+        String cheminDossierRessourceProfils = "Slitherlink/profils/";
+        File dossierRessourceProfils = new File(cheminDossierRessourceProfils);
+        // Parcours les elements du dossier "Slitherlink/profils/" et verifie si un dossier du nom de l'utilisateur existe
+        for (File dossierProfil : Objects.requireNonNull(dossierRessourceProfils.listFiles())) {
+            if (dossierProfil.isDirectory() && dossierProfil.getName().equals(profil.getNom())) {
+                return  "Ce profil existe déjà dans les données de Slitherlink";
+            }
+        }
+        // Si le dossier n'existe pas, on le crée
+        File dossierProfil = new File(cheminDossierRessourceProfils + profil.getNom());
+        dossierProfil.mkdir();
+        // On crée le dossier saves
+        File dossierSaves = new File(cheminDossierRessourceProfils + profil.getNom() + "/saves");
+        dossierSaves.mkdir();
+        // On crée le fichier profilName.profil
+        String cheminFichierProfil = cheminDossierRessourceProfils + profil.getNom() + "/" + profil.getNom() + ".profil";
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cheminFichierProfil))) {
             oos.writeObject(profil);
+            return "Profil sauvegardé avec succès";
         } catch (IOException e) {
             e.printStackTrace();
+            return "Erreur lors de la sauvegarde du profil";
         }
     }
 
     /**
      * Methode de chargement de profil
-     * 
-     * @param chemin
+     *
+     * @param chemin Le chemin du profil à charger
      * @return le profil à charger
      */
     public static Profil chargerProfil(String chemin) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-            Profil profil = (Profil) ois.readObject();
-            return profil;
+          return (Profil) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;

@@ -11,16 +11,16 @@ import java.time.Duration;
  */
 public class PartieFinieInfos extends PartieInfos {
 
-    private DifficultePuzzle difficulte;
-    boolean complete;
-    boolean gagner;
+    private final DifficultePuzzle difficulte;
+    private final boolean  complete;
+    private final boolean gagner;
 
     /**
      * Constructeur de la classe PartieFinieInfos
-     * @param infos
-     * @param difficulte
-     * @param complete
-     * @param gagner
+     * @param infos Les informations de la partie
+     * @param difficulte La difficulté du puzzle
+     * @param complete Si la partie est complète
+     * @param gagner Si la partie est gagnée
      */
     public PartieFinieInfos(PartieInfos infos, DifficultePuzzle difficulte, boolean complete, boolean gagner){
         super(infos.getChrono(), infos.getScore(),  infos.getModeJeu(), infos.getLimiteTemps());
@@ -31,7 +31,7 @@ public class PartieFinieInfos extends PartieInfos {
 
     /**
      * Getter de l'attribute difficulte
-     * @return
+     * @return la difficulte du puzzle
      */
     public DifficultePuzzle getDifficulte(){
         return difficulte;
@@ -39,7 +39,7 @@ public class PartieFinieInfos extends PartieInfos {
 
     /**
      * Getter de l'attribute complete
-     * @return
+     * @return le boolean qui correspond a complete
      */
     public boolean getComplete(){
         return complete;
@@ -47,7 +47,7 @@ public class PartieFinieInfos extends PartieInfos {
 
     /**
      * Getter de l'attribute gagner
-     * @return
+     * @return le boolean qui correspond a gagner
      */
     public boolean getGagner(){
         return gagner;
