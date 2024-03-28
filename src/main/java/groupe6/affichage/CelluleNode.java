@@ -1,9 +1,10 @@
 package groupe6.affichage;
 
+import groupe6.model.ValeurCote;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -14,32 +15,51 @@ public class CelluleNode extends Node {
     private Button[] cellule;
     private Rectangle[] coins;
     private StackPane centerPane;
-    private TextField centerTextField;
+    private Label centerTextField;
     private int label;
+    private ValeurCote[] cotes;
 
-    CelluleNode() {
-        this.label = -1;
+    public CelluleNode(int label, ValeurCote[] cotes) {
+        // récupération du label qui correspond à la valeur numérique de la cellule
+        this.label = label;
+        this.cotes = cotes;
         double cellSize = 50;
-        cellule = new Button[4];
-        coins = new Rectangle[4];
-        centerPane = new StackPane();
+        this.cellule = new Button[4];
+        this.coins = new Rectangle[4];
+        this.centerPane = new StackPane();
 
-        centerPane.getChildren().add(createCenterContent());
-        centerPane.setAlignment(Pos.CENTER);
+        this.centerPane.getChildren().add(createCenterContent());
+        this.centerPane.setAlignment(Pos.CENTER);
 
-        cellule[0] = new Button("Top");
-        cellule[1] = new Button("Bottom");
-        cellule[2] = new Button("Left");
-        cellule[3] = new Button("Right");
+        this.cellule[0] = new Button("Top");
+        this.cellule[1] = new Button("Bottom");
+        this.cellule[2] = new Button("Left");
+        this.cellule[3] = new Button("Right");
 
-        cellule[0].getStyleClass().addAll("button-top");
-        cellule[1].getStyleClass().addAll("button-bottom");
-        cellule[2].getStyleClass().addAll("button-left");
-        cellule[3].getStyleClass().addAll("button-right");
+        this.cellule[0].getStyleClass().addAll("button-top");
+        this.cellule[1].getStyleClass().addAll("button-bottom");
+        this.cellule[2].getStyleClass().addAll("button-left");
+        this.cellule[3].getStyleClass().addAll("button-right");
 
         for (int i = 0; i < 4; i++) {
             coins[i] = createBlackSquare(cellSize / 5);
         }
+
+        for ( int i = 0; i < 4; i++ ) {
+            switch (this.cotes[i]) {
+                case VIDE:
+                    break;
+                case TRAIT:
+                    this.cellule[i].getStyleClass().add("clicked");
+                    break;
+                case CROIX:
+                    this.cellule[i].getStyleClass().add("croix");
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + this.cotes[i]);
+            }
+        }
+
     }
 
     /**
@@ -47,27 +67,17 @@ public class CelluleNode extends Node {
      * @return StackPane
      */
     private StackPane createCenterContent() {
-        centerTextField = new TextField();
+        this.centerTextField = new Label();
         double cellSize = 50;
 
-        centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
-        centerTextField.setMaxSize(cellSize, cellSize);
-        centerTextField.setFont(new Font(25));
-        centerTextField.setAlignment(Pos.CENTER);
-
-        centerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > 1) {
-                centerTextField.setText(oldValue);
-                this.label = Integer.parseInt(oldValue);
-            }
-            else if (!newValue.matches("[0-3]")) {
-                centerTextField.setText("");
-                this.label = -1;
-            }
-            else{
-                this.label = Integer.parseInt(newValue);
-            }
-        });
+        this.centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
+        this.centerTextField.setMaxSize(cellSize, cellSize);
+        this.centerTextField.setFont(new Font(25));
+        this.centerTextField.setAlignment(Pos.CENTER);
+        // Affichage du label si la cellule a une valeur numérique
+        if ( this.label != -1 ) {
+            this.centerTextField.setText(Integer.toString(label));
+        }
 
         return new StackPane(centerTextField);
     }
@@ -88,10 +98,10 @@ public class CelluleNode extends Node {
      * @param
      */
     public void changeCellulesCss(String css) {
-        cellule[0].getStyleClass().addAll(css + "-top");
-        cellule[1].getStyleClass().addAll(css + "-bottom");
-        cellule[2].getStyleClass().addAll(css + "-left");
-        cellule[3].getStyleClass().addAll(css + "-right");
+        this.cellule[0].getStyleClass().addAll(css + "-top");
+        this.cellule[1].getStyleClass().addAll(css + "-bottom");
+        this.cellule[2].getStyleClass().addAll(css + "-left");
+        this.cellule[3].getStyleClass().addAll(css + "-right");
     }
 
     public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
@@ -133,6 +143,6 @@ public class CelluleNode extends Node {
     public void setLabel(int label) { this.label = label; }
 
     public void setLabeText(int i) {
-        centerTextField.setPromptText(Integer.toString(i));
+        centerTextField.setText(Integer.toString(i));
     }
 }

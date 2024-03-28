@@ -17,34 +17,34 @@ public class Puzzle implements Serializable, Cloneable {
 
   private final int largeur; // Nombre de lignes
   private final int longueur; // Nombre de colonnes
-  private Cellule[][] solutionPuzzle; // Grille avec la solution du puzzle
-  private Cellule[][] grilleCellules; // Grille de cellules du puzzle
+  private Cellule[][] grilleSolution; // Grille avec la solution du puzzle
+  private Cellule[][] grilleJeu; // Grille sur laquelle le joueur joue
   private final DifficultePuzzle difficulte; // Difficulté du puzzle
 
   // Constructeur de la classe Puzzle
-  public Puzzle(int largeur, int longueur, Cellule[][] solutionPuzzle, DifficultePuzzle difficulte) {
-    if (solutionPuzzle.length != largeur || solutionPuzzle[0].length != longueur) {
+  public Puzzle(int largeur, int longueur, Cellule[][] grilleSolution, DifficultePuzzle difficulte) {
+    if (grilleSolution.length != largeur || grilleSolution[0].length != longueur) {
       throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
     }
 
     this.largeur = largeur;
     this.longueur = longueur;
-    this.solutionPuzzle = solutionPuzzle;
-    this.grilleCellules = genererGrillePropre();
+    this.grilleSolution = grilleSolution;
+    genererGrillePropre();
     this.difficulte = difficulte;
   }
 
-  // Constructeur de la classe Puzzle avec un grilleCellules
-  public Puzzle(int largeur, int longueur, Cellule[][] solutionPuzzle, Cellule[][] grilleCellules,
-      DifficultePuzzle difficulte) {
-    if (solutionPuzzle.length != largeur || solutionPuzzle[0].length != longueur) {
+  // Constructeur de la classe Puzzle avec un grilleJeu de spécifié
+  public Puzzle(int largeur, int longueur, Cellule[][] grilleSolution, Cellule[][] grilleJeu,
+                DifficultePuzzle difficulte) {
+    if (grilleSolution.length != largeur || grilleSolution[0].length != longueur) {
       throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
     }
 
     this.largeur = largeur;
     this.longueur = longueur;
-    this.solutionPuzzle = solutionPuzzle;
-    this.grilleCellules = grilleCellules;
+    this.grilleSolution = grilleSolution;
+    this.grilleJeu = grilleJeu;
     this.difficulte = difficulte;
   }
 
@@ -58,8 +58,12 @@ public class Puzzle implements Serializable, Cloneable {
     return longueur;
   }
 
-  public Cellule[][] getSolutionPuzzle() {
-    return  this.solutionPuzzle;
+  public Cellule[][] getGrilleSolution() {
+    return  this.grilleSolution;
+  }
+
+  public Cellule[][] getGrilleJeu() {
+    return grilleJeu;
   }
 
   public DifficultePuzzle getDifficulte() {
@@ -67,18 +71,15 @@ public class Puzzle implements Serializable, Cloneable {
   }
 
   // Méthode pour générer un puzzle propre a partir de la solution
-  private Cellule[][] genererGrillePropre() {
-    Cellule[][] grillePropre = new Cellule[largeur][longueur];
-
-    for (int y = 0; y < solutionPuzzle.length; y++) {
-      for (int x = 0; x < solutionPuzzle[y].length; x++) {
+  public void genererGrillePropre() {
+    this.grilleJeu = new Cellule[largeur][longueur];
+    for (int y = 0; y < grilleSolution.length; y++) {
+      for (int x = 0; x < grilleSolution[y].length; x++) {
         ValeurCote[] cotesVide = new ValeurCote[4];
         Arrays.fill(cotesVide, ValeurCote.VIDE);
-        grillePropre[y][x] = new Cellule(solutionPuzzle[y][x].getValeur(), cotesVide);
+        this.grilleJeu[y][x] = new Cellule(grilleSolution[y][x].getValeur(), cotesVide);
       }
     }
-
-    return grillePropre;
   }
 
   private String grilleTostring(Cellule[][] grille) {
@@ -143,40 +144,27 @@ public class Puzzle implements Serializable, Cloneable {
     str = "Longueur : " + longueur + "\n";
     strBuilder.append(str);
     strBuilder.append("\nGrille Solution : \n");
-    strBuilder.append(grilleTostring(solutionPuzzle));
+    strBuilder.append(grilleTostring(grilleSolution));
     strBuilder.append("\nGrille Cellules : \n");
-    strBuilder.append(grilleTostring(grilleCellules));
+    strBuilder.append(grilleTostring(grilleJeu));
 
     return strBuilder.toString();
   }
 
   // Méthode pour obenir une cellule dans la grille
   public Cellule getCellule(int y, int x) {
-    return grilleCellules[y][x];
+    return grilleJeu[y][x];
   }
 
   public Cellule getCelluleSolution(int y, int x) {
-    return solutionPuzzle[y][x];
+    return grilleSolution[y][x];
   }
 
   // Méthode pour savoir si le puzzle est complet
   public boolean estComplet() {
-    for (int y = 0; y < solutionPuzzle.length; y++) {
-      for (int x = 0; x < solutionPuzzle[y].length; x++) {
-        System.out.print("-----------------");
-        System.out.println();
-        System.out.print(solutionPuzzle[y][x].getValeur() + "-");
-        for (int i = 0; i < 4; i++) {
-          System.out.print(solutionPuzzle[y][x].getCote(i) + ",");
-        }
-        System.out.println();
-        System.out.print(grilleCellules[y][x].getValeur() + "-");
-        for (int i = 0; i < 4; i++) {
-          System.out.print(grilleCellules[y][x].getCote(i) + ",");
-        }
-        System.out.println();
-
-        if (!solutionPuzzle[y][x].equals(grilleCellules[y][x])) {
+    for (int y = 0; y < grilleSolution.length; y++) {
+      for (int x = 0; x < grilleSolution[y].length; x++) {
+        if (!grilleSolution[y][x].equals(grilleJeu[y][x])) {
           return false;
         }
       }
@@ -187,12 +175,11 @@ public class Puzzle implements Serializable, Cloneable {
 
   public Cellule getCelluleAdjacente(int y, int x, int cote) {
     Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
-    int coordsAdjacenteY = coordsAdjacente.getY();
-    int coordsAdjacenteX = coordsAdjacente.getX();
-    if ( estDansGrille(coordsAdjacenteY,coordsAdjacenteX) ) {
+    if ( coordsAdjacente != null ) {
+      int coordsAdjacenteY = coordsAdjacente.getY();
+      int coordsAdjacenteX = coordsAdjacente.getX();
       return getCellule(coordsAdjacenteY,coordsAdjacenteX);
-    }
-    else {
+    }else {
       return null;
     }
   }
@@ -231,8 +218,8 @@ public class Puzzle implements Serializable, Cloneable {
   @Override
   public Object clone() throws CloneNotSupportedException {
     Puzzle nouveauPuzzle = (Puzzle) super.clone();
-    nouveauPuzzle.solutionPuzzle = clonerMatriceCellule(solutionPuzzle);
-    nouveauPuzzle.grilleCellules = clonerMatriceCellule(grilleCellules);
+    nouveauPuzzle.grilleSolution = clonerMatriceCellule(grilleSolution);
+    nouveauPuzzle.grilleJeu = clonerMatriceCellule(grilleJeu);
     return nouveauPuzzle;
   }
 
@@ -269,6 +256,7 @@ public class Puzzle implements Serializable, Cloneable {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
       return (Puzzle) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
+      System.out.println(chemin);
       e.printStackTrace();
       return null;
     }

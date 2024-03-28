@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -54,8 +56,11 @@ public class CatalogueProfil {
   public static CatalogueProfil chargerCatalogueProfil() {
     CatalogueProfil catalogueProfil = new CatalogueProfil();
 
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils+"/");
+
     // Dossier ressources contenant les profils
-    File dossierRessourceProfils = new File("Slitherlink/profils/");
+    File dossierRessourceProfils = new File(cheminDossier);
+
     File[] listeDossierProfils = dossierRessourceProfils.listFiles();
 
     // Parcours les elements du dossier "Slitherlink/profils/"
@@ -78,7 +83,8 @@ public class CatalogueProfil {
     }
 
     // Ouvre le fichier profilActuel.config
-    File profilActuelConfig = new File("Slitherlink/profils/profilActuel.config");
+    String cheminFichierProfilActuel = Launcher.normaliserChemin(Launcher.dossierProfils + "/profilActuel.config");
+    File profilActuelConfig = new File(cheminFichierProfilActuel);
     if (profilActuelConfig.exists()) {
       try {
         // On lit le contenu du fichier profilActuel.config et on met le texte dans nomProfilActuel
@@ -115,8 +121,9 @@ public class CatalogueProfil {
 
   public static void sauvegarderProfilActuel(CatalogueProfil catalogueProfil) {
     try {
+      String cheminFichierProfilActuel = Launcher.normaliserChemin(Launcher.dossierProfils + "/profilActuel.config");
       // Fichier ou sera sauvegardé le profil actuel
-      File profilActuelConfig = new File("Slitherlink/profils/profilActuel.config");
+      File profilActuelConfig = new File(cheminFichierProfilActuel);
       // Créer le fichier profilActuel.config s'il n'existe pas
       if (!profilActuelConfig.exists()) {
         profilActuelConfig.createNewFile();

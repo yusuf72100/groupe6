@@ -1,6 +1,7 @@
 package groupe6.model;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.Entrainement;
 
 import java.io.File;
 import java.util.ArrayList;

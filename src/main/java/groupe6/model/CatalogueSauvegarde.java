@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class CatalogueSauvegarde {
   public static List<String> listerSauvegarde(Profil profil) {
     List<String> listeSaves = new ArrayList<String>();
 
-    String cheminDossier = "ressources/profils/" + profil.getNom() + "/saves/";
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
     File dossierSauvegardes = new File(cheminDossier);
     File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
     for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {

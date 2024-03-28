@@ -18,13 +18,15 @@ public class GestionnaireAction implements Serializable,Cloneable {
   private static final long serialVersionUID = 1L;
 
   private List<Action> listeAction; // Liste des actions
+  private Puzzle puzzle; // Puzzle associé au gestionnaire d'actions
 
   private int index; // Index qui correspond a l'action actuelle
 
   // Constructeur de la classe GestionnaireAction
-  public GestionnaireAction() {
+  public GestionnaireAction(Puzzle puzzle) {
     this.listeAction = new ArrayList<Action>();
     this.index = -1;
+    this.puzzle = puzzle;
   }
 
   // Méthode qui permet d'obtenir la liste des actions
@@ -74,7 +76,7 @@ public class GestionnaireAction implements Serializable,Cloneable {
   }
 
   public GestionnaireAction clone(Puzzle puzzle) {
-    GestionnaireAction gestionnaireClone = new GestionnaireAction();
+    GestionnaireAction gestionnaireClone = new GestionnaireAction(puzzle);
     gestionnaireClone.setListeAction(clonerListeAction(puzzle));
     gestionnaireClone.setIndex(this.index);
 

@@ -1,11 +1,17 @@
 package groupe6.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * Cette classe modélise les informations données sur chaque technique.
  * 
  * @author William Sardon
  */
-public class TechniqueInfos {
+public class TechniqueInfos implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   /** Chemin vers une image demontrant l'utilisation d'une technique */
 

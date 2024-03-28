@@ -21,17 +21,19 @@ public class Partie {
   public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
     this.puzzle = puzzle;
     this.infos = new PartieInfos(null, 0, modeJeu, null);
-    this.gestionnaireAction = new GestionnaireAction();
+    this.gestionnaireAction = new GestionnaireAction(this.puzzle);
     this.historiqueAide = new ArrayList<AideInfos>();
     this.profil = profil;
+    this.hypothese = null;
   }
 
   public Partie(PartieSauvegarde save, Profil profil) {
     this.puzzle = save.getPuzzle();
     this.infos = save.getInfos();
-    this.gestionnaireAction = save.getGestionnaireAction();
+    this.gestionnaireAction = save.getGestionnaireAction().clone(this.puzzle);
     this.historiqueAide = save.getHistoriqueAide();
     this.profil = profil;
+    this.hypothese = null;
   }
 
   public Puzzle getPuzzle() {
@@ -71,6 +73,7 @@ public class Partie {
     ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
 
     Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote,new Coordonnee(y, x));
+    System.out.println(action);
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
@@ -177,6 +180,7 @@ public class Partie {
   }
 
   public void sauvegarder() {
+    System.out.println("Debut de la sauvegarde !");
     PartieSauvegarde.creerSauvegardePartie(this);
   }
 

@@ -1,5 +1,6 @@
 package groupe6.test;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.Puzzle;
 
 /**
@@ -9,7 +10,8 @@ import groupe6.model.Puzzle;
  */
 public class TestPuzzle {
     public static void main(String[] args) {
-        Puzzle p = Puzzle.chargerPuzzle("Slitherlink/puzzle/test.puzzle");
+        String cheminPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "puzzle/test.puzzle");
+        Puzzle p = Puzzle.chargerPuzzle(cheminPuzzle);
 
         System.out.println(p);
     }

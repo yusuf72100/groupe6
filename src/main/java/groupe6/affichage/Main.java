@@ -1,5 +1,7 @@
 package groupe6.affichage;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -8,9 +10,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
-
-import groupe6.model.DifficultePuzzle;
-import groupe6.launcher.Launcher;
 
 public class Main extends Application {
 
@@ -27,7 +26,8 @@ public class Main extends Application {
         try {
             // gestion de la scène
             Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
-            Main.getStylesheets().add(Launcher.chargerFichierEnUrl("Slitherlink/assets/style/style.css"));
+            String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierAssets+ "/style/style.css");
+            Main.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
             /*double windowWidth = primary.getWidth();
             double windowHeight = primary.getHeight();
@@ -48,10 +48,12 @@ public class Main extends Application {
             primary.initStyle(StageStyle.DECORATED);
             primary.setScene(Main);
             primary.setTitle("SlitherLink");
-            primary.getIcons().add(Launcher.chargerImage("Slitherlink/assets/icon/icon.png"));
+            String cheminImgIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/icon.png");
+            primary.getIcons().add(Launcher.chargerImage(cheminImgIcon));
             primary.setResizable(true);
             primary.setMaximized(true);
             primary.show();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +68,9 @@ public class Main extends Application {
         Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
-    public static void showGridMenu() {
-        grid = new GridMenu(11, 11, DifficultePuzzle.DIFFICILE);
+    public static void showGridMenu(Partie partie) {
+        // Crée un GridMenu avec la partie passé en paramètre
+        grid = new GridMenu(partie);
         Main.setRoot(grid.getMenu(true));
     }
 

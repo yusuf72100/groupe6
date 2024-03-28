@@ -1,11 +1,18 @@
 package groupe6.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * Classe qui modélise une coordonnée
  *
  * @author Nathan
  */
-public class Coordonnee {
+public class Coordonnee implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
+
   private final int y;
   private final int x;
 
@@ -41,5 +48,13 @@ public class Coordonnee {
       return false;
     }
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Coordonnee{" +
+        "y=" + y +
+        ", x=" + x +
+        '}';
   }
 }

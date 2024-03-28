@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.io.*;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class PartieSauvegarde implements Serializable {
         partie.getGestionnaireAction(),
         partie.getHistoriqueAide());
 
-    String cheminDossier = "ressources/profils/" + partie.getProfil().getNom() + "/saves/";
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + partie.getProfil().getNom() + "/saves/");
 
     StringBuilder nomFichier = new StringBuilder();
     nomFichier.append(partie.getPuzzle().getDifficulte().toString());
@@ -71,20 +73,20 @@ public class PartieSauvegarde implements Serializable {
       i.printStackTrace();
     }
 
+    System.out.println("Fin de la sauvegarde : " + nomFichier);
+
   }
 
-  public static PartieSauvegarde chargerSauvegarde(String cheminFichier) {
-    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cheminFichier))) {
+  public  static PartieSauvegarde chargerSauvegarde(String nomPartie, Profil profil) {
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
+    String cheminSauvegarde = Launcher.normaliserChemin(cheminDossier + nomPartie + ".save");
+
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cheminSauvegarde))) {
       return (PartieSauvegarde) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       return null;
     }
-  }
-
-  public  static PartieSauvegarde chargerSauvegarde(String nomPartie, Profil profil) {
-    String cheminDossier = "ressources/profils/" + profil.getNom() + "/saves/";
-    return PartieSauvegarde.chargerSauvegarde(cheminDossier + nomPartie + ".save");
   }
 
 }

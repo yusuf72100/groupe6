@@ -67,7 +67,7 @@ public class GridMenu implements Menu{
         this.longueur = l;
         this.largeur = L;
         initCellules(this.longueur, this.largeur);
-        this.puzzle = new Puzzle(l, L, this.cellulesData, diff);
+        this.puzzle = new Puzzle(L, l, this.cellulesData, diff);
     }
 
     /**
@@ -195,7 +195,7 @@ public class GridMenu implements Menu{
         this.largeur = this.puzzle.getLongueur();
 
         initCellules(this.longueur, this.largeur);
-        this.cellulesData = this.puzzle.getSolutionPuzzle();
+        this.cellulesData = this.puzzle.getGrilleSolution();
 
         for (int i  = 0 ; i < this.cellulesData.length; i++) {
             for (int j = 0; j < this.cellulesData[i].length; j++) {

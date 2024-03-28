@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import javafx.scene.control.Cell;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -25,8 +27,10 @@ public class Action implements Serializable {
   // Constructeur de la classe Action
   public Action(Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote,
                 Coordonnee coordsCellule1) {
-    if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
-      throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
+    if ( cellule2 != null ) {
+      if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
+        throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
+      }
     }
     this.coordsCellule1 = coordsCellule1;
     this.cellule1 = cellule1;
@@ -38,8 +42,10 @@ public class Action implements Serializable {
 
   public Action(Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote,
                 ValeurCote ancienneValeurCote, Coordonnee coordsCellule1) {
-    if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
-      throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
+    if ( cellule2 != null ) {
+      if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
+        throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
+      }
     }
 
     this.coordsCellule1 = coordsCellule1;
@@ -53,13 +59,17 @@ public class Action implements Serializable {
     // Méthode pour appliquer une action
   public void appliquerAction() {
     cellule1.setCote(this.coteCellule1, nouvelleValeurCote);
-    cellule2.setCote(Cellule.getCoteAdjacent(this.coteCellule1), nouvelleValeurCote);
+    if ( cellule2 != null ) {
+      cellule2.setCote(Cellule.getCoteAdjacent(this.coteCellule1), nouvelleValeurCote);
+    }
   }
 
   // Méthode pour révoquer une action
   public void revoquerAction() {
     cellule1.setCote(this.coteCellule1, ancienneValeurCote);
-    cellule2.setCote(Cellule.getCoteAdjacent(this.coteCellule1), ancienneValeurCote);
+    if ( cellule2 != null ) {
+      cellule2.setCote(Cellule.getCoteAdjacent(this.coteCellule1), ancienneValeurCote);
+    }
   }
 
   public int getCoteCellule1() {
@@ -99,14 +109,30 @@ public class Action implements Serializable {
     int coordsCelluleY = this.coordsCellule1.getY();
     int coordsCelluleX = this.coordsCellule1.getX();
     Coordonnee coordsCelluleAdjacente = puzzle.getCoordoneeAdjacente(coordsCelluleY,coordsCelluleX,this.coteCellule1);
+    Cellule cellule1 = puzzle.getCellule(coordsCelluleY,coordsCelluleX);
+    Cellule cellule2 = null;
+    if ( coordsCelluleAdjacente != null ) {
+      cellule2 = puzzle.getCellule(coordsCelluleAdjacente.getY(),coordsCelluleAdjacente.getX());
+    }
 
     return new Action(
-        puzzle.getCellule(coordsCelluleY,coordsCelluleX),
-        puzzle.getCellule(coordsCelluleAdjacente.getY(),coordsCelluleAdjacente.getX()),
+        cellule1,
+        cellule2,
         this.coteCellule1,
         this.nouvelleValeurCote,
         this.ancienneValeurCote,
         this.coordsCellule1
     );
   }
+
+  @Override
+  public String toString() {
+    return "Action{" +
+        ", coteCellule1=" + coteCellule1 +
+        ", ancienneValeurCote=" + ancienneValeurCote +
+        ", nouvelleValeurCote=" + nouvelleValeurCote +
+        ", coordsCellule1=" + coordsCellule1.toString() +
+        '}';
+  }
+
 }

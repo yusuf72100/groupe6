@@ -1,6 +1,7 @@
 package groupe6.model;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.Puzzle;
 
 import java.io.File;
 import java.util.*;
@@ -77,11 +78,31 @@ public class CataloguePuzzle {
     return strBuilder.toString();
   }
 
+  // Trile le catalogue des puzzles dans chaque difficulté selon la taille de la grille
+  static public void trierCataloguePuzzle(CataloguePuzzle catalogue) {
+    for (DifficultePuzzle d : DifficultePuzzle.values()) {
+      catalogue.getListePuzzle(d).sort(new Comparator<Puzzle>() {
+        @Override
+        public int compare(Puzzle p1, Puzzle p2) {
+          int tailleP1 = p1.getLongueur() * p1.getLargeur();
+          int tailleP2 = p2.getLongueur() * p2.getLargeur();
+          if (tailleP1 < tailleP2) {
+            return -1;
+          } else if (tailleP1 > tailleP2) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      });
+    }
+  }
+
   // Méthode pour charger un catalogue de puzzle
   static public CataloguePuzzle chargerCataloguePuzzle() {
     CataloguePuzzle catalogue = new CataloguePuzzle();
 
-    String cheminRessourcesPuzzles = Launcher.normaliserChemin("Slitherlink/puzzles");
+    String cheminRessourcesPuzzles = Launcher.normaliserChemin(Launcher.dossierPuzzles);
     File pathDossier = new File(cheminRessourcesPuzzles);
     String[] contenu = pathDossier.list();
 

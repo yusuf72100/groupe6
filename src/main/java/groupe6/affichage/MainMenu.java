@@ -1,5 +1,9 @@
 package groupe6.affichage;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.CatalogueSauvegarde;
+import groupe6.model.Partie;
+import groupe6.model.PartieSauvegarde;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,9 +21,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-import java.util.Objects;
 
-import groupe6.launcher.Launcher;
+import java.util.List;
+import java.util.Objects;
 
 public class MainMenu implements Menu {
     protected static Button backButton;
@@ -81,7 +85,6 @@ public class MainMenu implements Menu {
         // Header
         profilSelector.setCellFactory(param -> new ListCell<String>() {
             private final ImageView imageView = new ImageView();
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -90,7 +93,8 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    Image image = Launcher.chargerImage("Slitherlink/profils/utilisateur/avatard-50x50.png");
+                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/avatard-50x50.png");
+                    Image image = Launcher.chargerImage(cheminImageAvatar);
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
@@ -100,7 +104,6 @@ public class MainMenu implements Menu {
         // Elements
         profilSelector.setButtonCell(new ListCell<String>() {
             private final ImageView imageView = new ImageView();
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -109,7 +112,8 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    Image image = Launcher.chargerImage("Slitherlink/profils/utilisateur/avatard-50x50.png");
+                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/avatard-50x50.png");
+                    Image image = Launcher.chargerImage(cheminImageAvatar);
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
@@ -178,7 +182,7 @@ public class MainMenu implements Menu {
 
                 switch (finalI) {
                     // bouton jouer
-                    case 0:
+                    case 0 :
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
@@ -187,15 +191,26 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Choisissez un mode de jeu");
                         break;
-                    case 1:
-                        descriptionText[finalI].setText("Personnalisez les options du jeu");
-                        break;
-                    case 2:
-                        descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
-                        break;
-                    default:
-                        descriptionText[finalI].setText("Placeholder #" + finalI);
-                        break;
+                    case 1 :
+                        buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
+                                if (!lstSave.isEmpty()) {
+                                    String saveName = lstSave.get(0);
+                                    System.out.println("Chargement de la sauvegarde : " + saveName);
+                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
+                                    Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
+                                    Main.showGridMenu(partie);
+                                }else {
+                                    System.out.println("Aucune sauvegarde trouvée");
+                                }
+
+                            }
+                        });
+                        descriptionText[finalI].setText("Charger une partie existante");
+                    case 2 : descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu"); break;
+                    default : descriptionText[finalI].setText("Placeholder #" + finalI); break;
                 }
 
                 descriptionsBackground[finalI].setStyle("-fx-background-color: gray;");
@@ -231,11 +246,11 @@ public class MainMenu implements Menu {
         backText.setMouseTransparent(true);
         Menu.adaptTextSize(backText, 35, windowWidth, windowHeigth);
 
-
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
         mainPane.setAlignment(Pos.CENTER);
-        mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage("Slitherlink/assets/img/bg.png")), title, profilSelector, mainHbox, backButton, backText);
+        String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
+        mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox, profilSelector, backButton, backText);
         StackPane.setAlignment(title, Pos.TOP_CENTER);
 
         return mainPane;

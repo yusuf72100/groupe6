@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,11 @@ import java.util.ArrayList;
  * @author Nathan
  */
 
-public class ResultatTechnique {
+public class ResultatTechnique implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private boolean techniqueTrouvee;
     private ArrayList<int[]> coordonnees;
     private int idx;

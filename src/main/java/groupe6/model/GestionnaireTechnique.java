@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +21,8 @@ public class GestionnaireTechnique{
     }
 
     public void chargerTechnique(){
-        File dir = new File("Slitherlinkl/techniques/");
+        String cheminTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques+"/");
+        File dir = new File(cheminTechnique);
         File[] liste = dir.listFiles();
         for(File item : Objects.requireNonNull(liste)){
             try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(item.getPath()))) {

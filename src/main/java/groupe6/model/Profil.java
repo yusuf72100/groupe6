@@ -137,8 +137,7 @@ public class Profil implements Serializable {
         int selectionUtilisateur = selecteurFichiers.showOpenDialog(null);
         if (selectionUtilisateur == JFileChooser.APPROVE_OPTION) {
             File fichierSelectionne = selecteurFichiers.getSelectedFile();
-            String dossierDestination = "Slitherlink/profils/" + this.nom + File.separator;
-            String cheminDestination = Launcher.normaliserChemin(dossierDestination + fichierSelectionne.getName());
+            String cheminDestination = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + this.nom + "/" + fichierSelectionne.getName());
             System.out.println("cheminDestination : "+cheminDestination);
             File destination = new File(cheminDestination);
             System.out.println(destination.getAbsolutePath());
@@ -151,9 +150,9 @@ public class Profil implements Serializable {
     @Override
     public String toString() {
         String str = "";
-        str += "Nom : " + nom + "\n";
-        str += "IMG : " + cheminIMG + "\n";
-        str += "niveauAventure : " + niveauAventure + "\n";
+        str += "Nom : " + this.nom + "\n";
+        str += "IMG : " + this.cheminIMG + "\n";
+        str += "niveauAventure : " + this.niveauAventure + "\n";
         return str;
     }
 
@@ -164,7 +163,7 @@ public class Profil implements Serializable {
      */
     public static String sauvegarderProfil(Profil profil) {
         // Dossier ressources contenant les profils
-        String cheminDossierRessourceProfils = "Slitherlink/profils/";
+        String cheminDossierRessourceProfils = Launcher.normaliserChemin(Launcher.dossierProfils + "/");
         File dossierRessourceProfils = new File(cheminDossierRessourceProfils);
         // Parcours les elements du dossier "Slitherlink/profils/" et verifie si un dossier du nom de l'utilisateur existe
         for (File dossierProfil : Objects.requireNonNull(dossierRessourceProfils.listFiles())) {
@@ -179,7 +178,7 @@ public class Profil implements Serializable {
         File dossierSaves = new File(cheminDossierRessourceProfils + profil.getNom() + "/saves");
         dossierSaves.mkdir();
         // On crée le fichier profilName.profil
-        String cheminFichierProfil = cheminDossierRessourceProfils + profil.getNom() + "/" + profil.getNom() + ".profil";
+        String cheminFichierProfil = Launcher.normaliserChemin(cheminDossierRessourceProfils+ profil.getNom() + "/" + profil.getNom() + ".profil");
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cheminFichierProfil))) {
             oos.writeObject(profil);
             return "Profil sauvegardé avec succès";

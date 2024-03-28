@@ -55,6 +55,10 @@ public class Cellule implements Serializable, Cloneable {
     return this.cotes[cote];
   }
 
+  public ValeurCote[] getCotes() {
+    return cotes;
+  }
+
   public void setCote(int cote, ValeurCote valeur) {
     if (cote < 0 || cote > 3) {
       throw new IllegalArgumentException("Le cote doit être entre 0 et 3");

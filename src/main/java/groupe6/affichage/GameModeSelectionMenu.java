@@ -1,5 +1,10 @@
 package groupe6.affichage;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.DifficultePuzzle;
+import groupe6.model.ModeJeu;
+import groupe6.model.Partie;
+import groupe6.model.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -40,14 +45,18 @@ public class GameModeSelectionMenu extends MainMenu {
             }
         });
 
+        // Bouton menu classique
         MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Main.showGridMenu();
+                DifficultePuzzle difficultePuzzle = DifficultePuzzle.FACILE;
+                int numPuzzle = 0;
+                Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
+                Partie partieClassiqe = Partie.nouvellePartie(Launcher.cataloguePuzzles,difficultePuzzle,numPuzzle, ModeJeu.NORMAL,profilJoueur);
+                Main.showGridMenu(partieClassiqe);
             }
         });
 
         return MainMenu.mainPane;
-
     }
 }

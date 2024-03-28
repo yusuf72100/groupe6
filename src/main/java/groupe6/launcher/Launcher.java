@@ -15,13 +15,24 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import groupe6.affichage.Main;
+import groupe6.model.CatalogueProfil;
+import groupe6.model.CataloguePuzzle;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 
 public class Launcher {
 
-  static boolean verbose = false;
-  private static Launcher instance;
+  static boolean verbose = false; // Boolean pour activer le mode verbose
+  private static Launcher instance; // Instance unique de la classe
+
+  public static String dossierSlitherlink = "Slitherlink"; // Le dossier de l'application
+  public static String dossierAssets = Launcher.dossierSlitherlink + "/assets"; // Dossier des assets
+  public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles"; // Dossier des puzzles
+  public static String dossierProfils = Launcher.dossierSlitherlink + "/profils"; // Dossier des profils
+  public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques"; // Dossier des techniques
+
+  public static CataloguePuzzle cataloguePuzzles;
+  public static CatalogueProfil catalogueProfils;
 
   private String cheminDossierParentJar;
   private Launcher() {}
@@ -206,6 +217,10 @@ public class Launcher {
     }
   }
 
+  public static void loadModel() {
+    cataloguePuzzles = CataloguePuzzle.chargerCataloguePuzzle();
+    catalogueProfils = CatalogueProfil.chargerCatalogueProfil();
+  }
 
   public static void main(String[] args) {
     for (String arg : args) {
@@ -238,7 +253,7 @@ public class Launcher {
 
     // Chemins des dossiers de ressources
     final String cheminDossierRessourcesJAR = "BOOT-INF/classes/ressources";
-    final String cheminDossierDestinationRessourceSlitherLink = "Slitherlink";
+    final String cheminDossierDestinationRessourceSlitherLink = Launcher.dossierSlitherlink;
 
     // Vérifie si le programme est lancé dans le même dossier que le .jar ( compare les dossier parent du .jar et du dossier de ressources local )
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
@@ -291,6 +306,9 @@ public class Launcher {
         }
       }
 
+      // Chargement du modele
+      loadModel();
+      // Lancement de l'affichage
       Application.launch(Main.class, args);
 
     } catch (IOException e) {
