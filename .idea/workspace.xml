@@ -10,42 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/saves/notEmpty.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/blobs/version" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Action.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/CataloguePuzzle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/CelluleData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Chronometre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/DifficultePuzzle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/ModeJeu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/PartieFinieInfos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/PartieInfos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Puzzle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/ValeurCote.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/AideInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/AideInfos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueEntrainement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueEntrainement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CataloguePuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CataloguePuzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueSauvegarde.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Cellule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Cellule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/TechniqueInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/TechniqueInfos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPuzzle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/saves/FACILE_5x5_19_03_2024.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/puzzles/facile_5x5.puzzle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/puzzles/facile_5x5_2.puzzle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/tools/PuzzleGenerator/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/tools/PuzzleGenerator/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +40,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -77,7 +61,9 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2eC8h8bahzRs3lLIVevWKyiNiXB" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -85,6 +71,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Maven.Gr6 [install].executor": "Run",
     "Maven.Gr6 [package].executor": "Run",
@@ -96,7 +84,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.mvnw.executor": "Run",
-    "git-widget-placeholder": "main",
+    "app.teamhub.trackedBranches": "-1gl2qhp/main,-1gl2qhp/Yusuf",
+    "git-widget-placeholder": "Yusuf",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
@@ -118,11 +107,11 @@
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\tools\PuzzleGenerator" />
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\java\groupe6\tools\puzzleGenerator" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\puzzles" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets\style" />
-      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets\font" />
-      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -131,7 +120,14 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.PuzzleGenerator">
+    <configuration name="PuzzleGenerator" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="groupe6.tools.puzzleGenerator.Launcher" />
+      <module name="SlitherLink" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="mvnw" type="ShConfigurationType" temporary="true">
       <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -147,11 +143,22 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.PuzzleGenerator" />
+      <item itemvalue="Shell Script.mvnw" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Shell Script.mvnw" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -168,6 +175,7 @@
       <workItem from="1711472554641" duration="13610000" />
       <workItem from="1711639834112" duration="79000" />
       <workItem from="1711640125951" duration="16624000" />
+      <workItem from="1711789745813" duration="470000" />
     </task>
     <servers />
   </component>

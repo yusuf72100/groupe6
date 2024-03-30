@@ -12,8 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import java.util.function.UnaryOperator;
 
-import groupe6.model.DifficultePuzzle;
-
 public class MainMenu implements Menu {
 
     /**
@@ -83,7 +81,7 @@ public class MainMenu implements Menu {
                         default -> DifficultePuzzle.FACILE;
                     };
 
-                    main.showNewPuzzle(Integer.parseInt(longueurValue), Integer.parseInt(largeurValue), diff);
+                    main.showNewPuzzle(Integer.parseInt(largeurValue), Integer.parseInt(longueurValue), diff);
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur de conversion en entier.");
                 }
@@ -97,8 +95,7 @@ public class MainMenu implements Menu {
                 fileChooser.setTitle("Sélectionnez un fichier");
 
                 fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Fichiers Texte", "*.bin"),
-                        new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
+                        new FileChooser.ExtensionFilter("Fichier PUZZLE", "*.puzzle")
                 );
 
                 java.io.File selectedFile = fileChooser.showOpenDialog(main.getStage());
