@@ -9,23 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Big Remerge">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Action.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/CataloguePuzzle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/CelluleData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Chronometre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/DifficultePuzzle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/ModeJeu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/PartieFinieInfos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/PartieInfos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Puzzle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/ValeurCote.java" beforeDir="false" />
-    </list>
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Big Remerge" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +160,7 @@
       <workItem from="1711472554641" duration="13610000" />
       <workItem from="1711639834112" duration="79000" />
       <workItem from="1711640125951" duration="16624000" />
-      <workItem from="1711789745813" duration="2460000" />
+      <workItem from="1711789745813" duration="2832000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -186,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711790376069</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Big Remerge">
+      <option name="closed" value="true" />
+      <created>1711792322771</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711792322771</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
