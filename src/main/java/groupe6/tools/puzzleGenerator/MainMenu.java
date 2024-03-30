@@ -96,7 +96,7 @@ public class MainMenu implements Menu {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Sélectionnez un fichier");
 
-                fileChooser.getExtensionFilters().addAll(
+                fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("Fichier PUZZLE", "*.puzzle")
                 );
 

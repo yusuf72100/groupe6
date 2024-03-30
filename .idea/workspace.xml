@@ -9,11 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Big Remerge">
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Small changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +69,8 @@
     "Application.Main.executor": "Run",
     "Application.PuzzleGenerator.executor": "Run",
     "Application.SlitherLink.executor": "Run",
+    "Application.TestProfils.executor": "Run",
+    "Application.TestPuzzle.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Maven.Gr6 [install].executor": "Run",
     "Maven.Gr6 [package].executor": "Run",
@@ -87,7 +94,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.37847868",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
@@ -112,7 +119,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.PuzzleGenerator">
+  <component name="RunManager" selected="Application.TestProfils">
     <configuration name="PuzzleGenerator" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="groupe6.tools.puzzleGenerator.Launcher" />
       <module name="SlitherLink" />
@@ -127,10 +134,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestProfils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="groupe6.test.TestProfils" />
+      <module name="SlitherLink" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.PuzzleGenerator" />
       <item itemvalue="Application.SlitherLink" />
+      <item itemvalue="Application.TestProfils" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestProfils" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -154,7 +174,7 @@
       <workItem from="1711472554641" duration="13610000" />
       <workItem from="1711639834112" duration="79000" />
       <workItem from="1711640125951" duration="16624000" />
-      <workItem from="1711789745813" duration="4605000" />
+      <workItem from="1711789745813" duration="10770000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -188,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711793066049</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Small changes">
+      <option name="closed" value="true" />
+      <created>1711794434797</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711794434797</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +241,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Big Remerge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Big Remerge" />
+    <MESSAGE value="Small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small changes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

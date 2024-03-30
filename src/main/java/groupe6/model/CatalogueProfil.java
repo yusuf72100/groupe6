@@ -30,7 +30,12 @@ public class CatalogueProfil {
   }
 
   public void ajouterProfil(Profil profil) {
+    if(profil!=null) {
+      System.out.println(profil.getNom() + " ajouté avec succès au catalogue des profils!");
       listeProfil.add(profil);
+    } else {
+      System.out.println("Erreur, le profil n'a pas pu être ajouté au catalogue des profils...");
+    }
   }
 
   public Profil getProfilActuel() {

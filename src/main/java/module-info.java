@@ -9,4 +9,5 @@ module groupe6.launcher {
     exports groupe6.affichage;
     exports groupe6.model;
     exports groupe6.tools.puzzleGenerator;
+    exports groupe6.test;
 }
