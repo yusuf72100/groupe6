@@ -26,7 +26,7 @@ public class Main extends Application {
         try {
             // gestion de la scène
             Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
-            String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierAssets+ "/style/style.css");
+            String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierAssets+ "/style.css");
             Main.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
             /*double windowWidth = primary.getWidth();

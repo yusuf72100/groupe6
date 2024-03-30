@@ -52,8 +52,8 @@ public class GameModeSelectionMenu extends MainMenu {
                 DifficultePuzzle difficultePuzzle = DifficultePuzzle.FACILE;
                 int numPuzzle = 0;
                 Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
-                Partie partieClassiqe = Partie.nouvellePartie(Launcher.cataloguePuzzles,difficultePuzzle,numPuzzle, ModeJeu.NORMAL,profilJoueur);
-                Main.showGridMenu(partieClassiqe);
+                Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numPuzzle, ModeJeu.NORMAL, profilJoueur);
+                Main.showGridMenu(partieClassique);
             }
         });
 

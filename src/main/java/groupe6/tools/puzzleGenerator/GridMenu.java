@@ -1,9 +1,6 @@
 package groupe6.tools.puzzleGenerator;
 
-import groupe6.model.Cellule;
-import groupe6.model.DifficultePuzzle;
-import groupe6.model.Puzzle;
-import groupe6.model.ValeurCote;
+import groupe6.model.*;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +26,7 @@ public class GridMenu implements Menu {
     private GridPane gridPane;
     private VBox container;
     private CelluleNode[][] celluleNodes;
-    private groupe6.model.Cellule[][] cellulesData;
+    private Cellule[][] cellulesData;
     private Puzzle puzzle;
     private Scene scene;
     private int longueur;
@@ -75,7 +72,7 @@ public class GridMenu implements Menu {
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i, j;
 
-        public CelluleButtonEventHandler(int i, int j, groupe6.model.Cellule[][] data) {
+        public CelluleButtonEventHandler(int i, int j, Cellule[][] data) {
             this.i = i;
             this.j = j;
             cellulesData = data;
