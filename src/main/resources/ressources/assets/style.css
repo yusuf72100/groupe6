@@ -152,13 +152,19 @@
     -fx-border-radius: 0;
 }
 
-.button-top.croix, .button-bottom.croix, .button-left.croix, .button-right.croix {
-    -fx-background-color: #fc4c4c;
+.button-top.croix, .button-bottom.croix {
+    -fx-background-color: transparent;
     -fx-opacity: 1.0;
     -fx-border-radius: 0;
 
-    -fx-background-image: url('icon/croix.png');
-    -fx-background-size: cover;
+
+}
+
+.button-left.croix, .button-right.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+
 }
 
 .button-left, .button-right {

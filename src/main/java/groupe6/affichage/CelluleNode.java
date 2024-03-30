@@ -1,10 +1,12 @@
 package groupe6.affichage;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.ValeurCote;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -12,6 +14,7 @@ import java.util.function.Function;
 
 public class CelluleNode extends Node {
     private Button[] cellule;
+    private ImageView[] image;
     private Rectangle[] coins;
     private StackPane centerPane;
     private Label centerTextField;
@@ -20,6 +23,7 @@ public class CelluleNode extends Node {
 
     public CelluleNode(int label, ValeurCote[] cotes) {
         // récupération du label qui correspond à la valeur numérique de la cellule
+        this.image = new ImageView[4];
         this.label = label;
         this.cotes = cotes;
         double cellSize = 50;
@@ -40,11 +44,17 @@ public class CelluleNode extends Node {
         this.cellule[2].getStyleClass().addAll("button-left");
         this.cellule[3].getStyleClass().addAll("button-right");
 
-        for (int i = 0; i < 4; i++) {
-            coins[i] = createBlackSquare(cellSize / 5);
-        }
+        String cheminCroix = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/croix.png");
 
         for ( int i = 0; i < 4; i++ ) {
+            this.image[i] = new ImageView(Launcher.chargerImage(cheminCroix));
+            this.image[i].setFitWidth(15);
+            this.image[i].setFitHeight(15);
+            this.image[i].setFocusTraversable(false);
+            this.image[i].setMouseTransparent(true);
+            this.image[i].setVisible(false);
+
+            this.coins[i] = createBlackSquare(cellSize / 5);
             switch (this.cotes[i]) {
                 case VIDE:
                     break;
@@ -75,10 +85,10 @@ public class CelluleNode extends Node {
         this.centerTextField.setAlignment(Pos.CENTER);
         // Affichage du label si la cellule a une valeur numérique
         if ( this.label != -1 ) {
-            this.centerTextField.setText(Integer.toString(label));
+            this.centerTextField.setText(Integer.toString(this.label));
         }
 
-        return new StackPane(centerTextField);
+        return new StackPane(this.centerTextField);
     }
 
     /**
@@ -105,7 +115,7 @@ public class CelluleNode extends Node {
 
     public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
         Button button = cellule[buttonIndex];
-        String cssClass = cssFunction.apply(label);
+        String cssClass = cssFunction.apply(this.label);
 
         button.getStyleClass().clear();
         button.getStyleClass().addAll(cssClass);
@@ -116,7 +126,9 @@ public class CelluleNode extends Node {
      * @param c
      * @return Rectangle
      */
-    public Rectangle getCoin(int c) { return coins[c]; }
+    public Rectangle getCoin(int c) { return this.coins[c]; }
+
+    public ImageView getImage(int i) { return this.image[i]; }
 
     /**
      * Getter bouton
@@ -124,24 +136,24 @@ public class CelluleNode extends Node {
      * @return Button
      */
     public Button getButton(int c) {
-        return cellule[c];
+        return this.cellule[c];
     }
 
     /**
      * Getter pane de la cellule
      * @return StackPane
      */
-    public StackPane getCenterPane() { return centerPane; }
+    public StackPane getCenterPane() { return this.centerPane; }
 
     /**
      * Getter label cellule
      * @return int
      */
-    public int getLabel() { return label; }
+    public int getLabel() { return this.label; }
 
     public void setLabel(int label) { this.label = label; }
 
     public void setLabeText(int i) {
-        centerTextField.setText(Integer.toString(i));
+        this.centerTextField.setText(Integer.toString(i));
     }
 }

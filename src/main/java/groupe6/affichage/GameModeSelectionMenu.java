@@ -7,7 +7,6 @@ import groupe6.model.Partie;
 import groupe6.model.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 

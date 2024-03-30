@@ -9,16 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Small changes">
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Profil image save">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix_cotes.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +39,20 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yusuf72100&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cc47fb48-df46-4f73-a2e4-35364fb09c8a" />
+        <option name="url" value="https://github.com/yusuf72100/groupe6.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -72,9 +85,13 @@
     "Application.TestProfils.executor": "Run",
     "Application.TestPuzzle.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "Maven.Gr6 [clean].executor": "Run",
+    "Maven.Gr6 [compile].executor": "Run",
     "Maven.Gr6 [install].executor": "Run",
     "Maven.Gr6 [package].executor": "Run",
     "Maven.Gr6 [test].executor": "Run",
+    "Maven.Gr6 [validate].executor": "Run",
+    "Maven.Gr6 [verify].executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -82,7 +99,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.mvnw.executor": "Run",
-    "app.teamhub.trackedBranches": "-1gl2qhp/main,-1gl2qhp/Yusuf",
+    "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "Yusuf",
     "ignore.virus.scanning.warn.message": "true",
@@ -106,11 +123,11 @@
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\assets\icon" />
       <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\tools\PuzzleGenerator" />
       <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\java\groupe6\tools\puzzleGenerator" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\puzzles" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets" />
-      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets\style" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -119,7 +136,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestProfils">
+  <component name="RunManager" selected="Application.SlitherLink">
     <configuration name="PuzzleGenerator" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="groupe6.tools.puzzleGenerator.Launcher" />
       <module name="SlitherLink" />
@@ -174,7 +191,8 @@
       <workItem from="1711472554641" duration="13610000" />
       <workItem from="1711639834112" duration="79000" />
       <workItem from="1711640125951" duration="16624000" />
-      <workItem from="1711789745813" duration="10770000" />
+      <workItem from="1711789745813" duration="20205000" />
+      <workItem from="1711831917120" duration="4442000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -216,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711794434797</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Profil image save">
+      <option name="closed" value="true" />
+      <created>1711800562473</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711800562473</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +268,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Big Remerge" />
     <MESSAGE value="Small changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small changes" />
+    <MESSAGE value="Profil image save" />
+    <option name="LAST_COMMIT_MESSAGE" value="Profil image save" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
