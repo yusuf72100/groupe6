@@ -1,5 +1,9 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.model.Cellule;
+import groupe6.model.DifficultePuzzle;
+import groupe6.model.Puzzle;
+import groupe6.model.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +29,7 @@ public class GridMenu implements Menu {
     private GridPane gridPane;
     private VBox container;
     private CelluleNode[][] celluleNodes;
-    private CelluleData[][] cellulesData;
+    private groupe6.model.Cellule[][] cellulesData;
     private Puzzle puzzle;
     private Scene scene;
     private int longueur;
@@ -71,7 +75,7 @@ public class GridMenu implements Menu {
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
         private final int i, j;
 
-        public CelluleButtonEventHandler(int i, int j, CelluleData[][] data) {
+        public CelluleButtonEventHandler(int i, int j, groupe6.model.Cellule[][] data) {
             this.i = i;
             this.j = j;
             cellulesData = data;
@@ -170,12 +174,12 @@ public class GridMenu implements Menu {
      */
     private void initCellules(int largeur, int longueur) {
         this.celluleNodes = new CelluleNode[largeur][longueur];
-        this.cellulesData = new CelluleData[largeur][longueur];
+        this.cellulesData = new Cellule[largeur][longueur];
 
         for (int y = 0; y < largeur; y++) {
             for (int x = 0; x < longueur; x++) {
                 this.celluleNodes[y][x] = new CelluleNode();
-                this.cellulesData[y][x] = new CelluleData(-1, new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE } );
+                this.cellulesData[y][x] = new Cellule(-1, new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE } );
             }
         }
     }

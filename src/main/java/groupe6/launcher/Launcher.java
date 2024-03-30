@@ -25,11 +25,12 @@ public class Launcher {
   static boolean verbose = false; // Boolean pour activer le mode verbose
   private static Launcher instance; // Instance unique de la classe
 
-  public static String dossierSlitherlink = "Slitherlink"; // Le dossier de l'application
+  public static String dossierSlitherlink = "src/main/resources/ressources"; // Le dossier de l'application
   public static String dossierAssets = Launcher.dossierSlitherlink + "/assets"; // Dossier des assets
   public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles"; // Dossier des puzzles
   public static String dossierProfils = Launcher.dossierSlitherlink + "/profils"; // Dossier des profils
   public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques"; // Dossier des techniques
+  public static String dossierPuzzleGenerator = Launcher.dossierSlitherlink + "/tools/PuzzleGenerator"; // Dossier du puzzle generator
 
   public static CataloguePuzzle cataloguePuzzles;
   public static CatalogueProfil catalogueProfils;

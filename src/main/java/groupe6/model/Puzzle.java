@@ -58,6 +58,10 @@ public class Puzzle implements Serializable, Cloneable {
     return longueur;
   }
 
+  public Cellule[][] getSolutionCelluleData() {
+    return this.grilleSolution;
+  }
+
   public Cellule[][] getGrilleSolution() {
     return  this.grilleSolution;
   }

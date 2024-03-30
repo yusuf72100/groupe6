@@ -1,5 +1,7 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.DifficultePuzzle;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,10 +19,12 @@ public class Main extends Application {
         MainStage = primaryStage;
         main = new MainMenu();
         scene = new Scene(main.getMenu(), 1000, 800);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+        String cheminStyleCss = groupe6.launcher.Launcher.normaliserChemin(groupe6.launcher.Launcher.dossierPuzzleGenerator + "/style.css");
+        scene.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
+        String cheminIcon = groupe6.launcher.Launcher.normaliserChemin(Launcher.dossierAssets + "icon/icon.png");
         primaryStage.setTitle("Puzzle Generator");
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("icon.png")).toExternalForm()));
+        primaryStage.getIcons().add(new Image(Launcher.chargerFichierEnUrl(cheminIcon)));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
