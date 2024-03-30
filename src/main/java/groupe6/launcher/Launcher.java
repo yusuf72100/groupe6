@@ -25,7 +25,7 @@ public class Launcher {
   static boolean verbose = false; // Boolean pour activer le mode verbose
   private static Launcher instance; // Instance unique de la classe
 
-  public static String dossierSlitherlink = "src/main/resources/ressources"; // Le dossier de l'application
+  public static String dossierSlitherlink = "Slitherlink"; // Le dossier de l'application
   public static String dossierAssets = Launcher.dossierSlitherlink + "/assets"; // Dossier des assets
   public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles"; // Dossier des puzzles
   public static String dossierProfils = Launcher.dossierSlitherlink + "/profils"; // Dossier des profils
@@ -260,6 +260,11 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
 
+    System.out.println("dossier parent jar : " + cheminDossierParentJar);
+    System.out.println("dossier parent ressource local : " + cheminDossierParentRessourcesLocal);
+    System.out.println("Chemins normalisés:");
+    System.out.println("dossier parent jar : " + normaliserChemin(cheminDossierParentJar));
+    System.out.println("dossier parent ressource local : " + normaliserChemin(cheminDossierParentRessourcesLocal));
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
       Application.launch(FenetreMauvaisDossier.class);
       return;

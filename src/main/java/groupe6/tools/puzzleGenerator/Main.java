@@ -19,12 +19,12 @@ public class Main extends Application {
         MainStage = primaryStage;
         main = new MainMenu();
         scene = new Scene(main.getMenu(), 1000, 800);
-        String cheminStyleCss = groupe6.launcher.Launcher.normaliserChemin(groupe6.launcher.Launcher.dossierPuzzleGenerator + "/style.css");
+        String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierPuzzleGenerator + "/style.css");
         scene.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
-        String cheminIcon = groupe6.launcher.Launcher.normaliserChemin(Launcher.dossierAssets + "icon/icon.png");
+        String cheminIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "icon/icon.png");
         primaryStage.setTitle("Puzzle Generator");
-        primaryStage.getIcons().add(new Image(Launcher.chargerFichierEnUrl(cheminIcon)));
+        primaryStage.getIcons().add(Launcher.chargerImage(cheminIcon));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
