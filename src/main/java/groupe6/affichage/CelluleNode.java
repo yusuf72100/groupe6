@@ -77,10 +77,10 @@ public class CelluleNode extends Node {
      */
     private StackPane createCenterContent() {
         this.centerTextField = new Label();
-        double cellSize = 50;
+        double cellSize = 80;
 
         this.centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
-        this.centerTextField.setMaxSize(cellSize, cellSize);
+        this.centerTextField.setPrefSize(cellSize, cellSize);
         this.centerTextField.setFont(new Font(25));
         this.centerTextField.setAlignment(Pos.CENTER);
         // Affichage du label si la cellule a une valeur numérique
@@ -129,6 +129,34 @@ public class CelluleNode extends Node {
     public Rectangle getCoin(int c) { return this.coins[c]; }
 
     public ImageView getImage(int i) { return this.image[i]; }
+
+    /**
+     * Changer la taille d'une cellule
+     * @param width
+     * @param height
+     */
+    public void setPrefSize(double width, double height) {
+        for (Button button : this.cellule) {
+            if(button.getStyleClass().contains("button-top") || button.getStyleClass().contains("button-bottom")) {
+                button.setStyle(
+                    "-fx-min-width: " + width + "px; " +
+                    "-fx-max-width: " + width + "px; " +
+                    "-fx-min-height: 5px; " +
+                    "-fx-max-height: 5px;"
+                );
+            } else {
+                button.setStyle(
+                    "-fx-min-height: " + height + "px; " +
+                    "-fx-max-height: " + height + "px; " +
+                    "-fx-min-width: 5px; " +
+                    "-fx-max-width: 5px;"
+                );
+            }
+
+            //this.image;
+            //this.centerTextField.setFont(new Font(10));
+        }
+    }
 
     /**
      * Getter bouton
