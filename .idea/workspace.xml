@@ -9,14 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Profil image save">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix_cotes.png" afterDir="false" />
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Croix bouton off css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,7 +186,7 @@
       <workItem from="1711639834112" duration="79000" />
       <workItem from="1711640125951" duration="16624000" />
       <workItem from="1711789745813" duration="20205000" />
-      <workItem from="1711831917120" duration="4442000" />
+      <workItem from="1711831917120" duration="5341000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -242,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711800562473</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Croix bouton off css">
+      <option name="closed" value="true" />
+      <created>1711836619121</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711836619121</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +271,8 @@
     <MESSAGE value="Big Remerge" />
     <MESSAGE value="Small changes" />
     <MESSAGE value="Profil image save" />
-    <option name="LAST_COMMIT_MESSAGE" value="Profil image save" />
+    <MESSAGE value="Croix bouton off css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Croix bouton off css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

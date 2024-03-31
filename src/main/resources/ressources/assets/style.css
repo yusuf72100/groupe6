@@ -156,15 +156,16 @@
     -fx-background-color: transparent;
     -fx-opacity: 1.0;
     -fx-border-radius: 0;
-
-
 }
 
 .button-left.croix, .button-right.croix {
     -fx-background-color: transparent;
     -fx-opacity: 1.0;
     -fx-border-radius: 0;
+}
 
+.button-top.croix:hover, .button-bottom.croix:hover, .button-left.croix:hover, .button-right.croix:hover {
+    -fx-background-color: gray;
 }
 
 .button-left, .button-right {
