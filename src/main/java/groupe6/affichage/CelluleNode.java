@@ -2,6 +2,7 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.ValeurCote;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -153,8 +154,11 @@ public class CelluleNode extends Node {
                 );
             }
 
-            //this.image;
-            //this.centerTextField.setFont(new Font(10));
+            double adaptativeSize = ((width*80)/500);
+            double adaptativeFontSize = ((width*50)/83.3);
+
+            this.centerTextField.setPrefSize(adaptativeSize, adaptativeSize);
+            this.centerTextField.setFont(new Font(adaptativeFontSize));
         }
     }
 

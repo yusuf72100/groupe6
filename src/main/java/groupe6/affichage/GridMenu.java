@@ -194,7 +194,7 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 700 /this.largeur, (double) 700 /this.longueur);}
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);}
         }
     }
 

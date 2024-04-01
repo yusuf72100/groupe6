@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Adaptative cellule size" />
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Adaptative cellule size">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +49,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -66,49 +73,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PuzzleGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SlitherLink.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestProfils.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestPuzzle.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Maven.Gr6 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Gr6 [verify].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Shell Script.mvnw.executor&quot;: &quot;Run&quot;,
-    &quot;app.teamhub.trackedBranches&quot;: &quot;-1gl2qhp/Yusuf,-1gl2qhp/main&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Yusuf&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-16&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/main/groupe6/src/main/resources/ressources/profils/yamis/saves&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.37847868&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.PuzzleGenerator.executor": "Run",
+    "Application.SlitherLink.executor": "Run",
+    "Application.TestProfils.executor": "Run",
+    "Application.TestPuzzle.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Maven.Gr6 [clean].executor": "Run",
+    "Maven.Gr6 [compile].executor": "Run",
+    "Maven.Gr6 [deploy].executor": "Run",
+    "Maven.Gr6 [install].executor": "Run",
+    "Maven.Gr6 [package].executor": "Run",
+    "Maven.Gr6 [test].executor": "Run",
+    "Maven.Gr6 [validate].executor": "Run",
+    "Maven.Gr6 [verify].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.mvnw.executor": "Run",
+    "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Yusuf",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-16",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/main/groupe6/src/main/resources/ressources/profils/yamis/saves",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.37847868",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
@@ -184,7 +192,8 @@
       <workItem from="1711640125951" duration="16624000" />
       <workItem from="1711789745813" duration="20205000" />
       <workItem from="1711831917120" duration="5341000" />
-      <workItem from="1711875427910" duration="11095000" />
+      <workItem from="1711875427910" duration="14658000" />
+      <workItem from="1711960291963" duration="14308000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -258,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711895140776</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Adaptative cellule size">
+      <option name="closed" value="true" />
+      <created>1711896989067</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711896989067</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
