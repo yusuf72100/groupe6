@@ -2,6 +2,7 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.CatalogueSauvegarde;
+import groupe6.model.Menu;
 import groupe6.model.Partie;
 import groupe6.model.PartieSauvegarde;
 import javafx.animation.*;
@@ -23,7 +24,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MainMenu implements Menu {
     protected static Button backButton;
@@ -93,7 +93,7 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/avatard-50x50.png");
+                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierProfils + "/utilisateur/avatard-50x50.png");
                     Image image = Launcher.chargerImage(cheminImageAvatar);
                     imageView.setImage(image);
                     setGraphic(imageView);

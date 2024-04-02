@@ -136,10 +136,10 @@
 }
 
 .button-top, .button-bottom {
-    -fx-min-width: 60px;
-    -fx-max-width: 60px;
+    /*-fx-min-width: 100px;
+    -fx-max-width: 100px;
     -fx-min-height: 5px;
-    -fx-max-height: 5px;
+    -fx-max-height: 5px;*/
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;
@@ -152,20 +152,27 @@
     -fx-border-radius: 0;
 }
 
-.button-top.croix, .button-bottom.croix, .button-left.croix, .button-right.croix {
-    -fx-background-color: #fc4c4c;
+.button-top.croix, .button-bottom.croix {
+    -fx-background-color: transparent;
     -fx-opacity: 1.0;
     -fx-border-radius: 0;
+}
 
-    -fx-background-image: url('icon/croix.png');
-    -fx-background-size: cover;
+.button-left.croix, .button-right.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-top.croix:hover, .button-bottom.croix:hover, .button-left.croix:hover, .button-right.croix:hover {
+    -fx-background-color: gray;
 }
 
 .button-left, .button-right {
-    -fx-min-height: 60px;
-    -fx-max-height: 60px;
+    /*-fx-min-height: 100px;
+    -fx-max-height: 100px;
     -fx-min-width: 5px;
-    -fx-max-width: 5px;
+    -fx-max-width: 5px;*/
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;

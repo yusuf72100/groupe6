@@ -1,6 +1,9 @@
 package groupe6.model;
 
 import groupe6.launcher.Launcher;
+import groupe6.tools.puzzleGenerator.Main;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.*;
@@ -8,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+
+import static groupe6.test.TestProfils.chargerProfilsExistant;
 
 /**
  * Cette classe modélise un profil d'utilisateur.
@@ -98,50 +103,18 @@ public class Profil implements Serializable {
      * Modifie la photo de profil
      *
      */
-    public void choisirImage() {
-        // TODO : Probleme copie de l'image selectionnee
-        JFileChooser selecteurFichiers = new JFileChooser();
-        selecteurFichiers.setDialogTitle("Choisir une image de profil");
-
+    public void choisirImage(Stage fenetre) throws IOException {
         // Afficher uniquement les fichiers images
-        selecteurFichiers.setFileFilter(new javax.swing.filechooser.FileFilter() {
-            // Condition d'acceptation par le filtre pour le fichier
-            public boolean accept(File f) {
-                if (f.isDirectory()) {
-                    return true;
-                }
-                String extension = getExtension(f);
-                // Accepte si l'extension est en jpg, jpeg ou png
-                return extension != null && (extension.equals("jpg") || extension.equals("jpeg") ||
-                    extension.equals("png"));
-            }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger une image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers IMAGE (*.jpeg, *.png, *.jpg)", "*.png", "*.jpeg", "*.jpg"));
 
-            // Description du filtre
-            public String getDescription() {
-                return "Images (*.jpg, *.jpeg, *.png)";
-            }
+        java.io.File file = fileChooser.showSaveDialog(fenetre);
 
-            // Recupère l'extension du fichier
-            private String getExtension(File f) {
-                String ext = null;
-                String s = f.getName();
-                int i = s.lastIndexOf('.');
-
-                if (i > 0 && i < s.length() - 1) {
-                    ext = s.substring(i + 1).toLowerCase();
-                }
-                return ext;
-            }
-        });
-
-        int selectionUtilisateur = selecteurFichiers.showOpenDialog(null);
-        if (selectionUtilisateur == JFileChooser.APPROVE_OPTION) {
-            File fichierSelectionne = selecteurFichiers.getSelectedFile();
-            String cheminDestination = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + this.nom + "/" + fichierSelectionne.getName());
+        if (file != null) {
+            String cheminDestination = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + this.nom + "/" + file.getName());
             System.out.println("cheminDestination : "+cheminDestination);
-            File destination = new File(cheminDestination);
-            System.out.println(destination.getAbsolutePath());
-            Launcher.copier(fichierSelectionne, destination);
+            Launcher.copyFile(file.getAbsolutePath(), cheminDestination);
             System.out.println("Le fichier a été copié avec succès dans " + cheminDestination);
             cheminIMG = cheminDestination;
         }

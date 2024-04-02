@@ -8,10 +8,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GridMenu implements Menu {
@@ -93,7 +92,6 @@ public class GridMenu implements Menu {
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
-
             Partie partie = GridMenu.this.getPartie();
 
             int cote;
@@ -124,9 +122,11 @@ public class GridMenu implements Menu {
                 case TRAIT:
                     clickedButton.getStyleClass().remove("clicked");
                     clickedButton.getStyleClass().add("croix");
+                    celluleNodes[i][j].getImage(cote).setVisible(true);
                     break;
                 case CROIX:
                     clickedButton.getStyleClass().remove("croix");
+                    celluleNodes[i][j].getImage(cote).setVisible(false);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + valeurCote);
@@ -194,7 +194,7 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-            }
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);}
         }
     }
 
@@ -274,25 +274,36 @@ public class GridMenu implements Menu {
                 // Barres
                 // Avoid horizontal bar duplication
                 if (j == 0) {
+                    this.celluleNodes[i][j].getButton(0).setGraphic(this.celluleNodes[i][j].getImage(0));
+                    this.celluleNodes[i][j].getButton(0).setContentDisplay(ContentDisplay.CENTER);
+                    this.gridPane.add(this.celluleNodes[i][j].getImage(0), i * 2 + 1, 0);   // top
                     this.gridPane.add(this.celluleNodes[i][j].getButton(0), i * 2 + 1, 0);   // top
                     this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                     this.compteur++;
                 }
+                this.celluleNodes[i][j].getButton(1).setGraphic(this.celluleNodes[i][j].getImage(1));
+                this.celluleNodes[i][j].getButton(1).setContentDisplay(ContentDisplay.CENTER);
                 this.gridPane.add(this.celluleNodes[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
+                this.gridPane.add(this.celluleNodes[i][j].getImage(1), i * 2 + 1, j * 2 + 2);   // bottom
                 this.gridPane.add(this.celluleNodes[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
                 this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
 
                 // Avoid vertical bar duplication
                 if(i == 0){
+                    this.celluleNodes[i][j].getButton(2).setGraphic(this.celluleNodes[i][j].getImage(2));
+                    this.celluleNodes[i][j].getButton(2).setContentDisplay(ContentDisplay.CENTER);
+                    this.gridPane.add(this.celluleNodes[i][j].getImage(2), 0, j * 2 + 1);   // left
                     this.gridPane.add(this.celluleNodes[i][j].getButton(2), 0, j * 2 + 1);   // left
                     this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                     this.compteur++;
                 }
+                this.celluleNodes[i][j].getButton(3).setGraphic(this.celluleNodes[i][j].getImage(3));
+                this.celluleNodes[i][j].getButton(3).setContentDisplay(ContentDisplay.CENTER);
+                this.gridPane.add(this.celluleNodes[i][j].getImage(3), i * 2 + 2, j * 2 + 1);   // right
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
-                System.out.println(this.celluleNodes[1][1].getLabel());
             }
         }
     }

@@ -1,6 +1,5 @@
 package groupe6.test;
 
-import groupe6.model.Chronometre;
 import groupe6.model.Puzzle;
 
 /**
@@ -11,7 +10,7 @@ import groupe6.model.Puzzle;
 public class TestMain {
     public static void main(String[] args) {
 
-        //TestPartie.main(args);
+        //TestProfils.main(args);
 
         Puzzle puzzle = Puzzle.chargerPuzzle("Slitherlink/puzzles/FACILE_6x6_F.puzzle");
         puzzle.genererGrillePropre();

@@ -1,10 +1,6 @@
 package groupe6.launcher;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +13,7 @@ import java.util.jar.JarFile;
 import groupe6.affichage.Main;
 import groupe6.model.CatalogueProfil;
 import groupe6.model.CataloguePuzzle;
+import groupe6.test.TestMain;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 
@@ -30,6 +27,7 @@ public class Launcher {
   public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles"; // Dossier des puzzles
   public static String dossierProfils = Launcher.dossierSlitherlink + "/profils"; // Dossier des profils
   public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques"; // Dossier des techniques
+  public static String dossierPuzzleGenerator = Launcher.dossierSlitherlink + "/tools/PuzzleGenerator"; // Dossier du puzzle generator
 
   public static CataloguePuzzle cataloguePuzzles;
   public static CatalogueProfil catalogueProfils;
@@ -52,20 +50,34 @@ public class Launcher {
     return cheminDossierParentJar;
   }
 
-  public static boolean copier(File source, File dest) {
-    try (InputStream sourceFile = new java.io.FileInputStream(source);
-         OutputStream destinationFile = new FileOutputStream(dest)) {
-      // Lecture par segment de 0.5Mo
-      byte[] buffer = new byte[512 * 1024];
-      int nbLecture;
-      while ((nbLecture = sourceFile.read(buffer)) != -1){
-        destinationFile.write(buffer, 0, nbLecture);
-      }
-    } catch (IOException e){
-      e.printStackTrace();
-      return false; // Erreur
+  // copie un fichier depuis un path vers un autre
+  public static void copyFile(String sourcePath, String destinationPath) throws IOException {
+    File sourceFile = new File(sourcePath);
+    File destinationFile = new File(destinationPath);
+
+    if (!sourceFile.exists()) {
+      throw new IOException("Le fichier source n'existe pas : " + sourcePath);
     }
-    return true; // Résultat OK
+
+    if (!destinationFile.getParentFile().exists()) {
+      destinationFile.getParentFile().mkdirs();
+    }
+
+    FileInputStream fileInputStream = new FileInputStream(sourceFile);
+    FileOutputStream fileOutputStream = new FileOutputStream(destinationFile);
+
+    byte[] buffer = new byte[1024];
+    int length;
+
+    // copie du fichier byte par byte
+    while ((length = fileInputStream.read(buffer)) > 0) {
+      fileOutputStream.write(buffer, 0, length);
+    }
+
+    fileInputStream.close();
+    fileOutputStream.close();
+
+    System.out.println("Le fichier a été copié avec succès de " + sourcePath + " vers " + destinationPath);
   }
 
   private static boolean isRessourcesCompletes(JarFile fichierJar, String cheminDossierRessourcesJar,
@@ -259,6 +271,11 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
 
+    System.out.println("dossier parent jar : " + cheminDossierParentJar);
+    System.out.println("dossier parent ressource local : " + cheminDossierParentRessourcesLocal);
+    System.out.println("Chemins normalisés:");
+    System.out.println("dossier parent jar : " + normaliserChemin(cheminDossierParentJar));
+    System.out.println("dossier parent ressource local : " + normaliserChemin(cheminDossierParentRessourcesLocal));
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
       Application.launch(FenetreMauvaisDossier.class);
       return;
@@ -301,7 +318,7 @@ public class Launcher {
       for (String arg : args) {
         if (arg.equals("--test")) {
 
-          groupe6.test.TestMain.main(args);
+          TestMain.main(args);
           return;
         }
       }

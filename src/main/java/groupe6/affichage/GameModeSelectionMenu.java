@@ -7,7 +7,6 @@ import groupe6.model.Partie;
 import groupe6.model.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
@@ -52,8 +51,8 @@ public class GameModeSelectionMenu extends MainMenu {
                 DifficultePuzzle difficultePuzzle = DifficultePuzzle.FACILE;
                 int numPuzzle = 0;
                 Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
-                Partie partieClassiqe = Partie.nouvellePartie(Launcher.cataloguePuzzles,difficultePuzzle,numPuzzle, ModeJeu.NORMAL,profilJoueur);
-                Main.showGridMenu(partieClassiqe);
+                Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numPuzzle, ModeJeu.NORMAL, profilJoueur);
+                Main.showGridMenu(partieClassique);
             }
         });
 

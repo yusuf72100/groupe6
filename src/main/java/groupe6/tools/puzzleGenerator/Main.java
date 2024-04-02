@@ -1,14 +1,12 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.DifficultePuzzle;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.Objects;
-
-import groupe6.launcher.Launcher;
-
-import groupe6.model.DifficultePuzzle;
 
 public class Main extends Application {
     private static Scene scene;
@@ -21,10 +19,12 @@ public class Main extends Application {
         MainStage = primaryStage;
         main = new MainMenu();
         scene = new Scene(main.getMenu(), 1000, 800);
-        scene.getStylesheets().add(Launcher.chargerFichierEnUrl("Slitherlink/tools/puzzleGenerator/style.css"));
+        String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierPuzzleGenerator + "/style.css");
+        scene.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
+        String cheminIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "icon/icon.png");
         primaryStage.setTitle("Puzzle Generator");
-        primaryStage.getIcons().add(Launcher.chargerImage("Slitherlink/tools/puzzleGenerator/icon.png"));
+        primaryStage.getIcons().add(Launcher.chargerImage(cheminIcon));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -39,8 +39,8 @@ public class Main extends Application {
      * @param largeur
      * @param diff
      */
-    public static void showNewPuzzle(int longueur, int largeur, DifficultePuzzle diff) {
-        grid = new GridMenu(longueur, largeur, diff);
+    public static void showNewPuzzle(int largeur, int longueur, DifficultePuzzle diff) {
+        grid = new GridMenu(largeur, longueur, diff);
         scene.setRoot(grid.getMenu(true));
     }
 
@@ -66,4 +66,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-    
