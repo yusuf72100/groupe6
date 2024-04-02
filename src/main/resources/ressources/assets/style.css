@@ -1,0 +1,187 @@
+@font-face {
+    font-family: 'Snake Venom';
+    src: url('font/SNAKV___.TTF');
+}
+
+.title {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 80;
+    -fx-fill: black;
+    -fx-stroke: black;            /* #ff005b */
+    -fx-stroke-width: 2;
+    /*-fx-effect: dropshadow(gaussian, #ff005b, 30, 0.1, 0, 0);*/
+}
+
+.description-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 0 10px 10px;
+}
+
+.description-text {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-text-fill: black;
+}
+
+.button-rounded {
+    -fx-background-radius: 10px;
+    -fx-background-color: #D9D9D9;
+}
+
+.button-rounded:hover {
+    -fx-background-color: #e0ac1e;
+}
+
+.button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-transition: background 0.3s, color 0.3s;
+}
+
+.button-text {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 35;
+    -fx-text-fill: black;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
+}
+
+.clicked-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: #ffffff;
+    -fx-animation: pulse 0.5s ease-out;
+}
+
+.combo-box {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-background-color: #D9D9D9;
+    -fx-border-width: 0px;
+    -fx-border-radius: 0px;
+    -fx-padding: 0px;
+    -fx-cursor: hand;
+    -fx-pref-width: 225px;
+    -fx-pref-height: 55px;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow-button .arrow {
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-view {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-background-color: #D9D9D9;
+    -fx-border-width: 0px;
+    -fx-padding: 8px;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-background-color: #D9D9D9;
+    -fx-padding: 0px;
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-background-color: #e0ac1e;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-background-color: #e0ac1e;
+    -fx-text-fill: black;
+}
+
+.button-sauvegarder {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/sauvegarder.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-home {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/home.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-pause {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/pause.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-top, .button-bottom {
+    /*-fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 5px;
+    -fx-max-height: 5px;*/
+    -fx-background-color: lightgray;
+    -fx-opacity: 0.0;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}
+
+.button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
+    -fx-background-color: black;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-top.croix, .button-bottom.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-left.croix, .button-right.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-top.croix:hover, .button-bottom.croix:hover, .button-left.croix:hover, .button-right.croix:hover {
+    -fx-background-color: gray;
+}
+
+.button-left, .button-right {
+    /*-fx-min-height: 100px;
+    -fx-max-height: 100px;
+    -fx-min-width: 5px;
+    -fx-max-width: 5px;*/
+    -fx-background-color: lightgray;
+    -fx-opacity: 0.0;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}
+
+.black-square {
+    -fx-fill: black;
+    -fx-padding: 5px;
+    -fx-border-radius: 0;
+    -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
+}

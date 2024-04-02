@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Gr6:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="R">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaFXApplication" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yusuf72100&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cc47fb48-df46-4f73-a2e4-35364fb09c8a" />
+        <option name="url" value="https://github.com/yusuf72100/groupe6.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2eC8h8bahzRs3lLIVevWKyiNiXB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.PuzzleGenerator.executor": "Run",
+    "Application.SlitherLink.executor": "Run",
+    "Application.TestProfils.executor": "Run",
+    "Application.TestPuzzle.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Maven.Gr6 [clean].executor": "Run",
+    "Maven.Gr6 [compile].executor": "Run",
+    "Maven.Gr6 [deploy].executor": "Run",
+    "Maven.Gr6 [install].executor": "Run",
+    "Maven.Gr6 [package].executor": "Run",
+    "Maven.Gr6 [test].executor": "Run",
+    "Maven.Gr6 [validate].executor": "Run",
+    "Maven.Gr6 [verify].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.mvnw.executor": "Run",
+    "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Yusuf",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-16",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/main/groupe6/src/main/resources/ressources/profils/yamis/saves",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.37847868",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\assets\icon" />
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\tools\PuzzleGenerator" />
+      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\java\groupe6\tools\puzzleGenerator" />
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\puzzles" />
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn install" />
+      <command value="mvn package" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.PuzzleGenerator">
+    <configuration name="PuzzleGenerator" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="groupe6.tools.puzzleGenerator.Launcher" />
+      <module name="SlitherLink" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SlitherLink" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="groupe6.launcher.Launcher" />
+      <module name="SlitherLink" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestProfils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="groupe6.test.TestProfils" />
+      <module name="SlitherLink" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.PuzzleGenerator" />
+      <item itemvalue="Application.SlitherLink" />
+      <item itemvalue="Application.TestProfils" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestProfils" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="" />
+      <created>1711397322263</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711397322263</updated>
+      <workItem from="1711397323632" duration="986000" />
+      <workItem from="1711398345239" duration="5168000" />
+      <workItem from="1711403660942" duration="21000" />
+      <workItem from="1711459767880" duration="7042000" />
+      <workItem from="1711472554641" duration="13610000" />
+      <workItem from="1711639834112" duration="79000" />
+      <workItem from="1711640125951" duration="16624000" />
+      <workItem from="1711789745813" duration="20205000" />
+      <workItem from="1711831917120" duration="5341000" />
+      <workItem from="1711875427910" duration="14658000" />
+      <workItem from="1711960291963" duration="17970000" />
+    </task>
+    <task id="LOCAL-00001" summary="Big Remerge">
+      <option name="closed" value="true" />
+      <created>1711790376069</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711790376069</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Big Remerge">
+      <option name="closed" value="true" />
+      <created>1711792322771</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711792322771</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Big Remerge">
+      <option name="closed" value="true" />
+      <created>1711792610598</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711792610598</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Big Remerge">
+      <option name="closed" value="true" />
+      <created>1711793066049</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711793066049</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Small changes">
+      <option name="closed" value="true" />
+      <created>1711794434797</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711794434797</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Profil image save">
+      <option name="closed" value="true" />
+      <created>1711800562473</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711800562473</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Croix bouton off css">
+      <option name="closed" value="true" />
+      <created>1711836619121</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711836619121</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Croix bouton off css">
+      <option name="closed" value="true" />
+      <created>1711875666328</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711875666328</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Adaptative cellule size">
+      <option name="closed" value="true" />
+      <created>1711895140776</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711895140776</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Adaptative cellule size">
+      <option name="closed" value="true" />
+      <created>1711896989067</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711896989067</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Adaptative Grid size">
+      <option name="closed" value="true" />
+      <created>1711986071147</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1711986071147</updated>
+    </task>
+    <task id="LOCAL-00012" summary="R">
+      <option name="closed" value="true" />
+      <created>1711987080511</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711987080511</updated>
+    </task>
+    <task id="LOCAL-00013" summary="R">
+      <option name="closed" value="true" />
+      <created>1711987714409</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711987714409</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Big Remerge" />
+    <MESSAGE value="Small changes" />
+    <MESSAGE value="Profil image save" />
+    <MESSAGE value="Croix bouton off css" />
+    <MESSAGE value="Adaptative cellule size" />
+    <MESSAGE value="Adaptative Grid size" />
+    <MESSAGE value="R" />
+    <option name="LAST_COMMIT_MESSAGE" value="R" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
