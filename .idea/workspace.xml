@@ -10,7 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="R">
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,9 +56,9 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -57,6 +66,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+        <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -98,7 +108,7 @@
     "Shell Script.mvnw.executor": "Run",
     "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "Yusuf",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
@@ -166,13 +176,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -192,6 +195,7 @@
       <workItem from="1711831917120" duration="5341000" />
       <workItem from="1711875427910" duration="14658000" />
       <workItem from="1711960291963" duration="17970000" />
+      <workItem from="1712056352558" duration="11578000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />

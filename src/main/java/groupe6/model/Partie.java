@@ -15,6 +15,8 @@ public class Partie {
   private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
   private final List<AideInfos> historiqueAide; // Historique des aides
   private Hypothese hypothese; // Hypothese en cours
+  private GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs pour le check
+  private Coordonnee coordsErreur; // Coordonées de la première erreur
 
   private final Profil profil; // Le profil qui joue la partie
 
@@ -25,6 +27,7 @@ public class Partie {
     this.historiqueAide = new ArrayList<AideInfos>();
     this.profil = profil;
     this.hypothese = null;
+    this.gestionnaireErreur = new GestionnaireErreur();
   }
 
   public Partie(PartieSauvegarde save, Profil profil) {
@@ -34,6 +37,7 @@ public class Partie {
     this.historiqueAide = save.getHistoriqueAide();
     this.profil = profil;
     this.hypothese = null;
+    this.gestionnaireErreur = save.getGestionnaireErreur();
   }
 
   public Puzzle getPuzzle() {
@@ -56,14 +60,42 @@ public class Partie {
     return this.gestionnaireAction;
   }
 
-  public boolean verifierErreur(int y, int x, int cote, Action action) {
-    Cellule cellSol1 = this.puzzle.getCelluleSolution(y, x);
-    // Cellule cellSol2 = this.puzzle.getCelluleAdjacenteSolution(y,x,cote);
-    //
-    // return cellSol1.equals(action.getCellule1()) &&
-    // cellSol2.equals(action.getCellule2());
+  public GestionnaireErreur getGestionnaireErreur() { return  this.gestionnaireErreur; }
 
-    return true;
+  public boolean verifierErreur(Action action) {
+    Coordonnee coordsCell1 = action.getCoordsCellule1();
+    Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
+
+    Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getY());
+    Cellule cellJeu1 = this.puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
+
+    boolean valide;
+    if ( coordsCell2 != null ) {
+      Cellule cellSol2 = this.puzzle.getCelluleSolution(coordsCell2.getY(),coordsCell2.getY());
+      Cellule cellJeu2 = this.puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
+      valide = cellSol1.equals(cellJeu1) && cellSol2.equals(cellJeu2);
+    }
+    else {
+      valide = cellSol1.equals(cellJeu1);
+    }
+
+    // Si une erreur existe deja sur ce cote de cellule, et que l'erreur a été corigé
+    int idxErreurExistante = this.gestionnaireErreur.existe(action);
+    if ( idxErreurExistante != -1 && valide ) {
+      System.out.println("correction err : \n"+this.gestionnaireErreur.getErreur(idxErreurExistante));
+      this.gestionnaireErreur.supprimer(idxErreurExistante);
+    }
+
+    // Si aucune erreur existe déja et que l'action n'est pas valide
+    if ( idxErreurExistante == -1 && !valide ) {
+      ErreurInfos erreur = new ErreurInfos(coordsCell1,coordsCell2, action.getCoteCellule1(), this.gestionnaireAction.getIndex());
+      this.getGestionnaireErreur().ajouterErreur(erreur);
+      System.out.println("ajout err : \n"+erreur);
+    }
+
+    System.out.println(getGestionnaireErreur().getPremiereErreur());
+
+    return valide;
   }
 
   // Méthode pour faire une action de type bascule à trois etats
@@ -77,7 +109,8 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(y, x, cote, action);
+    Boolean err = verifierErreur(action);
+    System.out.println(err);
   }
 
   // Méthode pour faire une action de type Vide
@@ -89,7 +122,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(y, x, cote, action);
+    verifierErreur(action);
   }
 
   // Méthode pour faire une action de type Trait
@@ -101,7 +134,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(y, x, cote, action);
+    verifierErreur(action);
   }
 
   // Méthode pour faire une action de type Croix
@@ -113,7 +146,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(y, x, cote, action);
+    verifierErreur(action);
   }
 
   // Méthode qui verifie si la partie est terminée et agit en conséquence

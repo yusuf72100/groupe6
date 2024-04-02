@@ -3,7 +3,9 @@ package groupe6.model;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Classe qui représente le gestionnaire des actions
@@ -95,4 +97,29 @@ public class GestionnaireAction implements Serializable,Cloneable {
   public GestionnaireAction clone() {
     throw new UnsupportedOperationException("Une action peut seulement être clonée avec un puzzle en paramètre");
   }
+
+  @Override
+  public String toString() {
+    StringBuilder strBuilder = new StringBuilder("");
+    strBuilder.append("GestionnaireAction :\n"+
+        "index=" + index + '\n');
+    for ( Action a : listeAction ) {
+      strBuilder.append(a.toString()+"\n");
+    }
+
+    return  strBuilder.toString();
+  }
+
+  public Set<Coordonnee> getCoordsActionAprèsErreur(int idxActionPremiereErreur ) {
+    Set<Coordonnee> setCoords = new HashSet<Coordonnee>();
+    for (int i = idxActionPremiereErreur; i < this.listeAction.size(); i++) {
+      Action action = this.listeAction.get(i);
+      Coordonnee coordsCell1 = action.getCoordsCellule1();
+      Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
+      setCoords.add(coordsCell1);
+      setCoords.add(coordsCell2);
+    }
+    return setCoords;
+  }
+
 }

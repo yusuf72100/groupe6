@@ -188,6 +188,17 @@ public class Puzzle implements Serializable, Cloneable {
     }
   }
 
+  public Cellule getCelluleAdjacenteSolution(int y, int x, int cote) {
+    Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
+    if ( coordsAdjacente != null ) {
+      int coordsAdjacenteY = coordsAdjacente.getY();
+      int coordsAdjacenteX = coordsAdjacente.getX();
+      return getCelluleSolution(coordsAdjacenteY,coordsAdjacenteX);
+    }else {
+      return null;
+    }
+  }
+
   public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
     int yAdj = y;
     int xAdj = x;
