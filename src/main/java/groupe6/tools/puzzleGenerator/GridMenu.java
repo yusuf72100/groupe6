@@ -324,13 +324,6 @@ public class GridMenu implements Menu {
             }
             System.out.println(" ");
         }
-
-        System.out.println("Bas adj : " + this.puzzle.getCelluleSolution(4,0).getCote(Cellule.BAS));
-        System.out.println("Haut : " + this.puzzle.getCelluleSolution(5,0).getCote(Cellule.HAUT));
-        System.out.println("droite : " + this.puzzle.getCelluleSolution(5,0).getCote(Cellule.DROITE));
-        System.out.println("gauche : " + this.puzzle.getCelluleSolution(5,0).getCote(Cellule.GAUCHE));
-        System.out.println("bas : " + this.puzzle.getCelluleSolution(5,0).getCote(Cellule.BAS));
-        System.out.println("======================\n"+this.puzzle);
     }
 
     /**
