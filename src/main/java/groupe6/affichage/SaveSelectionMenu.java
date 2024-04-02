@@ -5,7 +5,8 @@ import groupe6.model.CatalogueSauvegarde;
 import groupe6.model.Menu;
 import groupe6.model.Partie;
 import groupe6.model.PartieSauvegarde;
-import javafx.animation.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +26,7 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class MainMenu implements Menu {
+public class SaveSelectionMenu implements Menu {
     protected static Button backButton;
     protected static Label backText;
     protected static ComboBox<String> profilSelector;
@@ -45,12 +46,12 @@ public class MainMenu implements Menu {
     protected static FadeTransition[] fadeTransitionReverse;
     protected static Rectangle[] clipRectangle;
 
-    protected static Text title = new Text("Slitherlink");
+    protected static Text title;
 
     public static void initMenu() {
-        backText = new Label("QUITTER");
-        buttonTextsLabels = new String[]{"CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT"};
-        title = new Text("Slitherlink");
+        backText = new Label("RETOUR");
+        buttonTextsLabels = new String[]{"RIEN", "RIEN", "RIEN"};
+        title = new Text("Selectionnez une sauvegarde");
         backButton = new Button();
         profilSelector = new ComboBox<>();
         mainHbox = new HBox();
@@ -69,7 +70,7 @@ public class MainMenu implements Menu {
         clipRectangle = new Rectangle[3];
     }
 
-    public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
+    public static StackPane getMenu(Double windowWidth, Double windowHeigth, List<String> listeSaves) {
         initMenu();
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeigth));
@@ -187,13 +188,13 @@ public class MainMenu implements Menu {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-                                Main.showSaveSelectionMenu(lstSave);
                                 if (!lstSave.isEmpty()) {
                                     String saveName = lstSave.get(0);
                                     System.out.println("Chargement de la sauvegarde : " + saveName);
                                     PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
                                     Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
-                                } else {
+                                    Main.showSaveSelectionMenu(lstSave);
+                                }else {
                                     System.out.println("Aucune sauvegarde trouvée");
                                 }
 
@@ -238,7 +239,7 @@ public class MainMenu implements Menu {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Platform.exit();
+                Main.showMainMenu();
             }
         });
 
