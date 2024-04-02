@@ -188,6 +188,17 @@ public class Puzzle implements Serializable, Cloneable {
     }
   }
 
+  public Cellule getCelluleAdjacenteSolution(int y, int x, int cote) {
+    Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
+    if ( coordsAdjacente != null ) {
+      int coordsAdjacenteY = coordsAdjacente.getY();
+      int coordsAdjacenteX = coordsAdjacente.getX();
+      return getCelluleSolution(coordsAdjacenteY,coordsAdjacenteX);
+    }else {
+      return null;
+    }
+  }
+
   public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
     int yAdj = y;
     int xAdj = x;
@@ -257,12 +268,15 @@ public class Puzzle implements Serializable, Cloneable {
 
   // Méthode pour charger le puzzle
   public static Puzzle chargerPuzzle(String chemin) {
+    Puzzle puzzle = null;
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-      return (Puzzle) ois.readObject();
+      puzzle = (Puzzle) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
       System.out.println(chemin);
       e.printStackTrace();
       return null;
     }
+    puzzle.genererGrillePropre();
+    return puzzle;
   }
 }

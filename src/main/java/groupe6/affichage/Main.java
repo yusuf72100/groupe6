@@ -71,7 +71,7 @@ public class Main extends Application {
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
         grid = new GridMenu(partie);
-        Main.setRoot(grid.getMenu(true));
+        Main.setRoot(grid.getMenu(false));
     }
 
     // programme principal

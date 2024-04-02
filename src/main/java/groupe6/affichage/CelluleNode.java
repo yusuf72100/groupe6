@@ -69,7 +69,6 @@ public class CelluleNode extends Node {
                     throw new IllegalStateException("Unexpected value: " + this.cotes[i]);
             }
         }
-
     }
 
     /**
@@ -101,6 +100,10 @@ public class CelluleNode extends Node {
         Rectangle square = new Rectangle(5, 5);
         square.getStyleClass().add("black-square");
         return square;
+    }
+
+    public ValeurCote getValeurCote(int i) {
+        return this.cotes[i];
     }
 
     /**

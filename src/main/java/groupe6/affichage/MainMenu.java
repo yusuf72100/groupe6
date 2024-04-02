@@ -183,6 +183,7 @@ public class MainMenu implements Menu {
                 switch (finalI) {
                     // bouton jouer
                     case 0 :
+                        // game mode selection menu 
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
@@ -192,6 +193,7 @@ public class MainMenu implements Menu {
                         descriptionText[finalI].setText("Choisissez un mode de jeu");
                         break;
                     case 1 :
+                        // Settings button
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
