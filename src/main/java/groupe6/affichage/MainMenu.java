@@ -1,10 +1,7 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.CatalogueSauvegarde;
-import groupe6.model.Menu;
-import groupe6.model.Partie;
-import groupe6.model.PartieSauvegarde;
+import groupe6.model.*;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -44,12 +41,12 @@ public class MainMenu implements Menu {
     protected static FadeTransition[] fadeTransition;
     protected static FadeTransition[] fadeTransitionReverse;
     protected static Rectangle[] clipRectangle;
-
+    protected static List<Profil> profils;
     protected static Text title = new Text("Slitherlink");
 
     public static void initMenu() {
         backText = new Label("QUITTER");
-        buttonTextsLabels = new String[]{"JOUER", "OPTIONS", "ENTRAÎNEMENT"};
+        buttonTextsLabels = new String[]{"CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT"};
         title = new Text("Slitherlink");
         backButton = new Button();
         profilSelector = new ComboBox<>();
@@ -67,6 +64,7 @@ public class MainMenu implements Menu {
         fadeTransition = new FadeTransition[3];
         fadeTransitionReverse = new FadeTransition[3];
         clipRectangle = new Rectangle[3];
+        profils = Launcher.catalogueProfils.getListeProfils();
     }
 
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
@@ -76,7 +74,14 @@ public class MainMenu implements Menu {
 
         mainHbox.setSpacing(200);       // espacement entre les éléments
 
-        profilSelector.getItems().addAll("PlaceHolder #1", "PlaceHolder #2", "PlaceHolder #3");
+        if (profils != null){
+            for (Profil p : profils) {
+                profilSelector.getItems().add(p.getNom());
+            }
+        } else {
+            profilSelector.getItems().add("Invité");
+        }
+
         profilSelector.getSelectionModel().selectFirst();
         profilSelector.setTranslateX(Menu.toPourcentWidth(700.0, windowWidth));
         profilSelector.setTranslateY(Menu.toPourcentHeight(-450.0, windowHeigth));
@@ -93,9 +98,9 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierProfils + "/utilisateur/avatard-50x50.png");
-                    Image image = Launcher.chargerImage(cheminImageAvatar);
-                    imageView.setImage(image);
+                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
+                    System.out.println(cheminImageAvatar);
+                    imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     setGraphic(imageView);
                 }
             }
@@ -112,9 +117,9 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/avatard-50x50.png");
-                    Image image = Launcher.chargerImage(cheminImageAvatar);
-                    imageView.setImage(image);
+                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
+                    System.out.println("Chemin image profil : " + cheminImageAvatar);
+                    imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     setGraphic(imageView);
                 }
             }
@@ -181,8 +186,28 @@ public class MainMenu implements Menu {
                 descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
 
                 switch (finalI) {
-                    // bouton jouer
+                    // bouton charger une partie
                     case 0 :
+                        buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
+                                Main.showSaveSelectionMenu(lstSave);
+                                if (!lstSave.isEmpty()) {
+                                    String saveName = lstSave.get(0);
+                                    System.out.println("Chargement de la sauvegarde : " + saveName);
+                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
+                                    Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
+                                } else {
+                                    System.out.println("Aucune sauvegarde trouvée");
+                                }
+
+                            }
+                        });
+                        descriptionText[finalI].setText("Charger une partie existante");
+                        break;
+                    case 1 :
+                        // bouton nouvelle partie
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
@@ -191,24 +216,6 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Choisissez un mode de jeu");
                         break;
-                    case 1 :
-                        buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-                                if (!lstSave.isEmpty()) {
-                                    String saveName = lstSave.get(0);
-                                    System.out.println("Chargement de la sauvegarde : " + saveName);
-                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
-                                    Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
-                                    Main.showGridMenu(partie);
-                                }else {
-                                    System.out.println("Aucune sauvegarde trouvée");
-                                }
-
-                            }
-                        });
-                        descriptionText[finalI].setText("Charger une partie existante");
                     case 2 : descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu"); break;
                     default : descriptionText[finalI].setText("Placeholder #" + finalI); break;
                 }

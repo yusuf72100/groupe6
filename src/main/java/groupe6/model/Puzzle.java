@@ -268,12 +268,15 @@ public class Puzzle implements Serializable, Cloneable {
 
   // Méthode pour charger le puzzle
   public static Puzzle chargerPuzzle(String chemin) {
+    Puzzle puzzle = null;
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-      return (Puzzle) ois.readObject();
+      puzzle = (Puzzle) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
       System.out.println(chemin);
       e.printStackTrace();
       return null;
     }
+    puzzle.genererGrillePropre();
+    return puzzle;
   }
 }

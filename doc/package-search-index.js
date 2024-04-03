@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"org.groupe6.slitherlink","l":"model"},{"m":"org.groupe6.slitherlink","l":"org.groupe6.slitherlink.PuzzleGenerator"},{"m":"org.groupe6.slitherlink","l":"org.groupe6.slitherlink.SlitherLink"}];updateSearchResults();

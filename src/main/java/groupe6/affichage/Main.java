@@ -4,12 +4,11 @@ import groupe6.launcher.Launcher;
 import groupe6.model.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -71,7 +70,11 @@ public class Main extends Application {
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
         grid = new GridMenu(partie);
-        Main.setRoot(grid.getMenu(true));
+        Main.setRoot(grid.getMenu(false));
+    }
+
+    public static void showSaveSelectionMenu(List<String> listeSaves) {
+        Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight(), listeSaves));
     }
 
     // programme principal
