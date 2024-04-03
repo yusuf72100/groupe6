@@ -75,17 +75,20 @@ public class CelluleNode extends Node {
         for ( int i = 0; i < 4; i++ ) {
             switch (cotes[i]) {
                 case VIDE:
+                    this.image[i].setVisible(false);
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().remove("croix");
                     break;
                 case TRAIT:
+                    this.image[i].setVisible(false);
                     this.cellule[i].getStyleClass().remove("croix");
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().add("clicked");
                     break;
                 case CROIX:
+                    this.image[i].setVisible(true);
                     this.cellule[i].getStyleClass().remove("clicked");
-                    this.cellule[i].getStyleClass().remove("croix");
+                    this.cellule[i].getStyleClass().add("croix");
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + this.cotes[i]);

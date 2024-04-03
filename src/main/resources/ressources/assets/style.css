@@ -135,6 +135,15 @@
     -fx-padding: 5 10;
 }
 
+.button-undo{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/undo.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
 .button-top, .button-bottom {
     /*-fx-min-width: 100px;
     -fx-max-width: 100px;

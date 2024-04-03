@@ -9,11 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Small fix">
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Puzzle dismatch fix">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/undo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/croix_cotes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +210,7 @@
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
       <workItem from="1712090998244" duration="551000" />
-      <workItem from="1712142382297" duration="11220000" />
+      <workItem from="1712142382297" duration="13253000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -346,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712160344236</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Puzzle dismatch fix">
+      <option name="closed" value="true" />
+      <created>1712163701390</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712163701390</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +390,8 @@
     <MESSAGE value="PuzzleGenerator fixed" />
     <MESSAGE value="Profil selector functionnal" />
     <MESSAGE value="Small fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small fix" />
+    <MESSAGE value="Puzzle dismatch fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Puzzle dismatch fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

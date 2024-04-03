@@ -18,6 +18,7 @@ public class GridMenu implements Menu {
     private Button sauvegarder;
     private Button home;
     private Button pause;
+    private Button undo;
     private HBox layout_v;
     private GridPane gridPane;
     private StackPane container;
@@ -37,6 +38,9 @@ public class GridMenu implements Menu {
         this.pause = new Button();
         this.pause.getStyleClass().add("button-pause");
         this.pause.setPrefSize(30, 30);
+        this.undo = new Button();
+        this.undo.getStyleClass().add("button-undo");
+        this.undo.setPrefSize(30, 30);
         this.sauvegarder = new Button();
         this.sauvegarder.getStyleClass().add("button-sauvegarder");
         this.sauvegarder.setPrefSize(30, 30);
@@ -54,12 +58,19 @@ public class GridMenu implements Menu {
         fadePause.setFromValue(1.0);
         fadePause.setToValue(0.2);
 
+        FadeTransition fadeUndo = new FadeTransition(Duration.millis(150), this.undo);
+        fadeUndo.setFromValue(1.0);
+        fadeUndo.setToValue(0.2);
+
         this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
         this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
         this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
         this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
         this.pause.setOnMouseEntered(event -> { mouseEntered(fadePause, this.pause); });
         this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
+        this.undo.setOnMouseEntered(event -> { mouseEntered(fadeUndo, this.undo); });
+        this.undo.setOnMouseExited(event -> { mouseExited(fadeUndo, this.undo); });
+
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
         this.longueur = partie.getPuzzle().getLongueur();
@@ -117,9 +128,10 @@ public class GridMenu implements Menu {
             ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
             partie.actionBasculeTroisEtat(i,j,cote);
 
-            switch ( valeurCote ) {
+            /*switch ( valeurCote ) {
                 case VIDE:
                     clickedButton.getStyleClass().add("clicked");
+                    celluleNodes[i][j].getImage(cote).setVisible(false);
                     break;
                 case TRAIT:
                     clickedButton.getStyleClass().remove("clicked");
@@ -132,7 +144,8 @@ public class GridMenu implements Menu {
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + valeurCote);
-            }
+            }*/
+
             System.out.println(puzzle);
         }
     }
@@ -154,12 +167,20 @@ public class GridMenu implements Menu {
             }
         });
 
-        // Handler pause
-        pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        // Handler Undo
+        undo.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
                 partie.undo();
                 updateAffichage();
+            }
+        });
+
+        // Handler Pause
+        pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                // TODO : Bloquer l'écran du joueur
             }
         });
 
@@ -178,7 +199,7 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        HBox buttonContainer = new HBox(home, sauvegarder, pause);
+        HBox buttonContainer = new HBox(home, sauvegarder, pause, undo);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
