@@ -114,8 +114,8 @@ public class GridMenu implements Menu {
                     throw new IllegalStateException("Unexpected value: " + clickedButton.getText());
             }
 
-            ValeurCote valeurCote = partie.getPuzzle().getCellule(j, i).getCote(cote);
-            partie.actionBasculeTroisEtat(j,i,cote);
+            ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
+            partie.actionBasculeTroisEtat(i,j,cote);
 
             switch ( valeurCote ) {
                 case VIDE:
@@ -133,7 +133,7 @@ public class GridMenu implements Menu {
                 default:
                     throw new IllegalStateException("Unexpected value: " + valeurCote);
             }
-            System.out.println(clickedButton.getText());
+            System.out.println(puzzle);
         }
     }
 

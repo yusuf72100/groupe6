@@ -75,18 +75,15 @@ public class CelluleNode extends Node {
         for ( int i = 0; i < 4; i++ ) {
             switch (cotes[i]) {
                 case VIDE:
-                    System.out.println("Vide");
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().remove("croix");
                     break;
                 case TRAIT:
-                    System.out.println("Trait");
                     this.cellule[i].getStyleClass().remove("croix");
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().add("clicked");
                     break;
                 case CROIX:
-                    System.out.println("Croix");
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().remove("croix");
                     break;
