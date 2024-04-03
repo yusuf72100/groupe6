@@ -122,7 +122,7 @@ public class CelluleNode extends Node {
      * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
-        Rectangle square = new Rectangle(5, 5);
+        Rectangle square = new Rectangle(7, 7);
         square.getStyleClass().add("black-square");
         return square;
     }
@@ -170,15 +170,15 @@ public class CelluleNode extends Node {
                 button.setStyle(
                     "-fx-min-width: " + width + "px; " +
                     "-fx-max-width: " + width + "px; " +
-                    "-fx-min-height: 5px; " +
-                    "-fx-max-height: 5px;"
+                    "-fx-min-height: 7px; " +
+                    "-fx-max-height: 7px;"
                 );
             } else {
                 button.setStyle(
                     "-fx-min-height: " + height + "px; " +
                     "-fx-max-height: " + height + "px; " +
-                    "-fx-min-width: 5px; " +
-                    "-fx-max-width: 5px;"
+                    "-fx-min-width: 7px; " +
+                    "-fx-max-width: 7px;"
                 );
             }
 
