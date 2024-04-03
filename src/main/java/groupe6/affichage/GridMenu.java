@@ -150,6 +150,16 @@ public class GridMenu implements Menu {
             public void handle(MouseEvent event){
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
+                System.out.println(partie.getGestionnaireAction());
+            }
+        });
+
+        // Handler pause
+        pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                partie.undo();
+                updateAffichage();
             }
         });
 
@@ -377,6 +387,15 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
+            }
+        }
+    }
+
+    private void updateAffichage() {
+        Cellule[][] model = this.partie.getPuzzle().getGrilleJeu();
+        for ( int y = 0; y < this.largeur; y++ ) {
+            for (int x = 0; x < this.longueur; x++) {
+                this.celluleNodes[y][x].updateCotes(model[y][x].getCotes());
             }
         }
     }

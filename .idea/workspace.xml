@@ -73,6 +73,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+        <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -115,7 +116,7 @@
     "Shell Script.mvnw.executor": "Run",
     "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "Yusuf",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
@@ -216,6 +217,7 @@
       <workItem from="1711831917120" duration="5341000" />
       <workItem from="1711875427910" duration="14658000" />
       <workItem from="1711960291963" duration="17970000" />
+
       <workItem from="1712055680692" duration="6050000" />
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />

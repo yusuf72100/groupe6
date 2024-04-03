@@ -20,13 +20,15 @@ public class PartieSauvegarde implements Serializable {
   private final PartieInfos infos; // Les informations de la partie
   private final GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
   private final List<AideInfos> historiqueAide; // Historique des aides
+  private final GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs
 
   public PartieSauvegarde(Puzzle puzzle, PartieInfos infos, GestionnaireAction gestionnaireAction,
-      List<AideInfos> historiqueAide) {
+                          List<AideInfos> historiqueAide, GestionnaireErreur gestionnaireErreur) {
     this.puzzle = puzzle;
     this.infos = infos;
     this.gestionnaireAction = gestionnaireAction;
     this.historiqueAide = historiqueAide;
+    this.gestionnaireErreur = gestionnaireErreur;
   }
 
   public Puzzle getPuzzle() {
@@ -45,12 +47,16 @@ public class PartieSauvegarde implements Serializable {
     return historiqueAide;
   }
 
+  public GestionnaireErreur getGestionnaireErreur() {return gestionnaireErreur; }
+
   public static void creerSauvegardePartie(Partie partie) {
     PartieSauvegarde save = new PartieSauvegarde(
         partie.getPuzzle(),
         partie.getInfos(),
         partie.getGestionnaireAction(),
-        partie.getHistoriqueAide());
+        partie.getHistoriqueAide(),
+        partie.getGestionnaireErreur()
+    );
 
     String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + partie.getProfil().getNom() + "/saves/");
 

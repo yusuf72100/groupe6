@@ -21,7 +21,7 @@ public class Action implements Serializable {
   private final ValeurCote ancienneValeurCote; // ancienne valeur u cote
   private final ValeurCote nouvelleValeurCote; // nouvelle valeur du cote
 
-  // Coordonée necessaire pour deep copy une action
+  // Coordonée dans le puzzle de la cellule 1
   private final Coordonnee coordsCellule1;
 
   // Constructeur de la classe Action
