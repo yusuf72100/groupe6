@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Puzzle larger">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/redo.png" afterDir="false" />
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Utilisateur image fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +207,7 @@
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
       <workItem from="1712090998244" duration="551000" />
-      <workItem from="1712142382297" duration="14574000" />
+      <workItem from="1712142382297" duration="17018000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -369,7 +369,31 @@
       <option name="project" value="LOCAL" />
       <updated>1712166681946</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Redo">
+      <option name="closed" value="true" />
+      <created>1712167012423</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167012423</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Utilisateur image fix">
+      <option name="closed" value="true" />
+      <created>1712167186577</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167186577</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Utilisateur image fix">
+      <option name="closed" value="true" />
+      <created>1712167213104</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167213104</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -406,7 +430,9 @@
     <MESSAGE value="Puzzle dismatch fix" />
     <MESSAGE value="Puzzle dismatch fix + undo fix" />
     <MESSAGE value="Puzzle larger" />
-    <option name="LAST_COMMIT_MESSAGE" value="Puzzle larger" />
+    <MESSAGE value="Redo" />
+    <MESSAGE value="Utilisateur image fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Utilisateur image fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
