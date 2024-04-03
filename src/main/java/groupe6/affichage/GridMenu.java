@@ -19,6 +19,7 @@ public class GridMenu implements Menu {
     private Button home;
     private Button pause;
     private Button undo;
+    private Button redo;
     private HBox layout_v;
     private GridPane gridPane;
     private StackPane container;
@@ -41,6 +42,9 @@ public class GridMenu implements Menu {
         this.undo = new Button();
         this.undo.getStyleClass().add("button-undo");
         this.undo.setPrefSize(30, 30);
+        this.redo = new Button();
+        this.redo.getStyleClass().add("button-redo");
+        this.redo.setPrefSize(30, 30);
         this.sauvegarder = new Button();
         this.sauvegarder.getStyleClass().add("button-sauvegarder");
         this.sauvegarder.setPrefSize(30, 30);
@@ -62,6 +66,10 @@ public class GridMenu implements Menu {
         fadeUndo.setFromValue(1.0);
         fadeUndo.setToValue(0.2);
 
+        FadeTransition fadeRedo = new FadeTransition(Duration.millis(150), this.redo);
+        fadeRedo.setFromValue(1.0);
+        fadeRedo.setToValue(0.2);
+
         this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
         this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
         this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
@@ -70,6 +78,8 @@ public class GridMenu implements Menu {
         this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
         this.undo.setOnMouseEntered(event -> { mouseEntered(fadeUndo, this.undo); });
         this.undo.setOnMouseExited(event -> { mouseExited(fadeUndo, this.undo); });
+        this.redo.setOnMouseEntered(event -> { mouseEntered(fadeRedo, this.redo); });
+        this.redo.setOnMouseExited(event -> { mouseExited(fadeRedo, this.redo); });
 
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
@@ -175,6 +185,15 @@ public class GridMenu implements Menu {
             }
         });
 
+        // Handler Redo
+        redo.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                partie.redo();
+                updateAffichage();
+            }
+        });
+
         // Handler Pause
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -198,7 +217,7 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        HBox buttonContainer = new HBox(home, sauvegarder, pause, undo);
+        HBox buttonContainer = new HBox(home, sauvegarder, pause, undo, redo);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
