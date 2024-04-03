@@ -9,11 +9,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="PuzzleGenerator fixed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" afterDir="false" />
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="R">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/sauvegarder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/SNAKV___.TTF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/avatard-50x50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/croix.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/pause.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/sauvegarder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/style.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +81,7 @@
 }</component>
   <component name="ProjectId" id="2eC8h8bahzRs3lLIVevWKyiNiXB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -99,13 +113,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.mvnw.executor": "Run",
-    "app.teamhub.trackedBranches": "-7udpjm/Yamis,-7udpjm/Yusuf,-7udpjm/main",
+    "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "Yusuf",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/info/etu/l3info/s201457/IdeaProjects/groupe6/src/main/resources/ressources/puzzles",
+    "last_opened_file_path": "C:/Users/Yusuf/Desktop/Bazard/minlaunched_themes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -142,7 +156,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.PuzzleGenerator">
+  <component name="RunManager" selected="Application.TestProfils">
     <configuration name="PuzzleGenerator" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="groupe6.tools.puzzleGenerator.Launcher" />
       <module name="SlitherLink" />
@@ -178,8 +192,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-16.0.2-corretto-16.0.2-4caba194b151-2498e07e" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-78a6f59c" />
+        <option value="jdk-16.0.2-corretto-16.0.2-4caba194b151-cab9e76a" />
+        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
       </set>
     </attachedChunks>
   </component>
@@ -205,6 +219,8 @@
       <workItem from="1712055680692" duration="6050000" />
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
+      <workItem from="1712090998244" duration="551000" />
+      <workItem from="1712142382297" duration="3682000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />

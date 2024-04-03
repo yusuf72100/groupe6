@@ -38,6 +38,20 @@ public class CatalogueProfil {
     }
   }
 
+  /**
+   * Récupérer un profil en fonction du nom
+   * @param nom
+   * @return
+   */
+  public Profil getProfilByName(String nom) {
+    for (Profil profil : listeProfil) {
+      if (profil.getNom().equals(nom)) {
+        return profil;
+      }
+    }
+    return null;
+  }
+
   public Profil getProfilActuel() {
     return profilActuel;
   }
