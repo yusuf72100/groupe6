@@ -24,6 +24,10 @@ public class ResultatTechnique implements Serializable {
         this.coordonnees=desCoordonnees;
         this.idx=idx;
     }
+
+    public ResultatTechnique(boolean uneTechniqueTrouvee) {
+    }
+
     /** Methode pour savoir si la technique a été trouvée */
     public boolean isTechniqueTrouvee() {
         return techniqueTrouvee;

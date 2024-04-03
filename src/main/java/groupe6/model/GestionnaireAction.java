@@ -110,7 +110,7 @@ public class GestionnaireAction implements Serializable,Cloneable {
     return  strBuilder.toString();
   }
 
-  public Set<Coordonnee> getCoordsActionAprèsErreur(int idxActionPremiereErreur ) {
+  public Set<Coordonnee> getCoordsActionApresErreur(int idxActionPremiereErreur ) {
     Set<Coordonnee> setCoords = new HashSet<Coordonnee>();
     for (int i = idxActionPremiereErreur; i < this.listeAction.size(); i++) {
       Action action = this.listeAction.get(i);
@@ -120,6 +120,13 @@ public class GestionnaireAction implements Serializable,Cloneable {
       setCoords.add(coordsCell2);
     }
     return setCoords;
+  }
+
+  public void annulerActionApresErreur(int idxActionPremiereErreur) {
+    while ( this.index >= idxActionPremiereErreur ) {
+      this.annulerAction();
+    }
+    this.effacerActionsSuivantes();
   }
 
 }

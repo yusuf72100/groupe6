@@ -10,23 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="R">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/sauvegarder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/PuzzleGenerator/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/SNAKV___.TTF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/avatard-50x50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/croix.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/pause.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/sauvegarder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe6/slitherlink/SlitherLink/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +72,9 @@
         <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="autoscrollToSource" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -129,7 +128,8 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.37847868",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.2935421",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -194,7 +194,6 @@
     <attachedChunks>
       <set>
         <option value="jdk-16.0.2-corretto-16.0.2-4caba194b151-cab9e76a" />
-        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
       </set>
     </attachedChunks>
   </component>
@@ -217,12 +216,12 @@
       <workItem from="1711831917120" duration="5341000" />
       <workItem from="1711875427910" duration="14658000" />
       <workItem from="1711960291963" duration="17970000" />
-
       <workItem from="1712055680692" duration="6050000" />
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
       <workItem from="1712090998244" duration="551000" />
       <workItem from="1712142382297" duration="3682000" />
+      <workItem from="1712159710930" duration="10867000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />

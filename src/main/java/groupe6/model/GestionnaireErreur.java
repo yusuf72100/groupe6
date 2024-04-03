@@ -29,6 +29,10 @@ public class GestionnaireErreur implements Serializable {
     }
   }
 
+  public Boolean  estVide() {
+    return this.lstErreurs.isEmpty();
+  }
+
   public void ajouterErreur(ErreurInfos erreur) {
     this.lstErreurs.add(erreur);
   }
@@ -64,6 +68,10 @@ public class GestionnaireErreur implements Serializable {
       }
     }
     return -1;
+  }
+
+  public void supprimerErreurs() {
+    this.lstErreurs.clear();
   }
 
 }

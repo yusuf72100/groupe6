@@ -23,7 +23,8 @@ public class PartieSauvegarde implements Serializable {
   private final GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs
 
   public PartieSauvegarde(Puzzle puzzle, PartieInfos infos, GestionnaireAction gestionnaireAction,
-                          List<AideInfos> historiqueAide, GestionnaireErreur gestionnaireErreur) {
+                          List<AideInfos> historiqueAide, GestionnaireErreur gestionnaireErreur
+  ) {
     this.puzzle = puzzle;
     this.infos = infos;
     this.gestionnaireAction = gestionnaireAction;
@@ -47,7 +48,9 @@ public class PartieSauvegarde implements Serializable {
     return historiqueAide;
   }
 
-  public GestionnaireErreur getGestionnaireErreur() {return gestionnaireErreur; }
+  public GestionnaireErreur getGestionnaireErreur() {
+    return gestionnaireErreur;
+  }
 
   public static void creerSauvegardePartie(Partie partie) {
     PartieSauvegarde save = new PartieSauvegarde(
