@@ -51,8 +51,12 @@ le déroulement de ce projet, l’application obtenue ainsi que ses fonctionnali
 
 ## Présentation
 
-Slitherlink est un jeu de puzzle logique inventé au Japon qui mélange simplicité de règles et complexité de résolution. Il se joue sur une grille rectangulaire 
-où les utilisateurs doivent connecter les lignes entre les points d'intersection pour créer une boucle continue. Chaque cellule a des indications numériques qui 
+Slitherlink est un jeu de puzzle logique inventé au Japon qui mélange simplicité de règles et complexité de résolution. 
+
+Il se joue sur une grille rectangulaire 
+où les utilisateurs doivent connecter les lignes entre les points d'intersection pour créer une boucle continue. 
+
+Chaque cellule a des indications numériques qui 
 guident la formation des lignes.
 
 ## Règles
@@ -65,60 +69,63 @@ guident la formation des lignes.
 ## Installation
 
 Depuis l'exécutable  :
-Pour installer l'application, il est est seulement nécessaire de télécharger le fichier .jar et de l'exécuter.
+- Pour installer l'application, il est est seulement nécessaire de télécharger le fichier .jar et de l'exécuter.
 
 Depuis les sources :
-Récupérer les fichiers source via un "git clone https://github.com/yusuf72100/groupe6.git"
-Aller dans le dossier source "groupe6"
-Faire "mvn package"
-Aller dans le dossier "groupe6/target"
-Récupérer le fichier Gr6.jar
-Exécuter le .jar
+
+- Récupérer les fichiers source via un "git clone https://github.com/yusuf72100/groupe6.git"
+- Aller dans le dossier source "groupe6"
+- Faire "mvn package"
+- Aller dans le dossier "groupe6/target"
+- Récupérer le fichier Gr6.jar
+- Exécuter le .jar
 
 ## Utilisation
 
-Pour utiliser l'application il suffit de lancer le .jar via un double click ou en ligne de commande "java -jar Gr6.java"
+Application principale :
+- Pour utiliser l'application il suffit de lancer le .jar via un double click ou en ligne de commande "java -jar Gr6.java"
 
 Pour accéder aux outils :
 - Puzzle Generator : "java -jar Gr6.java --tools-puzzle-generator"
 
 ## Fonctionnalités
 
-BF 1 : Jouer à Slitherlink
-	BF 1.1 : Charger le puzzle
-	BF 1.2 : Compléter le puzzle
-	BF 1.3 : Validation du puzzle
-	BF 1.4 : Mode hypothèse
-	BF 1.5 : Annuler et rétablir des actions
-	BF 1.6 : Pause en jeu
+- BF 1 : Jouer à Slitherlink
+	- BF 1.1 : Charger le puzzle
+	- BF 1.2 : Compléter le puzzle
+	- BF 1.3 : Validation du puzzle
+	- BF 1.4 : Mode hypothèse
+	- BF 1.5 : Annuler et rétablir des actions
+	- BF 1.6 : Pause en jeu
 
-BF 2 : Navigation dans l’application
-	BF 2.1 : Mode Classique
-	BF 2.2 : Mode Aventure
-	BF 2.3 : Mode Contre la montre
-	BF 2.4 : Tutoriel
+- BF 2 : Navigation dans l’application
+	- BF 2.1 : Mode Classique
+	- BF 2.2 : Mode Aventure
+	- BF 2.3 : Mode Contre la montre
+	- BF 2.4 : Tutoriel
 
-BF 3 : Sauvegarde des données
-	BF 3.1 : Profils utilisateurs
-	BF 3.2 : Historique des parties
-	BF 3.3 : Sauvegarde des partie en cours
+- BF 3 : Sauvegarde des données
+	- BF 3.1 : Profils utilisateurs
+	- BF 3.2 : Historique des parties
+	- BF 3.3 : Sauvegarde des partie en cours
 
-BF 4 : Aide à la progression
-	BF 4.1 : Détections d’erreurs
-	BF 4.2 : Aide à l'initiative de l’utilisateur
-	BF 4.3 : Aide au remplissage automatique
-	BF 4.4 : Application automatique des techniques de démarrage
+- BF 4 : Aide à la progression
+	- BF 4.1 : Détections d’erreurs
+	- BF 4.2 : Aide à l'initiative de l’utilisateur
+	- BF 4.3 : Aide au remplissage automatique
+	- BF 4.4 : Application automatique des techniques de démarrage
 
-BF 5 : Glossaire des techniques
-	BF 5.1 : Manuel des techniques
-	BF 5.2 : Entraînement aux techniques
-BF 6 : Paramètres du jeu
-	BF 6.1 : Personnaliser les touches
-	BF 6.2 : Activer / Désactiver les aides
+- BF 5 : Glossaire des techniques
+	- BF 5.1 : Manuel des techniques
+	- BF 5.2 : Entraînement aux techniques
 
-BF 7 : Statistiques du profil
-	BF 7.1 : Statistiques personnelles
-	BF 7.2 : Classement entre profils
+- BF 6 : Paramètres du jeu
+	- BF 6.1 : Personnaliser les touches
+	- BF 6.2 : Activer / Désactiver les aides
+
+- BF 7 : Statistiques du profil
+	- BF 7.1 : Statistiques personnelles
+	- BF 7.2 : Classement entre profils
 
 ## License
 
