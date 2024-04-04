@@ -1,7 +1,9 @@
 package groupe6.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,10 +17,9 @@ public class Partie {
   private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
   private final List<AideInfos> historiqueAide; // Historique des aides
   private Hypothese hypothese; // Hypothese en cours
-  private GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs pour le check
-  private Coordonnee coordsErreur; // Coordonées de la première erreur
-
+  private final GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs pour le check
   private final Profil profil; // Le profil qui joue la partie
+  private final Chronometre chrono; // Le chronomètre de la partie
 
   public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
     this.puzzle = puzzle;
@@ -28,6 +29,7 @@ public class Partie {
     this.profil = profil;
     this.hypothese = null;
     this.gestionnaireErreur = new GestionnaireErreur();
+    this.chrono = new Chronometre();
   }
 
   public Partie(PartieSauvegarde save, Profil profil) {
@@ -38,6 +40,7 @@ public class Partie {
     this.profil = profil;
     this.hypothese = null;
     this.gestionnaireErreur = save.getGestionnaireErreur();
+    this.chrono = new Chronometre(this.infos.getChrono());
   }
 
   public Puzzle getPuzzle() {
@@ -62,7 +65,44 @@ public class Partie {
 
   public GestionnaireErreur getGestionnaireErreur() { return  this.gestionnaireErreur; }
 
-  public boolean verifierErreur(Action action) {
+  public Set<Coordonnee>[] verifierErreur() {
+    if ( this.gestionnaireErreur.estVide() ) {
+      return null;
+    }else {
+      ErreurInfos premiereErreur = this.gestionnaireErreur.getPremiereErreur();
+      Set<Coordonnee> setPremiereErreur = new HashSet<Coordonnee>();
+      setPremiereErreur.add(premiereErreur.getCoordonneeCell1());
+      if ( premiereErreur.getCoordonneeCell2() != null ) {
+        setPremiereErreur.add(premiereErreur.getCoordonneeCell2());
+      }
+      Set<Coordonnee> coordsCasesErrone  = this.getGestionnaireAction().getCoordsActionApresErreur(premiereErreur.getIndexAction());
+      coordsCasesErrone.removeAll(setPremiereErreur);
+      Set<Coordonnee>[] resultats = new HashSet[2];
+      resultats[0] = setPremiereErreur;
+      resultats[1] = coordsCasesErrone;
+      return resultats;
+    }
+  }
+
+  public void corrigerErreur() {
+    ErreurInfos premiereErreur = this.gestionnaireErreur.getPremiereErreur();
+    this.getGestionnaireAction().annulerActionApresErreur(premiereErreur.getIndexAction());
+    this.gestionnaireErreur.supprimerErreurs();
+  }
+
+  public void pause() {
+    this.chrono.pause();
+  }
+
+  public void reprendre() {
+    this.chrono.reprendre();
+  }
+
+  public void chercherAide() {
+    GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
+  }
+
+  public boolean detectionErreur(Action action) {
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
 
@@ -108,7 +148,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    Boolean err = verifierErreur(action);
+    Boolean err = detectionErreur(action);
     System.out.println(err);
   }
 
@@ -121,7 +161,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(action);
+    detectionErreur(action);
   }
 
   // Méthode pour faire une action de type Trait
@@ -133,7 +173,7 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(action);
+    detectionErreur(action);
   }
 
   // Méthode pour faire une action de type Croix
@@ -145,13 +185,13 @@ public class Partie {
     gestionnaireAction.ajouterAction(action);
 
     action.appliquerAction();
-    verifierErreur(action);
+    detectionErreur(action);
   }
 
   // Méthode qui verifie si la partie est terminée et agit en conséquence
   public boolean estTermine() {
     if (this.puzzle.estComplet()) {
-      this.infos.setChrono(null); // TODO recupéré le chrono et update les infos
+      this.infos.setChrono(this.chrono.getTempsEcoule());
 
       DifficultePuzzle difficulte = this.puzzle.getDifficulte();
       boolean gagnee = true;
@@ -185,7 +225,8 @@ public class Partie {
 
   // Méthode pour commencer une nouvelle partie
   public static Partie nouvellePartie(CataloguePuzzle catalogue, DifficultePuzzle difficulte, int numero,
-      ModeJeu modeJeu, Profil profil) {
+      ModeJeu modeJeu, Profil profil
+  ) {
     Puzzle puzzleVide = catalogue.getCopyPuzzle(difficulte, numero);
     return new Partie(puzzleVide, modeJeu, profil);
   }
@@ -213,6 +254,7 @@ public class Partie {
 
   public void sauvegarder() {
     System.out.println("Debut de la sauvegarde !");
+    this.infos.setChrono(this.chrono.getTempsEcoule());
     PartieSauvegarde.creerSauvegardePartie(this);
   }
 

@@ -26,6 +26,10 @@ public class ErreurInfos implements Serializable {
     return coordonneeCell1;
   }
 
+  public Coordonnee getCoordonneeCell2() {
+    return coordonneeCell2;
+  }
+
   public int getCoteCell1() {
     return coteCell1;
   }

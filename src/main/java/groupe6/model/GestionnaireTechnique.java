@@ -2,12 +2,10 @@ package groupe6.model;
 
 import groupe6.launcher.Launcher;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.util.List;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.concurrent.*;
+
 
 /**
  * Classe qui représente le gestionnaire des techniques
@@ -15,43 +13,68 @@ import java.util.Objects;
  * @author Nathan
  */
 public class GestionnaireTechnique{
-    private final ArrayList<Technique> listeTechnique;
-    GestionnaireTechnique(){
+
+    private static GestionnaireTechnique instance = null;
+
+    private final List<Technique> listeTechnique;
+
+    private GestionnaireTechnique(){
         this.listeTechnique=new ArrayList<Technique>();
+        chargerTechniques();
     }
 
-    public void chargerTechnique(){
-        String cheminTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques+"/");
-        File dir = new File(cheminTechnique);
-        File[] liste = dir.listFiles();
-        for(File item : Objects.requireNonNull(liste)){
-            try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(item.getPath()))) {
-                Technique technique=(Technique) ois.readObject();
-                this.listeTechnique.add(technique);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+    private void chargerTechniques() {
+        // Charger les techniques
+
+        // this.ajouterTechnique(technique1);
+    }
+
+    public void ajouterTechnique(Technique technique) {
+        listeTechnique.add(technique);
+    }
+
+    public List<Technique> getListeTechnique() {
+        return listeTechnique;
+    }
+
+    public ResultatTechnique rechercheAideTechnique(Partie partie) {
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        int index = 0;
+
+        while (index < listeTechnique.size()) {
+            CompletionService<ResultatTechnique> completionService = new ExecutorCompletionService<>(executor);
+
+            // Lancer jusqu'à 4 techniques en même temps ou jusqu'à ce que toutes les techniques aient été lancées
+            for (int i = 0; i < 4 && index < listeTechnique.size(); i++, index++) {
+                final int currentIndex = index;
+                completionService.submit(() -> listeTechnique.get(currentIndex).run(partie));
+            }
+
+            // Attendre que les résultats des techniques soient disponibles
+            for (int i = 0; i < Math.min(4, listeTechnique.size() - index); i++) {
+                try {
+                    Future<ResultatTechnique> future = completionService.take();
+                    ResultatTechnique resultat = future.get();
+                    if (resultat.isTechniqueTrouvee()) {
+                        executor.shutdown();
+                        return resultat;
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        
+
+        executor.shutdown();
+        // Si aucune technique n'a trouvé à True, vous pouvez retourner un résultat indiquant qu'aucune technique n'a été trouvée
+        return new ResultatTechnique(false);
     }
 
-    public ResultatTechnique rechercheAideTechnique(Partie partie){
-        for(Technique t: listeTechnique){
-            ResultatTechnique r=t.run(partie);
-            if(r.isTechniqueTrouvee()){
-                return r;
-            }
+    public static GestionnaireTechnique getInstance() {
+        if (instance == null) {
+            instance = new GestionnaireTechnique();
         }
-        return null;
+        return instance;
     }
 
-    public static Technique chargerPuzzle(String chemin) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-            Technique technique = (Technique) ois.readObject();
-            return technique;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

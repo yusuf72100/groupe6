@@ -70,6 +70,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="autoscrollToSource" value="true" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -187,7 +190,6 @@
     <attachedChunks>
       <set>
         <option value="jdk-16.0.2-corretto-16.0.2-4caba194b151-cab9e76a" />
-        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
       </set>
     </attachedChunks>
   </component>
