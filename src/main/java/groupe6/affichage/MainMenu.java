@@ -191,7 +191,7 @@ public class MainMenu implements Menu {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-                                Main.showSaveSelectionMenu(lstSave);
+                                Main.showSaveSelectionMenu();
                                 if (!lstSave.isEmpty()) {
                                     String saveName = lstSave.get(0);
                                     System.out.println("Chargement de la sauvegarde : " + saveName);

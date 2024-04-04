@@ -103,7 +103,6 @@ public class Partie {
     Cellule cellule1 = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
     ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
-
     Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote,new Coordonnee(y, x));
     System.out.println(action);
     gestionnaireAction.ajouterAction(action);

@@ -73,8 +73,8 @@ public class Main extends Application {
         Main.setRoot(grid.getMenu(false));
     }
 
-    public static void showSaveSelectionMenu(List<String> listeSaves) {
-        Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight(), listeSaves));
+    public static void showSaveSelectionMenu() {
+        Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     // programme principal

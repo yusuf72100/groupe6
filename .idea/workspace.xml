@@ -9,10 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Utilisateur image fix">
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Display update">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/check.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/help.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/hypothese.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +214,8 @@
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
       <workItem from="1712090998244" duration="551000" />
-      <workItem from="1712142382297" duration="17018000" />
+      <workItem from="1712142382297" duration="17750000" />
+      <workItem from="1712218187362" duration="13589000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -393,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712167213104</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Display update">
+      <option name="closed" value="true" />
+      <created>1712171609951</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1712171609951</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +448,8 @@
     <MESSAGE value="Puzzle larger" />
     <MESSAGE value="Redo" />
     <MESSAGE value="Utilisateur image fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utilisateur image fix" />
+    <MESSAGE value="Display update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Display update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

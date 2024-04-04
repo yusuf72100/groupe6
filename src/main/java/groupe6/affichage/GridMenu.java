@@ -9,6 +9,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -20,6 +21,9 @@ public class GridMenu implements Menu {
     private Button pause;
     private Button undo;
     private Button redo;
+    private Button check;
+    private Button hypothese;
+    private Button help;
     private HBox layout_v;
     private GridPane gridPane;
     private StackPane container;
@@ -28,59 +32,25 @@ public class GridMenu implements Menu {
     private int compteur;        // utilisé à des fins de test
     private Puzzle puzzle;
     private Scene scene;
+    private Label buttonHoverLabel;
     private int longueur;
     private int largeur;
 
     public GridMenu(Partie partie){
         this.compteur = 0;
-        this.home = new Button();
-        this.home.getStyleClass().add("button-home");
-        this.home.setPrefSize(30, 30);
-        this.pause = new Button();
-        this.pause.getStyleClass().add("button-pause");
-        this.pause.setPrefSize(30, 30);
-        this.undo = new Button();
-        this.undo.getStyleClass().add("button-undo");
-        this.undo.setPrefSize(30, 30);
-        this.redo = new Button();
-        this.redo.getStyleClass().add("button-redo");
-        this.redo.setPrefSize(30, 30);
-        this.sauvegarder = new Button();
-        this.sauvegarder.getStyleClass().add("button-sauvegarder");
-        this.sauvegarder.setPrefSize(30, 30);
+        this.buttonHoverLabel = new Label();
+
+        // buttons
+        this.home = initHeaderButton("button-home", "Retourner au menu");
+        this.undo = initHeaderButton("button-undo", "Annuler l'action");
+        this.redo = initHeaderButton("button-redo", "Rétablir l'action");
+        this.sauvegarder = initHeaderButton("button-sauvegarder", "Sauvegarder");
+        this.pause = initHeaderButton("button-pause", "Mettre en pause");
+        this.check = initHeaderButton("button-check", "Vérifier");
+        this.hypothese = initHeaderButton("button-hypothese", "Mode hypothèse");
+        this.help = initHeaderButton("button-help", "Aide");
+
         this.partie = partie;
-
-        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), this.sauvegarder);
-        fadeSauvegarder.setFromValue(1.0);
-        fadeSauvegarder.setToValue(0.2);
-
-        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), this.home);
-        fadeHome.setFromValue(1.0);
-        fadeHome.setToValue(0.2);
-
-        FadeTransition fadePause = new FadeTransition(Duration.millis(150), this.pause);
-        fadePause.setFromValue(1.0);
-        fadePause.setToValue(0.2);
-
-        FadeTransition fadeUndo = new FadeTransition(Duration.millis(150), this.undo);
-        fadeUndo.setFromValue(1.0);
-        fadeUndo.setToValue(0.2);
-
-        FadeTransition fadeRedo = new FadeTransition(Duration.millis(150), this.redo);
-        fadeRedo.setFromValue(1.0);
-        fadeRedo.setToValue(0.2);
-
-        this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
-        this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
-        this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
-        this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
-        this.pause.setOnMouseEntered(event -> { mouseEntered(fadePause, this.pause); });
-        this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
-        this.undo.setOnMouseEntered(event -> { mouseEntered(fadeUndo, this.undo); });
-        this.undo.setOnMouseExited(event -> { mouseExited(fadeUndo, this.undo); });
-        this.redo.setOnMouseEntered(event -> { mouseEntered(fadeRedo, this.redo); });
-        this.redo.setOnMouseExited(event -> { mouseExited(fadeRedo, this.redo); });
-
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
         this.longueur = partie.getPuzzle().getLongueur();
@@ -89,6 +59,33 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
 
         System.out.println(this.puzzle);
+    }
+
+    private Button initHeaderButton(String style, String hoverText) {
+        Button button = new Button();
+        button.getStyleClass().add(style);
+        button.setPrefSize(30, 30);
+
+        FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
+        fadeButton.setFromValue(1.0);
+        fadeButton.setToValue(0.2);
+
+        button.setOnMouseEntered(event -> {
+            mouseEntered(fadeButton, button);
+            this.buttonHoverLabel.setText(hoverText);
+        });
+        
+        button.setOnMouseExited(event -> {
+            mouseExited(fadeButton, button);
+            this.buttonHoverLabel.setText("");
+        });
+
+        button.setOnMouseMoved(event -> {
+            this.buttonHoverLabel.setTranslateX(event.getSceneX() + 10);
+            this.buttonHoverLabel.setTranslateY(event.getSceneY() + 15);
+        });
+
+        return button;
     }
 
     public Partie getPartie() {
@@ -139,23 +136,6 @@ public class GridMenu implements Menu {
             partie.actionBasculeTroisEtat(i,j,cote);
 
             updateAffichage();
-            /*switch ( valeurCote ) {
-                case VIDE:
-                    clickedButton.getStyleClass().add("clicked");
-                    celluleNodes[i][j].getImage(cote).setVisible(false);
-                    break;
-                case TRAIT:
-                    clickedButton.getStyleClass().remove("clicked");
-                    clickedButton.getStyleClass().add("croix");
-                    celluleNodes[i][j].getImage(cote).setVisible(true);
-                    break;
-                case CROIX:
-                    clickedButton.getStyleClass().remove("croix");
-                    celluleNodes[i][j].getImage(cote).setVisible(false);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + valeurCote);
-            }*/
             System.out.println(puzzle);
         }
     }
@@ -195,6 +175,30 @@ public class GridMenu implements Menu {
             }
         });
 
+        // Handler Help
+        help.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+
+            }
+        });
+
+        // Handler Check
+        check.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+
+            }
+        });
+
+        // Handler Hypothèse
+        hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+
+            }
+        });
+
         // Handler Pause
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -218,13 +222,13 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        HBox buttonContainer = new HBox(home, sauvegarder, pause, undo, redo);
+        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
         //HBox.setHgrow(buttonContainer, Priority.ALWAYS);
 
-        AnchorPane anchorPane = new AnchorPane(container, buttonContainer);
+        AnchorPane anchorPane = new AnchorPane(container, buttonContainer, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);
@@ -246,7 +250,8 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);}
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);
+            }
         }
     }
 
@@ -361,10 +366,9 @@ public class GridMenu implements Menu {
     }
 
     private void updateAffichage() {
-        Cellule[][] model = this.partie.getPuzzle().getGrilleJeu();
         for ( int y = 0; y < this.largeur; y++ ) {
             for (int x = 0; x < this.longueur; x++) {
-                this.celluleNodes[y][x].updateCotes(model[y][x].getCotes());
+                this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
             }
         }
     }
