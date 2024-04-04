@@ -86,7 +86,7 @@ public class MainMenu implements Menu {
         profilSelector.setTranslateY(Menu.toPourcentHeight(-450.0, windowHeigth));
         profilSelector.getStyleClass().add("combo-box");
 
-        // Header
+        // Elements
         profilSelector.setCellFactory(param -> new ListCell<String>() {
             private final ImageView imageView = new ImageView();
             @Override
@@ -100,12 +100,14 @@ public class MainMenu implements Menu {
                     String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
                     System.out.println(cheminImageAvatar);
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
                     setGraphic(imageView);
                 }
             }
         });
 
-        // Elements
+        // Element
         profilSelector.setButtonCell(new ListCell<String>() {
             private final ImageView imageView = new ImageView();
             @Override
@@ -119,6 +121,8 @@ public class MainMenu implements Menu {
                     String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
                     System.out.println("Chemin image profil : " + cheminImageAvatar);
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
                     setGraphic(imageView);
                 }
             }
