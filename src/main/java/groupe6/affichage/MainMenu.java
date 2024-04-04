@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -192,7 +191,7 @@ public class MainMenu implements Menu {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-                                Main.showSaveSelectionMenu(lstSave);
+                                Main.showSaveSelectionMenu();
                                 if (!lstSave.isEmpty()) {
                                     String saveName = lstSave.get(0);
                                     System.out.println("Chargement de la sauvegarde : " + saveName);

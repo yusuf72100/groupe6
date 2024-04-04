@@ -75,20 +75,19 @@ public class CelluleNode extends Node {
         for ( int i = 0; i < 4; i++ ) {
             switch (cotes[i]) {
                 case VIDE:
-                    System.out.println("Vide");
                     this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().remove("croix");
+                    this.image[i].setVisible(false);
                     break;
                 case TRAIT:
-                    System.out.println("Trait");
                     this.cellule[i].getStyleClass().remove("croix");
-                    this.cellule[i].getStyleClass().remove("clicked");
                     this.cellule[i].getStyleClass().add("clicked");
+                    this.image[i].setVisible(false);
                     break;
                 case CROIX:
-                    System.out.println("Croix");
                     this.cellule[i].getStyleClass().remove("clicked");
-                    this.cellule[i].getStyleClass().remove("croix");
+                    this.cellule[i].getStyleClass().add("croix");
+                    this.image[i].setVisible(true);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + this.cotes[i]);
@@ -122,7 +121,7 @@ public class CelluleNode extends Node {
      * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
-        Rectangle square = new Rectangle(5, 5);
+        Rectangle square = new Rectangle(7, 7);
         square.getStyleClass().add("black-square");
         return square;
     }
@@ -170,15 +169,15 @@ public class CelluleNode extends Node {
                 button.setStyle(
                     "-fx-min-width: " + width + "px; " +
                     "-fx-max-width: " + width + "px; " +
-                    "-fx-min-height: 5px; " +
-                    "-fx-max-height: 5px;"
+                    "-fx-min-height: 7px; " +
+                    "-fx-max-height: 7px;"
                 );
             } else {
                 button.setStyle(
                     "-fx-min-height: " + height + "px; " +
                     "-fx-max-height: " + height + "px; " +
-                    "-fx-min-width: 5px; " +
-                    "-fx-max-width: 5px;"
+                    "-fx-min-width: 7px; " +
+                    "-fx-max-width: 7px;"
                 );
             }
 

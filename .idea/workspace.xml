@@ -9,20 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="R">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Display update">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/check.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/help.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/icon/hypothese.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ressources/assets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,51 +85,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Launcher.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.PuzzleGenerator.executor": "Run",
-    "Application.SlitherLink.executor": "Run",
-    "Application.TestProfils.executor": "Run",
-    "Application.TestPuzzle.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Maven.Gr6 [clean].executor": "Run",
-    "Maven.Gr6 [compile].executor": "Run",
-    "Maven.Gr6 [deploy].executor": "Run",
-    "Maven.Gr6 [install].executor": "Run",
-    "Maven.Gr6 [package].executor": "Run",
-    "Maven.Gr6 [test].executor": "Run",
-    "Maven.Gr6 [validate].executor": "Run",
-    "Maven.Gr6 [verify].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Shell Script.mvnw.executor": "Run",
-    "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "corretto-16",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Yusuf/Desktop/Bazard/minlaunched_themes",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.37847868",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "settings.editor.splitter.proportion": "0.2935421",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PuzzleGenerator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SlitherLink.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestProfils.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestPuzzle.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Maven.Gr6 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Gr6 [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Shell Script.mvnw.executor&quot;: &quot;Run&quot;,
+    &quot;app.teamhub.trackedBranches&quot;: &quot;-1gl2qhp/Yusuf,-1gl2qhp/main&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Yusuf&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-16&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yusuf/Desktop/Bazard/minlaunched_themes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.37847868&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/ressources/puzzles" />
@@ -220,8 +216,8 @@
       <workItem from="1712062059786" duration="27000" />
       <workItem from="1712062095980" duration="5574000" />
       <workItem from="1712090998244" duration="551000" />
-      <workItem from="1712142382297" duration="3682000" />
-      <workItem from="1712159710930" duration="10867000" />
+      <workItem from="1712142382297" duration="17750000" />
+      <workItem from="1712218187362" duration="13589000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />
@@ -343,7 +339,79 @@
       <option name="project" value="LOCAL" />
       <updated>1712066085701</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Profil selector functionnal">
+      <option name="closed" value="true" />
+      <created>1712146496145</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1712146496145</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Small fix">
+      <option name="closed" value="true" />
+      <created>1712160344236</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1712160344236</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Puzzle dismatch fix">
+      <option name="closed" value="true" />
+      <created>1712163701390</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712163701390</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Puzzle dismatch fix + undo fix">
+      <option name="closed" value="true" />
+      <created>1712165603758</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1712165603758</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Puzzle larger">
+      <option name="closed" value="true" />
+      <created>1712166681946</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1712166681946</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Redo">
+      <option name="closed" value="true" />
+      <created>1712167012423</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167012423</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Utilisateur image fix">
+      <option name="closed" value="true" />
+      <created>1712167186577</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167186577</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Utilisateur image fix">
+      <option name="closed" value="true" />
+      <created>1712167213104</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1712167213104</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Display update">
+      <option name="closed" value="true" />
+      <created>1712171609951</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1712171609951</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,7 +443,15 @@
     <MESSAGE value="Adaptative Grid size" />
     <MESSAGE value="R" />
     <MESSAGE value="PuzzleGenerator fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="PuzzleGenerator fixed" />
+    <MESSAGE value="Profil selector functionnal" />
+    <MESSAGE value="Small fix" />
+    <MESSAGE value="Puzzle dismatch fix" />
+    <MESSAGE value="Puzzle dismatch fix + undo fix" />
+    <MESSAGE value="Puzzle larger" />
+    <MESSAGE value="Redo" />
+    <MESSAGE value="Utilisateur image fix" />
+    <MESSAGE value="Display update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Display update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -144,6 +144,7 @@ public class GridMenu implements Menu {
                 default: // rien
                     break;
             }
+            System.out.println(celluleNodes[i][j].getLabel());
         }
     }
 

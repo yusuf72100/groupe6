@@ -9,6 +9,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -18,6 +19,11 @@ public class GridMenu implements Menu {
     private Button sauvegarder;
     private Button home;
     private Button pause;
+    private Button undo;
+    private Button redo;
+    private Button check;
+    private Button hypothese;
+    private Button help;
     private HBox layout_v;
     private GridPane gridPane;
     private StackPane container;
@@ -26,40 +32,25 @@ public class GridMenu implements Menu {
     private int compteur;        // utilisé à des fins de test
     private Puzzle puzzle;
     private Scene scene;
+    private Label buttonHoverLabel;
     private int longueur;
     private int largeur;
 
     public GridMenu(Partie partie){
         this.compteur = 0;
-        this.home = new Button();
-        this.home.getStyleClass().add("button-home");
-        this.home.setPrefSize(30, 30);
-        this.pause = new Button();
-        this.pause.getStyleClass().add("button-pause");
-        this.pause.setPrefSize(30, 30);
-        this.sauvegarder = new Button();
-        this.sauvegarder.getStyleClass().add("button-sauvegarder");
-        this.sauvegarder.setPrefSize(30, 30);
+        this.buttonHoverLabel = new Label();
+
+        // buttons
+        this.home = initHeaderButton("button-home", "Retourner au menu");
+        this.undo = initHeaderButton("button-undo", "Annuler l'action");
+        this.redo = initHeaderButton("button-redo", "Rétablir l'action");
+        this.sauvegarder = initHeaderButton("button-sauvegarder", "Sauvegarder");
+        this.pause = initHeaderButton("button-pause", "Mettre en pause");
+        this.check = initHeaderButton("button-check", "Vérifier");
+        this.hypothese = initHeaderButton("button-hypothese", "Mode hypothèse");
+        this.help = initHeaderButton("button-help", "Aide");
+
         this.partie = partie;
-
-        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), this.sauvegarder);
-        fadeSauvegarder.setFromValue(1.0);
-        fadeSauvegarder.setToValue(0.2);
-
-        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), this.home);
-        fadeHome.setFromValue(1.0);
-        fadeHome.setToValue(0.2);
-
-        FadeTransition fadePause = new FadeTransition(Duration.millis(150), this.pause);
-        fadePause.setFromValue(1.0);
-        fadePause.setToValue(0.2);
-
-        this.sauvegarder.setOnMouseEntered(event -> { mouseEntered(fadeSauvegarder, this.sauvegarder); });
-        this.sauvegarder.setOnMouseExited(event -> { mouseExited(fadeSauvegarder, this.sauvegarder); });
-        this.home.setOnMouseEntered(event -> { mouseEntered(fadeHome, this.home); });
-        this.home.setOnMouseExited(event -> { mouseExited(fadeHome, this.home); });
-        this.pause.setOnMouseEntered(event -> { mouseEntered(fadePause, this.pause); });
-        this.pause.setOnMouseExited(event -> { mouseExited(fadePause, this.pause); });
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
         this.longueur = partie.getPuzzle().getLongueur();
@@ -68,6 +59,33 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
 
         System.out.println(this.puzzle);
+    }
+
+    private Button initHeaderButton(String style, String hoverText) {
+        Button button = new Button();
+        button.getStyleClass().add(style);
+        button.setPrefSize(30, 30);
+
+        FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
+        fadeButton.setFromValue(1.0);
+        fadeButton.setToValue(0.2);
+
+        button.setOnMouseEntered(event -> {
+            mouseEntered(fadeButton, button);
+            this.buttonHoverLabel.setText(hoverText);
+        });
+        
+        button.setOnMouseExited(event -> {
+            mouseExited(fadeButton, button);
+            this.buttonHoverLabel.setText("");
+        });
+
+        button.setOnMouseMoved(event -> {
+            this.buttonHoverLabel.setTranslateX(event.getSceneX() + 10);
+            this.buttonHoverLabel.setTranslateY(event.getSceneY() + 15);
+        });
+
+        return button;
     }
 
     public Partie getPartie() {
@@ -114,26 +132,11 @@ public class GridMenu implements Menu {
                     throw new IllegalStateException("Unexpected value: " + clickedButton.getText());
             }
 
-            ValeurCote valeurCote = partie.getPuzzle().getCellule(j, i).getCote(cote);
-            partie.actionBasculeTroisEtat(j,i,cote);
+            ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
+            partie.actionBasculeTroisEtat(i,j,cote);
 
-            switch ( valeurCote ) {
-                case VIDE:
-                    clickedButton.getStyleClass().add("clicked");
-                    break;
-                case TRAIT:
-                    clickedButton.getStyleClass().remove("clicked");
-                    clickedButton.getStyleClass().add("croix");
-                    celluleNodes[i][j].getImage(cote).setVisible(true);
-                    break;
-                case CROIX:
-                    clickedButton.getStyleClass().remove("croix");
-                    celluleNodes[i][j].getImage(cote).setVisible(false);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + valeurCote);
-            }
-            System.out.println(clickedButton.getText());
+            updateAffichage();
+            System.out.println(puzzle);
         }
     }
 
@@ -154,12 +157,53 @@ public class GridMenu implements Menu {
             }
         });
 
-        // Handler pause
-        pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        // Handler Undo
+        undo.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
                 partie.undo();
                 updateAffichage();
+            }
+        });
+
+        // Handler Redo
+        redo.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                partie.redo();
+                updateAffichage();
+            }
+        });
+
+        // Handler Help
+        help.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                // TODO : Demander de l'aide
+            }
+        });
+
+        // Handler Check
+        check.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                // TODO : Activer la vérification
+            }
+        });
+
+        // Handler Hypothèse
+        hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                // TODO : Activer le mode hypothèse
+            }
+        });
+
+        // Handler Pause
+        pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                // TODO : Bloquer l'écran du joueur
             }
         });
 
@@ -178,13 +222,13 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        HBox buttonContainer = new HBox(home, sauvegarder, pause);
+        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
         //HBox.setHgrow(buttonContainer, Priority.ALWAYS);
 
-        AnchorPane anchorPane = new AnchorPane(container, buttonContainer);
+        AnchorPane anchorPane = new AnchorPane(container, buttonContainer, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);
@@ -206,7 +250,8 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);}
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);
+            }
         }
     }
 
@@ -320,82 +365,10 @@ public class GridMenu implements Menu {
         }
     }
 
-    private void affic11her(boolean nouveau) {
-        // Colonnes
-        for (int i = 0; i < this.celluleNodes.length; i++) {
-            // Lignes
-            for (int j = 0; j < this.celluleNodes[i].length; j++) {
-                this.celluleNodes[i][j] = new CelluleNode(cellulesData[i][j].getValeur(), new ValeurCote[]{cellulesData[i][j].getCote(0), cellulesData[i][j].getCote(1), cellulesData[i][j].getCote(2), cellulesData[i][j].getCote(3)});
-                // Coins
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(0), j * 2, i * 2);            // top left
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(1), j * 2 + 2, i * 2);        // top right
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(2), j * 2, i * 2 + 2);        // bottom left
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(3), j * 2 + 2, i * 2 + 2);    // bottom right
-
-                // animation fade
-                for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
-                    Button button = this.celluleNodes[i][j].getButton(boutonIndex);
-                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
-
-                    button.setOnMouseEntered(event -> {
-                        if(button.getStyleClass().contains("clicked")) {
-                            fadeTransition.setFromValue(1.0);
-                            fadeTransition.setToValue(0.2);
-                        } else {
-                            fadeTransition.setFromValue(0.2);
-                            fadeTransition.setToValue(1.0);
-                        }
-                        mouseEntered(fadeTransition, button);
-                    });
-
-                    button.setOnMouseExited(event -> {
-                        mouseExited(fadeTransition, button);
-                    });
-                }
-
-                // Barres
-                // Avoid horizontal bar duplication
-                if (i == 0) {
-
-                    this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.celluleNodes[i][j].getButton(0).setGraphic(this.celluleNodes[i][j].getImage(0));
-                    this.celluleNodes[i][j].getButton(0).setContentDisplay(ContentDisplay.CENTER);
-                    this.gridPane.add(this.celluleNodes[i][j].getImage(0), j * 2 + 1, i * 2);   // top
-                    this.gridPane.add(this.celluleNodes[i][j].getButton(0), j * 2 + 1, i * 2);   // top
-                    this.compteur++;
-                }
-                this.celluleNodes[i][j].getButton(1).setGraphic(this.celluleNodes[i][j].getImage(1));
-                this.celluleNodes[i][j].getButton(1).setContentDisplay(ContentDisplay.CENTER);
-                this.gridPane.add(this.celluleNodes[i][j].getCenterPane(), i * 2 + 1, j * 2 + 1);   // center
-                this.gridPane.add(this.celluleNodes[i][j].getImage(1), i * 2 + 1, j * 2 + 2);   // bottom
-                this.gridPane.add(this.celluleNodes[i][j].getButton(1), i * 2 + 1, j * 2 + 2);   // bottom
-                this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
-
-                // Avoid vertical bar duplication
-                if(j == 0){
-                    this.celluleNodes[i][j].getButton(2).setGraphic(this.celluleNodes[i][j].getImage(2));
-                    this.celluleNodes[i][j].getButton(2).setContentDisplay(ContentDisplay.CENTER);
-                    this.gridPane.add(this.celluleNodes[i][j].getImage(2), j * 2, i * 2 + 1);   // left
-                    this.gridPane.add(this.celluleNodes[i][j].getButton(2), j * 2, i * 2 + 1);   // left
-                    this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.compteur++;
-                }
-                this.celluleNodes[i][j].getButton(3).setGraphic(this.celluleNodes[i][j].getImage(3));
-                this.celluleNodes[i][j].getButton(3).setContentDisplay(ContentDisplay.CENTER);
-                this.gridPane.add(this.celluleNodes[i][j].getImage(3), i * 2 + 2, j * 2 + 1);   // right
-                this.gridPane.add(this.celluleNodes[i][j].getButton(3), i * 2 + 2, j * 2 + 1);   // right
-                this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
-            }
-        }
-    }
-
     private void updateAffichage() {
-        Cellule[][] model = this.partie.getPuzzle().getGrilleJeu();
         for ( int y = 0; y < this.largeur; y++ ) {
             for (int x = 0; x < this.longueur; x++) {
-                this.celluleNodes[y][x].updateCotes(model[y][x].getCotes());
+                this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
             }
         }
     }

@@ -135,6 +135,51 @@
     -fx-padding: 5 10;
 }
 
+.button-undo{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/undo.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-redo{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/redo.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-hypothese{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/hypothese.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-check{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/check.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.button-help{
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/help.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
 .button-top, .button-bottom {
     /*-fx-min-width: 100px;
     -fx-max-width: 100px;
@@ -181,7 +226,7 @@
 
 .black-square {
     -fx-fill: black;
-    -fx-padding: 5px;
+    -fx-padding: 8px;
     -fx-border-radius: 0;
     -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
 }
