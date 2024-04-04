@@ -179,7 +179,7 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-
+                // TODO : Demander de l'aide
             }
         });
 
@@ -187,7 +187,7 @@ public class GridMenu implements Menu {
         check.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-
+                // TODO : Activer la vérification
             }
         });
 
@@ -195,7 +195,7 @@ public class GridMenu implements Menu {
         hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-
+                // TODO : Activer le mode hypothèse
             }
         });
 
