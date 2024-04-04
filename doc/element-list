@@ -1,4 +1,0 @@
-module:org.groupe6.slitherlink
-model
-org.groupe6.slitherlink.PuzzleGenerator
-org.groupe6.slitherlink.SlitherLink

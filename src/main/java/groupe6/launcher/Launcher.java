@@ -17,24 +17,73 @@ import groupe6.test.TestMain;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 
+/**
+ * La classe qui correspond au lanceur de l'application
+ *
+ * @author Yamis
+ */
 public class Launcher {
 
-  static boolean verbose = false; // Boolean pour activer le mode verbose
-  private static Launcher instance; // Instance unique de la classe
+  /**
+   * L'instance unique de la classe Launcher
+   */
+  private static Launcher instance;
 
-  public static String dossierSlitherlink = "Slitherlink"; // Le dossier de l'application
-  public static String dossierAssets = Launcher.dossierSlitherlink + "/assets"; // Dossier des assets
-  public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles"; // Dossier des puzzles
-  public static String dossierProfils = Launcher.dossierSlitherlink + "/profils"; // Dossier des profils
-  public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques"; // Dossier des techniques
-  public static String dossierPuzzleGenerator = Launcher.dossierSlitherlink + "/tools/PuzzleGenerator"; // Dossier du puzzle generator
+  /**
+   * Boolean pour indiquer si le mode verbose est actif
+   */
+  public static boolean verbose = false;
 
+  /**
+   * Le chemin courant vers le dossier des ressources de l'application
+   */
+  public static String dossierSlitherlink = "Slitherlink";
+
+  /**
+   * Le chemin du dossier des assets à partir du dossier de l'application
+   */
+  public static String dossierAssets = Launcher.dossierSlitherlink + "/assets";
+
+  /**
+   * Le chemin du dossier des puzzles à partir du dossier de l'application
+   */
+  public static String dossierPuzzles = Launcher.dossierSlitherlink + "/puzzles";
+
+  /**
+   * Le chemin du dossier des profils à partir du dossier de l'application
+   */
+  public static String dossierProfils = Launcher.dossierSlitherlink + "/profils";
+
+  /**
+   * Le chemin du dossier des techniques à partir du dossier de l'application
+   */
+  public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques";
+
+  /**
+   * Le chemin du dossier des ressources de l'outil PuzzleGenerator à partir du dossier de l'application
+   */
+  public static String dossierPuzzleGenerator = Launcher.dossierSlitherlink + "/tools/PuzzleGenerator";
+
+  /**
+   * Le catalogue des puzzles chargé au lancement de l'application
+   */
   public static CataloguePuzzle cataloguePuzzles;
+
+  /**
+   * Le catalogue des profils chargé au lancement de l'application
+   */
   public static CatalogueProfil catalogueProfils;
 
-  private String cheminDossierParentJar;
+  /**
+   * Constructeur privé de la classe Launcher
+   */
   private Launcher() {}
 
+  /**
+   * Méthode pour obtenir l'instance unique de la classe Launcher
+   *
+   * @return l'instance unique de la classe Launcher
+   */
   public static Launcher getInstance() {
     if (instance == null) {
       instance = new Launcher();
@@ -42,15 +91,22 @@ public class Launcher {
     return instance;
   }
 
-  public void setCheminDossierParentJar(String cheminDossierParentJar) {
-    this.cheminDossierParentJar = cheminDossierParentJar;
+  /**
+   * Méthode pour obtenir le boolean qui indique si le mode verbose est actif
+   *
+   * @return le boolean qui indique si le mode verbose est actif
+   */
+  public static boolean getVerbose() {
+    return verbose;
   }
 
-  public String getCheminDossierParentJar() {
-    return cheminDossierParentJar;
-  }
-
-  // copie un fichier depuis un path vers un autre
+  /**
+   * Méthode pour copier un fichier d'un emplacement à un autre
+   *
+   * @param sourcePath le chemin du fichier source
+   * @param destinationPath le chemin du fichier de destination
+   * @throws IOException si une erreur d'entrée/sortie se produit
+   */
   public static void copyFile(String sourcePath, String destinationPath) throws IOException {
     File sourceFile = new File(sourcePath);
     File destinationFile = new File(destinationPath);
@@ -77,9 +133,20 @@ public class Launcher {
     fileInputStream.close();
     fileOutputStream.close();
 
-    System.out.println("Le fichier a été copié avec succès de " + sourcePath + " vers " + destinationPath);
+    if (verbose) {
+      System.out.println("Le fichier a été copié avec succès de " + sourcePath + " vers " + destinationPath);
+    }
   }
 
+  /**
+   * Méthode pour vérifier si les ressources sont complètes
+   *
+   * @param fichierJar le fichier JAR
+   * @param cheminDossierRessourcesJar le chemin du dossier de ressources dans le JAR
+   * @param cheminDossierRessourcesLocal le chemin du dossier de ressources local
+   * @return true si les ressources sont complètes, false sinon
+   * @throws IOException si une erreur d'entrée/sortie se produit
+   */
   private static boolean isRessourcesCompletes(JarFile fichierJar, String cheminDossierRessourcesJar,
       String cheminDossierRessourcesLocal) throws IOException {
     Set<String> ressourcesJar = normaliserChemin(getRessourcesJar(fichierJar, cheminDossierRessourcesJar), "/");
@@ -92,6 +159,7 @@ public class Launcher {
     if (ressourcesManquantes.isEmpty()) {
       if (verbose) {
         System.out.println("Toutes les ressources sont presentes.");
+        System.out.println("---------------------------");
       }
       return true;
     } else {
@@ -106,6 +174,13 @@ public class Launcher {
 
   }
 
+  /**
+   * Méthode pour obtenir la liste des ressources contenues dans un fichier JAR
+   *
+   * @param fichierJar le fichier JAR
+   * @param cheminDossierRessourcesJar le chemin du dossier de ressources dans le JAR
+   * @return un ensemble de chemins vers les ressources du JAR
+   */
   private static Set<String> getRessourcesJar(JarFile fichierJar, String cheminDossierRessourcesJar) {
 
     if (fichierJar.getEntry(cheminDossierRessourcesJar) == null) {
@@ -127,6 +202,13 @@ public class Launcher {
     return ressources;
   }
 
+  /**
+   * Méthode pour obtenir la liste des ressources locales
+   *
+   * @param cheminDossierRessourcesLocal le chemin du dossier qui contient les ressources locales
+   * @return un esemble de chemins vers les ressources locales
+   * @throws IOException si une erreur d'entrée/sortie se produit
+   */
   private static Set<String> getRessourcesLocales(String cheminDossierRessourcesLocal) throws IOException {
 
     if (!Files.exists(Paths.get(cheminDossierRessourcesLocal))) {
@@ -147,7 +229,13 @@ public class Launcher {
     return resources;
   }
 
-  // Méthode pour normaliser les chemins en utilisant un séparateur spécifié
+  /**
+   * Méthode pour normaliser un ensemble de chemins
+   *
+   * @param set l'ensemble qui contient les chemins
+   * @param separator le séparateur de chemin à utiliser
+   * @return l'ensemble des chemins normalisé
+   */
   private static Set<String> normaliserChemin(Set<String> set, String separator) {
     Set<String> setNormalisee = new HashSet<>();
     for (String chemin : set) {
@@ -164,17 +252,35 @@ public class Launcher {
     return setNormalisee;
   }
 
+  /**
+   * Méthode pour charger une image
+   *
+   * @param chemin le chemin de l'image
+   * @return l'image chargée
+   */
   public static Image chargerImage(String chemin) {
     File fichierImage = new File(chemin);
     String urlImage = fichierImage.toURI().toString();
     return new Image(urlImage);
   }
 
+  /**
+   * Méthode pour obtenir le chemin d'un fichier en URL
+   *
+   * @param chemin le chemin du fichier
+   * @return le chemin du fichier en URL
+   */
   public static String chargerFichierEnUrl(String chemin) {
     File fichier = new File(chemin);
     return fichier.toURI().toString();
   }
 
+  /**
+   * Méthode pour normaliser un chemin selon le système d'exploitation
+   *
+   * @param chemin le chemin à normaliser
+   * @return le chemin normalisé selon le système d'exploitation
+   */
   public static String normaliserChemin(String chemin) {
     if (File.separator.compareTo("/") == 0 ) {
       return chemin.replace('\\', '/');
@@ -187,7 +293,14 @@ public class Launcher {
     }
   }
 
-  // Méthode qui permet d'extraire les ressources qui sont dans le fichier JAR
+  /**
+   * Méthode pour extraire les ressources depuis un fichier JAR
+   *
+   * @param fichierJar le fichier JAR
+   * @param cheminDossierRessources le chemin du dossier de ressources
+   * @param cheminDossierDestination le chemin du dossier de destination
+   * @throws IOException si une erreur d'entrée/sortie se produit
+   */
   private static void extraireRessourcesDepuisJar(JarFile fichierJar, String cheminDossierRessources,
       String cheminDossierDestination) throws IOException {
 
@@ -226,14 +339,22 @@ public class Launcher {
 
     if (verbose) {
       System.out.println(" \nRessources extraites avec succes.");
+      System.out.println("---------------------------");
     }
   }
 
+  /**
+   * Méthode qui charge le modèle au lancement de l'application
+   */
   public static void loadModel() {
     cataloguePuzzles = CataloguePuzzle.chargerCataloguePuzzle();
     catalogueProfils = CatalogueProfil.chargerCatalogueProfil();
   }
 
+  /**
+   * Méthode principale qui lance le Launcher
+   * @param args Arguments de la ligne de commande
+   */
   public static void main(String[] args) {
     for (String arg : args) {
       if (arg.equals("--verbose")) {
@@ -244,17 +365,17 @@ public class Launcher {
 
     if (verbose) {
       System.out.println("---------------------------");
-      System.out.println("Mode verbose active");
+      System.out.println("Mode verbose actif");
       System.out.println("---------------------------");
     }
-
 
     // Obtient le chemin vers le fichier JAR en cours d'execution
     final String cheminFichierJar = Launcher.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
     // Extrait le chemin du dossier parent du fichier JAR
     String cheminDossierParentJar = cheminFichierJar.substring(0, cheminFichierJar.lastIndexOf("/") + 1);
-    // Replace file: by ""
+
+    // Nettoie le chemin du dossier parent du fichier JAR
     cheminDossierParentJar = cheminDossierParentJar.replace("file:","");
     cheminDossierParentJar = cheminDossierParentJar.replace("Gr6.jar!/BOOT-INF/classes!/","");
 
@@ -271,11 +392,14 @@ public class Launcher {
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
 
-    System.out.println("dossier parent jar : " + cheminDossierParentJar);
-    System.out.println("dossier parent ressource local : " + cheminDossierParentRessourcesLocal);
-    System.out.println("Chemins normalisés:");
-    System.out.println("dossier parent jar : " + normaliserChemin(cheminDossierParentJar));
-    System.out.println("dossier parent ressource local : " + normaliserChemin(cheminDossierParentRessourcesLocal));
+    if ( verbose ) {
+      System.out.println("Verification de si le programme est lancé depuis le même dossier que le .jar");
+      System.out.println("  - dossier parent jar             : " + normaliserChemin(cheminDossierParentJar));
+      System.out.println("  - dossier parent ressource local : " + normaliserChemin(cheminDossierParentRessourcesLocal));
+      System.out.println("---------------------------");
+    }
+
+    // Vérifie si le programme est lancé dans le même dossier que le .jar
     if ( normaliserChemin(cheminDossierParentJar).compareTo(normaliserChemin(cheminDossierParentRessourcesLocal)) != 0 ) {
       Application.launch(FenetreMauvaisDossier.class);
       return;
@@ -287,24 +411,19 @@ public class Launcher {
         System.out.println("---------------------------");
       }
 
+      // Ouvre le fichier JAR
       JarFile fichierJar = new JarFile(cheminDossierParentJar+"Gr6.jar");
 
+      // Vérifie si les ressources sont complètes
       if (!isRessourcesCompletes(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink)) {
         extraireRessourcesDepuisJar(fichierJar, cheminDossierRessourcesJAR, cheminDossierDestinationRessourceSlitherLink);
       }
 
-      // Création de l'objet Launcher
-      Launcher launcher = Launcher.getInstance();
-      // Ajout du chemin du dossier parent du fichier JAR a l'objet Launcher
-      launcher.setCheminDossierParentJar(normaliserChemin(cheminDossierParentJar));
+      // Lancement du Launcher
+      Launcher.getInstance();
 
+      // Fermeture de l'accès au contenu du fichier JAR
       fichierJar.close();
-
-      if (verbose) {
-        System.out.println("---------------------------");
-        System.out.println("Lancement de l'application");
-        System.out.println("---------------------------");
-      }
 
       // Detection du paramètre --tools-puzzle-generator ( seulement ce paramètre )
       for (String arg : args) {
@@ -317,12 +436,19 @@ public class Launcher {
       // Detection du paramètre --test ( seulement ce paramètre )
       for (String arg : args) {
         if (arg.equals("--test")) {
-
+          if ( verbose ) {
+            System.out.println("Lancement des tests");
+            System.out.println("---------------------------");
+          }
           TestMain.main(args);
           return;
         }
       }
 
+      if (verbose) {
+        System.out.println("Lancement de l'application");
+        System.out.println("---------------------------");
+      }
       // Chargement du modele
       loadModel();
       // Lancement de l'affichage

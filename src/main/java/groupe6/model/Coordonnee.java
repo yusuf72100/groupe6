@@ -10,25 +10,57 @@ import java.io.Serializable;
  */
 public class Coordonnee implements Serializable {
 
+  /**
+   * Numéro de version de la sérialisation
+   */
   @Serial
   private static final long serialVersionUID = 1L;
 
+  /**
+   * La position en y de la coordonnée
+   */
   private final int y;
+
+  /**
+   * La position en x de la coordonnée
+   */
   private final int x;
 
+  /**
+   * Constructeur de la classe Coordonnee
+   *
+   * @param unY la position en y de la coordonnée
+   * @param unX la position en x de la coordonnée
+   */
   Coordonnee(int unY, int unX){
     this.y=unY;
     this.x=unX;
   }
 
+  /**
+   * Méthode pour obtenir la position en y de la coordonnée
+   *
+   * @return la position en y
+   */
   public int getY() {
     return y;
   }
 
+  /**
+   * Méthode pour obtenir la position en x de la coordonnée
+   *
+   * @return la position en x
+   */
   public int getX() {
     return x;
   }
 
+  /**
+   * Méthode pour verifier si deux coordonnées sont equivalentes
+   *
+   * @param obj L'ojet à comparer
+   * @return vrai si les coordonnées sont équivalentes, faux sinon
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -50,6 +82,11 @@ public class Coordonnee implements Serializable {
     return true;
   }
 
+  /**
+   * Méthode pour obtenir une représentation textuelle de la coordonnée
+   *
+   * @return la représentation textuelle de la coordonnée
+   */
   @Override
   public String toString() {
     return "Coordonnee{" +

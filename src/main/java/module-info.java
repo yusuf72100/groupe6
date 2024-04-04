@@ -1,9 +1,9 @@
-module groupe6.launcher {
+module Slitherlink {
+    requires javafx.base;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
     requires java.desktop;
-
-    opens groupe6.launcher to javafx.fxml;
 
     exports groupe6.launcher;
     exports groupe6.affichage;

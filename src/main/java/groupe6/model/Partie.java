@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import groupe6.launcher.Launcher;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,20 +9,59 @@ import java.util.Set;
 
 
 /**
+ * Classe qui représente une partie de puzzle Slitherlink
+ *
  * @author Yamis
  */
-
 public class Partie {
 
-  private Puzzle puzzle; // Le puzzle qui correspond à la partie
-  private final PartieInfos infos; // Les informations de la partie
-  private GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
-  private final List<AideInfos> historiqueAide; // Historique des aides
-  private Hypothese hypothese; // Hypothese en cours
-  private final GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs pour le check
-  private final Profil profil; // Le profil qui joue la partie
-  private final Chronometre chrono; // Le chronomètre de la partie
+  /**
+   * Le puzzle sur lequel la partie est jouée
+   */
+  private Puzzle puzzle;
 
+  /**
+   * Les informations de la partie
+   */
+  private final PartieInfos infos;
+
+  /**
+   * Le gestionnaire des actions effectuées dans la partie
+   */
+  private GestionnaireAction gestionnaireAction;
+
+  /**
+   * L'historique des aides demandées par l'utilisateur
+   */
+  private final List<AideInfos> historiqueAide;
+
+  /**
+   * L'hypothèse en cours dans une partie
+   */
+  private Hypothese hypothese;
+
+  /**
+   * Le gestionnaire des erreurs commises par l'utilisateur dans la partie
+   */
+  private final GestionnaireErreur gestionnaireErreur;
+
+  /**
+   * Le profil de l'utilisateur qui joue la partie
+   */
+  private final Profil profil;
+
+  /**
+   * Le chronomètre de la partie
+   */
+  private final Chronometre chrono;
+
+  /**
+   * Constructeur de la classe Partie
+   *
+   * @param puzzle le puzzle sur lequel la partie est jouée
+   * @param modeJeu le mode de jeu de la partie
+   * @param profil le profil de l'utilisateur qui joue la partie
+   */
   public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
     this.puzzle = puzzle;
     this.infos = new PartieInfos(null, 0, modeJeu, null);
@@ -32,6 +73,12 @@ public class Partie {
     this.chrono = new Chronometre();
   }
 
+  /**
+   * Constructeur de la classe Partie
+   *
+   * @param save la sauvegarde de la partie à charger
+   * @param profil le profil de l'utilisateur qui joue la partie
+   */
   public Partie(PartieSauvegarde save, Profil profil) {
     this.puzzle = save.getPuzzle();
     this.infos = save.getInfos();
@@ -43,28 +90,65 @@ public class Partie {
     this.chrono = new Chronometre(this.infos.getChrono());
   }
 
+  /**
+   * Méthode pour obtenir le puzzle de la partie
+   *
+   * @return le puzzle de la partie
+   */
   public Puzzle getPuzzle() {
     return this.puzzle;
   }
 
+  /**
+   * Méthode pour obtenir les informations de la partie
+   *
+   * @return les informations de la partie
+   */
   public PartieInfos getInfos() {
     return this.infos;
   }
 
+  /**
+   * Méthode pour obtenir l'historique des aides demandées par l'utilisateur
+   *
+   * @return l'historique des aides demandées par l'utilisateur
+   */
   public List<AideInfos> getHistoriqueAide() {
     return this.historiqueAide;
   }
 
+  /**
+   * Méthode pour obtenir le profil de l'utilisateur qui joue la partie
+   *
+   * @return le profil de l'utilisateur qui joue la partie
+   */
   public Profil getProfil() {
     return this.profil;
   }
 
+  /**
+   * Méthode pour obtenir le gestionnaire des actions effectuées dans la partie
+   *
+   * @return le gestionnaire des actions
+   */
   public GestionnaireAction getGestionnaireAction() {
     return this.gestionnaireAction;
   }
 
-  public GestionnaireErreur getGestionnaireErreur() { return  this.gestionnaireErreur; }
+  /**
+   * Méthode pour obtenir le gestionnaire des erreurs commises par l'utilisateur dans la partie
+   *
+   * @return le gestionnaire des erreurs
+   */
+  public GestionnaireErreur getGestionnaireErreur() {
+    return  this.gestionnaireErreur;
+  }
 
+  /**
+   * Méthode pour veifier si une erreur a été commise
+   *
+   * @return un tableau de deux ensembles de coordonnées, les coordonnées des cellules de la première erreur et les coordonnées des cellules erronées
+   */
   public Set<Coordonnee>[] verifierErreur() {
     if ( this.gestionnaireErreur.estVide() ) {
       return null;
@@ -84,25 +168,51 @@ public class Partie {
     }
   }
 
+  /**
+   * Méthode pour revenir en arrière avant la première erreur commise
+   */
   public void corrigerErreur() {
     ErreurInfos premiereErreur = this.gestionnaireErreur.getPremiereErreur();
     this.getGestionnaireAction().annulerActionApresErreur(premiereErreur.getIndexAction());
     this.gestionnaireErreur.supprimerErreurs();
   }
 
+  /**
+   * Méthode pour mettre en pause la partie
+   */
   public void pause() {
     this.chrono.pause();
   }
 
+  /**
+   * Méthode pour reprendre la partie
+   */
   public void reprendre() {
     this.chrono.reprendre();
   }
 
+  /**
+   * Méthode pour demander une aide ( detection de technique )
+   */
   public void chercherAide() {
     GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
   }
 
-  public boolean detectionErreur(Action action) {
+  /**
+   * Méthode pour completer automatiquement les croix d'une case au nombre de trait maximum
+   */
+  public void autoCompletionCroix() {
+    // TODO
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  /**
+   * Méthode pour detecter une erreur causée par une action
+   *
+   * @param action l'action effectuée par l'utilisateur
+   * @return vrai si l'action est valide, faux sinon
+   */
+  private boolean detectionErreur(Action action) {
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
 
@@ -138,7 +248,13 @@ public class Partie {
     return valide;
   }
 
-  // Méthode pour faire une action de type bascule à trois etats
+  /**
+   * Méthode pour effectuer une action de type bascule à trois états
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param cote le côté de la cellule sur lequel l'action est effectuée
+   */
   public void actionBasculeTroisEtat(int y, int x, int cote) {
     Cellule cellule1 = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
@@ -152,7 +268,13 @@ public class Partie {
     System.out.println(err);
   }
 
-  // Méthode pour faire une action de type Vide
+  /**
+   * Méthode pour effectuer une action de type coté vide
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param cote le côté de la cellule sur lequel l'action est effectuée
+   */
   public void actionVide(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
@@ -164,7 +286,13 @@ public class Partie {
     detectionErreur(action);
   }
 
-  // Méthode pour faire une action de type Trait
+  /**
+   * Méthode pour effectuer une action de type coté trait
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param cote le côté de la cellule sur lequel l'action est effectuée
+   */
   public void actionTrait(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
@@ -176,7 +304,13 @@ public class Partie {
     detectionErreur(action);
   }
 
-  // Méthode pour faire une action de type Croix
+  /**
+   * Méthode pour effectuer une action de type coté croix
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param cote le côté de la cellule sur lequel l'action est effectuée
+   */
   public void actionCroix(int y, int x, int cote) {
     Cellule cellule = puzzle.getCellule(y, x);
     Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
@@ -188,8 +322,12 @@ public class Partie {
     detectionErreur(action);
   }
 
-  // Méthode qui verifie si la partie est terminée et agit en conséquence
-  public boolean estTermine() {
+  /**
+   * Méthode qui verifie si la partie est terminée ( le puzzle est complet )
+   *
+   * @return vrai si la partie est terminée, faux sinon
+   */
+  private boolean estTermine() {
     if (this.puzzle.estComplet()) {
       this.infos.setChrono(this.chrono.getTempsEcoule());
 
@@ -209,28 +347,33 @@ public class Partie {
     }
   }
 
+  /**
+   * Méthode pour annuler la dernière action effectuée
+   */
   public void undo() {
     this.gestionnaireAction.annulerAction();
   }
 
+  /**
+   * Méthode pour rétablir la dernière action annulée
+   */
   public void redo() {
     this.gestionnaireAction.retablirAction();
   }
 
-  // Méthode pour afficher dans la console les informations de la partie
+  /**
+   * Méthode pour obtenir une représentation textuelle de la partie
+   *
+   * @return une représentation textuelle de la partie
+   */
   @Override
   public String toString() {
     return infos.toString() + puzzle.toString();
   }
 
-  // Méthode pour commencer une nouvelle partie
-  public static Partie nouvellePartie(CataloguePuzzle catalogue, DifficultePuzzle difficulte, int numero,
-      ModeJeu modeJeu, Profil profil
-  ) {
-    Puzzle puzzleVide = catalogue.getCopyPuzzle(difficulte, numero);
-    return new Partie(puzzleVide, modeJeu, profil);
-  }
-
+  /**
+   * Méthode pour activer le mode hypothèse
+   */
   public void activerHypothese() {
     Puzzle puzzleClone = null;
     try {
@@ -243,22 +386,56 @@ public class Partie {
 
   }
 
+  /**
+   * Méthode pour valider son hypothèse
+   */
   public void validerHypothese(){
     this.puzzle = hypothese.getPuzzle();
     this.gestionnaireAction = hypothese.getGestionnaireAction();
   }
 
+  /**
+   * Méthode pour annuler son hypothèse
+   */
   public void annulerHypothese(){
     this.hypothese=null;
   }
 
+  /**
+   * Méthode pour sauvegarder la partie
+   */
   public void sauvegarder() {
-    System.out.println("Debut de la sauvegarde !");
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Debut de la sauvegarde !");
+    }
     this.infos.setChrono(this.chrono.getTempsEcoule());
     PartieSauvegarde.creerSauvegardePartie(this);
   }
 
-  // Charger une partie
+  /**
+   * Méthode statique pour créer une nouvelle partie
+   *
+   * @param catalogue le catalogue des puzzles
+   * @param difficulte la difficulté du puzzle lancé dans la partie
+   * @param numero le numéro du puzzle lancé dans la partie
+   * @param modeJeu le mode de jeu de la partie
+   * @param profil le profil de l'utilisateur qui joue la partie
+   * @return la nouvelle partie créée
+   */
+  public static Partie nouvellePartie(CataloguePuzzle catalogue, DifficultePuzzle difficulte, int numero,
+                                      ModeJeu modeJeu, Profil profil
+  ) {
+    Puzzle puzzleVide = catalogue.getCopyPuzzle(difficulte, numero);
+    return new Partie(puzzleVide, modeJeu, profil);
+  }
+
+  /**
+   * Méthode statique pour charger une partie à partir d'une sauvegarde
+   *
+   * @param save la sauvegarde de la partie à charger
+   * @param profil le profil de l'utilisateur qui joue la partie
+   * @return la partie chargée
+   */
   public static Partie chargerPartie(PartieSauvegarde save, Profil profil) {
     return new Partie(save, profil);
   }

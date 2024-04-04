@@ -117,7 +117,7 @@ public class CelluleNode extends Node {
 
     /**
      * Méthode de création d'un carré noir
-     * @param v
+     * @param v TODO
      * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
@@ -132,7 +132,7 @@ public class CelluleNode extends Node {
 
     /**
      * Changer le css de la cellule
-     * @param
+     * @param css TODO
      */
     public void changeCellulesCss(String css) {
         this.cellule[0].getStyleClass().addAll(css + "-top");
@@ -151,7 +151,7 @@ public class CelluleNode extends Node {
 
     /**
      * Getter coin
-     * @param c
+     * @param c TODO
      * @return Rectangle
      */
     public Rectangle getCoin(int c) { return this.coins[c]; }
@@ -160,8 +160,8 @@ public class CelluleNode extends Node {
 
     /**
      * Changer la taille d'une cellule
-     * @param width
-     * @param height
+     * @param width TODO
+     * @param height TODO
      */
     public void setPrefSize(double width, double height) {
         for (Button button : this.cellule) {
@@ -191,7 +191,7 @@ public class CelluleNode extends Node {
 
     /**
      * Getter bouton
-     * @param c
+     * @param c TODO
      * @return Button
      */
     public Button getButton(int c) {

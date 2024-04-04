@@ -16,19 +16,39 @@ import java.util.Scanner;
  * @author William Sardon
  */
 public class CatalogueProfil {
+
+  /**
+   * Liste des profils dans le catalogue
+   */
   private static List<Profil> listeProfil;
 
+  /**
+   * Le profil actuelement utilisé
+   */
   private Profil profilActuel;
 
+  /**
+   * Constructeur de la classe CatalogueProfil
+   */
   public CatalogueProfil() {
     listeProfil = new ArrayList<Profil>();
     this.profilActuel = null;
   }
 
+  /**
+   * Méthode pour obtenir la liste des profils
+   *
+   * @return la liste des profils
+   */
   public List<Profil> getListeProfils() {
       return listeProfil;
   }
 
+  /**
+   * Méthode pour ajouter un profil au catalogue
+   *
+   * @param profil le profil à ajouter
+   */
   public void ajouterProfil(Profil profil) {
     if(profil!=null) {
       System.out.println(profil.getNom() + " ajouté avec succès au catalogue des profils!");
@@ -39,9 +59,10 @@ public class CatalogueProfil {
   }
 
   /**
-   * Récupérer un profil en fonction du nom
-   * @param nom
-   * @return
+   * Méthode pour obtenir un profil à partir de son nom
+   *
+   * @param nom le nom du profil à obtenir
+   * @return le profil correspondant au nom
    */
   public Profil getProfilByName(String nom) {
     for (Profil profil : listeProfil) {
@@ -52,14 +73,29 @@ public class CatalogueProfil {
     return null;
   }
 
+  /**
+   * Méthode pour obtenir le profil actuelement utilisé
+   *
+   * @return le profil actuelement utilisé
+   */
   public Profil getProfilActuel() {
     return profilActuel;
   }
 
+  /**
+   * Méthode pour définir le profil actuelement utilisé
+   *
+   * @param profil le profil actuelement utilisé
+   */
   public void setProfilActuel(Profil profil) {
     this.profilActuel = profil;
   }
 
+  /**
+   * Méthode pour obtenir une représentation textuelle du catalogue de profils
+   *
+   * @return une représentation textuelle du catalogue de profils
+   */
   public String toString() {
     StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("Liste des profils :\n");
@@ -72,6 +108,11 @@ public class CatalogueProfil {
     return strBuilder.toString();
   }
 
+  /**
+   * Méthode statique pour charger le catalogue de profils
+   *
+   * @return le catalogue avec les profils chargés
+   */
   public static CatalogueProfil chargerCatalogueProfil() {
     CatalogueProfil catalogueProfil = new CatalogueProfil();
 
@@ -138,6 +179,11 @@ public class CatalogueProfil {
     return catalogueProfil;
   }
 
+  /**
+   * Méthode statique pour sauvegarder le profil actuel
+   *
+   * @param catalogueProfil le catalogue de profils
+   */
   public static void sauvegarderProfilActuel(CatalogueProfil catalogueProfil) {
     try {
       String cheminFichierProfilActuel = Launcher.normaliserChemin(Launcher.dossierProfils + "/profilActuel.config");

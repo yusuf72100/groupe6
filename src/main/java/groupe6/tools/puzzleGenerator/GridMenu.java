@@ -1,5 +1,6 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.affichage.Menu;
 import groupe6.model.*;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -80,7 +81,7 @@ public class GridMenu implements Menu {
 
         /**
          * Execute l'action demandée sur le bouton
-         * @param event
+         * @param event TODO
          */
         @Override
         public void handle(ActionEvent event) {
@@ -150,9 +151,9 @@ public class GridMenu implements Menu {
 
     /**
      * Méthode d'interface pour récupérer le menu
-     * @param args
-     * @return
-     * @param <T>
+     * @param args TODO
+     * @return TODO
+     * @param <T> TODO
      */
     public <T> HBox getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -206,8 +207,8 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise les données de l'affichage et le stockage du puzzle
-     * @param largeur
-     * @param longueur
+     * @param largeur TODO
+     * @param longueur TODO
      */
     private void initCellules(int largeur, int longueur) {
         this.celluleNodes = new CelluleNode[largeur][longueur];
@@ -223,7 +224,7 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise un nouveau puzzle
-     * @param path
+     * @param path TODO
      */
     public void initNewPuzzle(String path) {
         this.puzzle = Puzzle.chargerPuzzle(path);
@@ -231,7 +232,7 @@ public class GridMenu implements Menu {
         this.longueur = this.puzzle.getLongueur();
 
         initCellules(this.largeur, this.longueur);
-        this.cellulesData = this.puzzle.getSolutionCelluleData();
+        this.cellulesData = this.puzzle.getGrilleSolution();
 
         for (int i  = 0 ; i < this.cellulesData.length; i++) {
             for (int j = 0; j < this.cellulesData[i].length; j++) {
@@ -258,7 +259,7 @@ public class GridMenu implements Menu {
 
     /**
      * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
-     * @param nouveau
+     * @param nouveau TODO
      */
     private void afficher(boolean nouveau) {
         switch (this.puzzle.getDifficulte()) {
@@ -329,8 +330,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation d'entrée sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseEntered(FadeTransition fade, Button button) {
         fade.setRate(1);
@@ -340,8 +341,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation de sortie sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);

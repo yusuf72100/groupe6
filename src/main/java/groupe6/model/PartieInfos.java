@@ -13,21 +13,44 @@ import java.util.Date;
  * @author Tom MARSURA
  */
 public class PartieInfos implements Serializable{
+
+    /**
+     * Numéro de version de la sérialisation
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final Date date; // Date de création de la partie
-    private int score; // Score de la partie
-    private Duration chrono; // Chrono de la partie ( format HH:mm:ss )
-    private final ModeJeu modeJeu; // Mode de jeu de la partie
-    private final Duration limiteTemps; // Limite de temps de la partie selon le mode de jeu
+    /**
+     * La date de création de la partie
+     */
+    private final Date date;
+
+    /**
+     * Le score de la partie
+     */
+    private int score;
+
+    /**
+     * La durée de la partie
+     */
+    private Duration chrono;
+
+    /**
+     * Le mode de jeu associé à la partie
+     */
+    private final ModeJeu modeJeu;
+
+    /**
+     * La limite de temps de la partie selon le mode de jeu
+     */
+    private final Duration limiteTemps;
 
     /**
      * Constructeur de la classe PartieInfos ( pas de limite de temps )
      *
-     * @param chrono Le chrono de la partie
-     * @param score Le score de la partie
-     * @param mode Le mode de jeu de la partie
+     * @param chrono le chrono de la partie
+     * @param score le score de la partie
+     * @param mode le mode de jeu de la partie
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode){
         this.date = new Date();
@@ -40,10 +63,10 @@ public class PartieInfos implements Serializable{
     /**
      * Constructeur de la classe PartieInfos ( avec limite de temps )
      * 
-     * @param chrono Le chrono de la partie
-     * @param score Le score de la partie
-     * @param mode Le mode de jeu de la partie
-     * @param limiteTemps La limite de temps de la partie
+     * @param chrono le chrono de la partie
+     * @param score le score de la partie
+     * @param mode le mode de jeu de la partie
+     * @param limiteTemps la limite de temps de la partie
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode, Duration limiteTemps){
         this.date = new Date();
@@ -54,7 +77,8 @@ public class PartieInfos implements Serializable{
     }
 
     /**
-     * Getter de l'attribut date
+     * Méthode qui permet de récupérer la date de la partie
+     *
      * @return La date de la partie
      */
     public Date getDate(){
@@ -63,7 +87,8 @@ public class PartieInfos implements Serializable{
 
     /**
      * Méthode qui permet de convertir la date de la partie en String
-     * @return La date de la partie au format String
+     *
+     * @return la date de la partie au format String ( dd/MM/yyyy )
      */
     public String dateToString(){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -72,7 +97,8 @@ public class PartieInfos implements Serializable{
 
     /**
      * Méthode qui permet de convertir la date de la partie en String avec des tirets
-     * @return La date de la partie au format String avec des tirets
+     *
+     * @return la date de la partie au format String ( dd_MM_yyyy )
      */
     public String dateToStringTiret(){
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
@@ -80,55 +106,63 @@ public class PartieInfos implements Serializable{
     }
 
     /**
-     * Getter de l'attribut score
-     * @return Le score de la partie
+     * Méthode pour obtenir le score de la partie
+     *
+     * @return le score de la partie
      */
     public int getScore(){
         return score;
     }
 
     /**
-     * Setter de l'attribut score
-     * @param scorePartie Le score de la partie
+     * Méthode pour définir le score de la partie
+     *
+     * @param scorePartie le score de la partie
      */
     public void setScore(int scorePartie){
         this.score = scorePartie;
     }
 
     /**
-     * Getter de l'attribut chrono
-     * @return Le chrono de la partie
+     * Méthode pour obtenir le chrono de la partie
+     *
+     * @return le chrono de la partie
      */
     public Duration getChrono(){
         return chrono;
     }
 
     /**
-     * Setter de l'attribut chrono
-     * @param chrono Le chrono de la partie
+     * Méthode pour définir le chrono de la partie
+     *
+     * @param chrono le chrono de la partie
      */
     public void setChrono(Duration chrono){
         this.chrono = chrono;
     }
 
     /**
-     * Getter de l'attribut modeJeu
-     * @return Le mode de jeu de la partie
+     * Méthode pour obtenir le mode de jeu de la partie
+     *
+     * @return le mode de jeu de la partie
      */
     public ModeJeu getModeJeu(){
         return modeJeu;
     }
 
     /**
-     * Getter de l'attribut limiteTemps
-     * @return La limite de temps de la partie
+     * Méthode pour obtenir la limite de temps de la partie
+     *
+     * @return la limite de temps de la partie
      */
     public Duration getLimiteTemps(){
         return limiteTemps;
     }
 
     /**
-     * Méthode qui permet d'afficher les informations de la partie
+     * Méthode pour obtenir une représentation textuelle de la partie
+     *
+     * @return la représentation textuelle de la partie
      */
     public String toString() {
         return

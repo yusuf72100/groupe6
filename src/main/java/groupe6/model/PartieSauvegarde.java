@@ -10,18 +10,48 @@ import java.util.List;
  *
  * @author Yamis
  */
-
 public class PartieSauvegarde implements Serializable {
 
+  /**
+   * Numéro de version de la sérialisation
+   */
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private final Puzzle puzzle; // Le puzzle qui correspond à la partie
-  private final PartieInfos infos; // Les informations de la partie
-  private final GestionnaireAction gestionnaireAction; // Gestionnaire d'actions
-  private final List<AideInfos> historiqueAide; // Historique des aides
-  private final GestionnaireErreur gestionnaireErreur; // Gestionnaire des erreurs
+  /**
+   * Le puzzle sur lequel la partie est jouée
+   */
+  private final Puzzle puzzle;
 
+  /**
+   * Les informations de la partie
+   */
+  private final PartieInfos infos;
+
+  /**
+   * Le gestionnaire des actions effectuées dans la partie
+   */
+  private final GestionnaireAction gestionnaireAction;
+
+  /**
+   * L'historique des aides demandées par l'utilisateur
+   */
+  private final List<AideInfos> historiqueAide;
+
+  /**
+   * Le gestionnaire des erreurs commises par l'utilisateur dans la partie
+   */
+  private final GestionnaireErreur gestionnaireErreur;
+
+  /**
+   * Constructeur de la classe PartieSauvegarde
+   *
+   * @param puzzle le puzzle sur lequel la partie est jouée
+   * @param infos les informations de la partie
+   * @param gestionnaireAction le gestionnaire des actions effectuées dans la partie
+   * @param historiqueAide l'historique des aides demandées par l'utilisateur
+   * @param gestionnaireErreur le gestionnaire des erreurs commises par l'utilisateur dans la partie
+   */
   public PartieSauvegarde(Puzzle puzzle, PartieInfos infos, GestionnaireAction gestionnaireAction,
                           List<AideInfos> historiqueAide, GestionnaireErreur gestionnaireErreur
   ) {
@@ -32,26 +62,56 @@ public class PartieSauvegarde implements Serializable {
     this.gestionnaireErreur = gestionnaireErreur;
   }
 
+  /**
+   * Méthode pour obtenir le puzzle de la partie
+   *
+   * @return le puzzle de la partie
+   */
   public Puzzle getPuzzle() {
     return puzzle;
   }
 
+  /**
+   * Méthode pour obtenir les informations de la partie
+   *
+   * @return les informations de la partie
+   */
   public PartieInfos getInfos() {
     return infos;
   }
 
+  /**
+   * Méthode pour obtenir le gestionnaire des actions effectuées dans la partie
+   *
+   * @return le gestionnaire des actions
+   */
   public GestionnaireAction getGestionnaireAction() {
     return gestionnaireAction;
   }
 
+  /**
+   * Méthode pour obtenir l'historique des aides demandées par l'utilisateur
+   *
+   * @return l'historique des aides
+   */
   public List<AideInfos> getHistoriqueAide() {
     return historiqueAide;
   }
 
+  /**
+   * Méthode pour obtenir le gestionnaire des erreurs commises par l'utilisateur
+   *
+   * @return le gestionnaire des erreurs
+   */
   public GestionnaireErreur getGestionnaireErreur() {
     return gestionnaireErreur;
   }
 
+  /**
+   * Méthode statique pour créer une sauvegarde d'une partie
+   *
+   * @param partie la partie à sauvegarder
+   */
   public static void creerSauvegardePartie(Partie partie) {
     PartieSauvegarde save = new PartieSauvegarde(
         partie.getPuzzle(),
@@ -86,6 +146,13 @@ public class PartieSauvegarde implements Serializable {
 
   }
 
+  /**
+   * Méthode statique pour charger une sauvegarde de partie
+   *
+   * @param nomPartie le nom de la sauvegarde à charger
+   * @param profil le profil du joueur
+   * @return la sauvegarde de la partie
+   */
   public  static PartieSauvegarde chargerSauvegarde(String nomPartie, Profil profil) {
     String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
     String cheminSauvegarde = Launcher.normaliserChemin(cheminDossier + nomPartie + ".save");

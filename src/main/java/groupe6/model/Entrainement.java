@@ -10,13 +10,17 @@ import java.util.Stack;
  * @author William Sardon
  */
 public class Entrainement extends Partie {
-    /** liste d'action pouvant etre realisées pour finir l'entrainement */
+
+    /**
+     * liste d'action pouvant etre realisées pour finir l'entrainement
+     */
     private final Stack<Action> listeAction;
 
     /**
      * Constructeur de la classe Entrainement
      * 
-     * @param puzzle Puzzle de l'entrainement
+     * @param puzzle le puzzle de l'entrainement
+     * @param profil le profil qui joue l'entrainement
      */
     public Entrainement(Puzzle puzzle, Profil profil) {
         super(puzzle, ModeJeu.ENTRAINEMENT, profil);
@@ -27,8 +31,7 @@ public class Entrainement extends Partie {
     /**
      * Methode d'ajout a la pile d'action solution de l'entrainement
      * 
-     * @param nouvelleAction L'action a a ajouter au dessus de la pile dans la liste
-     *                       d'action
+     * @param nouvelleAction l'action a ajouter a la pile d'action
      */
     public void ajouterActionSolution(Action nouvelleAction) {
         listeAction.push(nouvelleAction);
@@ -37,39 +40,39 @@ public class Entrainement extends Partie {
     /**
      * Methode de suppression a la pile d'action solution de l'entrainement
      * 
-     * @return L'action retiree au dessus de la pile dans la liste d'action
+     * @return l'action retiree du sommet de la pile d'action
      */
     public Action effacerActionSolution() {
         return listeAction.pop();
     }
 
     /**
+     * Méthode pour effectuer une action de type bascule à trois etats
      * 
-     * @param y La coordonnée y de la cellule
-     * @param x La coordonnée x de la cellule
-     * @param cote Le cote de la cellule
+     * @param y la position en y de la cellule
+     * @param x la position en x de la cellule
+     * @param cote le cote de la cellule sur lequel on effectue l'action
      */
     @Override
-    // Méthode pour faire une action de type bascule à trois etats
     public void actionBasculeTroisEtat(int y, int x, int cote) {
         Cellule cellule1 = this.getPuzzle().getCellule(y, x);
         Cellule cellule2 = this.getPuzzle().getCelluleAdjacente(y, x, cote);
         ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
-
         Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote, new Coordonnee(y, x));
-        if (Objects.equals(listeAction.peek(), action)) {
-            this.getGestionnaireAction().ajouterAction(action);
-            action.appliquerAction();
 
+        // On vérifie que l'action soit bien la prochaine action attendue
+        if (Objects.equals(listeAction.peek(), action)) {
+            super.actionBasculeTroisEtat(y, x, cote);
             this.listeAction.pop();
         }
 
     }
 
-    public static Partie chargerPartie() {
-        throw new UnsupportedOperationException("Utilisé chargerEntrainement() à la place");
-    }
-
+    /**
+     * Méthode pour charger un entrainement
+     *
+     * @return l'entrainement chargé
+     */
     public static Entrainement chargerEntrainement() {
         throw new UnsupportedOperationException("Pas encore implémenté");
     }

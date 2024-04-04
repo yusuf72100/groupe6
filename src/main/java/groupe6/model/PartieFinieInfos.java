@@ -1,5 +1,7 @@
 package groupe6.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.Duration;
 
 /**
@@ -9,18 +11,36 @@ import java.time.Duration;
  * @see PartieInfos
  * @author Tom MARSURA
  */
-public class PartieFinieInfos extends PartieInfos {
+public class PartieFinieInfos extends PartieInfos implements Serializable {
 
+    /**
+     * Numéro de version de la sérialisation
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * La difficulté du puzzle terminé
+     */
     private final DifficultePuzzle difficulte;
+
+    /**
+     * Boolean qui indique si la partie est complète
+     */
     private final boolean  complete;
+
+    /**
+     * Boolean qui indique si la partie est gagnée
+     */
     private final boolean gagner;
 
     /**
      * Constructeur de la classe PartieFinieInfos
-     * @param infos Les informations de la partie
-     * @param difficulte La difficulté du puzzle
-     * @param complete Si la partie est complète
-     * @param gagner Si la partie est gagnée
+     *
+     * @param infos les informations de la partie
+     * @param difficulte la difficulté du puzzle
+     * @param complete boolean qui indique si la partie est complète
+     * @param gagner boolean qui indique si la partie est gagnée
      */
     public PartieFinieInfos(PartieInfos infos, DifficultePuzzle difficulte, boolean complete, boolean gagner){
         super(infos.getChrono(), infos.getScore(),  infos.getModeJeu(), infos.getLimiteTemps());
@@ -30,31 +50,36 @@ public class PartieFinieInfos extends PartieInfos {
     }
 
     /**
-     * Getter de l'attribute difficulte
-     * @return la difficulte du puzzle
+     * Méthode pour obtenir la date de la partie finie
+     *
+     * @return la date de la partie finie
      */
     public DifficultePuzzle getDifficulte(){
         return difficulte;
     }
 
     /**
-     * Getter de l'attribute complete
-     * @return le boolean qui correspond a complete
+     * Méthode pour le boolean qui indique si la partie est complète
+     *
+     * @return le boolean qui indique si la partie est complète
      */
     public boolean getComplete(){
         return complete;
     }
 
     /**
-     * Getter de l'attribute gagner
-     * @return le boolean qui correspond a gagner
+     * Méthode pour obtenir le boolean qui indique si la partie est gagnée
+     *
+     * @return le boolean qui indique si la partie est gagnée
      */
     public boolean getGagner(){
         return gagner;
     }
 
     /**
-     * Méthode qui permet d'afficher les informations de la partie finie
+     * Méthode pour obtenir une représentation textuelle de la partie finie
+     *
+     * @return une représentation textuelle de la partie finie
      */
     public String toString(){
         return "Partie finie : " + this.complete + "\n" +

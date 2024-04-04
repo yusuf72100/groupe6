@@ -35,9 +35,9 @@ public class Main extends Application {
 
     /**
      * On affiche une toute nouvelle grille
-     * @param longueur
-     * @param largeur
-     * @param diff
+     * @param longueur TODO
+     * @param largeur TODO
+     * @param diff TODO
      */
     public static void showNewPuzzle(int largeur, int longueur, DifficultePuzzle diff) {
         grid = new GridMenu(largeur, longueur, diff);
@@ -46,7 +46,7 @@ public class Main extends Application {
 
     /**
      * On affiche le puzzle choisit avec le gestionnaire des fichiers
-     * @param selectedFile
+     * @param selectedFile TODO
      */
     public static void showLoadedPuzzle(java.io.File selectedFile) {
         grid = new GridMenu(1, 1, DifficultePuzzle.FACILE);             // on charge un puzzle de base

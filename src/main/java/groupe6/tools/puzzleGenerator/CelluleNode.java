@@ -73,7 +73,7 @@ public class CelluleNode extends Node {
 
     /**
      * Méthode de création d'un carré noir
-     * @param v
+     * @param v TODO
      * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
@@ -84,7 +84,7 @@ public class CelluleNode extends Node {
 
     /**
      * Changer le css de la cellule
-     * @param
+     * @param TODO
      */
     public void changeCellulesCss(String css) {
         cellule[0].getStyleClass().addAll(css + "-top");
@@ -103,14 +103,14 @@ public class CelluleNode extends Node {
 
     /**
      * Getter coin
-     * @param c
+     * @param c TODO
      * @return Rectangle
      */
     public Rectangle getCoin(int c) { return coins[c]; }
 
     /**
      * Getter bouton
-     * @param c
+     * @param c TODO
      * @return Button
      */
     public Button getButton(int c) {

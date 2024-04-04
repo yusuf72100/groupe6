@@ -1,7 +1,6 @@
 package groupe6.model;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.Puzzle;
 
 import java.io.File;
 import java.util.*;
@@ -11,14 +10,16 @@ import java.util.*;
  *
  * @author Yamis
  */
-
-// Classe CataloguePuzzle qui permet de gérer un catalogue de puzzles
 public class CataloguePuzzle {
 
-  // Catalogue des puzzles répartis selon la difficulté
+  /**
+   * Catalogue des puzzles indexé par difficulté
+   */
   private final Map<DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
 
-  // Constructeur de la classe CataloguePuzzle
+  /**
+   * Constructeur de la classe CataloguePuzzle
+   */
   public CataloguePuzzle() {
     cataloguePuzzle = new HashMap<DifficultePuzzle, List<Puzzle>>();
 
@@ -28,17 +29,30 @@ public class CataloguePuzzle {
 
   }
 
-  // Méthode pour ajouter un puzzle au catalogue
+  /**
+   * Méthode pour ajouter un puzzle au catalogue
+   *
+   * @param puzzle le puzzle à ajouter
+   */
   public void ajouterPuzzle(Puzzle puzzle) {
     cataloguePuzzle.get(puzzle.getDifficulte()).add(puzzle);
   }
 
-  // Méthode pour obtenir la liste des puzzles selon la difficulté
+  /**
+   * Méthode pour obtenir la liste des puzzles correspondant à une difficulté donnée
+   *
+   * @param difficulte la difficulté des puzzles à obtenir
+   * @return la liste des puzzles de la difficulté donnée
+   */
   public List<Puzzle> getListePuzzle(DifficultePuzzle difficulte) {
     return cataloguePuzzle.get(difficulte);
   }
 
-  // Méthode pour obtenier la liste de tous les puzzles
+  /**
+   * Méthode pour obtenir la liste de tous les puzzles du catalogue
+   *
+   * @return la liste de tous les puzzles du catalogue
+   */
   public List<Puzzle> getListePuzzle() {
     List<Puzzle> liste = new ArrayList<Puzzle>();
 
@@ -49,11 +63,24 @@ public class CataloguePuzzle {
     return liste;
   }
 
-  // Méthode pour obtenir un puzzle du catalogue selon la difficulté
+  /**
+   * Méthode pour obtenir un puzzle à partir de sa difficulté et de son numéro
+   *
+   * @param difficulte la difficulté du puzzle que l'on veut obtenir
+   * @param numero le numéro du puzzle parmi ceux de la difficulté donnée
+   * @return le puzzle correspondant à la difficulté et au numéro donnés
+   */
   public Puzzle getPuzzle(DifficultePuzzle difficulte, int numero) {
     return cataloguePuzzle.get(difficulte).get(numero);
   }
 
+  /**
+   * Méthode pour obtenir une copie d'un puzzle à partir de sa difficulté et de son numéro
+   *
+   * @param difficulte la difficulté du puzzle que l'on veut obtenir
+   * @param numero le numéro du puzzle parmi ceux de la difficulté donnée
+   * @return une copie du puzzle correspondant à la difficulté et au numéro donnés
+   */
   public Puzzle getCopyPuzzle(DifficultePuzzle difficulte, int numero) {
     try {
       return (Puzzle) this.getPuzzle(difficulte, numero).clone();
@@ -63,7 +90,11 @@ public class CataloguePuzzle {
     return null;
   }
 
-  // Méthode pour afficher le catalogue de puzzles
+  /**
+   * Méthode pour obtenir une représentation textuelle du catalogue de puzzles
+   *
+   * @return la représentation textuelle du catalogue de puzzles
+   */
   public String toString() {
     StringBuilder strBuilder = new StringBuilder();
 
@@ -78,7 +109,11 @@ public class CataloguePuzzle {
     return strBuilder.toString();
   }
 
-  // Trile le catalogue des puzzles dans chaque difficulté selon la taille de la grille
+  /**
+   * Méthode pour trier le catalogue de puzzles par taille croissante dans chaque difficulté
+   *
+   * @param catalogue le catalogue de puzzles à trier
+   */
   static public void trierCataloguePuzzle(CataloguePuzzle catalogue) {
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
       catalogue.getListePuzzle(d).sort(new Comparator<Puzzle>() {
@@ -98,7 +133,11 @@ public class CataloguePuzzle {
     }
   }
 
-  // Méthode pour charger un catalogue de puzzle
+  /**
+   * Méthode pour charger un catalogue de puzzles
+   *
+   * @return le catalogue de puzzles chargé
+   */
   static public CataloguePuzzle chargerCataloguePuzzle() {
     CataloguePuzzle catalogue = new CataloguePuzzle();
 

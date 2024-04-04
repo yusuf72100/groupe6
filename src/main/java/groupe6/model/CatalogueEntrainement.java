@@ -1,12 +1,7 @@
 package groupe6.model;
 
-import groupe6.launcher.Launcher;
-import groupe6.model.Entrainement;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Cette classe modélise un catalogue d'entrainement.
@@ -14,24 +9,42 @@ import java.util.Objects;
  * @author William Sardon
  */
 public class CatalogueEntrainement {
-    private List<Entrainement> listeEntrainement;
 
-    // Constructeur de la classe CatalogueEntrainement
+    /**
+     * Liste des entrainements dans le catalogue
+     */
+    private final List<Entrainement> listeEntrainement;
+
+    /**
+     * Constructeur de la classe CatalogueEntrainement
+     */
     public CatalogueEntrainement() {
         this.listeEntrainement = new ArrayList<Entrainement>();
     }
 
-    // Méthode pour obtenir la liste des entrainements
+    /**
+     * Méthode pour obtenir la liste des entrainements
+     *
+     * @return la liste des entrainements
+     */
     public List<Entrainement> getListeEntrainement() {
         return listeEntrainement;
     }
 
-    // Méthode pour ajouter un entrainement
+    /**
+     * Méthode pour ajouter un entrainement au catalogue
+     *
+     * @param entrainement l'entrainement à ajouter
+     */
     public void ajouterEntrainement(Entrainement entrainement) {
         listeEntrainement.add(entrainement);
     }
 
-    // Méthode statique pour charger le catalogue d'entrainement
+    /**
+     * Méthode statique pour charger un catalogue d'entrainement
+     *
+     * @return le catalogue d'entrainement chargé
+     */
     public static CatalogueEntrainement chargerCatalogueEntrainement() {
         throw new UnsupportedOperationException("Not implemented yet");
 

@@ -8,24 +8,49 @@ import java.io.Serializable;
  *
  * @author Nathan
  */
-
 public class AideInfos implements Serializable {
 
+    /**
+     * Numéro de version de la sérialisation
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Informations sur la technique utilisée
+     */
     private final TechniqueInfos infoTechnique;
+
+    /**
+     * Résultat de la technique utilisée
+     */
     private final ResultatTechnique resultatTechnique;
-    /** Constructeur de la classe AideInfos */
+
+    /**
+     * Constructeur de la classe AideInfos
+     *
+     * @param uneInfoTechnique l'information sur la technique
+     * @param unResultatTechnique le résultat de la technique
+     */
     AideInfos(TechniqueInfos uneInfoTechnique, ResultatTechnique unResultatTechnique){
         this.infoTechnique=uneInfoTechnique;
         this.resultatTechnique=unResultatTechnique;
     }
-    /** Getter pour infoTechnique */
+
+    /**
+     * Méthode pour obtenir les informations sur la technique
+     *
+     * @return les informations sur la technique
+     */
     TechniqueInfos getInfoTechnique(){
         return this.infoTechnique;
     }
-    /** Getter pour ResultatTechnique */
+
+    /**
+     * Méthode pour obtenir le résultat de la technique
+     *
+     * @return le résultat de la technique
+     */
     ResultatTechnique getResultatTechnique (){
         return this.resultatTechnique;
     }

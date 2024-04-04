@@ -2,24 +2,11 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.*;
-import groupe6.model.Menu;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
-
-import java.util.List;
 
 public class SaveSelectionMenu implements Menu {
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {

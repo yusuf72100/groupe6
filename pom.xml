@@ -91,6 +91,35 @@
           <target>16</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <!-- Création de la doc -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <!-- Paramètre de sélection -->
+          <show>private</show>
+
+          <!-- Paramètre d'affichage -->
+          <use>true</use>
+          <windowtitle>${project.name}</windowtitle>
+          <doctitle>Documentaion ${project.name}</doctitle>
+          <doctitle>${project.name} ${project.version}</doctitle>
+          <testDoctitle>Documentation des tests ${project.name}</testDoctitle>
+
+          <!-- Chemin de génération -->
+          <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
+          <destDir>javadoc</destDir>
+          <docfilessubdirs>true</docfilessubdirs>
+
+          <!-- Paramètre génération -->
+          <serialwarn>true</serialwarn>
+          <failOnError>true</failOnError>
+          <failOnWarnings>true</failOnWarnings>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
@@ -111,6 +140,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <!-- Remise en forme du .jar -->
         <groupId>org.springframework.boot</groupId>

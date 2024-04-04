@@ -10,42 +10,65 @@ import java.io.Serializable;
  */
 public class TechniqueInfos implements Serializable {
 
+  /**
+   * Numéro de version de la sérialisation
+   */
   @Serial
   private static final long serialVersionUID = 1L;
 
-  /** Chemin vers une image demontrant l'utilisation d'une technique */
+  /**
+   * Texte expliquant la technique
+   */
+  private final String explicationTxt;
 
-    private final String explicationTxt; // Texte d'explication d'une technique
-    private final String schemaIMG;
+  /**
+   * Chemin vers une image demontrant l'utilisation d'une technique
+   */
+  private final String schemaIMG;
 
-    /** Niveau de difficulté de la technique : 'FACILE', 'MOYEN', 'DIFFICILE' */
-    private final DifficulteTechnique difficulte;
+  /**
+   * Niveau de difficulte de la technique
+   */
+  private final DifficulteTechnique difficulte;
 
-    /**
-     * Constructeur
-     * 
-     * @param explicationTxt explication textuelle de la technique
-     * @param schemaIMG      chemin vers l'image demontrant l'utilisation d'une technique
-     * @param difficulte     niveau de difficulte des techniques
-     */
-    public TechniqueInfos(String explicationTxt, String schemaIMG, DifficulteTechnique difficulte) {
-      this.explicationTxt = explicationTxt;
-      this.schemaIMG = schemaIMG;
-      this.difficulte = difficulte;
-    }
+  /**
+   * Constructeur de la classe TechniqueInfos
+   *
+   * @param explicationTxt l'explication textuelle de la technique
+   * @param schemaIMG le chemin vers l'image demontrant l'utilisation d'une technique
+   * @param difficulte le niveau de difficulte de la technique
+   */
+  public TechniqueInfos(String explicationTxt, String schemaIMG, DifficulteTechnique difficulte) {
+    this.explicationTxt = explicationTxt;
+    this.schemaIMG = schemaIMG;
+    this.difficulte = difficulte;
+  }
 
-    /** Methode pour obtenir la difficulte */
-    public DifficulteTechnique getDifficulte() {
-        return this.difficulte;
-    }
+  /**
+   * Methode pour obtenir la difficulte de la technique
+   *
+   * @return la difficulte de la technique
+   */
+  public DifficulteTechnique getDifficulte() {
+      return this.difficulte;
+  }
 
-    /** Methode pour obtenir l'explication texte */
-    public DifficulteTechnique getExplicationTxt() {
-        return this.difficulte;
-    }
+  /**
+   * Methode pour obtenir l'explication textuelle de la technique
+   *
+   * @return l'explication textuelle de la technique
+   */
+  public DifficulteTechnique getExplicationTxt() {
+      return this.difficulte;
+  }
 
-    /** Methode pour obtenir le chemin vers l'image */
-    public DifficulteTechnique getSchemaIMG() {
-        return this.difficulte;
-    }
+  /**
+   * Methode pour obtenir le chemin vers l'image demontrant l'utilisation de la technique
+   *
+   * @return le chemin vers l'image demontrant l'utilisation de la technique
+   */
+  public DifficulteTechnique getSchemaIMG() {
+      return this.difficulte;
+  }
+
 }

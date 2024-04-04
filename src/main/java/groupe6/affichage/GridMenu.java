@@ -106,7 +106,7 @@ public class GridMenu implements Menu {
 
         /**
          * Execute l'action demandée sur le bouton
-         * @param event
+         * @param event TODO
          */
         @Override
         public void handle(ActionEvent event) {
@@ -142,9 +142,9 @@ public class GridMenu implements Menu {
 
     /**
      * Méthode d'interface pour récupérer le menu
-     * @param args
-     * @return
-     * @param <T>
+     * @param args TODO
+     * @return TODO
+     * @param <T> TODO
      */
     public <T> AnchorPane getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -240,8 +240,8 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise les données de l'affichage et le stockage du puzzle
-     * @param l
-     * @param L
+     * @param l TODO
+     * @param L TODO
      */
     private void initCellules(int l, int L) {
         this.celluleNodes = new CelluleNode[l][L];
@@ -257,7 +257,7 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise un nouveau puzzle
-     * @param path
+     * @param path TODO
      */
     public void initNewPuzzle(String path) {
         this.puzzle = Puzzle.chargerPuzzle(path);
@@ -292,7 +292,7 @@ public class GridMenu implements Menu {
 
     /**
      * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
-     * @param nouveau
+     * @param nouveau TODO
      */
     private void afficher(boolean nouveau) {
         // Colonnes
@@ -375,8 +375,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation d'entrée sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseEntered(FadeTransition fade, Button button) {
         fade.setRate(1);
@@ -386,8 +386,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation de sortie sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);

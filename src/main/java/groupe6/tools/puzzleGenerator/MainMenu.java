@@ -1,7 +1,7 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.model.DifficultePuzzle;
-import groupe6.model.Menu;
+import groupe6.affichage.Menu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,7 +18,7 @@ public class MainMenu implements Menu {
 
     /**
      * Vérifie les valeurs entrées dans les textfields
-     * @param prompt
+     * @param prompt TODO
      * @return TextField
      */
     private static TextField createUnrestrictedTextField(String prompt) {
@@ -41,9 +41,9 @@ public class MainMenu implements Menu {
 
     /**
      * Méthode d'interface pour récupérer le menu
-     * @param args
-     * @return
-     * @param <T>
+     * @param args TODO
+     * @return TODO
+     * @param <T> TODO
      */
     public <T> VBox getMenu(T... args) {
         Main main = new Main();

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe abstraite qui représente une technique
+ *
  * @author Nathan
  */
 public abstract class Technique{
@@ -12,28 +14,61 @@ public abstract class Technique{
      * Booleen vrai si les cases concerné par la détection sont positionné de manière adjacente.
      */
     protected static final boolean ADJ = true;
+
+    /**
+     * TODO
+     */
     protected static final boolean DIAG = false;
+
+    /**
+     * TODO
+     */
     public static final boolean HORIZ = false;
+
+    /**
+     * TODO
+     */
     public static final boolean VERTI = true;
 
-
+    /**
+     * La difficulté de la technique
+     */
     private final DifficulteTechnique difficulte;
-    private final int ordre;
-    Technique(DifficulteTechnique uneDifficulte, int unOrdre){
+
+    /**
+     * Constructeur de la classe Technique
+     *
+     * @param uneDifficulte la difficulté de la technique
+     */
+    Technique(DifficulteTechnique uneDifficulte){
         this.difficulte = uneDifficulte;
-        this.ordre = unOrdre;
     }
 
-    public abstract ResultatTechnique run(Partie partie);
+    /**
+     * Méthode abstraite qui permet de lancer recherche de la technique
+     *
+     * @param partie la partie sur laquelle on cherche la technique
+     * @param idx l'index de la technique dans la liste des techniques
+     * @return le résultat de la technique
+     */
+    public abstract ResultatTechnique run(Partie partie, int idx);
 
-    public int getOrdre() {
-        return ordre;
-    }
-
+    /**
+     * Méthode pour obtenir la difficulté de la technique
+     *
+     * @return la difficulté de la technique
+     */
     public DifficulteTechnique getDifficulte() {
         return difficulte;
     }
 
+    /**
+     * Méthode qui permet de rechercher un numéro dans une grille
+     *
+     * @param uneGrille la grille dans laquelle on cherche le numéro
+     * @param unNumero le numéro que l'on cherche
+     * @return la liste des coordonnées où le numéro a été trouvé
+     */
     public static List<Coordonnee> rechercherNumero(Puzzle uneGrille, int unNumero) {
         List<Coordonnee> coord = new ArrayList<>();
         for(int y = 0; y < uneGrille.getLargeur(); y++){
@@ -47,6 +82,15 @@ public abstract class Technique{
         return coord;
     }
 
+    /**
+     * TODO
+     *
+     * @param uneGrille TODO
+     * @param unNumero TODO
+     * @param y TODO
+     * @param x TODO
+     * @return TODO
+     */
     private static List<Coordonnee> rechercherNumeroDiagonal(Puzzle uneGrille, int unNumero, int y, int x) {
         List<Coordonnee> diagonal = new ArrayList<>();
         if(uneGrille.getCellule(y-1,x-1).getValeur() == unNumero){
@@ -65,6 +109,15 @@ public abstract class Technique{
 
     }
 
+    /**
+     * TODO
+     *
+     * @param uneGrille TODO
+     * @param unNumero TODO
+     * @param y TODO
+     * @param x TODO
+     * @return TODO
+     */
     private static List<Coordonnee> rechercherNumeroAdjacent(Puzzle uneGrille, int unNumero, int y, int x) {
         List<Coordonnee> adjacent = new ArrayList<>();
         if(uneGrille.getCellule(y,x-1).getValeur() == unNumero){
@@ -82,6 +135,15 @@ public abstract class Technique{
         return adjacent;
     }
 
+    /**
+     * TODO
+     *
+     * @param uneGrille TODO
+     * @param unNumero TODO
+     * @param unePosition TODO
+     * @param direction TODO
+     * @return TODO
+     */
     public static List<Coordonnee> rechercherNumeroAutour(Puzzle uneGrille, int unNumero, Coordonnee unePosition, Direction direction) {
         List<Coordonnee> coord = new ArrayList<>();
         int y = unePosition.getY();
@@ -97,6 +159,13 @@ public abstract class Technique{
         return coord;
     }
 
+    /**
+     * TODO
+     *
+     * @param uneGrille TODO
+     * @param unePosition TODO
+     * @return TODO
+     */
     public boolean rechercherBoucleAutour(Puzzle uneGrille, Coordonnee unePosition) {
         int positionY = unePosition.getY();
         int positionX = unePosition.getX();
@@ -111,6 +180,15 @@ public abstract class Technique{
         return false;
     }
 
+    /**
+     * TODO
+     *
+     * @param grille TODO
+     * @param listeCoordonnee TODO
+     * @param adjacent TODO
+     * @param sens TODO
+     * @return TODO
+     */
     public static boolean verificationMultidir(Puzzle grille, List<Coordonnee> listeCoordonnee, boolean adjacent, boolean sens) {
         Coordonnee coordonneeA = listeCoordonnee.get(0);
         Coordonnee coordonneeB = listeCoordonnee.get(1);

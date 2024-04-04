@@ -21,29 +21,43 @@ import static groupe6.test.TestProfils.chargerProfilsExistant;
  */
 public class Profil implements Serializable {
 
+    /**
+     * Numéro de version de la sérialisation
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** Nom de l'utilisateur */
+    /**
+     * Le nom de l'utilisateur
+     */
     private String nom;
 
-    /** Chemin menant a l'image utilisee par defaut */
+    /**
+     * Le chemin vers l'image utilisee dans le profil
+     */
     private String cheminIMG;
 
-    /** Niveau de progression dans le mode aventure */
+
+    /**
+     * Le niveaux de progression de l'utilisateur dans le mode aventure
+     */
     private int niveauAventure;
 
-    /** Historique de jeu de l'utilisateur */
+    /**
+     * L'historique des parties terminées par l'utilisateur ( gagnées ou perdues )
+     */
     private final Historique historique;
 
-    /** Parametre de l'utilisateur */
+    /**
+     * Les parametres de l'utilisateur
+     */
     private final Parametre parametre;
 
     /**
-     * Constructeur
+     * Constructeur de la classe Profil
      *
-     * @param nom            Nom de l'utilisateur
-     * @param cheminIMG      Chemin vers l'image utilisee dans le profil
+     * @param nom le nom du profil
+     * @param cheminIMG le chemin vers l'image utilisee dans le profil
      */
     public Profil(String nom, String cheminIMG) {
         this.nom = nom;
@@ -54,23 +68,27 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Modifie le nom du profil
+     * Méthode pour definir le nom du profil
      *
-     * @param newNom Nouveau nom
+     * @param newNom le nouveau nom du profil
      */
     public void modifierNom(String newNom) {
         this.nom = newNom;
     }
 
     /**
-     * Methode pour obtenir le nom
+     * Méthode pour obtenir le nom du profil
+     *
+     * @return le nom du profil
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * Methode pour obtenir le chemin vers l'image (IMG)
+     * Methode pour obtenir le chemin vers l'image utilisee dans le profil
+     *
+     * @return le chemin vers l'image utilisee dans le profil
      */
     public String getIMG() {
         return cheminIMG;
@@ -78,30 +96,36 @@ public class Profil implements Serializable {
 
     /**
      * Methode pour obtenir le niveauAventure
+     *
+     * @return le niveauAventure
      */
     public int getNiveauAventure() {
         return niveauAventure;
     }
 
     /**
-     * Methode pour obtenir l'historique
+     * Methode pour obtenir l'historique des parties terminées par l'utilisateur
+     *
+     * @return l'historique des parties terminées par l'utilisateur
      */
-
     public Historique getHistorique() {
         return historique;
     }
 
     /**
-     * Methode pour obtenir les parametres
+     * Methode pour obtenir les parametres de l'utilisateur
+     *
+     * @return les parametres de l'utilisateur
      */
-
     public Parametre getParametre() {
         return parametre;
     }
 
     /**
-     * Modifie la photo de profil
+     * Méthode pour changer l'image du profil
      *
+     * @param fenetre la fenetre de l'application
+     * @throws IOException si une erreur survient lors de la copie du fichier
      */
     public void choisirImage(Stage fenetre) throws IOException {
         // Afficher uniquement les fichiers images
@@ -120,6 +144,11 @@ public class Profil implements Serializable {
         }
     }
 
+    /**
+     * Méthode pour obtenir une représentation textuelle du profil
+     *
+     * @return la représentation textuelle du profil
+     */
     @Override
     public String toString() {
         String str = "";
@@ -130,9 +159,10 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Methode de saauvegarde de profil
+     * Methode pour sauvegarder un profil
      *
-     * @param profil Le profil à sauvegarder
+     * @param profil le profil à sauvegarder
+     * @return un message de confirmation ou d'erreur
      */
     public static String sauvegarderProfil(Profil profil) {
         // Dossier ressources contenant les profils
@@ -162,10 +192,10 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Methode de chargement de profil
+     * Methode pour charger un profil
      *
-     * @param chemin Le chemin du profil à charger
-     * @return le profil à charger
+     * @param chemin le chemin du fichier de sauvegarde du profil
+     * @return le profil chargé
      */
     public static Profil chargerProfil(String chemin) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {

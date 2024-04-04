@@ -1,4 +1,5 @@
 package groupe6.model;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,14 +12,39 @@ import javafx.scene.input.KeyCode;
  * @author Tom MARSURA
  */
 public class Parametre implements Serializable{
+
+    /**
+     * Numéro de version de la sérialisation
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Booléen qui indique si l'aide de remplissage des croix est activée
+     */
     private boolean aideRemplissageCroix;
-    private boolean[] aideTechniqueDemarrage;
+
+    /**
+     * Tableau de booléens qui indique si l'application automatique des techniques de démarrage est activée
+     *   indice 0 : FACILE, indice 1 : MOYEN, indice 2 : DIFFICILE
+     */
+    private final boolean[] aideTechniqueDemarrage;
+
+    /**
+     * Touche pour l'action coté vide
+     */
     private KeyCode toucheVide;
+
+    /**
+     * Touche pour l'action coté trait
+     */
     private KeyCode toucheTrait;
+
+    /**
+     * Touche pour l'action coté croix
+     */
     private KeyCode toucheCroix;
+
 
     /**
      * Constructeur de la classe Parametre
@@ -36,88 +62,102 @@ public class Parametre implements Serializable{
     }
 
     /**
-     * Getter de l'attribut aideRemplissage
-     * @return L'aide au remplissage
+     * Méthode pour obtenir le booléen qui indique si l'aide de remplissage des croix est activée
+     *
+     * @return le booléen de l'aide au remplissage des croix
      */
     public boolean getAideRemplissageCroix(){
         return aideRemplissageCroix;
     }
 
     /**
-     * Getter de l'attribut aideCroixAuto
-     * @return L'aide à la croix automatique
+     *  Méthode pour obtenir le tableau de booléens qui indique si l'application automatique des techniques
+     *  de démarrage est activée
+     *
+     * @return le tableau de booléens de l'aide a l'application des techniques de démarrage
      */
     public boolean[] getAideTechniqueDemarrage(){
         return aideTechniqueDemarrage;
     }
 
     /**
-     * Setter de l'attribut aideRemplissage
-     * @param aideRemplissage L'aide au remplissage
+     * Méthode pour definir si l'aide de remplissage des croix est activée
+     *
+     * @param aideRemplissage le booléen de l'aide au remplissage des croix
      */
     public void setAideRemplissageCroix(boolean aideRemplissage){
         this.aideRemplissageCroix = aideRemplissage;
     }
 
     /**
-     * Setter de l'attribut toucheVide
-     * @param toucheVide La touche pour les vides
+     * Méthode pour definir la touche pour l'action coté vide
+     *
+     * @param toucheVide la touche pour l'action coté vide
      */
     public void setToucheVide(KeyCode toucheVide){
         this.toucheVide = toucheVide;
     }
 
     /**
-     * Setter de l'attribut toucheTrait
-     * @param toucheTrait La touche pour les traits
+     * Méthode pour definir la touche pour l'action coté trait
+     *
+     * @param toucheTrait la touche pour l'action coté trait
      */
     public void setToucheTrait(KeyCode toucheTrait){
         this.toucheTrait = toucheTrait;
     }
 
     /**
-     * Setter de l'attribut toucheCroix
-     * @param toucheCroix La touche pour les croix
+     * Méthode pour definir la touche pour l'action coté croix
+     *
+     * @param toucheCroix la touche pour l'action coté croix
      */
     public void setToucheCroix(KeyCode toucheCroix){
         this.toucheCroix = toucheCroix;
     }
 
     /**
-     * Getter de l'attribut toucheVide
-     * @return La touche pour les vides
+     * Méthode pour obtenir la touche pour l'action coté vide
+     *
+     * @return la touche pour l'action coté vide
      */
     public KeyCode getToucheVide(){
         return toucheVide;
     }
 
     /**
-     * Getter de l'attribut toucheTrait
-     * @return La touche pour les traits
+     * Méthode pour obtenir la touche pour l'action coté trait
+     *
+     * @return la touche pour l'action coté trait
      */
     public KeyCode getToucheTrait(){
         return toucheTrait;
     }
 
     /**
-     * Getter de l'attribut toucheCroix
-     * @return La touche pour les croix
+     * Méthode pour obtenir la touche pour l'action coté croix
+     *
+     * @return la touche pour l'action coté croix
      */
     public KeyCode getToucheCroix(){
         return toucheCroix;
     }
 
     /**
-     * Setter de l'attribut aideTechniqueDemarrage
-     * @param aideTechniqueDemarrage L'aide d'application auto des techniques de démarrage
-     * @param difficulte Difficulte du puzzle où appliquer l'aide
+     * Méthode pour definir si l'application automatique des techniques de démarrage est activée pour une
+     * difficulté donnée
+     *
+     * @param aideTechniqueDemarrage le booléen qui correspond à l'application des techniques de démarrage
+     * @param difficulte la difficulté pour laquelle on veut activer ou désactiver l'application des techniques de démarrage
      */
     public void setAideTechniqueDemarrage (boolean aideTechniqueDemarrage, DifficultePuzzle difficulte){
         this.aideTechniqueDemarrage[difficulte.ordinal()] = aideTechniqueDemarrage;
     }
 
     /**
-     * Méthode qui permet d'afficher les paramètres
+     * Méthode pour obtenir une représentation textuelle des paramètres
+     *
+     * @return la représentation textuelle des paramètres
      */
     public String toString(){
         return "Aide au remplissage de la croix : " + this.aideRemplissageCroix + "\n" +
