@@ -1,5 +1,6 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.affichage.Menu;
 import groupe6.model.*;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -231,7 +232,7 @@ public class GridMenu implements Menu {
         this.longueur = this.puzzle.getLongueur();
 
         initCellules(this.largeur, this.longueur);
-        this.cellulesData = this.puzzle.getSolutionCelluleData();
+        this.cellulesData = this.puzzle.getGrilleSolution();
 
         for (int i  = 0 ; i < this.cellulesData.length; i++) {
             for (int j = 0; j < this.cellulesData[i].length; j++) {

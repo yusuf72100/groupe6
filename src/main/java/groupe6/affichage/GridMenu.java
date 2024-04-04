@@ -226,7 +226,6 @@ public class GridMenu implements Menu {
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
-        //HBox.setHgrow(buttonContainer, Priority.ALWAYS);
 
         AnchorPane anchorPane = new AnchorPane(container, buttonContainer, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());

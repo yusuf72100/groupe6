@@ -1,4 +1,4 @@
-package groupe6.model;
+package groupe6.affichage;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
