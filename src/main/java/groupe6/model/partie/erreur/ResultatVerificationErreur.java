@@ -63,6 +63,6 @@ public class ResultatVerificationErreur {
    * @return l'ensemble des coordonnées qui correspondent aux erreurs qui découlent de la première erreur
    */
   public Set<Coordonnee> getErreursSuivantes() {
-    return erreursSuivantes;
+    return this.erreursSuivantes;
   }
 }
