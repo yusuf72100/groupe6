@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @author Nathan
  */
-public class Coordonnee implements Serializable {
+public class Coordonnee implements Serializable,Cloneable {
 
   /**
    * Numéro de version de la sérialisation
@@ -93,5 +93,16 @@ public class Coordonnee implements Serializable {
         "y=" + y +
         ", x=" + x +
         '}';
+  }
+
+  /**
+   * Méthode pour cloner une coordonnée
+   *
+   * @return la coordonnée clonée
+   * @throws CloneNotSupportedException si le clonage n'est pas supporté
+   */
+  @Override
+  public Coordonnee clone() throws CloneNotSupportedException {
+    return new Coordonnee(this.y,this.x);
   }
 }

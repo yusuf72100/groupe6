@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Yamis
  */
-public class GestionnaireErreur implements Serializable {
+public class GestionnaireErreur implements Serializable, Cloneable {
 
   /**
    * Numéro de version de la sérialisation
@@ -39,6 +39,15 @@ public class GestionnaireErreur implements Serializable {
    * @param lstErreurs la liste des erreurs commises par l'utilisateur sur le puzzle
    */
   public GestionnaireErreur(List<ErreurInfos> lstErreurs) {
+    this.lstErreurs = lstErreurs;
+  }
+
+  /**
+   * Méthode pour definir la liste des erreurs
+   *
+   * @param lstErreurs la liste des erreurs commises par l'utilisateur sur le puzzle
+   */
+  public void setLstErreurs(List<ErreurInfos> lstErreurs) {
     this.lstErreurs = lstErreurs;
   }
 
@@ -129,6 +138,35 @@ public class GestionnaireErreur implements Serializable {
    */
   public void supprimerErreurs() {
     this.lstErreurs.clear();
+  }
+
+  /**
+   * Méthode pour clonner un gestionnaire d'erreur
+   *
+   * @return le clone du gestionnaire d'erreur
+   * @throws CloneNotSupportedException si une erreur survient lors du clonage
+   */
+  @Override
+  public GestionnaireErreur clone() throws CloneNotSupportedException {
+    GestionnaireErreur clone = (GestionnaireErreur) super.clone();
+    List<ErreurInfos> lstErreursClone = new LinkedList<>();
+    for (ErreurInfos e : this.lstErreurs) {
+      lstErreursClone.add(e.clone());
+    }
+    clone.setLstErreurs(lstErreursClone);
+    return clone;
+  }
+
+  /**
+   * Méthode pour obtenir une représentation textuelle du gestionnaire d'erreur
+   *
+   * @return la représentation textuelle du gestionnaire d'erreur
+   */
+  @Override
+  public String toString() {
+    return "GestionnaireErreur{" +
+        "lstErreurs=" + lstErreurs.toString() +
+        '}';
   }
 
 }
