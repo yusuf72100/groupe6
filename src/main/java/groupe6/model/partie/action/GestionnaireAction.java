@@ -1,5 +1,6 @@
 package groupe6.model.partie.action;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.partie.puzzle.Puzzle;
 
@@ -106,22 +107,43 @@ public class GestionnaireAction implements Serializable,Cloneable {
 
   /**
    * Méthode qui permet d'annuler une action
+   *
+   * @return l'action annulée
    */
-  public void annulerAction() {
+  public Action annulerAction() {
+    if (Launcher.getVerbose() ) {
+      System.out.print("Annulation de l'action à l'index"+this.index);
+      if (this.index >= 0) {
+        System.out.println(" : "+ listeAction.get(index));
+      } else {
+        System.out.println();
+      }
+    }
+    Action action = null;
     if (index >= 0) {
-      listeAction.get(index).revoquerAction();
+      action = listeAction.get(index);
+      action.revoquerAction();
       index--;
     }
+    return action;
   }
 
   /**
    * Méthode qui permet de rétablir une action
+   *
+   * @return l'action rétablie
    */
-  public void retablirAction() {
+  public Action retablirAction() {
+    if (Launcher.getVerbose() ) {
+      System.out.println("Retablissement de l'action à l'index"+this.index+" : "+ listeAction.get(index + 1));
+    }
+    Action action = null;
     if (index < listeAction.size() - 1) {
       index++;
-      listeAction.get(index).appliquerAction();
+      action = listeAction.get(index);
+      action.appliquerAction();
     }
+    return action;
   }
 
   /**

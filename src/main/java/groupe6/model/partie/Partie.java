@@ -225,10 +225,48 @@ public class Partie {
 
   /**
    * Méthode pour completer automatiquement les croix d'une case au nombre de trait maximum
+   *
+   * @param action l'action effectuée par l'utilisateur
    */
-  public void autoCompletionCroix() {
-    // TODO
-    throw new UnsupportedOperationException("Not implemented yet");
+  public void autoCompletionCroix(Action action) {
+    Coordonnee coordsCell1 = action.getCoordsCellule1();
+    Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
+
+    Cellule cellule1 = puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
+    Cellule cellule2 = null;
+    if ( coordsCell2 != null ) {
+      cellule2 = puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
+    }
+
+    if ( cellule1.maxTrait() ) {
+      completerCroix(cellule1,coordsCell1);
+    }
+    if ( cellule2 != null && cellule2.maxTrait() ) {
+      completerCroix(cellule2,coordsCell2);
+    }
+
+  }
+
+  /**
+   * Méthode privée pour completer les croix d'une cellule si elle a atteint son nombre maximal de trait
+   *
+   * @param cellule la cellule à completer
+   * @param coordsCellule les coordonnées de la cellule
+   */
+  private void completerCroix(Cellule cellule, Coordonnee coordsCellule ) {
+    ValeurCote[] cotes = cellule.getCotes();
+    for (int i = 0; i < cotes.length; i++) {
+      if ( cotes[i] == ValeurCote.VIDE ) {
+        int y = coordsCellule.getY();
+        int x = coordsCellule.getX();
+        Cellule cellule1 = puzzle.getCellule(y,x);
+        Cellule cellule2 = puzzle.getCelluleAdjacente(y,x, i);
+
+        Action action = new Action(cellule1, cellule2, i, ValeurCote.CROIX, new Coordonnee(y,x));
+        gestionnaireAction.ajouterAction(action);
+        action.appliquerAction();
+      }
+    }
   }
 
   /**
@@ -244,15 +282,21 @@ public class Partie {
     Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getY());
     Cellule cellJeu1 = this.puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
 
+    System.out.println("Cellule 1 : "+cellSol1+" - "+cellJeu1 );
+
     boolean valide;
     if ( coordsCell2 != null ) {
       Cellule cellSol2 = this.puzzle.getCelluleSolution(coordsCell2.getY(),coordsCell2.getY());
       Cellule cellJeu2 = this.puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
       valide = cellSol1.equals(cellJeu1) && cellSol2.equals(cellJeu2);
+
+      System.out.println("Cellule 2 : "+cellSol2+" - "+cellJeu2);
+
     }
     else {
       valide = cellSol1.equals(cellJeu1);
     }
+    System.out.println("Action valide : "+valide);
 
     // Si une erreur existe deja sur ce cote de cellule, et que l'erreur a été corigé
     int idxErreurExistante = this.gestionnaireErreur.existe(action);
@@ -276,6 +320,20 @@ public class Partie {
   }
 
   /**
+   * Méthode qui execute les différents comportement qui doivent être effectués pour chaque action
+   *
+   * @param action l'action effectuée par l'utilisateur
+   */
+  public void pourChaqueAction(Action action) {
+    action.appliquerAction();
+    detectionErreur(action);
+    if ( this.profil.getParametre().getAideRemplissageCroix() ) {
+      autoCompletionCroix(action);
+    }
+    estTermine();
+  }
+
+  /**
    * Méthode pour effectuer une action de type bascule à trois états
    *
    * @param y la position en y de la cellule
@@ -291,11 +349,9 @@ public class Partie {
     if ( Launcher.getVerbose() ) {
       System.out.println("Nouvelle action bascule a trois etats :\n  - "+action);
     }
-
     gestionnaireAction.ajouterAction(action);
 
-    action.appliquerAction();
-    Boolean err = detectionErreur(action);
+    pourChaqueAction(action);
   }
 
   /**
@@ -312,8 +368,7 @@ public class Partie {
     Action action = new Action(cellule, cellule2, cote, ValeurCote.VIDE,new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
-    action.appliquerAction();
-    detectionErreur(action);
+    pourChaqueAction(action);
   }
 
   /**
@@ -330,8 +385,7 @@ public class Partie {
     Action action = new Action(cellule, cellule2, cote, ValeurCote.TRAIT,new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
-    action.appliquerAction();
-    detectionErreur(action);
+    pourChaqueAction(action);
   }
 
   /**
@@ -348,8 +402,7 @@ public class Partie {
     Action action = new Action(cellule, cellule2, cote, ValeurCote.CROIX, new Coordonnee(y, x));
     gestionnaireAction.ajouterAction(action);
 
-    action.appliquerAction();
-    detectionErreur(action);
+    pourChaqueAction(action);
   }
 
   /**
@@ -371,6 +424,10 @@ public class Partie {
       PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, true, gagnee);
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
+      if ( Launcher.getVerbose() ) {
+        System.out.println("Partie terminée !");
+      }
+
       return true;
     } else {
       return false;
@@ -381,14 +438,21 @@ public class Partie {
    * Méthode pour annuler la dernière action effectuée
    */
   public void undo() {
-    this.gestionnaireAction.annulerAction();
+    Action action = this.gestionnaireAction.annulerAction();
+    if ( action != null ) {
+      Action actionInverse = Action.inverserAction(action);
+      detectionErreur(actionInverse);
+    }
   }
 
   /**
    * Méthode pour rétablir la dernière action annulée
    */
   public void redo() {
-    this.gestionnaireAction.retablirAction();
+    Action action = this.gestionnaireAction.retablirAction();
+    if ( action != null ) {
+      detectionErreur(action);
+    }
   }
 
   /**

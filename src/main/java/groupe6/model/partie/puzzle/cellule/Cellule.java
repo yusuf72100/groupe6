@@ -2,6 +2,7 @@ package groupe6.model.partie.puzzle.cellule;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Classe Cellule qui permet de stocker les informations d'une cellule
@@ -246,4 +247,16 @@ public class Cellule implements Serializable, Cloneable {
     return new Cellule(this.valeur, nouveauxCotes);
   }
 
+  /**
+   * Méthode pour obtenir une représentation textuelle de la cellule
+   *
+   * @return la représentation textuelle de la cellule
+   */
+  @Override
+  public String toString() {
+    return "Cellule{" +
+        "valeur=" + valeur +
+        ", cotes=" + Arrays.toString(cotes) +
+        '}';
+  }
 }
