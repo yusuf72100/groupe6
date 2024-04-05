@@ -1,7 +1,9 @@
 package groupe6.tools.puzzleGenerator;
 
-import groupe6.model.partie.puzzle.DifficultePuzzle;
+import java.util.function.UnaryOperator;
+
 import groupe6.affichage.Menu;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -12,12 +14,12 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import java.util.function.UnaryOperator;
 
 public class MainMenu implements Menu {
 
     /**
      * Vérifie les valeurs entrées dans les textfields
+     * 
      * @param prompt TODO
      * @return TextField
      */
@@ -41,6 +43,7 @@ public class MainMenu implements Menu {
 
     /**
      * Méthode d'interface pour récupérer le menu
+     * 
      * @param args TODO
      * @return TODO
      * @param <T> TODO
@@ -90,15 +93,14 @@ public class MainMenu implements Menu {
             }
         });
 
-        charger.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        charger.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event){
+            public void handle(MouseEvent event) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Sélectionnez un fichier");
 
                 fileChooser.getExtensionFilters().add(
-                        new FileChooser.ExtensionFilter("Fichier PUZZLE", "*.puzzle")
-                );
+                        new FileChooser.ExtensionFilter("Fichier PUZZLE", "*.puzzle"));
 
                 java.io.File selectedFile = fileChooser.showOpenDialog(main.getStage());
 
