@@ -1,12 +1,10 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.DifficultePuzzle;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.util.Objects;
 
 public class Main extends Application {
     private static Scene scene;

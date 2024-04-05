@@ -1,8 +1,7 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.ValeurCote;
-import javafx.beans.binding.Bindings;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

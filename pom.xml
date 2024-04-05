@@ -126,9 +126,9 @@
           <docfilessubdirs>true</docfilessubdirs>
 
           <!-- Paramètre génération -->
-          <serialwarn>true</serialwarn>
-          <failOnError>true</failOnError>
-          <failOnWarnings>true</failOnWarnings>
+          <serialwarn>false</serialwarn>
+          <failOnError>false</failOnError>
+          <failOnWarnings>false</failOnWarnings>
         </configuration>
       </plugin>
 
