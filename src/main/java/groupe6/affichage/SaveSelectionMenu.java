@@ -1,24 +1,27 @@
 package groupe6.affichage;
 
+import java.util.List;
+
 import groupe6.launcher.Launcher;
-import groupe6.model.*;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
+import groupe6.model.partie.sauvegarde.PartieSauvegarde;
+import groupe6.model.profil.Profil;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-
-import java.util.List;
 
 public class SaveSelectionMenu extends MainMenu {
     private static Button backButton;
@@ -49,19 +52,19 @@ public class SaveSelectionMenu extends MainMenu {
         backButton = new Button();
         mainHbox = new HBox();
         mainPane = new StackPane();
-        buttonsContainer = new StackPane[lstSave.size()+10];
-        buttons = new Button[lstSave.size()+10];
-        descriptionText = new Label[lstSave.size()+10];
-        buttonsText = new Label[lstSave.size()+10];
+        buttonsContainer = new StackPane[lstSave.size() + 10];
+        buttons = new Button[lstSave.size() + 10];
+        descriptionText = new Label[lstSave.size() + 10];
+        buttonsText = new Label[lstSave.size() + 10];
 
         // animations
-        fadeTransition = new FadeTransition[lstSave.size()+10];
-        fadeTransitionReverse = new FadeTransition[lstSave.size()+10];
+        fadeTransition = new FadeTransition[lstSave.size() + 10];
+        fadeTransitionReverse = new FadeTransition[lstSave.size() + 10];
         profils = Launcher.catalogueProfils.getListeProfils();
 
         backText = new Label("RETOUR");
-        buttonTextsLabels = new String[lstSave.size()+10];
-        buttons = new Button[lstSave.size()+10];
+        buttonTextsLabels = new String[lstSave.size() + 10];
+        buttons = new Button[lstSave.size() + 10];
     }
 
     private static String extraireDifficulte(String data) {
@@ -82,13 +85,16 @@ public class SaveSelectionMenu extends MainMenu {
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         initMenu();
         for (int i = 0; i < lstSave.size() + 10; i++) {
-            if(i >= lstSave.size()) buttonTextsLabels[i] = "Rien";
-            else buttonTextsLabels[i] = lstSave.get(i);
+            if (i >= lstSave.size())
+                buttonTextsLabels[i] = "Rien";
+            else
+                buttonTextsLabels[i] = lstSave.get(i);
 
             buttons[i] = new Button();
             buttons[i].setMinSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
             buttons[i].setMaxSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
-            //buttons[i].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
+            // buttons[i].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth),
+            // Menu.toPourcentHeight(500.0, windowHeigth));
             buttons[i].getStyleClass().add("button-rounded");
 
             buttonsText[i] = new Label(buttonTextsLabels[i]);
@@ -106,13 +112,14 @@ public class SaveSelectionMenu extends MainMenu {
             descriptionText[i].getStyleClass().add("description-text");
             Menu.adaptTextSize(descriptionText[i], 18, windowWidth, windowHeigth);
 
-            //labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
+            // labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour
+            // déplacer le texte vers le bas
             buttonsContainer[i] = new StackPane();
             buttonsContainer[i].setAlignment(Pos.CENTER);
             buttonsContainer[i].getChildren().addAll(buttons[i], buttonsText[i], descriptionText[i]);
             buttonsContainer[i].setMaxHeight(buttons[i].getMaxHeight());
 
-            //translation text animation
+            // translation text animation
             fadeTransition[i] = new FadeTransition(Duration.seconds(0.3), descriptionText[i]);
             fadeTransition[i].setFromValue(0.0);
             fadeTransition[i].setToValue(1.0);
@@ -125,7 +132,8 @@ public class SaveSelectionMenu extends MainMenu {
             int finalI = i;
             buttonsContainer[i].setOnMouseEntered(e -> {
                 descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
-                if (finalI >= lstSave.size()) descriptionText[finalI].setText("Rien");
+                if (finalI >= lstSave.size())
+                    descriptionText[finalI].setText("Rien");
                 else {
                     String difficulte = extraireDifficulte(lstSave.get(finalI));
                     String taille = extraireTaille(lstSave.get(finalI));
@@ -137,15 +145,19 @@ public class SaveSelectionMenu extends MainMenu {
                 buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
+                        List<String> lstSave = CatalogueSauvegarde
+                                .listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
                         Main.showSaveSelectionMenu();
                         if (!lstSave.isEmpty()) {
                             String saveName;
-                            if(finalI >= lstSave.size()) saveName = "Rien";
-                            else saveName = lstSave.get(finalI);
+                            if (finalI >= lstSave.size())
+                                saveName = "Rien";
+                            else
+                                saveName = lstSave.get(finalI);
                             System.out.println("Chargement de la sauvegarde : " + saveName);
-                            PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
-                            Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
+                            PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,
+                                    Launcher.catalogueProfils.getProfilActuel());
+                            Partie partie = Partie.chargerPartie(save, Launcher.catalogueProfils.getProfilActuel());
                         } else {
                             System.out.println("Aucune sauvegarde trouvée");
                         }

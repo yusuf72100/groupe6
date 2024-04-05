@@ -1,12 +1,10 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.DifficultePuzzle;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.util.Objects;
 
 public class Main extends Application {
     private static Scene scene;
@@ -35,9 +33,9 @@ public class Main extends Application {
 
     /**
      * On affiche une toute nouvelle grille
-     * @param longueur
-     * @param largeur
-     * @param diff
+     * @param longueur TODO
+     * @param largeur TODO
+     * @param diff TODO
      */
     public static void showNewPuzzle(int largeur, int longueur, DifficultePuzzle diff) {
         grid = new GridMenu(largeur, longueur, diff);
@@ -46,7 +44,7 @@ public class Main extends Application {
 
     /**
      * On affiche le puzzle choisit avec le gestionnaire des fichiers
-     * @param selectedFile
+     * @param selectedFile TODO
      */
     public static void showLoadedPuzzle(java.io.File selectedFile) {
         grid = new GridMenu(1, 1, DifficultePuzzle.FACILE);             // on charge un puzzle de base

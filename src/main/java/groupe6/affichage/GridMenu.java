@@ -1,6 +1,10 @@
 package groupe6.affichage;
 
-import groupe6.model.*;
+import groupe6.launcher.Launcher;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.puzzle.cellule.Cellule;
+import groupe6.model.partie.puzzle.Puzzle;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,7 +62,9 @@ public class GridMenu implements Menu {
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
 
-        System.out.println(this.puzzle);
+        if ( Launcher.getVerbose() ) {
+            System.out.println("Puzzle au lancement :\n"+this.puzzle);
+        }
     }
 
     private Button initHeaderButton(String style, String hoverText) {
@@ -106,11 +112,15 @@ public class GridMenu implements Menu {
 
         /**
          * Execute l'action demandée sur le bouton
-         * @param event
+         * @param event TODO
          */
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Button clicked at (" + i + ", " + j + ")");
+
+            if ( Launcher.getVerbose() ) {
+                System.out.println("Bouton cliqué en (" + i + ", " + j + ")");
+            }
+
             Button clickedButton = (Button) event.getSource();
             Partie partie = GridMenu.this.getPartie();
 
@@ -136,15 +146,17 @@ public class GridMenu implements Menu {
             partie.actionBasculeTroisEtat(i,j,cote);
 
             updateAffichage();
-            System.out.println(puzzle);
+            if ( Launcher.getVerbose() ) {
+                System.out.println("Puzzle après action bascule trois etat :\n"+puzzle);
+            }
         }
     }
 
     /**
      * Méthode d'interface pour récupérer le menu
-     * @param args
-     * @return
-     * @param <T>
+     * @param args TODO
+     * @return TODO
+     * @param <T> TODO
      */
     public <T> AnchorPane getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -153,7 +165,9 @@ public class GridMenu implements Menu {
             public void handle(MouseEvent event){
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
-                System.out.println(partie.getGestionnaireAction());
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Gestionnaire d'action lors de la sauvegarde :\n"+partie.getGestionnaireAction());
+                }
             }
         });
 
@@ -217,7 +231,10 @@ public class GridMenu implements Menu {
 
         afficher((boolean) args[0]);
 
-        System.out.println(compteur + " bars counted");
+        if ( Launcher.getVerbose() ) {
+            System.out.println("Compteurs de barres : "+compteur);
+        }
+
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
@@ -239,8 +256,8 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise les données de l'affichage et le stockage du puzzle
-     * @param l
-     * @param L
+     * @param l TODO
+     * @param L TODO
      */
     private void initCellules(int l, int L) {
         this.celluleNodes = new CelluleNode[l][L];
@@ -256,7 +273,7 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise un nouveau puzzle
-     * @param path
+     * @param path TODO
      */
     public void initNewPuzzle(String path) {
         this.puzzle = Puzzle.chargerPuzzle(path);
@@ -291,7 +308,7 @@ public class GridMenu implements Menu {
 
     /**
      * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
-     * @param nouveau
+     * @param nouveau TODO
      */
     private void afficher(boolean nouveau) {
         // Colonnes
@@ -374,8 +391,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation d'entrée sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseEntered(FadeTransition fade, Button button) {
         fade.setRate(1);
@@ -385,8 +402,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation de sortie sur le bouton souhaité
-     * @param fade
-     * @param button
+     * @param fade TODO
+     * @param button TODO
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);

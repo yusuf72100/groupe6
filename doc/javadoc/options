@@ -1,0 +1,27 @@
+--class-path
+'C:/Users/yamis/.m2/repository/org/openjfx/javafx-controls/17.0.10/javafx-controls-17.0.10.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-fxml/17.0.10/javafx-fxml-17.0.10.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-graphics/17.0.10/javafx-graphics-17.0.10.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-base/17.0.10/javafx-base-17.0.10.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-media/17.0.10/javafx-media-17.0.10.jar'
+--module-path
+'C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/yamis/groupe6/target/classes;C:/Users/yamis/.m2/repository/org/openjfx/javafx-fxml/17.0.10/javafx-fxml-17.0.10-win.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-controls/17.0.10/javafx-controls-17.0.10-win.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-graphics/17.0.10/javafx-graphics-17.0.10-win.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-media/17.0.10/javafx-media-17.0.10-win.jar;C:/Users/yamis/.m2/repository/org/openjfx/javafx-base/17.0.10/javafx-base-17.0.10-win.jar'
+--patch-module
+Slitherlink='C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/yamis/groupe6/src/main/java'
+-encoding
+'UTF-8'
+-private
+--module-source-path
+'C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/yamis/groupe6/doc/javadoc/src'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/yamis/groupe6/doc/javadoc'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'groupe6 1.0'
+-use
+-version
+-windowtitle
+'groupe6'

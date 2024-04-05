@@ -1,14 +1,13 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.*;
+import groupe6.model.partie.Partie;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -17,8 +16,8 @@ public class Main extends Application {
 
     /**
      * Programme principal jfx
-     * @param primary
-     * @throws IOException
+     * @param primary TODO
+     * @throws IOException TODO
      */
     @Override
     public void start(Stage primary) throws IOException {

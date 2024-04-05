@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"org.groupe6.slitherlink"}];updateSearchResults();

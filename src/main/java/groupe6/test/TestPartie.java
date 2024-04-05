@@ -1,6 +1,13 @@
 package groupe6.test;
 
-import groupe6.model.*;
+import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
+import groupe6.model.partie.ModeJeu;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.sauvegarde.PartieSauvegarde;
+import groupe6.model.profil.CatalogueProfil;
+import groupe6.model.partie.puzzle.CataloguePuzzle;
+import groupe6.model.partie.puzzle.cellule.Cellule;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 
 import java.util.List;
 
@@ -34,7 +41,7 @@ public class TestPartie {
     System.out.println("-----------------------------");
 
     // Bascule 3 etats case 0 0
-    partie.actionBasculeTroisEtat(0,0,Cellule.BAS);
+    partie.actionBasculeTroisEtat(0,0, Cellule.BAS);
 
     // Afiichage de la partie
     System.out.println(partie.getPuzzle());

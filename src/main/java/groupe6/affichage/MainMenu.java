@@ -1,8 +1,14 @@
 package groupe6.affichage;
 
+import java.util.List;
+
 import groupe6.launcher.Launcher;
-import groupe6.model.*;
-import javafx.animation.*;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
+import groupe6.model.partie.sauvegarde.PartieSauvegarde;
+import groupe6.model.profil.Profil;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +24,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-
-import java.util.List;
 
 public class MainMenu implements Menu {
     protected static Button backButton;
@@ -45,7 +49,7 @@ public class MainMenu implements Menu {
 
     public static void initMenu() {
         backText = new Label("QUITTER");
-        buttonTextsLabels = new String[]{"CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT"};
+        buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
         title = new Text("Slitherlink");
         backButton = new Button();
         profilSelector = new ComboBox<>();
@@ -71,9 +75,9 @@ public class MainMenu implements Menu {
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeigth));
 
-        mainHbox.setSpacing(200);       // espacement entre les éléments
+        mainHbox.setSpacing(200); // espacement entre les éléments
 
-        if (profils != null){
+        if (profils != null) {
             for (Profil p : profils) {
                 profilSelector.getItems().add(p.getNom());
             }
@@ -87,8 +91,10 @@ public class MainMenu implements Menu {
         profilSelector.getStyleClass().add("combo-box");
 
         // Header
+
         profilSelector.setButtonCell(new ListCell<String>() {
             private final ImageView imageView = new ImageView();
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -97,8 +103,13 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
-                    System.out.println("Chemin image profil : " + cheminImageAvatar);
+                    String cheminImageAvatar = Launcher
+                            .normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
+
+                    if (Launcher.getVerbose()) {
+                        System.out.println("Chemin image profil : " + cheminImageAvatar);
+                    }
+
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     imageView.setFitWidth(50);
                     imageView.setFitHeight(50);
@@ -110,6 +121,7 @@ public class MainMenu implements Menu {
         // Elements
         profilSelector.setCellFactory(param -> new ListCell<String>() {
             private final ImageView imageView = new ImageView();
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -118,7 +130,8 @@ public class MainMenu implements Menu {
                     setGraphic(null);
                 } else {
                     setText(item);
-                    String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
+                    String cheminImageAvatar = Launcher
+                            .normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
                     System.out.println(cheminImageAvatar);
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     imageView.setFitWidth(50);
@@ -132,7 +145,8 @@ public class MainMenu implements Menu {
             int finalI = i;
 
             buttons[finalI] = new Button();
-            buttons[finalI].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
+            buttons[finalI].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth),
+                    Menu.toPourcentHeight(500.0, windowHeigth));
             buttons[finalI].getStyleClass().add("button-rounded");
 
             buttonsText[finalI] = new Label(buttonTextsLabels[finalI]);
@@ -143,7 +157,8 @@ public class MainMenu implements Menu {
             Menu.adaptTextSize(buttonsText[finalI], 35, windowWidth, windowHeigth);
 
             descriptionsBackground[finalI] = new HBox();
-            descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(), Menu.toPourcentHeight(100.0, windowHeigth));
+            descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(),
+                    Menu.toPourcentHeight(100.0, windowHeigth));
             descriptionsBackground[finalI].setStyle("-fx-background-color: transparent;");
             descriptionsBackground[finalI].setTranslateY(1);
             StackPane.setAlignment(descriptionsBackground[finalI], Pos.BOTTOM_CENTER);
@@ -156,13 +171,16 @@ public class MainMenu implements Menu {
             descriptionText[finalI].getStyleClass().add("description-text");
             Menu.adaptTextSize(descriptionText[finalI], 18, windowWidth, windowHeigth);
 
-            //labels[finalI].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour déplacer le texte vers le bas
+            // labels[finalI].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour
+            // déplacer le texte vers le bas
             buttonsContainer[finalI] = new StackPane();
             buttonsContainer[finalI].setAlignment(Pos.CENTER);
-            buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI], descriptionsBackground[finalI], descriptionText[finalI]);
+            buttonsContainer[finalI].getChildren().addAll(buttons[finalI], buttonsText[finalI],
+                    descriptionsBackground[finalI], descriptionText[finalI]);
 
-            //translation text animation
-            clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(), Menu.toPourcentHeight(100.0, windowHeigth));
+            // translation text animation
+            clipRectangle[finalI] = new Rectangle(buttons[finalI].getPrefWidth(),
+                    Menu.toPourcentHeight(100.0, windowHeigth));
             descriptionsBackground[finalI].getStyleClass().add("description-background");
             descriptionsBackground[finalI].setClip(clipRectangle[finalI]);
             descriptionsBackground[finalI].setFocusTraversable(false);
@@ -190,17 +208,20 @@ public class MainMenu implements Menu {
 
                 switch (finalI) {
                     // bouton charger une partie
-                    case 0 :
+                    case 0:
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                List<String> lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
+                                List<String> lstSave = CatalogueSauvegarde
+                                        .listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
                                 Main.showSaveSelectionMenu();
                                 if (!lstSave.isEmpty()) {
                                     String saveName = lstSave.get(0);
                                     System.out.println("Chargement de la sauvegarde : " + saveName);
-                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,Launcher.catalogueProfils.getProfilActuel());
-                                    Partie partie = Partie.chargerPartie(save,Launcher.catalogueProfils.getProfilActuel());
+                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,
+                                            Launcher.catalogueProfils.getProfilActuel());
+                                    Partie partie = Partie.chargerPartie(save,
+                                            Launcher.catalogueProfils.getProfilActuel());
                                 } else {
                                     System.out.println("Aucune sauvegarde trouvée");
                                 }
@@ -209,7 +230,7 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Charger une partie existante");
                         break;
-                    case 1 :
+                    case 1:
                         // bouton nouvelle partie
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -219,8 +240,12 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Choisissez un mode de jeu");
                         break;
-                    case 2 : descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu"); break;
-                    default : descriptionText[finalI].setText("Placeholder #" + finalI); break;
+                    case 2:
+                        descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
+                        break;
+                    default:
+                        descriptionText[finalI].setText("Placeholder #" + finalI);
+                        break;
                 }
 
                 descriptionsBackground[finalI].setStyle("-fx-background-color: gray;");
@@ -236,7 +261,8 @@ public class MainMenu implements Menu {
                 fadeTransitionReverse[finalI].play();
             });
 
-            buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(), buttons[finalI].getPrefHeight());
+            buttonsContainer[finalI].setMaxSize(buttonsContainer[finalI].getPrefWidth(),
+                    buttons[finalI].getPrefHeight());
         }
 
         backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeigth));
@@ -260,7 +286,8 @@ public class MainMenu implements Menu {
         mainHbox.getChildren().addAll(buttonsContainer);
         mainPane.setAlignment(Pos.CENTER);
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
-        mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox, profilSelector, backButton, backText);
+        mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
+                profilSelector, backButton, backText);
         StackPane.setAlignment(title, Pos.TOP_CENTER);
 
         return mainPane;
