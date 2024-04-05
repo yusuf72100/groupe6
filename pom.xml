@@ -6,17 +6,19 @@
 
   <groupId>groupe6</groupId>
   <artifactId>Gr6</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>groupe6</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.10.0</junit.version>
     <javafx.version>17.0.10</javafx.version>
+    <start-class>groupe6.launcher.Launcher</start-class>
   </properties>
 
   <dependencies>
-    <!-- JavaFx -->
+
+    <!-- Dependance JavaFx -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -43,7 +45,7 @@
       <version>${javafx.version}</version>
     </dependency>
 
-    <!-- Adding all the platform libs only adds a couple more MB -->
+    <!-- Ajout des libraries pour les différentes plateformes -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-graphics</artifactId>
@@ -63,35 +65,45 @@
       <classifier>linux</classifier>
     </dependency>
 
-    <!-- Test -->
+    <!-- Dependance JUnit pour les tests -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
+
   </dependencies>
 
   <build>
     <finalName>Gr6</finalName>
     <defaultGoal>clean install</defaultGoal>
+
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <redirectTestOutputToFile>false</redirectTestOutputToFile>
+          <argLine>-Djunit.jupiter.extensions.autodetection.enabled=true</argLine>
+        </configuration>
+      </plugin>
+
+      <!-- Plugin Maven Compilation -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
+        <!-- Compilation avec java 16 -->
         <configuration>
           <source>16</source>
           <target>16</target>
         </configuration>
       </plugin>
 
+      <!-- Plugin Maven JavaDoc -->
       <plugin>
         <!-- Création de la doc -->
         <groupId>org.apache.maven.plugins</groupId>
@@ -120,6 +132,7 @@
         </configuration>
       </plugin>
 
+      <!-- Plugin Maven JavaFX -->
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
@@ -129,7 +142,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>groupe6.launcher.Launcher</mainClass>
+              <mainClass>${start-class}</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
@@ -141,6 +154,7 @@
         </executions>
       </plugin>
 
+      <!-- Plugin Maven Spring Boot -->
       <plugin>
         <!-- Remise en forme du .jar -->
         <groupId>org.springframework.boot</groupId>
@@ -158,6 +172,9 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
+
   </build>
+
 </project>
