@@ -20,6 +20,7 @@ public class CelluleNode extends Node {
     private Label centerTextField;
     private int label;
     private ValeurCote[] cotes;
+    private StackPane cellulePane;
 
     public CelluleNode(int label, ValeurCote[] cotes) {
         // récupération du label qui correspond à la valeur numérique de la cellule

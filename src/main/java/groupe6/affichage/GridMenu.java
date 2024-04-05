@@ -10,6 +10,7 @@ import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class GridMenu implements Menu {
@@ -32,6 +34,7 @@ public class GridMenu implements Menu {
     private Button help;
     private HBox layout_v;
     private GridPane gridPane;
+    private GridPane gridPaneAide;
     private StackPane container;
     private CelluleNode[][] celluleNodes;
     private Cellule[][] cellulesData;
@@ -41,6 +44,7 @@ public class GridMenu implements Menu {
     private Label buttonHoverLabel;
     private int longueur;
     private int largeur;
+    private Rectangle[][] rectangle;
 
     public GridMenu(Partie partie){
         this.compteur = 0;
@@ -58,9 +62,16 @@ public class GridMenu implements Menu {
 
         this.partie = partie;
         this.gridPane = new GridPane();
-        this.container = new StackPane(gridPane);
+        this.gridPaneAide = new GridPane();
+        this.gridPaneAide.setFocusTraversable(false);
+        this.gridPaneAide.setMouseTransparent(true);
+        this.gridPaneAide.setHgap(0);
+        this.gridPaneAide.setVgap(0);
+        this.gridPaneAide.setPadding(new Insets(0));
+        this.container = new StackPane(gridPane, gridPaneAide);
         this.longueur = partie.getPuzzle().getLongueur();
         this.largeur = partie.getPuzzle().getLargeur();
+        this.rectangle = new Rectangle[largeur][longueur];
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
 
@@ -77,8 +88,20 @@ public class GridMenu implements Menu {
      * @param color la couleur à appliquer ( format css )
      */
     public void highlightCellule(int y, int x, String color) {
-        this.celluleNodes[y][x].getCenterPane().setStyle("-fx-background-color: "+color+";");
+        this.rectangle[x][y].setVisible(true);
+
+        //this.celluleNodes[y][x].getCenterPane().setStyle("-fx-background-color: "+color+";");
+        /*double celluleWidth = this.celluleNodes[x][y].getCenterPane().getWidth();
+        double celluleHeight = this.celluleNodes[x][y].getCenterPane().getHeight();
+        double celluleX = this.celluleNodes[x][y].getCenterPane().getLayoutX();
+        double celluleY = this.celluleNodes[x][y].getCenterPane().getLayoutY();
+
+        System.out.println("\n\n x : " + celluleX + "\n y : " + celluleY + "\n color : " + color);
+
+        this.rectangle[y][x].setTranslateX(celluleX);
+        this.rectangle[y][x].setTranslateY(celluleY);*/
     }
+
 
     private Button initHeaderButton(String style, String hoverText) {
         Button button = new Button();
@@ -323,8 +346,10 @@ public class GridMenu implements Menu {
         }
 
         gridPane.setAlignment(Pos.CENTER);
+        gridPaneAide.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
+        gridPaneAide.getStyleClass().addAll("button-square");
 
         HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
@@ -353,7 +378,7 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 / this.longueur);
             }
         }
     }
@@ -464,6 +489,19 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
+            }
+        }
+
+        for (int i = 0; i < this.celluleNodes.length; i++) {
+            for (int j = 0; j < this.celluleNodes[i].length; j++) {
+                // rectangle d'aide
+                this.rectangle[i][j] = new Rectangle();
+                this.rectangle[i][j].setWidth((600.0 / this.largeur));
+                this.rectangle[i][j].setHeight((600.0 / this.longueur));
+                this.rectangle[i][j].setFocusTraversable(false);
+                this.rectangle[i][j].setMouseTransparent(true);
+                this.rectangle[i][j].setVisible(false);
+                this.gridPaneAide.add(this.rectangle[i][j], i, j);
             }
         }
     }
