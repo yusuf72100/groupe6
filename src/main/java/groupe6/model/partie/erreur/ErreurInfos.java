@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Yamis
  */
-public class ErreurInfos implements Serializable {
+public class ErreurInfos implements Serializable, Cloneable {
 
   /**
    * Numéro de version de la sérialisation
@@ -104,5 +104,21 @@ public class ErreurInfos implements Serializable {
         ", coteCell1=" + coteCell1 +
         ", indexAction=" + indexAction +
         '}';
+  }
+
+  /**
+   * Méthode pour cloner une erreur
+   *
+   * @return la copie de l'erreur
+   * @throws CloneNotSupportedException si la copie de l'erreur n'est pas supportée
+   */
+  @Override
+  public ErreurInfos clone() throws CloneNotSupportedException {
+    return new ErreurInfos(
+        this.coordonneeCell1.clone(),
+        this.coordonneeCell2 == null ? null : this.coordonneeCell2.clone(),
+        this.coteCell1,
+        this.indexAction
+    );
   }
 }

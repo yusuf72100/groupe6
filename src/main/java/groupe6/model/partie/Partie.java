@@ -19,10 +19,7 @@ import groupe6.model.partie.sauvegarde.PartieSauvegarde;
 import groupe6.model.profil.Profil;
 import groupe6.model.technique.GestionnaireTechnique;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -60,7 +57,7 @@ public class Partie {
   /**
    * Le gestionnaire des erreurs commises par l'utilisateur dans la partie
    */
-  private final GestionnaireErreur gestionnaireErreur;
+  private GestionnaireErreur gestionnaireErreur;
 
   /**
    * Le profil de l'utilisateur qui joue la partie
@@ -178,6 +175,19 @@ public class Partie {
       }
 
       Set<Coordonnee> coordsCasesErrone  = this.getGestionnaireAction().getCoordsActionApresErreur(premiereErreur.getIndexAction());
+
+      Iterator<Coordonnee> iterator = coordsCasesErrone.iterator();
+      while (iterator.hasNext()) {
+        Coordonnee coordCE = iterator.next();
+        for (Coordonnee coordPE : setPremiereErreur) {
+          if (coordCE.equals(coordPE)) {
+            iterator.remove(); // Utilisation de l'itérateur pour supprimer l'élément
+          }
+        }
+      }
+
+      System.out.println("Set premiere erreur : "+setPremiereErreur);
+      System.out.println("Set erreurs suivantes : "+coordsCasesErrone);
 
       return new ResultatVerificationErreur(true, setPremiereErreur, coordsCasesErrone);
     }
@@ -392,14 +402,23 @@ public class Partie {
   }
 
   /**
+   * Méthode pour obtenir l'hypothèse en cours
+   *
+   * @return l'hypothèse en cours
+   */
+  public Hypothese getHypothese() {
+    return hypothese;
+  }
+
+  /**
    * Méthode pour activer le mode hypothèse
    */
   public void activerHypothese() {
-    Puzzle puzzleClone = null;
     try {
-      puzzleClone = (Puzzle) puzzle.clone();
+      Puzzle puzzleClone = (Puzzle) puzzle.clone();
       GestionnaireAction gestionnaireActionClone = gestionnaireAction.clone(puzzleClone);
-      this.hypothese = new Hypothese(puzzleClone, gestionnaireActionClone);
+      GestionnaireErreur gestionnaireErreurClone = gestionnaireErreur.clone();
+      this.hypothese = new Hypothese(puzzleClone, gestionnaireActionClone, gestionnaireErreurClone);
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);
     }
@@ -412,13 +431,14 @@ public class Partie {
   public void validerHypothese(){
     this.puzzle = hypothese.getPuzzle();
     this.gestionnaireAction = hypothese.getGestionnaireAction();
+    this.gestionnaireErreur = hypothese.getGestionnaireErreur();
   }
 
   /**
    * Méthode pour annuler son hypothèse
    */
   public void annulerHypothese(){
-    this.hypothese=null;
+    this.hypothese = null;
   }
 
   /**

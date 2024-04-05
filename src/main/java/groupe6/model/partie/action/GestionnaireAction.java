@@ -194,7 +194,9 @@ public class GestionnaireAction implements Serializable,Cloneable {
       Coordonnee coordsCell1 = action.getCoordsCellule1();
       Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
       setCoords.add(coordsCell1);
-      setCoords.add(coordsCell2);
+      if ( coordsCell2 != null ) {
+        setCoords.add(coordsCell2);
+      }
     }
     return setCoords;
   }

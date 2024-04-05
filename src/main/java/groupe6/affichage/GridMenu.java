@@ -2,6 +2,8 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
+import groupe6.model.partie.erreur.ResultatVerificationErreur;
+import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
@@ -65,6 +67,17 @@ public class GridMenu implements Menu {
         if ( Launcher.getVerbose() ) {
             System.out.println("Puzzle au lancement :\n"+this.puzzle);
         }
+    }
+
+    /**
+     * Méthode qui change la couleur du fond d'une cellule
+     *
+     * @param x la position x de la cellule
+     * @param y la position y de la cellule
+     * @param color la couleur à appliquer ( format css )
+     */
+    public void highlightCellule(int y, int x, String color) {
+        this.celluleNodes[y][x].getCenterPane().setStyle("-fx-background-color: "+color+";");
     }
 
     private Button initHeaderButton(String style, String hoverText) {
@@ -163,11 +176,14 @@ public class GridMenu implements Menu {
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+                if (Launcher.getVerbose()) {
+                    System.out.println("Sauvegarde de la partie en cours");
+                }
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
-                if ( Launcher.getVerbose() ) {
-                    System.out.println("Gestionnaire d'action lors de la sauvegarde :\n"+partie.getGestionnaireAction());
-                }
+
+                // Debug
+                System.out.println("Gestionnaire d'action lors de la sauvegarde :\n"+partie.getGestionnaireAction());
             }
         });
 
@@ -175,6 +191,9 @@ public class GridMenu implements Menu {
         undo.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Undo");
+                }
                 partie.undo();
                 updateAffichage();
             }
@@ -184,6 +203,9 @@ public class GridMenu implements Menu {
         redo.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Redo");
+                }
                 partie.redo();
                 updateAffichage();
             }
@@ -193,7 +215,8 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Demander de l'aide
+                partie.chercherAide();
+                // TODO : Update l'affichage de l'historique d'aide
             }
         });
 
@@ -202,6 +225,45 @@ public class GridMenu implements Menu {
             @Override
             public void handle(MouseEvent event){
                 // TODO : Activer la vérification
+                ResultatVerificationErreur resultat = partie.verifierErreur();
+                System.out.println("Résultat de la vérification : "+resultat);
+                System.out.println(partie.getGestionnaireErreur());
+                if ( resultat.isErreurTrouvee() ) {
+                    for (Coordonnee coords : resultat.getPremiereErreur() ) {
+                        // TODO : Mettre en rouge les cellules au coordonnées coords
+                        System.out.println("Première erreur : "+coords);
+                        highlightCellule(coords.getY(), coords.getX(), "red");
+                    }
+                    for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
+                        // TODO : Mettre en orange les cellules au coordonnées coords
+                        System.out.println("Erreur suivante : "+coords);
+                        highlightCellule(coords.getY(), coords.getX(), "orange");
+                    }
+
+                    // TODO : Afficher pop up 2 btn ("oui","non") et
+                    //      message "Les cellules en rouge et orange seront modifier si vous acceptez la correction.\n
+                    //      Acceptez de revenir sur la première erreur trouvée ?"
+
+                    boolean accepteCorrection = false;
+                    if ( accepteCorrection ) {
+                        partie.corrigerErreur();
+                    }
+
+                    for (Coordonnee coords : resultat.getPremiereErreur() ) {
+                        // TODO : Enleve la couleurs rouge sur les cellules au coordonnées coords
+//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                    }
+                    for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
+                        // TODO : Enleve la couleurs orange sur les cellules au coordonnées coords
+//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                    }
+
+                    // TODO : Enlever des points meme si il n'accepte pas la correction
+                }
+                else {
+                    // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
+                    // TODO : Ne pas enlever de points
+                }
             }
         });
 
@@ -210,6 +272,30 @@ public class GridMenu implements Menu {
             @Override
             public void handle(MouseEvent event){
                 // TODO : Activer le mode hypothèse
+                if ( partie.getHypothese() == null ) {
+                    partie.activerHypothese();
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Activation du mode hypothèse");
+                    }
+                }
+                else {
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Désactivation du mode hypothèse");
+                    }
+                    // TODO : Affiche pop up 2 btn ("oui","non") et message "Voulez-vous valider l'hypothèse ?"
+
+                    boolean validerHypothese = false;
+                    if ( validerHypothese ) {
+                        partie.validerHypothese();
+                        System.out.println("Validation de l'hypothèse");
+                    }
+                    else {
+                        partie.annulerHypothese();
+                        System.out.println("Annulation de l'hypothèse");
+                    }
+                }
+
+
             }
         });
 
@@ -217,7 +303,8 @@ public class GridMenu implements Menu {
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Bloquer l'écran du joueur
+                partie.pause();
+                // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
             }
         });
 
