@@ -496,8 +496,8 @@ public class GridMenu implements Menu {
             for (int j = 0; j < this.celluleNodes[i].length; j++) {
                 // rectangle d'aide
                 this.rectangle[i][j] = new Rectangle();
-                this.rectangle[i][j].setWidth((600.0 / this.largeur));
-                this.rectangle[i][j].setHeight((600.0 / this.longueur));
+                this.rectangle[i][j].setWidth((555.0 / this.largeur));
+                this.rectangle[i][j].setHeight((555.0 / this.longueur));
                 this.rectangle[i][j].setFocusTraversable(false);
                 this.rectangle[i][j].setMouseTransparent(true);
                 this.rectangle[i][j].setVisible(false);
