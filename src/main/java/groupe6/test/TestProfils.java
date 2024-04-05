@@ -1,7 +1,7 @@
 package groupe6.test;
 
-import groupe6.model.CatalogueProfil;
-import groupe6.model.Profil;
+import groupe6.model.profil.CatalogueProfil;
+import groupe6.model.profil.Profil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

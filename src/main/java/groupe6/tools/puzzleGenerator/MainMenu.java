@@ -1,6 +1,6 @@
 package groupe6.tools.puzzleGenerator;
 
-import groupe6.model.DifficultePuzzle;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.affichage.Menu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

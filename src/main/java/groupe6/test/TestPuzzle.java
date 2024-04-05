@@ -1,7 +1,7 @@
 package groupe6.test;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.Puzzle;
+import groupe6.model.partie.puzzle.Puzzle;
 
 /**
  * Classe de test pour les puzzles

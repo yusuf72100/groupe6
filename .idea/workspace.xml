@@ -10,13 +10,241 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc791db-09c4-4d9d-9128-6f960c1dd097" name="Changes" comment="Display update">
-      <change afterPath="$PROJECT_DIR$/src/test/java/groupe6/CouleursANSI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/groupe6/ModelTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/groupe6/VerifierTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/groupe6/model/TestCellule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/groupe6/model/TestPuzzle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/entrainement/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/action/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/aide/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/erreur/ResultatVerificationErreur.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/erreur/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/info/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/cellule/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/sauvegarde/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/profil/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_2_2024_6_17_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_3_2024_5_58_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_3_2024_5_58_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/CelluleNode.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/GameModeSelectionMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/GridMenu.CelluleButtonEventHandler.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/GridMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/MainMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/Menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/SaveSelectionMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/CelluleNode.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/GameModeSelectionMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/GridMenu.CelluleButtonEventHandler.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/GridMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/MainMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/Menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/class-use/SaveSelectionMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/affichage/package-use.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/FenetreMauvaisDossier.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/Launcher.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/class-use/FenetreMauvaisDossier.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/class-use/Launcher.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/launcher/package-use.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Action.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/AideInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/CatalogueEntrainement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/CatalogueProfil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/CataloguePuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/CatalogueSauvegarde.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Cellule.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Chronometre.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Coordonnee.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/DifficultePuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/DifficulteTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Direction.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Entrainement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/ErreurInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/GestionnaireAction.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/GestionnaireErreur.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/GestionnaireTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Glossaire.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Historique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/HistoriqueAides.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Hypothese.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/ModeJeu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Parametre.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Partie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/PartieFinieInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/PartieInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/PartieSauvegarde.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Profil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Puzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/ResultatTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/Technique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/TechniqueInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/ValeurCote.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Action.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/AideInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/CatalogueEntrainement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/CatalogueProfil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/CataloguePuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/CatalogueSauvegarde.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Cellule.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Chronometre.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Coordonnee.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/DifficultePuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/DifficulteTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Direction.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Entrainement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/ErreurInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/GestionnaireAction.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/GestionnaireErreur.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/GestionnaireTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Glossaire.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Historique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/HistoriqueAides.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Hypothese.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/ModeJeu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Parametre.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Partie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/PartieFinieInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/PartieInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/PartieSauvegarde.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Profil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Puzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/ResultatTechnique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/Technique.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/TechniqueInfos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/class-use/ValeurCote.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/model/package-use.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/TestMain.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/TestPartie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/TestProfils.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/TestPuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/class-use/TestMain.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/class-use/TestPartie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/class-use/TestProfils.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/class-use/TestPuzzle.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/test/package-use.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/CelluleNode.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/GridMenu.CelluleButtonEventHandler.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/GridMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/Launcher.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/MainMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/CelluleNode.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/GridMenu.CelluleButtonEventHandler.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/GridMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/Launcher.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/class-use/MainMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/groupe6/tools/puzzleGenerator/package-use.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/Slitherlink/module-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/argfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/constant-values.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/index-all.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/javadoc.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/jquery-ui.overrides.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/module-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/options" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/packages" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/resources/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/resources/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_glass_55_fbf9ee_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_glass_65_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_glass_75_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_glass_75_e6e6e6_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_glass_95_fef1ec_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-bg_highlight-soft_75_cccccc_1x100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-icons_222222_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-icons_2e83ff_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-icons_454545_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-icons_888888_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/images/ui-icons_cd0a0a_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/jquery-3.5.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script-dir/jquery-ui.structure.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/serialized-form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/tag-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/javadoc/type-search-index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/CelluleNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GameModeSelectionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/affichage/SaveSelectionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/launcher/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/action/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/AideInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/aide/AideInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueEntrainement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/entrainement/CatalogueEntrainement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/profil/CatalogueProfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CataloguePuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/CataloguePuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/CatalogueSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/sauvegarde/CatalogueSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Cellule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/cellule/Cellule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/Chronometre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Coordonnee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/Coordonnee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficultePuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/DifficultePuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/DifficulteTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/DifficulteTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Entrainement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/entrainement/Entrainement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ErreurInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/erreur/ErreurInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/action/GestionnaireAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireErreur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/erreur/GestionnaireErreur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/GestionnaireTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/GestionnaireTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Glossaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/Glossaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Historique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/profil/Historique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/HistoriqueAides.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/aide/HistoriqueAides.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Hypothese.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/Hypothese.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ModeJeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/ModeJeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/profil/Parametre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieFinieInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/info/PartieFinieInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/info/PartieInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/PartieSauvegarde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/sauvegarde/PartieSauvegarde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Profil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/profil/Profil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/Puzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ResultatTechnique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/ResultatTechnique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/Technique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/Technique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/TechniqueInfos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/technique/TechniqueInfos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/ValeurCote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/partie/puzzle/cellule/ValeurCote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/model/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/model/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPartie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPartie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestProfils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/test/TestPuzzle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/GridMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/groupe6/tools/puzzleGenerator/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/profilActuel.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/avatard-50x50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/logo 2019 png.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/saves/notEmpty.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/profils/utilisateur/utilisateur.profil" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ressources/puzzles/FACILE_6x6.puzzle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/groupe6/model/TestCellule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/groupe6/model/partie/puzzle/cellule/TestCellule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/groupe6/model/TestPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/groupe6/model/partie/puzzle/TestPuzzle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +255,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="package-info" />
         <option value="Class" />
+        <option value="package-info" />
       </list>
     </option>
   </component>
@@ -112,11 +340,11 @@
     "Shell Script.mvnw.executor": "Run",
     "app.teamhub.trackedBranches": "-1gl2qhp/Yusuf,-1gl2qhp/main",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Yamis",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-16",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Yusuf/Desktop/Bazard/minlaunched_themes",
+    "last_opened_file_path": "C:/Users/yamis/Documents/Document_Perso/projet_scolaire/projet_slitherlink/project/yamis/groupe6/src/main/resources/ressources/puzzles",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,23 +353,28 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.5385501",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "settings.editor.selected.configurable": "editing.templates",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\yamis\groupe6\src\main\resources\ressources\puzzles" />
       <recent name="$PROJECT_DIR$/src/main/resources/ressources/puzzles" />
       <recent name="$PROJECT_DIR$/target/classes/ressources/puzzles" />
       <recent name="$PROJECT_DIR$/target/Slitherlink/puzzles" />
       <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\profils\yamis\saves" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\yamis\groupe6\src\main\resources\ressources\profils\utilisateur\saves" />
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\yamis\groupe6\src\main\resources\ressources" />
+      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\yamis\groupe6\src\main\resources\ressources\puzzles" />
       <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\assets\icon" />
       <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\resources\ressources\tools\PuzzleGenerator" />
-      <recent name="C:\Users\Yusuf\Desktop\Bazard\Cours\l3_brother\java\groupe6\src\main\java\groupe6\tools\puzzleGenerator" />
-      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\puzzles" />
-      <recent name="C:\Users\yamis\Documents\Document_Perso\projet_scolaire\projet_slitherlink\project\main\groupe6\src\main\resources\ressources\assets" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="groupe6.model.partie.puzzle.cellule" />
+      <recent name="groupe6.model.partie.puzzle" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="groupe6.affichage" />
@@ -223,6 +456,7 @@
       <workItem from="1712218187362" duration="13589000" />
       <workItem from="1712245995700" duration="20850000" />
       <workItem from="1712304303467" duration="8403000" />
+      <workItem from="1712332038217" duration="8980000" />
     </task>
     <task id="LOCAL-00001" summary="Big Remerge">
       <option name="closed" value="true" />

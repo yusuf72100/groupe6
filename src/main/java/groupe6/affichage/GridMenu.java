@@ -1,6 +1,10 @@
 package groupe6.affichage;
 
-import groupe6.model.*;
+import groupe6.launcher.Launcher;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.puzzle.cellule.Cellule;
+import groupe6.model.partie.puzzle.Puzzle;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,7 +62,9 @@ public class GridMenu implements Menu {
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
 
-        System.out.println(this.puzzle);
+        if ( Launcher.getVerbose() ) {
+            System.out.println("Puzzle au lancement :\n"+this.puzzle);
+        }
     }
 
     private Button initHeaderButton(String style, String hoverText) {
@@ -110,7 +116,11 @@ public class GridMenu implements Menu {
          */
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Button clicked at (" + i + ", " + j + ")");
+
+            if ( Launcher.getVerbose() ) {
+                System.out.println("Bouton cliqué en (" + i + ", " + j + ")");
+            }
+
             Button clickedButton = (Button) event.getSource();
             Partie partie = GridMenu.this.getPartie();
 
@@ -136,7 +146,9 @@ public class GridMenu implements Menu {
             partie.actionBasculeTroisEtat(i,j,cote);
 
             updateAffichage();
-            System.out.println(puzzle);
+            if ( Launcher.getVerbose() ) {
+                System.out.println("Puzzle après action bascule trois etat :\n"+puzzle);
+            }
         }
     }
 
@@ -153,7 +165,9 @@ public class GridMenu implements Menu {
             public void handle(MouseEvent event){
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
-                System.out.println(partie.getGestionnaireAction());
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Gestionnaire d'action lors de la sauvegarde :\n"+partie.getGestionnaireAction());
+                }
             }
         });
 
@@ -217,7 +231,10 @@ public class GridMenu implements Menu {
 
         afficher((boolean) args[0]);
 
-        System.out.println(compteur + " bars counted");
+        if ( Launcher.getVerbose() ) {
+            System.out.println("Compteurs de barres : "+compteur);
+        }
+
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");

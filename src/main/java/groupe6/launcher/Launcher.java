@@ -11,8 +11,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import groupe6.affichage.Main;
-import groupe6.model.CatalogueProfil;
-import groupe6.model.CataloguePuzzle;
+import groupe6.model.profil.CatalogueProfil;
+import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.test.TestMain;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -134,7 +134,9 @@ public class Launcher {
     fileOutputStream.close();
 
     if (verbose) {
-      System.out.println("Le fichier a été copié avec succès de " + sourcePath + " vers " + destinationPath);
+      System.out.println("Copie du fichier :");
+      System.out.println("  - Source : " + sourcePath);
+      System.out.println("  - Destination : " + destinationPath);
     }
   }
 

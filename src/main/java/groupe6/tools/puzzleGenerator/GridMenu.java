@@ -1,7 +1,10 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.affichage.Menu;
-import groupe6.model.*;
+import groupe6.model.partie.puzzle.cellule.Cellule;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
+import groupe6.model.partie.puzzle.Puzzle;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

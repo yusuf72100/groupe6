@@ -1,7 +1,10 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.*;
+import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
+import groupe6.model.partie.Partie;
+import groupe6.model.partie.sauvegarde.PartieSauvegarde;
+import groupe6.model.profil.Profil;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -98,7 +101,11 @@ public class MainMenu implements Menu {
                 } else {
                     setText(item);
                     String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
-                    System.out.println(cheminImageAvatar);
+
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Chemin image profil : " + cheminImageAvatar);
+                    }
+
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     setGraphic(imageView);
                 }
@@ -117,7 +124,11 @@ public class MainMenu implements Menu {
                 } else {
                     setText(item);
                     String cheminImageAvatar = Launcher.normaliserChemin(Launcher.catalogueProfils.getProfilByName(item).getIMG());
-                    System.out.println("Chemin image profil : " + cheminImageAvatar);
+
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Chemin image profil : " + cheminImageAvatar);
+                    }
+
                     imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
                     setGraphic(imageView);
                 }
