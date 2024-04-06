@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.scene.input.KeyCode;
 
@@ -52,10 +53,7 @@ public class Parametre implements Serializable{
      */
     public Parametre(){
         this.aideRemplissageCroix = false;
-        this.aideTechniqueDemarrage = new boolean[3];
-        this.aideTechniqueDemarrage[0] = false;
-        this.aideTechniqueDemarrage[1] = false;
-        this.aideTechniqueDemarrage[2] = false;
+        this.aideTechniqueDemarrage = new boolean[]{false, false, false};
 
         this.toucheVide = KeyCode.V;
         this.toucheTrait = KeyCode.T;
@@ -87,7 +85,10 @@ public class Parametre implements Serializable{
      * @param aideRemplissage le booléen de l'aide au remplissage des croix
      */
     public void setAideRemplissageCroix(boolean aideRemplissage){
+        // Modification de l'aide au remplissage des croix
         this.aideRemplissageCroix = aideRemplissage;
+        // Sauvegarde dans un thread séparé du profil actuel qui vient de modifier ses paramètres
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**
@@ -96,7 +97,10 @@ public class Parametre implements Serializable{
      * @param toucheVide la touche pour l'action coté vide
      */
     public void setToucheVide(KeyCode toucheVide){
+        // Modification de la touche pour les actions vides
         this.toucheVide = toucheVide;
+        // Sauvegarde dans un thread séparé du profil actuel qui vient de modifier ses paramètres
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**
@@ -105,7 +109,10 @@ public class Parametre implements Serializable{
      * @param toucheTrait la touche pour l'action coté trait
      */
     public void setToucheTrait(KeyCode toucheTrait){
+        // Modification de la touche pour les actions traits
         this.toucheTrait = toucheTrait;
+        // Sauvegarde dans un thread séparé du profil actuel qui vient de modifier ses paramètres
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**
@@ -114,7 +121,10 @@ public class Parametre implements Serializable{
      * @param toucheCroix la touche pour l'action coté croix
      */
     public void setToucheCroix(KeyCode toucheCroix){
+        // Modification de la touche pour les actions croix
         this.toucheCroix = toucheCroix;
+        // Sauvegarde dans un thread séparé du profil actuel qui vient de modifier ses paramètres
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**
@@ -152,7 +162,10 @@ public class Parametre implements Serializable{
      * @param difficulte la difficulté pour laquelle on veut activer ou désactiver l'application des techniques de démarrage
      */
     public void setAideTechniqueDemarrage (boolean aideTechniqueDemarrage, DifficultePuzzle difficulte){
+        // Modification de l'application des techniques de démarrage pour la difficulté donnée
         this.aideTechniqueDemarrage[difficulte.ordinal()] = aideTechniqueDemarrage;
+        // Sauvegarde dans un thread séparé du profil actuel qui vient de modifier ses paramètres
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**

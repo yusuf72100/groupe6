@@ -88,23 +88,25 @@ public class PartieInfos implements Serializable{
     }
 
     /**
-     * Méthode qui permet de convertir la date de la partie en String
+     * Méthode statique qui permet de convertir une date en String
      *
-     * @return la date de la partie au format String ( dd/MM/yyyy )
+     * @param date la date à convertir
+     * @return la date au format String ( dd/MM/yyyy HH:mm:ss )
      */
-    public String dateToString(){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.format(this.date);
+    public static String dateToString(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return dateFormat.format(date);
     }
 
     /**
-     * Méthode qui permet de convertir la date de la partie en String avec des tirets
+     * Méthode statique qui permet de convertir une date en String
      *
-     * @return la date de la partie au format String ( dd_MM_yyyy )
+     * @param date la date à convertir
+     * @return la date au format String ( dd_MM_yyyy_HH_mm_ss )
      */
-    public String dateToStringTiret(){
-        DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-        return dateFormat.format(this.date);
+    public static String dateToStringTiret(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+        return dateFormat.format(date);
     }
 
     /**
@@ -162,6 +164,19 @@ public class PartieInfos implements Serializable{
     }
 
     /**
+     * Méthode statique pour obtenir une représentation textuelle d'une durée
+     *
+     * @param duration la durée a formater
+     * @return la durée formatée ( HH:mm:ss )
+     */
+    public static String formatDuration(Duration duration) {
+        long hours = duration.toHoursPart();
+        long minutes = duration.toMinutesPart();
+        long seconds = duration.toSecondsPart();
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    /**
      * Méthode pour obtenir une représentation textuelle de la partie
      *
      * @return la représentation textuelle de la partie
@@ -169,9 +184,22 @@ public class PartieInfos implements Serializable{
     public String toString() {
         return
         "Date : " + this.getDate() + "\n" +
-        "Chrono : " + this.getChrono() + "\n" +
+        "Chrono : " + formatDuration(this.getChrono()) + "\n" +
         "Score : " + this.getScore() + "\n" +
         "Mode de jeu : " + this.getModeJeu() + "\n" +
-        "Limite de temps : " + this.getLimiteTemps() + "\n";
+        "Limite de temps : " + formatDuration(this.getLimiteTemps()) + "\n";
+    }
+
+    /**
+     * Méthode pour enlever des points au score
+     * Score minimum possible : 50
+     *
+     * @param points les points à enlever
+     */
+    public void enleverPoints(int points){
+        this.score -= points;
+        if ( this.score < Score.MIN_SCORE ){
+            this.score = Score.MIN_SCORE;
+        }
     }
 }

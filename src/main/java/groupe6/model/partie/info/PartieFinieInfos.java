@@ -87,10 +87,10 @@ public class PartieFinieInfos extends PartieInfos implements Serializable {
         "Difficulté : " + this.difficulte + "\n" +
         "Gagner : " + this.gagner + "\n" +
         "Date : " + this.getDate() + "\n" +
-        "Chrono : " + this.getChrono() + "\n" +
+        "Chrono : " + PartieInfos.formatDuration(this.getChrono()) + "\n" +
         "Score : " + this.getScore() + "\n" +
         "Mode de jeu : " + this.getModeJeu() + "\n" +
-        "Limite de temps : " + this.getLimiteTemps() + "\n";
+        "Limite de temps : " + PartieInfos.formatDuration(this.getLimiteTemps()) + "\n";
     }
 
 }

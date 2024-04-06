@@ -164,9 +164,13 @@ public class GestionnaireErreur implements Serializable, Cloneable {
    */
   @Override
   public String toString() {
-    return "GestionnaireErreur{" +
-        "lstErreurs=" + lstErreurs.toString() +
-        '}';
+    StringBuilder strBuilder = new StringBuilder();
+    strBuilder.append("GestionnaireErreur : \n");
+    for (ErreurInfos e : this.lstErreurs) {
+      strBuilder.append("  - " + e.toString() + "\n");
+    }
+    return strBuilder.toString();
+
   }
 
 }

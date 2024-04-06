@@ -2,6 +2,7 @@ package groupe6.model.partie.puzzle.cellule;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Classe Cellule qui permet de stocker les informations d'une cellule
@@ -246,4 +247,31 @@ public class Cellule implements Serializable, Cloneable {
     return new Cellule(this.valeur, nouveauxCotes);
   }
 
+  /**
+   * Méthode pour obtenir une représentation textuelle de la cellule
+   *
+   * @return la représentation textuelle de la cellule
+   */
+  @Override
+  public String toString() {
+    return "Cellule{" +
+        "valeur=" + valeur +
+        ", cotes=" + Arrays.toString(cotes) +
+        '}';
+  }
+
+  /**
+   * Méthode statique pour comparer deux valeurs de coté
+   *
+   * @param cote1 le premier coté à comparer
+   * @param cote2 le deuxième coté à comparer
+   * @return vrai si les valeurs de coté sont équivalentes, faux sinon
+   */
+  public static boolean compareValeurCote(ValeurCote cote1, ValeurCote cote2){
+    if(cote1 == cote2){
+      return true;
+    }
+    return cote1 == ValeurCote.VIDE && cote2 == ValeurCote.CROIX ||
+        cote1 == ValeurCote.CROIX && cote2 == ValeurCote.VIDE;
+  }
 }

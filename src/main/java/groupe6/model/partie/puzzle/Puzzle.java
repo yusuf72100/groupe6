@@ -232,6 +232,7 @@ public class Puzzle implements Serializable, Cloneable {
     strBuilder.append(grilleTostring(grilleSolution));
     strBuilder.append("\nGrille Cellules : \n");
     strBuilder.append(grilleTostring(grilleJeu));
+    strBuilder.append("\n");
 
     return strBuilder.toString();
   }
