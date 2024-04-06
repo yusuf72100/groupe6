@@ -133,6 +133,7 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
+                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -167,6 +168,7 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
+                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -188,6 +190,8 @@ public class MainMenu implements Menu {
                 }
             }
         });
+
+        profilSelector.getSelectionModel().select(Launcher.catalogueProfils.getProfilActuel().getNom());
     }
 
 

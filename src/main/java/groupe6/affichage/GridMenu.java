@@ -144,7 +144,7 @@ public class GridMenu implements Menu {
         boolean resultat = false;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Action demandée");
-        alert.setHeaderText("Les cellules en rouge et orange seront modifier si vous acceptez la correction!");
+        alert.setHeaderText("Les cellules en rouge et orange seront modifiées si vous acceptez la correction!");
         alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
 
         // on enlève le bouton OK qui est mis de base
