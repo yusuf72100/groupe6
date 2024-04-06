@@ -94,8 +94,12 @@ public class CatalogueProfil {
     // Met à jour le profil actuel
     this.profilActuel = profil;
 
-    // Sauvegarde de la modification du profil actuel
-    sauvegarderProfilActuel(this);
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Debut de la sauvegarde du profil actuel");
+    }
+
+    // Lance un thread séparé pour sauvegarder le profil actuel
+    new Thread(() -> sauvegarderProfilActuel(this)).start();
   }
 
   /**
@@ -216,6 +220,13 @@ public class CatalogueProfil {
 
     // Définition du profil actuel
     setProfilActuel(nouveauProfil);
+
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Debut de la sauvegarde du profil actuel");
+    }
+
+    // Lance un thread séparé pour sauvegarder le profil actuel
+    new Thread(() -> sauvegarderProfilActuel(this)).start();
   }
 
   /**
@@ -267,7 +278,7 @@ public class CatalogueProfil {
           if (profil.getNom().equals(nomProfilActuel)) {
             catalogueProfil.setProfilActuel(profil);
           }
-          if (profil.getNom().equals("utilisateur")) {
+          if (profil.getNom().equals("invite")) {
             defaut = profil;
           }
         }
@@ -284,6 +295,10 @@ public class CatalogueProfil {
       }
     } else {
       System.err.println("Erreur : fichier profilActuel.config non trouvé");
+    }
+
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Le profil actuel est : "+catalogueProfil.getProfilActuel().getNom());
     }
 
     return catalogueProfil;
@@ -307,6 +322,11 @@ public class CatalogueProfil {
       FileWriter writer = new FileWriter(profilActuelConfig);
       writer.write(catalogueProfil.getProfilActuel().getNom());
       writer.close();
+
+      if ( Launcher.getVerbose() ) {
+        System.out.println("Fin de la sauvegarde du profil actuel");
+      }
+
     } catch (FileNotFoundException e) {
       System.err.println("Erreur : Impossible de lire le fichier profilActuel.config");
       e.printStackTrace();
