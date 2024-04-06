@@ -2,6 +2,8 @@ package groupe6.model.partie;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
+import groupe6.model.partie.info.LimiteTemps;
+import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
@@ -18,7 +20,9 @@ import groupe6.model.partie.info.PartieInfos;
 import groupe6.model.partie.sauvegarde.PartieSauvegarde;
 import groupe6.model.profil.Profil;
 import groupe6.model.technique.GestionnaireTechnique;
+import groupe6.model.technique.ResultatTechnique;
 
+import java.time.Duration;
 import java.util.*;
 
 
@@ -78,7 +82,12 @@ public class Partie {
    */
   public Partie(Puzzle puzzle, ModeJeu modeJeu, Profil profil) {
     this.puzzle = puzzle;
-    this.infos = new PartieInfos(null, 0, modeJeu, null);
+    this.infos = new PartieInfos(
+        Duration.ofMinutes(0),
+        Score.getScoreDebut(this.puzzle.getDifficulte()),
+        modeJeu,
+        LimiteTemps.getLimiteTemps(this.puzzle.getDifficulte())
+    );
     this.gestionnaireAction = new GestionnaireAction(this.puzzle);
     this.historiqueAide = new ArrayList<AideInfos>();
     this.profil = profil;
@@ -186,11 +195,37 @@ public class Partie {
         }
       }
 
+      // Malus pour avoir demandé une vérification d'erreur
+      this.infos.enleverPoints(Score.MALUS_VERIFICATION_ERREUR);
+
       System.out.println("Set premiere erreur : "+setPremiereErreur);
       System.out.println("Set erreurs suivantes : "+coordsCasesErrone);
 
       return new ResultatVerificationErreur(true, setPremiereErreur, coordsCasesErrone);
     }
+  }
+
+  /**
+   * Méthode pour obtenir le chronomètre de la partie
+   *
+   * @return le chronomètre de la partie
+   */
+  public Chronometre getChrono() {
+    return chrono;
+  }
+
+  /**
+   * Méthode pour obtenir le score de la partie
+   *
+   * @return le score de la partie
+   */
+  public int getScore() {
+    return this.infos.getScore();
+  }
+
+  public boolean verifierTemps() {
+    return this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
+        this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0;
   }
 
   /**
@@ -219,8 +254,31 @@ public class Partie {
   /**
    * Méthode pour demander une aide ( detection de technique )
    */
-  public void chercherAide() {
-    GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
+  public ResultatTechnique chercherAide() {
+    ResultatTechnique result = GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
+
+    if ( result.isTechniqueTrouvee() ) {
+      // Malus pour avoir demandé une aide de niveau 1
+      this.infos.enleverPoints(Score.MALUSE_AIDE_NIVEAU_1);
+    }
+
+    return result;
+  }
+
+  /**
+   * Méthode upgrade une aide de niveau 1 en une aide de niveau 2
+   */
+  public void upgradeAide(int idxAide) {
+    // Verification de l'index de l'aide
+    if ( idxAide < 0 || idxAide >= this.historiqueAide.size() ) {
+      throw new IllegalArgumentException("Index de l'aide invalide !");
+    }
+
+    // Augemente le niveau de l'aide
+    this.historiqueAide.get(idxAide).upgradeNiveau();
+
+    // Malus supplémentaire pour avoir demandé une aide de niveau 2
+    this.infos.enleverPoints(Score.MALUSE_SUPPLEMENTAIRE_AIDE_NIVEAU_2);
   }
 
   /**
@@ -278,23 +336,31 @@ public class Partie {
   private boolean detectionErreur(Action action) {
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
-
-    Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getY());
+    System.out.println("Coordonnee cellule 1 : "+coordsCell1);
+    System.out.println("Coordonnee cellule 2 : "+coordsCell2);
+    int coteCell1 = action.getCoteCellule1();
+    Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getX());
     Cellule cellJeu1 = this.puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
 
-    System.out.println("Cellule 1 : "+cellSol1+" - "+cellJeu1 );
+    System.out.println("Cellule 1 solution :" + cellSol1.toString());
+    System.out.println("Cellule 1 : "+cellJeu1.toString() );
+    System.out.println("Cote cellule 1 : "+coteCell1);
 
     boolean valide;
     if ( coordsCell2 != null ) {
-      Cellule cellSol2 = this.puzzle.getCelluleSolution(coordsCell2.getY(),coordsCell2.getY());
+      Cellule cellSol2 = this.puzzle.getCelluleSolution(coordsCell2.getY(),coordsCell2.getX());
       Cellule cellJeu2 = this.puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
-      valide = cellSol1.equals(cellJeu1) && cellSol2.equals(cellJeu2);
+      int coteCell2 = Cellule.getCoteAdjacent(coteCell1);
 
-      System.out.println("Cellule 2 : "+cellSol2+" - "+cellJeu2);
+      System.out.println("Cellule 2 solution :" + cellSol2.toString());
+      System.out.println("Cellule 2 : "+cellJeu2.toString());
+      System.out.println("Cote cellule 2 : "+coteCell2);
 
+      valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1)) &&
+               Cellule.compareValeurCote(cellSol2.getCote(coteCell2),cellJeu2.getCote(coteCell2));
     }
     else {
-      valide = cellSol1.equals(cellJeu1);
+      valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1));
     }
     System.out.println("Action valide : "+valide);
 
@@ -324,13 +390,25 @@ public class Partie {
    *
    * @param action l'action effectuée par l'utilisateur
    */
-  public void pourChaqueAction(Action action) {
+  private void pourChaqueAction(Action action) {
+    // Suppression des actions suivantes a l'index courant ( plus de redo )
+    this.gestionnaireAction.effacerActionsSuivantes();
+    // Ajout de l'action dans le gestionnaire d'actions
+    this.gestionnaireAction.ajouterAction(action);
+    System.out.printf(this.gestionnaireAction.toString());
+    // Application de l'action
     action.appliquerAction();
+    // Detection d'erreur commise par l'utilisateur
     detectionErreur(action);
+    // Auto-complétion des croix si l'option est activée
     if ( this.profil.getParametre().getAideRemplissageCroix() ) {
       autoCompletionCroix(action);
     }
-    estTermine();
+    // Verification si la partie est terminée
+    if ( !estTermine() ) {
+      // Sauvegarde de la partie après chaque action
+      this.sauvegarder();
+    }
   }
 
   /**
@@ -349,7 +427,7 @@ public class Partie {
     if ( Launcher.getVerbose() ) {
       System.out.println("Nouvelle action bascule a trois etats :\n  - "+action);
     }
-    gestionnaireAction.ajouterAction(action);
+
 
     pourChaqueAction(action);
   }
@@ -411,21 +489,37 @@ public class Partie {
    * @return vrai si la partie est terminée, faux sinon
    */
   private boolean estTermine() {
-    if (this.puzzle.estComplet()) {
+    if (this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
+        this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0)
+    {
+      // Obtenir la difficulté du puzzle pour le PartieFinieInfos
+      DifficultePuzzle difficulte = this.puzzle.getDifficulte();
+
+      // Update du chronometre
       this.infos.setChrono(this.chrono.getTempsEcoule());
 
-      DifficultePuzzle difficulte = this.puzzle.getDifficulte();
-      boolean gagnee = true;
-      if (this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
-          this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0) {
-        gagnee = false;
-      }
-
-      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, true, gagnee);
+      // Partie non complète et perdue car temps limite atteint
+      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, false, false);
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
       if ( Launcher.getVerbose() ) {
-        System.out.println("Partie terminée !");
+        System.out.println("Partie terminée : Le temps limite est atteint !");
+      }
+
+      return true;
+    } else if (this.puzzle.estComplet()) {
+      // Obtenir la difficulté du puzzle pour le PartieFinieInfos
+      DifficultePuzzle difficulte = this.puzzle.getDifficulte();
+
+      // Update du chronometre
+      this.infos.setChrono(this.chrono.getTempsEcoule());
+
+
+      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, true, true);
+      this.profil.getHistorique().addResultParties(partieFinieInfos);
+
+      if ( Launcher.getVerbose() ) {
+        System.out.println("Partie terminée : Le puzzle est complet !");
       }
 
       return true;
@@ -438,11 +532,17 @@ public class Partie {
    * Méthode pour annuler la dernière action effectuée
    */
   public void undo() {
+    System.out.println("--------------------");
     Action action = this.gestionnaireAction.annulerAction();
     if ( action != null ) {
       Action actionInverse = Action.inverserAction(action);
+      System.out.println("action inverse : \n"+actionInverse);
       detectionErreur(actionInverse);
     }
+    System.out.println("Gestionnaire d'actions : \n - "+this.gestionnaireAction.toString());
+    System.out.println();
+    System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
+    System.out.println("--------------------");
   }
 
   /**
@@ -453,6 +553,7 @@ public class Partie {
     if ( action != null ) {
       detectionErreur(action);
     }
+    System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
   }
 
   /**
@@ -508,12 +609,13 @@ public class Partie {
   /**
    * Méthode pour sauvegarder la partie
    */
-  public void sauvegarder() {
+  public synchronized void sauvegarder() {
     if ( Launcher.getVerbose() ) {
       System.out.println("Debut de la sauvegarde : "+this.getPuzzle().getDifficulte()+"_"+this.getPuzzle().getLargeur()+"x"+this.getPuzzle().getLongueur());
     }
     this.infos.setChrono(this.chrono.getTempsEcoule());
-    PartieSauvegarde.creerSauvegardePartie(this);
+    // Lance un thread séparé pour sauvegarder la partie
+    new Thread(() -> PartieSauvegarde.creerSauvegardePartie(this)).start();
   }
 
   /**

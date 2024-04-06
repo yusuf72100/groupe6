@@ -112,7 +112,7 @@ public class GestionnaireAction implements Serializable,Cloneable {
    */
   public Action annulerAction() {
     if (Launcher.getVerbose() ) {
-      System.out.print("Annulation de l'action à l'index"+this.index);
+      System.out.println("Annulation de l'action à l'index "+this.index + ": ");
       if (this.index >= 0) {
         System.out.println(" : "+ listeAction.get(index));
       } else {
@@ -194,10 +194,10 @@ public class GestionnaireAction implements Serializable,Cloneable {
   @Override
   public String toString() {
     StringBuilder strBuilder = new StringBuilder("");
-    strBuilder.append("GestionnaireAction :\n"+
-        "index=" + index + '\n');
+    strBuilder.append("GestionnaireAction :\n");
+    strBuilder.append("  - index = " + index + '\n');
     for ( Action a : listeAction ) {
-      strBuilder.append(a.toString()+"\n");
+      strBuilder.append("  - " + a.toString()+"\n");
     }
 
     return  strBuilder.toString();
@@ -210,7 +210,15 @@ public class GestionnaireAction implements Serializable,Cloneable {
    * @return un ensemble de coordonnées de cellules modifiées après l'erreur
    */
   public Set<Coordonnee> getCoordsActionApresErreur(int idxActionPremiereErreur ) {
+    if ( idxActionPremiereErreur < -1 || idxActionPremiereErreur >= this.listeAction.size() ) {
+      throw new IllegalArgumentException("L'index de l'action qui a causé l'erreur est invalide");
+    }
+
     Set<Coordonnee> setCoords = new HashSet<Coordonnee>();
+    if ( idxActionPremiereErreur == -1 ) {
+      return setCoords;
+    }
+
     for (int i = idxActionPremiereErreur; i < this.listeAction.size(); i++) {
       Action action = this.listeAction.get(i);
       Coordonnee coordsCell1 = action.getCoordsCellule1();
@@ -233,6 +241,32 @@ public class GestionnaireAction implements Serializable,Cloneable {
       this.annulerAction();
     }
     this.effacerActionsSuivantes();
+  }
+
+  /**
+   * Méthode pour savoir si l'index est au début de la liste des actions
+   *
+   * @return vrai si l'index est au début de la liste des actions, faux sinon
+   * @throws IllegalStateException si l'index est en dehors de la liste des actions
+   */
+  public boolean debutListe() {
+    if ( this.index < -1 ) {
+      throw new IllegalStateException("L'index est en dehors de la liste des actions");
+    }
+    return this.index == -1;
+  }
+
+  /**
+   * Méthode pour savoir si l'index est à la fin de la liste des actions
+   *
+   * @return vrai si l'index est à la fin de la liste des actions, faux sinon
+   * @throws IllegalStateException si l'index est en dehors de la liste des actions
+   */
+  public boolean finListe() {
+    if ( this.index >= this.listeAction.size() ) {
+      throw new IllegalStateException("L'index est en dehors de la liste des actions");
+    }
+    return this.index == this.listeAction.size()-1;
   }
 
 }

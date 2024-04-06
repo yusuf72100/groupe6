@@ -119,7 +119,7 @@ public class PartieSauvegarde implements Serializable {
    *
    * @param partie la partie à sauvegarder
    */
-  public static void creerSauvegardePartie(Partie partie) {
+  public static synchronized void creerSauvegardePartie(Partie partie) {
     PartieSauvegarde save = new PartieSauvegarde(
         partie.getPuzzle(),
         partie.getInfos(),
@@ -135,7 +135,7 @@ public class PartieSauvegarde implements Serializable {
     nomFichier.append("_");
     nomFichier.append(partie.getPuzzle().getLargeur() + "x" + partie.getPuzzle().getLongueur());
     nomFichier.append("_");
-    nomFichier.append(partie.getInfos().dateToStringTiret());
+    nomFichier.append(PartieInfos.dateToStringTiret(partie.getInfos().getDate()));
     nomFichier.append(".save");
 
     String cheminFichier = cheminDossier + nomFichier.toString();

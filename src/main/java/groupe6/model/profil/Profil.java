@@ -23,7 +23,7 @@ public class Profil implements Serializable {
     /**
      * Le nom de l'utilisateur
      */
-    private String nom;
+    private final String nom;
 
     /**
      * Le chemin vers l'image utilisee dans le profil
@@ -61,12 +61,26 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Méthode pour definir le nom du profil
+     * Méthode qui définit le niveau de progression de l'utilisateur dans le mode aventure
      *
-     * @param newNom le nouveau nom du profil
+     * @param niveauAventure le niveau de progression de l'utilisateur dans le mode aventure
      */
-    public void modifierNom(String newNom) {
-        this.nom = newNom;
+    public void setNiveauAventure(int niveauAventure) {
+        // Modification du niveau de progression de l'utilisateur dans le mode aventure
+        this.niveauAventure = niveauAventure;
+        // Sauvegarde du profil dans un thread séparé
+        new Thread(() -> sauvegarderProfil(this)).start();
+
+    }
+
+    /**
+     * Méthode pour augmenter le niveau de progression de l'utilisateur dans le mode aventure
+     */
+    public void augmenterNiveauAventure() {
+        // Augmentation du niveau de progression de l'utilisateur dans le mode aventure
+        this.niveauAventure++;
+        // Sauvegarde du profil dans un thread séparé
+        new Thread(() -> sauvegarderProfil(this)).start();
     }
 
     /**
@@ -140,6 +154,9 @@ public class Profil implements Serializable {
 
             cheminIMG = cheminDestination;
         }
+
+        // Sauvegarde du profil dans un thread séparé
+        new Thread(() -> sauvegarderProfil(this)).start();
     }
 
     /**
@@ -160,9 +177,8 @@ public class Profil implements Serializable {
      * Methode pour sauvegarder un profil
      *
      * @param profil le profil à sauvegarder
-     * @return un message de confirmation ou d'erreur
      */
-    public static void sauvegarderProfil(Profil profil) {
+    public static synchronized void sauvegarderProfil(Profil profil) {
         // Dossier ressources contenant les profils
         String cheminDossierRessourceProfils = Launcher.normaliserChemin(Launcher.dossierProfils + "/");
         File dossierRessourceProfils = new File(cheminDossierRessourceProfils);

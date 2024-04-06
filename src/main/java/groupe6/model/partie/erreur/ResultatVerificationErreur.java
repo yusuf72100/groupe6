@@ -73,10 +73,11 @@ public class ResultatVerificationErreur {
    */
   @Override
   public String toString() {
-    return "ResultatVerificationErreur{" +
-        "erreurTrouvee=" + erreurTrouvee +
-        ", premiereErreur=" + premiereErreur +
-        ", erreursSuivantes=" + erreursSuivantes +
+    return "ResultatVerificationErreur : \n" +
+        "{\n" +
+        "  - erreurTrouvee=" + erreurTrouvee + "\n" +
+        "  - premiereErreur=" + premiereErreur + "\n" +
+        "  - erreursSuivantes=" + erreursSuivantes + "\n" +
         '}';
   }
 }
