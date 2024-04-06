@@ -96,27 +96,48 @@ public class GridMenu implements Menu {
      */
     public void highlightCellule(int y, int x, String color) {
         this.celluleNodes[y][x].changeCellulesCss(color);
-        setCellulesAdjacentesCss(y, x, color);
     }
 
     /**
      * Permet de changer les couleurs des traits voisins
-     * @param y
-     * @param x
-     * @param color
+     * @param y la position y de la cellule
+     * @param x la position x de la cellule
+     * @param color la couleur à appliquer ( format css )
      */
     private void setCellulesAdjacentesCss(int y, int x, String color) {
-        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
-        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
-        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
-        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
+        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
+        }
+        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
+        }
+
+        if ( partie.getPuzzle().estDansGrille(y-1, x) ) {
+            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
+        }
+
+        if ( partie.getPuzzle().estDansGrille(y+1, x) ) {
+            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
+        }
     }
 
     private void resetCellulesAdjacentesCss(int y, int x) {
-        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
-        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].resetButtonCss(2);
-        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].resetButtonCss(1);
-        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].resetButtonCss(0);
+
+        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
+        }
+        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].resetButtonCss(2);
+        }
+
+        if ( partie.getPuzzle().estDansGrille(y-1, x) ) {
+            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].resetButtonCss(1);
+        }
+
+        if ( partie.getPuzzle().estDansGrille(y+1, x) ) {
+            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].resetButtonCss(0);
+        }
+
     }
 
     private boolean afficherPopup(){
@@ -348,11 +369,13 @@ public class GridMenu implements Menu {
                         // TODO : Mettre en rouge les cellules au coordonnées coords
                         System.out.println("Première erreur : "+coords);
                         highlightCellule(coords.getY(), coords.getX(), "red");
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "red");
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         // TODO : Mettre en orange les cellules au coordonnées coords
                         System.out.println("Erreur suivante : "+coords);
                         highlightCellule(coords.getY(), coords.getX(), "orange");
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "red");
                     }
 
                     // TODO : Afficher pop up 2 btn ("oui","non") et
