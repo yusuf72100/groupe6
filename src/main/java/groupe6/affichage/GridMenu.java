@@ -98,6 +98,13 @@ public class GridMenu implements Menu {
         this.celluleNodes[y][x].changeCellulesCss(color);
     }
 
+    public boolean estDansGrille(int y, int x) {
+        if ( y < 0 || y >= this.cellulesData.length || x < 0 || x >= this.cellulesData[0].length ) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Permet de changer les couleurs des traits voisins
      * @param y la position y de la cellule
@@ -105,36 +112,40 @@ public class GridMenu implements Menu {
      * @param color la couleur à appliquer ( format css )
      */
     private void setCellulesAdjacentesCss(int y, int x, String color) {
-        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+
+        if ( estDansGrille(y, x-1) ) {
             if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
         }
-        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+
+        if ( estDansGrille(y, x+1) ) {
             if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
         }
 
-        if ( partie.getPuzzle().estDansGrille(y-1, x) ) {
+        if ( estDansGrille(y-1, x) ) {
             if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
         }
 
-        if ( partie.getPuzzle().estDansGrille(y+1, x) ) {
+        if ( estDansGrille(y+1, x) ) {
             if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
         }
+
     }
 
     private void resetCellulesAdjacentesCss(int y, int x) {
 
-        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+        if ( estDansGrille(y, x-1) ) {
             if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
         }
-        if ( partie.getPuzzle().estDansGrille(y, x-1) ) {
+
+        if ( estDansGrille(y, x+1) ) {
             if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].resetButtonCss(2);
         }
 
-        if ( partie.getPuzzle().estDansGrille(y-1, x) ) {
+        if ( estDansGrille(y-1, x) ) {
             if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].resetButtonCss(1);
         }
 
-        if ( partie.getPuzzle().estDansGrille(y+1, x) ) {
+        if ( estDansGrille(y+1, x) ) {
             if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].resetButtonCss(0);
         }
 
@@ -293,9 +304,6 @@ public class GridMenu implements Menu {
                 }
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
-
-                // Debug
-                System.out.println("Gestionnaire d'action lors de la sauvegarde :\n"+partie.getGestionnaireAction());
             }
         });
 
@@ -337,7 +345,6 @@ public class GridMenu implements Menu {
                     }
                 }
                 else {
-                    // TODO grise le bouton redo
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Fin de la liste d'actions");
                     }
@@ -359,51 +366,43 @@ public class GridMenu implements Menu {
         check.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Activer la vérification
                 ResultatVerificationErreur resultat = partie.verifierErreur();
                 System.out.println("Résultat de la vérification : \n"+ resultat.toString());
                 System.out.println(partie.getGestionnaireErreur());
 
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
-                        // TODO : Mettre en rouge les cellules au coordonnées coords
                         System.out.println("Première erreur : "+coords);
                         highlightCellule(coords.getY(), coords.getX(), "red");
                         setCellulesAdjacentesCss(coords.getY(), coords.getX(), "red");
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
-                        // TODO : Mettre en orange les cellules au coordonnées coords
                         System.out.println("Erreur suivante : "+coords);
                         highlightCellule(coords.getY(), coords.getX(), "orange");
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "red");
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "orange");
                     }
 
-                    // TODO : Afficher pop up 2 btn ("oui","non") et
-                    //      message "Les cellules en rouge et orange seront modifier si vous acceptez la correction.\n
-                    //      Acceptez de revenir sur la première erreur trouvée ?"
-
+                    // Affiche une popup pour demander si l'utilisateur accepte la correction
                     boolean accepteCorrection = afficherPopup();
                     if ( accepteCorrection ) {
                         partie.corrigerErreur();
                     }
 
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
-                        // TODO : Enleve la couleurs rouge sur les cellules au coordonnées coords
+                        // Enleve la couleurs rouge sur les cellules au coordonnées coords
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
-                        // TODO : Enleve la couleurs orange sur les cellules au coordonnées coords
+                        // Enleve la couleurs orange sur les cellules au coordonnées coords
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
 
-                    // TODO : Enlever des points meme si il n'accepte pas la correction
-                    updateAffichage();
+//                    updateAffichage();
                 }
                 else {
                     // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
-                    // TODO : Ne pas enlever de points
                 }
             }
         });
@@ -630,7 +629,9 @@ public class GridMenu implements Menu {
      * Met à jour l'affichage du puzzle en fonction du modèle
      */
     private void updateAffichage() {
-        System.out.printf(this.partie.getPuzzle().toString());
+        if ( Launcher.getVerbose() ) {
+            System.out.printf(this.partie.getPuzzle().toString());
+        }
 
         // Update des cellules
         for ( int y = 0; y < this.largeur; y++ ) {

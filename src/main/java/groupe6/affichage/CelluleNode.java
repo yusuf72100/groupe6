@@ -156,6 +156,11 @@ public class CelluleNode extends Node {
         this.centerTextField.setStyle(this.centerTextField.getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
     }
 
+    /**
+     * Chnage le style d'affichage du bouton
+     * @param buttonIndex
+     * @param color
+     */
     public void changeButtonCss(int buttonIndex, String color) {
         if(this.buttonsOldCss[buttonIndex] == null) {
             this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyle();
@@ -163,11 +168,18 @@ public class CelluleNode extends Node {
         this.cellule[buttonIndex].setStyle(this.cellule[buttonIndex].getStyle() + " -fx-background-color: " + color + ";" + " -fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
     }
 
+    /**
+     * Remet l'affichage du bouton à l'état précédent
+     * @param buttonIndex
+     */
     public void resetButtonCss(int buttonIndex) {
         System.out.println("\n\nBouton n°" + buttonIndex + " : " + this.buttonsOldCss[buttonIndex]);
         this.cellule[buttonIndex].setStyle(this.buttonsOldCss[buttonIndex]);
     }
 
+    /**
+     * Remet l'affichage de la cellule à l'état précédent
+     */
     public void resetCellulesCss() {
         for ( int i = 0; i < 4; i++ ) {
             this.image[i].setStyle(this.imagesOldCss[i]);

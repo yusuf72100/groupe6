@@ -48,18 +48,24 @@ public class PartieInfos implements Serializable{
     private final Duration limiteTemps;
 
     /**
+     * Boolean qui indique si la partie est complète
+     */
+    private boolean complete;
+
+    /**
      * Constructeur de la classe PartieInfos ( pas de limite de temps )
      *
      * @param chrono le chrono de la partie
      * @param score le score de la partie
      * @param mode le mode de jeu de la partie
      */
-    public PartieInfos(Duration chrono, int score, ModeJeu mode){
+    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete){
         this.date = new Date();
         this.score = score;
         this.chrono = chrono;
         this.modeJeu = mode;
         this.limiteTemps = null;
+        this.complete = complete;
     }
 
     /**
@@ -70,12 +76,31 @@ public class PartieInfos implements Serializable{
      * @param mode le mode de jeu de la partie
      * @param limiteTemps la limite de temps de la partie
      */
-    public PartieInfos(Duration chrono, int score, ModeJeu mode, Duration limiteTemps){
+    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps){
         this.date = new Date();
         this.score = score;
         this.chrono = chrono;
         this.modeJeu = mode;
         this.limiteTemps = limiteTemps;
+        this.complete = complete;
+    }
+
+    /**
+     * Méthode pour le boolean qui indique si la partie est complète
+     *
+     * @return le boolean qui indique si la partie est complète
+     */
+    public boolean getComplete(){
+        return complete;
+    }
+
+    /**
+     * Méthode pour définir si la partie est complète
+     *
+     * @param complete le boolean qui indique si la partie est complète
+     */
+    public void setComplete(boolean complete){
+        this.complete = complete;
     }
 
     /**
