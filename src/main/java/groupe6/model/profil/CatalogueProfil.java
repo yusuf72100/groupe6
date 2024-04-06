@@ -5,6 +5,7 @@ import groupe6.launcher.Launcher;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -108,6 +109,109 @@ public class CatalogueProfil {
     strBuilder.append("Profil actuel : ");
     strBuilder.append(profilActuel.getNom());
     return strBuilder.toString();
+  }
+
+  /**
+   * Méthode statique pour vérifier si un nom de profil est valide
+   *
+   * @param nom le nom du profil à vérifier
+   * @return vrai si le nom est valide, faux sinon
+   */
+  public static boolean nomProfilValide(String nom) {
+    // Vérifie si le nom est vide
+    if (nom.isEmpty()) {
+      return false;
+    }
+    // Vérifie si le nom contient des caractères spéciaux
+    if (nom.matches(".*[<>:\"/\\|?*].*")) {
+      return false;
+    }
+    // Vérifie si le nom contient des espaces
+    if (nom.contains(" ")) {
+      return false;
+    }
+    // Vérifie si le nom contient des accents
+    if (nom.matches(".*[éèêëàâäôöûüîïç].*")) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Méthode statique pour vérifier si un profil existe
+   *
+   * @param nom le nom du profil à vérifier
+   * @return vrai si le profil existe, faux sinon
+   */
+  public static boolean profilExiste(String nom){
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils+"/");
+
+    // Dossier ressources contenant les profils
+    File dossierRessourceProfils = new File(cheminDossier);
+
+    File[] listeDossierProfils = dossierRessourceProfils.listFiles();
+
+    // Parcours les elements du dossier "Slitherlink/profils/"
+    for (File dossierProfil : Objects.requireNonNull(listeDossierProfils)) {
+      if (dossierProfil.isDirectory()) {
+        // Parcours les elements du dossier "Slitherlink/profils/nomProfil/saves/"
+        for (File file : Objects.requireNonNull(dossierProfil.listFiles())) {
+          // File termine par .profil
+          if (file.getName().endsWith(".profil")) {
+            // Récupère le nom du profil
+            String nomProfil = file.getName().substring(0, file.getName().length()-7);
+            // Si le nom du profil est égal au nom passé en paramètre
+            if(nomProfil.equals(nom)) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Méthode pour créer un nouveau profil demandé par l'utilisateur
+   *
+   * @param nom le nom du profil à créer
+   */
+  public void creerNouveauProfil(String nom) throws IOException {
+
+    // Chemin de l'image par défaut
+    String cheminIMG = Launcher.normaliserChemin(Launcher.dossierAssets+ "/img/avatar.png");
+
+    // Fichier de l'image par défaut
+    File file = new File(cheminIMG);
+
+    // Si le fichier n'existe pas, on lance une exception
+    if ( !file.exists() ) {
+      throw new FileNotFoundException("Erreur : l'image par défaut n'a pas été trouvée");
+    }
+
+    // Copy de l'image par défaut dans le dossier du profil
+    String cheminDestination = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + nom + "/" + file.getName());
+
+    // Copie de l'image dans le dossier du profil
+    Launcher.copyFile(file.getAbsolutePath(), cheminDestination);
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Copie de l'image sélectionnée dans le dossier des ressources du profil :");
+      System.out.println("  - Chemin source : " + file.getAbsolutePath());
+      System.out.println("  - Chemin destination : " + cheminDestination);
+    }
+
+    // Création du profil
+    Profil nouveauProfil = new Profil(nom, cheminDestination);
+
+    // Sauvegarde du profil
+    Profil.sauvegarderProfil(nouveauProfil);
+
+    // Ajout du profil au catalogue
+    ajouterProfil(nouveauProfil);
+
+    // Définition du profil actuel
+    setProfilActuel(nouveauProfil);
   }
 
   /**

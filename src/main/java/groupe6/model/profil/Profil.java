@@ -5,7 +5,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.Objects;
 
 /**
  * Cette classe modélise un profil d'utilisateur.
@@ -140,6 +139,8 @@ public class Profil implements Serializable {
 
             cheminIMG = cheminDestination;
         }
+
+        sauvegarderProfil(this);
     }
 
     /**
@@ -160,7 +161,6 @@ public class Profil implements Serializable {
      * Methode pour sauvegarder un profil
      *
      * @param profil le profil à sauvegarder
-     * @return un message de confirmation ou d'erreur
      */
     public static void sauvegarderProfil(Profil profil) {
         // Dossier ressources contenant les profils
