@@ -191,6 +191,10 @@
     -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
 }
 
+.color-transition {
+    -fx-transition: background-color 1s ease-in-out;
+}
+
 .button-top.clicked, .button-bottom.clicked, .button-left.clicked, .button-right.clicked {
     -fx-background-color: black;
     -fx-opacity: 1.0;

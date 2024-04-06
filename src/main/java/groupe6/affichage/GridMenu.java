@@ -14,13 +14,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class GridMenu implements Menu {
     private Partie partie;
@@ -45,8 +49,10 @@ public class GridMenu implements Menu {
     private int longueur;
     private int largeur;
     private Rectangle[][] rectangle;
+    private Stage primaryStage;
 
-    public GridMenu(Partie partie){
+    public GridMenu(Partie partie, Stage primaryStage){
+        this.primaryStage = primaryStage;
         this.compteur = 0;
         this.buttonHoverLabel = new Label();
 
@@ -88,20 +94,56 @@ public class GridMenu implements Menu {
      * @param color la couleur à appliquer ( format css )
      */
     public void highlightCellule(int y, int x, String color) {
-        this.rectangle[x][y].setVisible(true);
-
-        //this.celluleNodes[y][x].getCenterPane().setStyle("-fx-background-color: "+color+";");
-        /*double celluleWidth = this.celluleNodes[x][y].getCenterPane().getWidth();
-        double celluleHeight = this.celluleNodes[x][y].getCenterPane().getHeight();
-        double celluleX = this.celluleNodes[x][y].getCenterPane().getLayoutX();
-        double celluleY = this.celluleNodes[x][y].getCenterPane().getLayoutY();
-
-        System.out.println("\n\n x : " + celluleX + "\n y : " + celluleY + "\n color : " + color);
-
-        this.rectangle[y][x].setTranslateX(celluleX);
-        this.rectangle[y][x].setTranslateY(celluleY);*/
+        this.celluleNodes[y][x].changeCellulesCss(color);
+        setCellulesAdjacentesCss(y, x, color);
     }
 
+    /**
+     * Permet de changer les couleurs des traits voisins
+     * @param y
+     * @param x
+     * @param color
+     */
+    private void setCellulesAdjacentesCss(int y, int x, String color) {
+        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
+        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
+        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
+        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
+    }
+
+    private void resetCellulesAdjacentesCss(int y, int x) {
+        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
+        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].resetButtonCss(2);
+        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].resetButtonCss(1);
+        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].resetButtonCss(0);
+    }
+
+    private boolean afficherPopup(){
+        boolean resultat = false;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Action demandée");
+        alert.setHeaderText("Les cellules en rouge et orange seront modifier si vous acceptez la correction!");
+        alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
+
+        // on enlève le bouton OK qui est mis de base
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setVisible(false);
+
+        ButtonType ouiButton = new ButtonType("Oui");
+        alert.getButtonTypes().add(ouiButton);
+
+        ButtonType nonButton = new ButtonType("Non");
+        alert.getButtonTypes().add(nonButton);
+        alert.showAndWait();
+
+        ButtonType boutonChoisi = alert.getResult();
+
+        if (boutonChoisi == ouiButton) {
+            resultat = true;
+        }
+
+        return resultat;
+    }
 
     private Button initHeaderButton(String style, String hoverText) {
         Button button = new Button();
@@ -251,6 +293,7 @@ public class GridMenu implements Menu {
                 ResultatVerificationErreur resultat = partie.verifierErreur();
                 System.out.println("Résultat de la vérification : "+resultat);
                 System.out.println(partie.getGestionnaireErreur());
+
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         // TODO : Mettre en rouge les cellules au coordonnées coords
@@ -267,21 +310,24 @@ public class GridMenu implements Menu {
                     //      message "Les cellules en rouge et orange seront modifier si vous acceptez la correction.\n
                     //      Acceptez de revenir sur la première erreur trouvée ?"
 
-                    boolean accepteCorrection = false;
+                    boolean accepteCorrection = afficherPopup();
                     if ( accepteCorrection ) {
                         partie.corrigerErreur();
                     }
 
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         // TODO : Enleve la couleurs rouge sur les cellules au coordonnées coords
-//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                        celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
+                        resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         // TODO : Enleve la couleurs orange sur les cellules au coordonnées coords
-//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                        celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
+                        resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
 
                     // TODO : Enlever des points meme si il n'accepte pas la correction
+                    updateAffichage();
                 }
                 else {
                     // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"

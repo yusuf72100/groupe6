@@ -13,6 +13,7 @@ public class Main extends Application {
 
     private static Scene Main;
     private static GridMenu grid;
+    private static Stage primaryStage;
 
     /**
      * Programme principal jfx
@@ -22,25 +23,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primary) throws IOException {
         try {
+            primaryStage = primary;
             // gestion de la scène
             Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
             String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierAssets + "/style.css");
             Main.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
-
-            /*double windowWidth = primary.getWidth();
-            double windowHeight = primary.getHeight();
-
-            Main.widthProperty().addListener((obs, oldVal, newVal) -> {
-                for (Button button : buttons) {
-                    button.setPrefWidth(newVal.doubleValue() * 0.1823);
-                }
-            });
-
-            Main.heightProperty().addListener((obs, oldVal, newVal) -> {
-                for (Button button : buttons) {
-                    button.setPrefHeight(newVal.doubleValue() * 0.47);
-                }
-            });*/
 
             // gestion de la fenêtre
             primary.initStyle(StageStyle.DECORATED);
@@ -68,7 +55,7 @@ public class Main extends Application {
 
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
-        grid = new GridMenu(partie);
+        grid = new GridMenu(partie, primaryStage);
         Main.setRoot(grid.getMenu(false));
     }
 
