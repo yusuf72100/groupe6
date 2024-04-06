@@ -211,7 +211,6 @@ public class CatalogueProfil {
     // Lance un thread séparé pour sauvegarder le profil
     new Thread(() -> Profil.sauvegarderProfil(nouveauProfil)).start();
 
-
     // Ajout du profil au catalogue
     ajouterProfil(nouveauProfil);
 

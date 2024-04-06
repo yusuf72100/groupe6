@@ -2,6 +2,8 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -10,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
+
 import java.util.function.Function;
 
 public class CelluleNode extends Node {
@@ -18,11 +22,17 @@ public class CelluleNode extends Node {
     private Rectangle[] coins;
     private StackPane centerPane;
     private Label centerTextField;
-    private int label;
     private ValeurCote[] cotes;
+    private String[] buttonsOldCss;
+    private String[] imagesOldCss;
+    private String centerPaneOldCss;
+    private String centerTextFieldOldCss;
+    private int label;
 
     public CelluleNode(int label, ValeurCote[] cotes) {
         // récupération du label qui correspond à la valeur numérique de la cellule
+        this.buttonsOldCss = new String[4];
+        this.imagesOldCss = new String[4];
         this.image = new ImageView[4];
         this.label = label;
         this.cotes = cotes;
@@ -131,21 +141,40 @@ public class CelluleNode extends Node {
 
     /**
      * Changer le css de la cellule
-     * @param css TODO
+     * @param color TODO
      */
-    public void changeCellulesCss(String css) {
-        this.cellule[0].getStyleClass().addAll(css + "-top");
-        this.cellule[1].getStyleClass().addAll(css + "-bottom");
-        this.cellule[2].getStyleClass().addAll(css + "-left");
-        this.cellule[3].getStyleClass().addAll(css + "-right");
+    public void changeCellulesCss(String color) {
+        for ( int i = 0; i < 4; i++ ) {
+            this.buttonsOldCss[i] = this.cellule[i].getStyle();
+            this.imagesOldCss[i] = this.image[i].getStyle();
+            this.image[i].setStyle(this.image[i].getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+            this.cellule[i].setStyle(this.cellule[i].getStyle() + " -fx-background-color: " + color + ";" + "-fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
+        }
+        this.centerPaneOldCss = this.centerPane.getStyle();
+        this.centerTextFieldOldCss = this.centerTextField.getStyle();
+        this.centerPane.setStyle(this.centerPane.getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+        this.centerTextField.setStyle(this.centerTextField.getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
     }
 
-    public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
-        Button button = cellule[buttonIndex];
-        String cssClass = cssFunction.apply(this.label);
+    public void changeButtonCss(int buttonIndex, String color) {
+        if(this.buttonsOldCss[buttonIndex] == null) {
+            this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyle();
+        }
+        this.cellule[buttonIndex].setStyle(this.cellule[buttonIndex].getStyle() + " -fx-background-color: " + color + ";" + " -fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
+    }
 
-        button.getStyleClass().clear();
-        button.getStyleClass().addAll(cssClass);
+    public void resetButtonCss(int buttonIndex) {
+        System.out.println("\n\nBouton n°" + buttonIndex + " : " + this.buttonsOldCss[buttonIndex]);
+        this.cellule[buttonIndex].setStyle(this.buttonsOldCss[buttonIndex]);
+    }
+
+    public void resetCellulesCss() {
+        for ( int i = 0; i < 4; i++ ) {
+            this.image[i].setStyle(this.imagesOldCss[i]);
+            this.cellule[i].setStyle(this.buttonsOldCss[i]);
+        }
+        this.centerPane.setStyle(this.centerPaneOldCss);
+        this.centerTextField.setStyle(this.centerTextFieldOldCss);
     }
 
     /**

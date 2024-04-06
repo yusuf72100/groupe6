@@ -10,15 +10,21 @@ import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class GridMenu implements Menu {
     private Partie partie;
@@ -32,6 +38,7 @@ public class GridMenu implements Menu {
     private Button help;
     private HBox layout_v;
     private GridPane gridPane;
+    private GridPane gridPaneAide;
     private StackPane container;
     private CelluleNode[][] celluleNodes;
     private Cellule[][] cellulesData;
@@ -41,8 +48,11 @@ public class GridMenu implements Menu {
     private Label buttonHoverLabel;
     private int longueur;
     private int largeur;
+    private Rectangle[][] rectangle;
+    private Stage primaryStage;
 
-    public GridMenu(Partie partie){
+    public GridMenu(Partie partie, Stage primaryStage){
+        this.primaryStage = primaryStage;
         this.compteur = 0;
         this.buttonHoverLabel = new Label();
 
@@ -58,9 +68,16 @@ public class GridMenu implements Menu {
 
         this.partie = partie;
         this.gridPane = new GridPane();
-        this.container = new StackPane(gridPane);
+        this.gridPaneAide = new GridPane();
+        this.gridPaneAide.setFocusTraversable(false);
+        this.gridPaneAide.setMouseTransparent(true);
+        this.gridPaneAide.setHgap(0);
+        this.gridPaneAide.setVgap(0);
+        this.gridPaneAide.setPadding(new Insets(0));
+        this.container = new StackPane(gridPane, gridPaneAide);
         this.longueur = partie.getPuzzle().getLongueur();
         this.largeur = partie.getPuzzle().getLargeur();
+        this.rectangle = new Rectangle[largeur][longueur];
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
         updateAffichage();
@@ -78,7 +95,55 @@ public class GridMenu implements Menu {
      * @param color la couleur à appliquer ( format css )
      */
     public void highlightCellule(int y, int x, String color) {
-        this.celluleNodes[y][x].getCenterPane().setStyle("-fx-background-color: "+color+";");
+        this.celluleNodes[y][x].changeCellulesCss(color);
+        setCellulesAdjacentesCss(y, x, color);
+    }
+
+    /**
+     * Permet de changer les couleurs des traits voisins
+     * @param y
+     * @param x
+     * @param color
+     */
+    private void setCellulesAdjacentesCss(int y, int x, String color) {
+        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
+        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
+        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
+        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
+    }
+
+    private void resetCellulesAdjacentesCss(int y, int x) {
+        if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
+        if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].resetButtonCss(2);
+        if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].resetButtonCss(1);
+        if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].resetButtonCss(0);
+    }
+
+    private boolean afficherPopup(){
+        boolean resultat = false;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Action demandée");
+        alert.setHeaderText("Les cellules en rouge et orange seront modifier si vous acceptez la correction!");
+        alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
+
+        // on enlève le bouton OK qui est mis de base
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setVisible(false);
+
+        ButtonType ouiButton = new ButtonType("Oui");
+        alert.getButtonTypes().add(ouiButton);
+
+        ButtonType nonButton = new ButtonType("Non");
+        alert.getButtonTypes().add(nonButton);
+        alert.showAndWait();
+
+        ButtonType boutonChoisi = alert.getResult();
+
+        if (boutonChoisi == ouiButton) {
+            resultat = true;
+        }
+
+        return resultat;
     }
 
     private Button initHeaderButton(String style, String hoverText) {
@@ -277,6 +342,7 @@ public class GridMenu implements Menu {
                 ResultatVerificationErreur resultat = partie.verifierErreur();
                 System.out.println("Résultat de la vérification : \n"+ resultat.toString());
                 System.out.println(partie.getGestionnaireErreur());
+
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         // TODO : Mettre en rouge les cellules au coordonnées coords
@@ -293,21 +359,24 @@ public class GridMenu implements Menu {
                     //      message "Les cellules en rouge et orange seront modifier si vous acceptez la correction.\n
                     //      Acceptez de revenir sur la première erreur trouvée ?"
 
-                    boolean accepteCorrection = false;
+                    boolean accepteCorrection = afficherPopup();
                     if ( accepteCorrection ) {
                         partie.corrigerErreur();
                     }
 
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         // TODO : Enleve la couleurs rouge sur les cellules au coordonnées coords
-//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                        celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
+                        resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         // TODO : Enleve la couleurs orange sur les cellules au coordonnées coords
-//                        highlightCellule(coords.getY(), coords.getX(), "black");
+                        celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
+                        resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
 
                     // TODO : Enlever des points meme si il n'accepte pas la correction
+                    updateAffichage();
                 }
                 else {
                     // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
@@ -372,8 +441,10 @@ public class GridMenu implements Menu {
         }
 
         gridPane.setAlignment(Pos.CENTER);
+        gridPaneAide.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
+        gridPaneAide.getStyleClass().addAll("button-square");
 
         HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
@@ -403,7 +474,7 @@ public class GridMenu implements Menu {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 /this.longueur);
+                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 / this.longueur);
             }
         }
     }
@@ -515,6 +586,19 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
+            }
+        }
+
+        for (int i = 0; i < this.celluleNodes.length; i++) {
+            for (int j = 0; j < this.celluleNodes[i].length; j++) {
+                // rectangle d'aide
+                this.rectangle[i][j] = new Rectangle();
+                this.rectangle[i][j].setWidth((555.0 / this.largeur));
+                this.rectangle[i][j].setHeight((555.0 / this.longueur));
+                this.rectangle[i][j].setFocusTraversable(false);
+                this.rectangle[i][j].setMouseTransparent(true);
+                this.rectangle[i][j].setVisible(false);
+                this.gridPaneAide.add(this.rectangle[i][j], i, j);
             }
         }
     }

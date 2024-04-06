@@ -5,7 +5,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.Objects;
 
 /**
  * Cette classe modélise un profil d'utilisateur.
