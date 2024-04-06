@@ -56,6 +56,9 @@ public class MainMenu implements Menu {
     protected static Double windowWidth;
     protected static Double windowHeight;
 
+    /**
+     * Méthode d'initialisation du menu qui fait office de constructeur
+     */
     public static void initMenu() {
         backText = new Label("QUITTER");
         buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
@@ -79,6 +82,9 @@ public class MainMenu implements Menu {
         profils = Launcher.catalogueProfils.getListeProfils();
     }
 
+    /**
+     * Met à jour la combobox de sélection de profil
+     */
     protected static void updateProfilsSelector() {
         profils = Launcher.catalogueProfils.getListeProfils();
         System.out.println("\n\n\n" + profils.size() + " profils");
@@ -194,10 +200,11 @@ public class MainMenu implements Menu {
         profilSelector.getSelectionModel().select(Launcher.catalogueProfils.getProfilActuel().getNom());
     }
 
-
+    /**
+     * Affichage du popup de création de profile
+     */
     protected static void creerNouveauProfil() {
         TextInputDialog dialog = new TextInputDialog();
-        Button button = new Button("Mon bouton");
         dialog.setTitle("Nouveau profil");
         dialog.setHeaderText(null);
         dialog.setContentText("Entrez le nom du nouveau profil valide:");
@@ -220,6 +227,12 @@ public class MainMenu implements Menu {
         });
     }
 
+    /**
+     * Permet d'accéder au Node qui représentera le menu en question
+     * @param w largeur de la fenetre
+     * @param h hauteur de la fenetre
+     * @return renvoi un Node javafx pour l'affichage, en l'occurence un StackPane
+     */
     public static StackPane getMenu(Double w, Double h) {
         initMenu();
         windowWidth = w;

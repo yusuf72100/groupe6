@@ -10,7 +10,16 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Classe fille au MainMenu
+ */
 public class GameModeSelectionMenu extends MainMenu {
+    /**
+     * Récupère le menu en question sous forme de Node pour l'affichage
+     * @param windowWidth
+     * @param windowHeigth
+     * @return
+     */
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         MainMenu.initMenu();
         MainMenu.getMenu(windowWidth, windowHeigth);

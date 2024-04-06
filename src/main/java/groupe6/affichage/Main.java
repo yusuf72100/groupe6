@@ -45,20 +45,33 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Affichage du menu de sélection de mode de jeu
+     */
     public static void showGameModeMenu() {
         Main.setRoot(GameModeSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
+    /**
+     * Affichage du menu principal
+     */
     public static void showMainMenu() {
         Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
+    /**
+     * Affichage du menu de jeu
+     * @param partie
+     */
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
         grid = new GridMenu(partie, primaryStage);
         Main.setRoot(grid.getMenu(false));
     }
 
+    /**
+     * Affichage du menu de sauvegardes
+     */
     public static void showSaveSelectionMenu() {
         Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
