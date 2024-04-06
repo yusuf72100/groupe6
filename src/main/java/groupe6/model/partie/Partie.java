@@ -86,6 +86,7 @@ public class Partie {
         Duration.ofMinutes(0),
         Score.getScoreDebut(this.puzzle.getDifficulte()),
         modeJeu,
+        false,
         LimiteTemps.getLimiteTemps(this.puzzle.getDifficulte())
     );
     this.gestionnaireAction = new GestionnaireAction(this.puzzle);
@@ -336,15 +337,19 @@ public class Partie {
   private boolean detectionErreur(Action action) {
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
-    System.out.println("Coordonnee cellule 1 : "+coordsCell1);
-    System.out.println("Coordonnee cellule 2 : "+coordsCell2);
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Coordonnee cellule 1 : "+coordsCell1);
+      System.out.println("Coordonnee cellule 2 : "+coordsCell2);
+    }
     int coteCell1 = action.getCoteCellule1();
     Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getX());
     Cellule cellJeu1 = this.puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
 
-    System.out.println("Cellule 1 solution :" + cellSol1.toString());
-    System.out.println("Cellule 1 : "+cellJeu1.toString() );
-    System.out.println("Cote cellule 1 : "+coteCell1);
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Cellule 1 solution :" + cellSol1.toString());
+      System.out.println("Cellule 1 : "+cellJeu1.toString() );
+      System.out.println("Cote cellule 1 : "+coteCell1);
+    }
 
     boolean valide;
     if ( coordsCell2 != null ) {
@@ -352,9 +357,11 @@ public class Partie {
       Cellule cellJeu2 = this.puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
       int coteCell2 = Cellule.getCoteAdjacent(coteCell1);
 
-      System.out.println("Cellule 2 solution :" + cellSol2.toString());
-      System.out.println("Cellule 2 : "+cellJeu2.toString());
-      System.out.println("Cote cellule 2 : "+coteCell2);
+      if ( Launcher.getVerbose() ) {
+        System.out.println("Cellule 2 solution :" + cellSol2.toString());
+        System.out.println("Cellule 2 : "+cellJeu2.toString());
+        System.out.println("Cote cellule 2 : "+coteCell2);
+      }
 
       valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1)) &&
                Cellule.compareValeurCote(cellSol2.getCote(coteCell2),cellJeu2.getCote(coteCell2));
@@ -362,7 +369,10 @@ public class Partie {
     else {
       valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1));
     }
-    System.out.println("Action valide : "+valide);
+
+    if ( Launcher.getVerbose() ) {
+      System.out.println("Action valide : "+valide);
+    }
 
     // Si une erreur existe deja sur ce cote de cellule, et que l'erreur a été corigé
     int idxErreurExistante = this.gestionnaireErreur.existe(action);
@@ -489,9 +499,10 @@ public class Partie {
    * @return vrai si la partie est terminée, faux sinon
    */
   private boolean estTermine() {
-    if (this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
-        this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0)
-    {
+    if (
+        this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
+        this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0
+    ) {
       // Obtenir la difficulté du puzzle pour le PartieFinieInfos
       DifficultePuzzle difficulte = this.puzzle.getDifficulte();
 
@@ -499,7 +510,7 @@ public class Partie {
       this.infos.setChrono(this.chrono.getTempsEcoule());
 
       // Partie non complète et perdue car temps limite atteint
-      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, false, false);
+      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
       if ( Launcher.getVerbose() ) {
@@ -514,8 +525,10 @@ public class Partie {
       // Update du chronometre
       this.infos.setChrono(this.chrono.getTempsEcoule());
 
+      // Update indice completiton
+      this.infos.setComplete(true);
 
-      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, true, true);
+      PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
       if ( Launcher.getVerbose() ) {

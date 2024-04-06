@@ -96,7 +96,7 @@ public class Historique implements Serializable {
 
         int nbPartiesGagnees = 0;
         for (PartieFinieInfos partieFinieInfos : this.historique) {
-            if (partieFinieInfos.getGagner())
+            if (partieFinieInfos.getComplete())
                 nbPartiesGagnees++;
         }
 
@@ -105,7 +105,6 @@ public class Historique implements Serializable {
         for (PartieFinieInfos partieFinieInfos : this.historique) {
             if (
                 partieFinieInfos.getComplete() &&
-                partieFinieInfos.getGagner() &&
                 partieFinieInfos.getScore() > meilleurScore
             ) {
                 meilleurScore = partieFinieInfos.getScore();

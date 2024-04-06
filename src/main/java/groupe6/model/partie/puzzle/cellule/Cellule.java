@@ -248,6 +248,30 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
+   * Méthode statique pour cloner une grille de cellules (deep copy)
+   *
+   * @param grille la grille de cellules à cloner
+   * @return une copie profonde de la grille de cellules
+   */
+  public static Cellule[][] clonerMatriceCellule(Cellule[][] grille) {
+    int largeur = grille.length;
+    int longueur = grille[0].length;
+    Cellule[][] nouvelleGrille = new Cellule[largeur][longueur];
+
+    try {
+      for (int i = 0; i < nouvelleGrille.length; i++) {
+        for (int j = 0; j < nouvelleGrille[0].length; j++) {
+          nouvelleGrille[i][j] = (Cellule) grille[i][j].clone();
+        }
+      }
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+
+    return nouvelleGrille;
+  }
+
+  /**
    * Méthode pour obtenir une représentation textuelle de la cellule
    *
    * @return la représentation textuelle de la cellule

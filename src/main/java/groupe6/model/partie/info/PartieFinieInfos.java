@@ -26,28 +26,32 @@ public class PartieFinieInfos extends PartieInfos implements Serializable {
     private final DifficultePuzzle difficulte;
 
     /**
-     * Boolean qui indique si la partie est complète
+     * La largeur du puzzle terminé
      */
-    private final boolean  complete;
+    private final int largeur;
 
     /**
-     * Boolean qui indique si la partie est gagnée
+     * La longueur du puzzle terminé
      */
-    private final boolean gagner;
+    private final int longeur;
 
     /**
      * Constructeur de la classe PartieFinieInfos
      *
      * @param infos les informations de la partie
      * @param difficulte la difficulté du puzzle
-     * @param complete boolean qui indique si la partie est complète
-     * @param gagner boolean qui indique si la partie est gagnée
      */
-    public PartieFinieInfos(PartieInfos infos, DifficultePuzzle difficulte, boolean complete, boolean gagner){
-        super(infos.getChrono(), infos.getScore(),  infos.getModeJeu(), infos.getLimiteTemps());
+    public PartieFinieInfos(PartieInfos infos, DifficultePuzzle difficulte, int largeur, int longeur){
+        super(
+            infos.getChrono(),
+            infos.getScore(),
+            infos.getModeJeu(),
+            infos.getComplete(),
+            infos.getLimiteTemps()
+        );
         this.difficulte = difficulte;
-        this.complete = complete;
-        this.gagner = gagner;
+        this.largeur = largeur;
+        this.longeur = longeur;
     }
 
     /**
@@ -59,23 +63,7 @@ public class PartieFinieInfos extends PartieInfos implements Serializable {
         return difficulte;
     }
 
-    /**
-     * Méthode pour le boolean qui indique si la partie est complète
-     *
-     * @return le boolean qui indique si la partie est complète
-     */
-    public boolean getComplete(){
-        return complete;
-    }
 
-    /**
-     * Méthode pour obtenir le boolean qui indique si la partie est gagnée
-     *
-     * @return le boolean qui indique si la partie est gagnée
-     */
-    public boolean getGagner(){
-        return gagner;
-    }
 
     /**
      * Méthode pour obtenir une représentation textuelle de la partie finie
@@ -83,14 +71,14 @@ public class PartieFinieInfos extends PartieInfos implements Serializable {
      * @return une représentation textuelle de la partie finie
      */
     public String toString(){
-        return "Partie finie : " + this.complete + "\n" +
-        "Difficulté : " + this.difficulte + "\n" +
-        "Gagner : " + this.gagner + "\n" +
-        "Date : " + this.getDate() + "\n" +
-        "Chrono : " + PartieInfos.formatDuration(this.getChrono()) + "\n" +
-        "Score : " + this.getScore() + "\n" +
-        "Mode de jeu : " + this.getModeJeu() + "\n" +
-        "Limite de temps : " + PartieInfos.formatDuration(this.getLimiteTemps()) + "\n";
+        return  "Partie finie : " + this.getComplete() + "\n" +
+                "Difficulté : " + this.difficulte + "\n" +
+                "Taille : "+this.largeur+"x"+this.longeur+"\n" +
+                "Date : " + this.getDate() + "\n" +
+                "Chrono : " + PartieInfos.formatDuration(this.getChrono()) + "\n" +
+                "Score : " + this.getScore() + "\n" +
+                "Mode de jeu : " + this.getModeJeu() + "\n" +
+                "Limite de temps : " + PartieInfos.formatDuration(this.getLimiteTemps()) + "\n";
     }
 
 }
