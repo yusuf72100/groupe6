@@ -80,6 +80,7 @@ public class GridMenu implements Menu {
         this.rectangle = new Rectangle[largeur][longueur];
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
+        updateAffichage();
 
         if ( Launcher.getVerbose() ) {
             System.out.println("Puzzle au lancement :\n"+this.puzzle);
@@ -155,13 +156,26 @@ public class GridMenu implements Menu {
         fadeButton.setToValue(0.2);
 
         button.setOnMouseEntered(event -> {
-            mouseEntered(fadeButton, button);
-            this.buttonHoverLabel.setText(hoverText);
+            if ( button.getStyleClass().contains("button-disabled") ) {
+                button.setStyle("-fx-opacity: 1");
+                this.buttonHoverLabel.setText(hoverText);
+            }
+            else {
+                mouseEntered(fadeButton, button);
+                this.buttonHoverLabel.setText(hoverText);
+            }
         });
         
         button.setOnMouseExited(event -> {
-            mouseExited(fadeButton, button);
-            this.buttonHoverLabel.setText("");
+            if ( button.getStyleClass().contains("button-disabled") ) {
+                button.setStyle("-fx-opacity: 0.5");
+                this.buttonHoverLabel.setText(hoverText);
+            }
+            else {
+                mouseExited(fadeButton, button);
+                this.buttonHoverLabel.setText("");
+            }
+
         });
 
         button.setOnMouseMoved(event -> {
@@ -177,11 +191,26 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Gestion de chaque bouton (barre)
+     * Classe interne pour gérer les événements des boutons des cellules
      */
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
-        private final int i, j;
+        /**
+         * La position en y de la cellule dans la grille
+         */
+        private final int i;
 
+        /**
+         * La position en x de la cellule dans la grille
+         */
+        private final int j;
+
+        /**
+         * Constructeur de la classe CelluleButtonEventHandler
+         *
+         * @param i la position en y de la cellule dans la grille
+         * @param j la position en x de la cellule dans la grille
+         * @param data la grille de cellules
+         */
         public CelluleButtonEventHandler(int i, int j, Cellule[][] data) {
             this.i = i;
             this.j = j;
@@ -190,7 +219,8 @@ public class GridMenu implements Menu {
 
         /**
          * Execute l'action demandée sur le bouton
-         * @param event TODO
+         *
+         * @param event l'événement qui a déclenché l'action
          */
         @Override
         public void handle(ActionEvent event) {
@@ -222,19 +252,15 @@ public class GridMenu implements Menu {
 
             ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
             partie.actionBasculeTroisEtat(i,j,cote);
-
             updateAffichage();
-            if ( Launcher.getVerbose() ) {
-                System.out.println("Puzzle après action bascule trois etat :\n"+puzzle);
-            }
         }
     }
 
     /**
      * Méthode d'interface pour récupérer le menu
-     * @param args TODO
-     * @return TODO
-     * @param <T> TODO
+     *
+     * @param args les arguments à passer à la méthode
+     * @return T le menu à afficher
      */
     public <T> AnchorPane getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -252,14 +278,25 @@ public class GridMenu implements Menu {
             }
         });
 
-        // Handler Undo
+        // Handler bouton Undo
         undo.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
                 if ( Launcher.getVerbose() ) {
                     System.out.println("Undo");
                 }
-                partie.undo();
+
+                if ( !partie.getGestionnaireAction().debutListe() ) {
+                    partie.undo();
+                    if ( partie.getGestionnaireAction().debutListe()) {
+                        GridMenu.this.undo.getStyleClass().add("button-disabled");
+                    }
+                }
+                else {
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Début de la liste d'actions");
+                    }
+                }
                 updateAffichage();
             }
         });
@@ -271,7 +308,19 @@ public class GridMenu implements Menu {
                 if ( Launcher.getVerbose() ) {
                     System.out.println("Redo");
                 }
-                partie.redo();
+
+                if ( !partie.getGestionnaireAction().finListe() ) {
+                    partie.redo();
+                    if ( partie.getGestionnaireAction().finListe()) {
+                        GridMenu.this.redo.getStyleClass().add("button-disabled");
+                    }
+                }
+                else {
+                    // TODO grise le bouton redo
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Fin de la liste d'actions");
+                    }
+                }
                 updateAffichage();
             }
         });
@@ -291,7 +340,7 @@ public class GridMenu implements Menu {
             public void handle(MouseEvent event){
                 // TODO : Activer la vérification
                 ResultatVerificationErreur resultat = partie.verifierErreur();
-                System.out.println("Résultat de la vérification : "+resultat);
+                System.out.println("Résultat de la vérification : \n"+ resultat.toString());
                 System.out.println(partie.getGestionnaireErreur());
 
                 if ( resultat.isErreurTrouvee() ) {
@@ -414,8 +463,9 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise les données de l'affichage et le stockage du puzzle
-     * @param l TODO
-     * @param L TODO
+     *
+     * @param l la largeur du puzzle
+     * @param L la longueur du puzzle
      */
     private void initCellules(int l, int L) {
         this.celluleNodes = new CelluleNode[l][L];
@@ -466,7 +516,8 @@ public class GridMenu implements Menu {
 
     /**
      * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
-     * @param nouveau TODO
+     *
+     * @param nouveau si on veut créer un nouveau puzzle
      */
     private void afficher(boolean nouveau) {
         // Colonnes
@@ -552,18 +603,41 @@ public class GridMenu implements Menu {
         }
     }
 
+    /**
+     * Met à jour l'affichage du puzzle en fonction du modèle
+     */
     private void updateAffichage() {
+        System.out.printf(this.partie.getPuzzle().toString());
+
+        // Update des cellules
         for ( int y = 0; y < this.largeur; y++ ) {
             for (int x = 0; x < this.longueur; x++) {
                 this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
             }
         }
+        // Update btn undo
+        if ( this.partie.getGestionnaireAction().debutListe() ) {
+            this.undo.getStyleClass().add("button-disabled");
+        } else {
+            this.undo.getStyleClass().remove("button-disabled");
+            this.undo.setStyle("-fx-opacity: 1");
+        }
+
+        // Update btn redo
+        if ( this.partie.getGestionnaireAction().finListe() ) {
+            this.redo.getStyleClass().add("button-disabled");
+        }
+        else {
+            this.redo.getStyleClass().remove("button-disabled");
+            this.redo.setStyle("-fx-opacity: 1");
+        }
     }
 
     /**
      * Règle l'animation d'entrée sur le bouton souhaité
-     * @param fade TODO
-     * @param button TODO
+     *
+     * @param fade l'animation de fade
+     * @param button le bouton sur lequel l'animation doit être appliquée
      */
     private static void mouseEntered(FadeTransition fade, Button button) {
         fade.setRate(1);

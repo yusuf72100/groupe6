@@ -1,5 +1,6 @@
 package groupe6.model.profil;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.info.PartieFinieInfos;
 
 import java.io.*;
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Tom MARSURA
  */
-public class Historique implements Serializable{
+public class Historique implements Serializable {
 
     /**
      * Numéro de version de la sérialisation
@@ -22,13 +23,13 @@ public class Historique implements Serializable{
     /**
      * La liste des parties finies
      */
-    private static List<PartieFinieInfos> historique;
+    private final List<PartieFinieInfos> historique;
 
     /**
      * Constructeur de la classe Historique
      */
-    Historique(){
-        historique = new ArrayList<>();
+    public Historique() {
+        this.historique = new ArrayList<PartieFinieInfos>();
     }
 
     /**
@@ -39,7 +40,7 @@ public class Historique implements Serializable{
      */
     public static void sauvegardeHistorique(Historique hist, String chemin){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))){
-            oos.writeObject(historique);
+            oos.writeObject(hist);
             System.out.println("Historique des parties sauvegardé avec succès !");
         } catch (IOException e){
             e.printStackTrace();
@@ -69,7 +70,7 @@ public class Historique implements Serializable{
      * @return l'historique des parties
      */
     public List<PartieFinieInfos> getReultatPartie(){
-        return historique;
+        return this.historique;
     }
 
     /**
@@ -78,7 +79,10 @@ public class Historique implements Serializable{
      * @param partie le résultat de la partie à ajouter
      */
     public void addResultParties(PartieFinieInfos partie){
-        historique.add(partie);
+        // Ajout du résultat de la partie dans l'historique
+        this.historique.add(partie);
+        // Lance un thread séparé pour sauvegarder le profil actuel qui vient de modifier son historique
+        new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
     }
 
     /**
@@ -88,19 +92,25 @@ public class Historique implements Serializable{
      */
     public List<Integer> calculerStat(){
         List<Integer> stat = new ArrayList<Integer>();
-        int nbParties = historique.size();
+        int nbParties = this.historique.size();
 
         int nbPartiesGagnees = 0;
-        for (PartieFinieInfos partieFinieInfos : historique) {
+        for (PartieFinieInfos partieFinieInfos : this.historique) {
             if (partieFinieInfos.getGagner())
                 nbPartiesGagnees++;
         }
 
 
         int meilleurScore = 0;
-        for (PartieFinieInfos partieFinieInfos : historique) {
-            if (partieFinieInfos.getScore() > meilleurScore)
+        for (PartieFinieInfos partieFinieInfos : this.historique) {
+            if (
+                partieFinieInfos.getComplete() &&
+                partieFinieInfos.getGagner() &&
+                partieFinieInfos.getScore() > meilleurScore
+            ) {
                 meilleurScore = partieFinieInfos.getScore();
+            }
+
         }
 
         stat.add(nbParties);

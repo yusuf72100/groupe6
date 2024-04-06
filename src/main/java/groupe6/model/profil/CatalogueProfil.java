@@ -91,7 +91,11 @@ public class CatalogueProfil {
    * @param profil le profil actuelement utilisé
    */
   public void setProfilActuel(Profil profil) {
+    // Met à jour le profil actuel
     this.profilActuel = profil;
+
+    // Sauvegarde de la modification du profil actuel
+    sauvegarderProfilActuel(this);
   }
 
   /**
@@ -204,8 +208,8 @@ public class CatalogueProfil {
     // Création du profil
     Profil nouveauProfil = new Profil(nom, cheminDestination);
 
-    // Sauvegarde du profil
-    Profil.sauvegarderProfil(nouveauProfil);
+    // Lance un thread séparé pour sauvegarder le profil
+    new Thread(() -> Profil.sauvegarderProfil(nouveauProfil)).start();
 
     // Ajout du profil au catalogue
     ajouterProfil(nouveauProfil);
@@ -290,7 +294,7 @@ public class CatalogueProfil {
    *
    * @param catalogueProfil le catalogue de profils
    */
-  public static void sauvegarderProfilActuel(CatalogueProfil catalogueProfil) {
+  public static synchronized void sauvegarderProfilActuel(CatalogueProfil catalogueProfil) {
     try {
       String cheminFichierProfilActuel = Launcher.normaliserChemin(Launcher.dossierProfils + "/profilActuel.config");
       // Fichier ou sera sauvegardé le profil actuel

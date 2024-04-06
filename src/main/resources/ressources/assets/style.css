@@ -234,3 +234,8 @@
     -fx-border-radius: 0;
     -fx-shape: "M0,0 L1,0 1,1 0,1 Z";
 }
+
+.button-disabled {
+    -fx-opacity: 0.5;
+    -fx-cursor: default;
+}

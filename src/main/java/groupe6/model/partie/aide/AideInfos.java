@@ -30,6 +30,11 @@ public class AideInfos implements Serializable {
     private final ResultatTechnique resultatTechnique;
 
     /**
+     * Le niveau actuel de l'aide
+     */
+    private int niveau;
+
+    /**
      * Constructeur de la classe AideInfos
      *
      * @param uneInfoTechnique l'information sur la technique
@@ -38,6 +43,7 @@ public class AideInfos implements Serializable {
     AideInfos(TechniqueInfos uneInfoTechnique, ResultatTechnique unResultatTechnique){
         this.infoTechnique=uneInfoTechnique;
         this.resultatTechnique=unResultatTechnique;
+        this.niveau=1;
     }
 
     /**
@@ -56,6 +62,22 @@ public class AideInfos implements Serializable {
      */
     ResultatTechnique getResultatTechnique (){
         return this.resultatTechnique;
+    }
+
+    /**
+     * Méthode pour obtenir le niveau de l'aide
+     *
+     * @return le niveau de l'aide
+     */
+    public int getNiveau() {
+        return niveau;
+    }
+
+    /**
+     * Méthode pour augmenter une aide de niveau 1 en niveau 2
+     */
+    public void upgradeNiveau(){
+        this.niveau = 2;
     }
 
 }

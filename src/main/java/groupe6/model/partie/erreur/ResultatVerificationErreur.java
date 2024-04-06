@@ -65,4 +65,19 @@ public class ResultatVerificationErreur {
   public Set<Coordonnee> getErreursSuivantes() {
     return this.erreursSuivantes;
   }
+
+  /**
+   * Méthode pour obtenir une représentation textuelle de l'objet
+   *
+   * @return une chaîne de caractères qui représente l'objet
+   */
+  @Override
+  public String toString() {
+    return "ResultatVerificationErreur : \n" +
+        "{\n" +
+        "  - erreurTrouvee=" + erreurTrouvee + "\n" +
+        "  - premiereErreur=" + premiereErreur + "\n" +
+        "  - erreursSuivantes=" + erreursSuivantes + "\n" +
+        '}';
+  }
 }

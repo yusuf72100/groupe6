@@ -226,4 +226,21 @@ public class Action implements Serializable {
         '}';
   }
 
+  /**
+   * Méthode statique pour obtenir une action qui fait l'inverse d'une autre action
+   *
+   * @param a l'action à inverser
+   * @return l'action inverse
+   */
+  public static Action inverserAction(Action a) {
+    return new Action(
+        a.cellule1,
+        a.cellule2,
+        a.coteCellule1,
+        a.ancienneValeurCote,
+        a.nouvelleValeurCote,
+        a.coordsCellule1
+    );
+  }
+
 }

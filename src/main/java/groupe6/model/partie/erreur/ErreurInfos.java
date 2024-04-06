@@ -99,8 +99,8 @@ public class ErreurInfos implements Serializable, Cloneable {
   @Override
   public String toString() {
     return "ErreurInfos{" +
-        "coordonneeCell1=" + coordonneeCell1 +
-        ", coordonneeCell2=" + coordonneeCell2 +
+        "coordsCell1=" + coordonneeCell1 +
+        ", coordsCell2=" + coordonneeCell2 +
         ", coteCell1=" + coteCell1 +
         ", indexAction=" + indexAction +
         '}';
