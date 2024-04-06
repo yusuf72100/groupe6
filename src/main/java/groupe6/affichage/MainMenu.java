@@ -74,7 +74,6 @@ public class MainMenu implements Menu {
         initMenu();
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeigth));
-
         mainHbox.setSpacing(200); // espacement entre les éléments
 
         if (profils != null) {
@@ -82,7 +81,7 @@ public class MainMenu implements Menu {
                 profilSelector.getItems().add(p.getNom());
             }
         } else {
-            profilSelector.getItems().add("Invité");
+            profilSelector.getItems().add("Invite");
         }
 
         profilSelector.getSelectionModel().selectFirst();
@@ -91,7 +90,6 @@ public class MainMenu implements Menu {
         profilSelector.getStyleClass().add("combo-box");
 
         // Header
-
         profilSelector.setButtonCell(new ListCell<String>() {
             private final ImageView imageView = new ImageView();
 
