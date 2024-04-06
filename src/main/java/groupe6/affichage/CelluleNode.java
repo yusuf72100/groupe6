@@ -80,6 +80,10 @@ public class CelluleNode extends Node {
         }
     }
 
+    /**
+     * Met à jour l'affichage des côtés de la cellule
+     * @param cotes
+     */
     public void updateCotes(ValeurCote[] cotes) {
         for ( int i = 0; i < 4; i++ ) {
             switch (cotes[i]) {
@@ -250,8 +254,16 @@ public class CelluleNode extends Node {
      */
     public int getLabel() { return this.label; }
 
+    /**
+     * Récupérer le label de la cellule
+     * @param label
+     */
     public void setLabel(int label) { this.label = label; }
 
+    /**
+     * Changer le label de la cellule
+     * @param i
+     */
     public void setLabeText(int i) {
         this.centerTextField.setText(Integer.toString(i));
     }

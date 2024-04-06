@@ -131,6 +131,11 @@ public class GridMenu implements Menu {
 
     }
 
+    /**
+     * Remet l'affichage de la cellule à l'état précédent
+     * @param y la position y de la cellule
+     * @param x la position x de la cellule
+     */
     private void resetCellulesAdjacentesCss(int y, int x) {
 
         if ( estDansGrille(y, x-1) ) {
@@ -151,11 +156,15 @@ public class GridMenu implements Menu {
 
     }
 
+    /**
+     * Affichage du popup de l'aide de vérification
+     * @return renvoi un booléen qui vaut vrai si on veut revenir sur la première erreur trouvée, faux sinon
+     */
     private boolean afficherPopup(){
         boolean resultat = false;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Action demandée");
-        alert.setHeaderText("Les cellules en rouge et orange seront modifier si vous acceptez la correction!");
+        alert.setHeaderText("Les cellules en rouge et orange seront modifiées si vous acceptez la correction!");
         alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
 
         // on enlève le bouton OK qui est mis de base
@@ -178,6 +187,12 @@ public class GridMenu implements Menu {
         return resultat;
     }
 
+    /**
+     * Permet d'ajouter une bouton parmis les boutons headers du menu de grille
+     * @param style
+     * @param hoverText
+     * @return renvoi un bouton initialisé
+     */
     private Button initHeaderButton(String style, String hoverText) {
         Button button = new Button();
         button.getStyleClass().add(style);
