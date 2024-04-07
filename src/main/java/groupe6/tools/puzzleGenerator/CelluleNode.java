@@ -166,10 +166,20 @@ public class CelluleNode extends Node {
         return new StackPane(this.centerTextField);
     }
 
+    /**
+     * Méthode qui ajoute une croix sur un coté de la cellule
+     *
+     * @param cote le coté de la cellule
+     */
     public void addCroix(int cote) {
         this.image[cote].setVisible(true);
     }
 
+    /**
+     * Méthode qui enlève une croix sur un coté de la cellule
+     *
+     * @param cote le coté de la cellule
+     */
     public void removeCroix(int cote) {
         this.image[cote].setVisible(false);
     }

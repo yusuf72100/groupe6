@@ -342,8 +342,23 @@ public class PuzzleSauvegarde implements Serializable {
     return grilleSolution;
   }
 
+  /**
+   * Méthode pour obtenir une cellule de la grille solution
+   *
+   * @param y la position en y
+   * @param x la position en x
+   * @return la cellule de la grille solution
+   */
   public Cellule getCelluleGrilleSolution(int y, int x) { return grilleSolution[y][x]; }
 
+  /**
+   * Méthode pour obtenir la cellule adjacente à une position et un côté donné
+   *
+   * @param y la position en y
+   * @param x la position en x
+   * @param cote le côté de la cellule
+   * @return la cellule adjacente à la position (y,x) dans la direction du côté donné
+   */
   public Cellule getCelluleAdjacenteSolution(int y, int x, int cote) {
     Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
     if ( coordsAdjacente != null ) {
@@ -381,6 +396,13 @@ public class PuzzleSauvegarde implements Serializable {
         xAdj++;
         break;
     }
+
+    if (estDansGrille(yAdj, xAdj)) {
+      return new Coordonnee(yAdj, xAdj);
+    } else {
+      return null;
+    }
+  }
 
   /**
    * Méthode pour obtenir la grille vide du puzzle
