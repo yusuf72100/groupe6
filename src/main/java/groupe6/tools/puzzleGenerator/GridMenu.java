@@ -4,6 +4,7 @@ import groupe6.affichage.Menu;
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
+import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
@@ -33,7 +34,7 @@ public class GridMenu implements Menu {
     private VBox container;
     private CelluleNode[][] celluleNodes;
     private Cellule[][] cellulesData;
-    private Puzzle puzzle;
+    private PuzzleSauvegarde puzzle;
     private Scene scene;
     private int longueur;
     private int largeur;
@@ -77,7 +78,7 @@ public class GridMenu implements Menu {
         this.longueur = longueur;
         this.largeur = largeur;
         initCellules(this.largeur, this.longueur);
-        this.puzzle = new Puzzle(this.largeur, this.longueur, this.cellulesData, diff);
+        this.puzzle = new PuzzleSauvegarde(this.largeur, this.longueur, diff);
     }
 
     /**
@@ -132,9 +133,8 @@ public class GridMenu implements Menu {
                 System.out.println("vide");
                 valeur = ValeurCote.TRAIT;
             }
-            System.out.println(Math.random());
 
-            Cellule cell1 = GridMenu.this.puzzle.getCelluleSolution(i, j);
+            Cellule cell1 = GridMenu.this.puzzle.getCelluleGrilleSolution(i, j);
             Cellule cell2;
             switch (clickedButton.getText()) {
                 case "Top":
@@ -232,7 +232,7 @@ public class GridMenu implements Menu {
                 java.io.File file = fileChooser.showSaveDialog(Main.getStage());
 
                 if (file != null) {
-                    Puzzle.sauvegarderPuzzle(puzzle, file.getAbsolutePath());
+                    PuzzleSauvegarde.sauvegarderPuzzle(puzzle, file.getAbsolutePath());
                 }
             }
         });
@@ -287,7 +287,7 @@ public class GridMenu implements Menu {
      * @param path TODO
      */
     public void initNewPuzzle(String path) {
-        this.puzzle = Puzzle.chargerPuzzle(path);
+        this.puzzle = PuzzleSauvegarde.chargerPuzzle(path);
         this.largeur = this.puzzle.getLargeur();
         this.longueur = this.puzzle.getLongueur();
 

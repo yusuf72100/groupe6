@@ -190,6 +190,46 @@ public class PuzzleSauvegarde implements Serializable {
     return grilleSolution;
   }
 
+  public Cellule getCelluleGrilleSolution(int y, int x) { return grilleSolution[y][x]; }
+
+  public Cellule getCelluleAdjacenteSolution(int y, int x, int cote) {
+    Coordonnee coordsAdjacente = getCoordoneeAdjacente(y,x,cote);
+    if ( coordsAdjacente != null ) {
+      int coordsAdjacenteY = coordsAdjacente.getY();
+      int coordsAdjacenteX = coordsAdjacente.getX();
+      return getCelluleGrilleSolution(coordsAdjacenteY,coordsAdjacenteX);
+    }else {
+      return null;
+    }
+  }
+
+  /**
+   * Méthode pour obtenir les coordonnées adjacente à une position et un côté donné
+   *
+   * @param y la position en y
+   * @param x la position en x
+   * @param cote le côté de la cellule
+   * @return les coordonnées adjacente à la position (y,x) dans la direction du côté donné
+   */
+  public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
+    int yAdj = y;
+    int xAdj = x;
+
+    switch (cote) {
+      case Cellule.HAUT:
+        yAdj--;
+        break;
+      case Cellule.BAS:
+        yAdj++;
+        break;
+      case Cellule.GAUCHE:
+        xAdj--;
+        break;
+      case Cellule.DROITE:
+        xAdj++;
+        break;
+    }
+
   /**
    * Méthode pour obtenir la grille vide du puzzle
    *
