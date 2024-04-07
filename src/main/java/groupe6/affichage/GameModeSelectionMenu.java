@@ -11,14 +11,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
 /**
- * Classe fille au MainMenu
+ * Classe qui correspond au menu de sélection du mode de jeu
+ *
+ * @author Yusuf
  */
 public class GameModeSelectionMenu extends MainMenu {
     /**
-     * Récupère le menu en question sous forme de Node pour l'affichage
-     * @param windowWidth
-     * @param windowHeigth
-     * @return
+     * Récupère le menu de sélection du mode de jeu sous forme de Node pour l'affichage
+     *
+     * @param windowWidth la largeur de la fenêtre
+     * @param windowHeigth la hauteur de la fenêtre
+     * @return le menu de sélection du mode de jeu
      */
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         MainMenu.initMenu();

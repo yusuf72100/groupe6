@@ -30,6 +30,11 @@ public class Puzzle implements Serializable, Cloneable {
   private final int longueur;
 
   /**
+   * La difficulté du puzzle
+   */
+  private final DifficultePuzzle difficulte;
+
+  /**
    * La grille avec la solution du puzzle
    */
   private Cellule[][] grilleSolution;
@@ -40,30 +45,22 @@ public class Puzzle implements Serializable, Cloneable {
   private Cellule[][] grilleJeu;
 
   /**
-   * La difficulté du puzzle
-   */
-  private final DifficultePuzzle difficulte;
-
-  /**
-   * Constructeur de la classe Puzzle ( nouveau puzzle )
+   * Constructeur de la classe Puzzle ( Nouveau puzzle )
    *
-   * @param largeur la largeur du puzzle (nombre de lignes)
-   * @param longueur la longueur du puzzle (nombre de colonnes)
-   * @param grilleSolution la grille avec la solution du puzzle
-   * @param difficulte la difficulté du puzzle
+   * @param puzzleSauvegarde le PuzzleSauvegarde à partir duquel créer le puzzle
+   * @param optionTechDemarrage boolean pour savoir si on doit utiliser la grille de tech demarrage ou la grille vide
    */
-  public Puzzle(int largeur, int longueur, Cellule[][] grilleSolution, DifficultePuzzle difficulte) {
-
-    // Vérification de la correspondance entre la taille de la grille de solution et la largeur et la longueur
-    if (grilleSolution.length != largeur || grilleSolution[0].length != longueur) {
-      throw new IllegalArgumentException("La taille de la grille ne correspond pas à la largeur et la longueur");
+  public Puzzle(PuzzleSauvegarde puzzleSauvegarde, boolean optionTechDemarrage) {
+    this.largeur = puzzleSauvegarde.getLargeur();
+    this.longueur = puzzleSauvegarde.getLongueur();
+    this.grilleSolution = Cellule.clonerMatriceCellule(puzzleSauvegarde.getGrilleSolution());
+    this.difficulte = puzzleSauvegarde.getDifficulte();
+    if ( optionTechDemarrage ) {
+      this.grilleJeu = Cellule.clonerMatriceCellule(puzzleSauvegarde.getGrilleTechDemarrage());
+    } else {
+      this.grilleJeu = Cellule.clonerMatriceCellule(puzzleSauvegarde.getGrilleVide());
     }
 
-    this.largeur = largeur;
-    this.longueur = longueur;
-    this.grilleSolution = grilleSolution;
-    genererGrillePropre();
-    this.difficulte = difficulte;
   }
 
   /**
@@ -148,70 +145,7 @@ public class Puzzle implements Serializable, Cloneable {
     }
   }
 
-  /**
-   * Méthode pour obtenir la représentation textuelle de la grille
-   *
-   * @param grille la grille dont on veut obtenir la représentation textuelle
-   * @return la représentation textuelle de la grille
-   */
-  private String grilleTostring(Cellule[][] grille) {
-    StringBuilder strBuilder = new StringBuilder();
 
-    for (int y = 0; y < largeur; y++) {
-      // Affichage des lignes horizontales
-      for (int x = 0; x < longueur; x++) {
-        strBuilder.append("+");
-        if (grille[y][x].getCote(Cellule.HAUT) == ValeurCote.TRAIT) {
-          strBuilder.append("-");
-        } else if (grille[y][x].getCote(Cellule.HAUT) == ValeurCote.CROIX) {
-          strBuilder.append("*");
-        } else {
-          strBuilder.append(" ");
-        }
-      }
-      strBuilder.append("+\n");
-
-      // Affichage des lignes verticales et valeurs
-      for (int x = 0; x < longueur; x++) {
-        if (grille[y][x].getCote(Cellule.GAUCHE) == ValeurCote.TRAIT) {
-          strBuilder.append("|");
-        } else if (grille[y][x].getCote(Cellule.GAUCHE) == ValeurCote.CROIX) {
-          strBuilder.append("*");
-        } else {
-          strBuilder.append(" ");
-        }
-        if (grille[y][x].getValeur() != -1) {
-          strBuilder.append(grille[y][x].getValeur());
-        } else {
-          strBuilder.append(" ");
-        }
-      }
-      // Affichage du côté droit de la grille
-      if (grille[y][longueur - 1].getCote(Cellule.DROITE) == ValeurCote.TRAIT) {
-        strBuilder.append("|\n");
-      } else if ( grille[y][longueur - 1].getCote(Cellule.DROITE) == ValeurCote.CROIX) {
-        strBuilder.append("*\n");
-      } else {
-        strBuilder.append(" \n");
-      }
-    }
-
-    // Affichage de la dernière ligne horizontale
-    for (int x = 0; x < longueur; x++) {
-      strBuilder.append("+");
-      if (grille[largeur - 1][x].getCote(Cellule.BAS) == ValeurCote.TRAIT) {
-        strBuilder.append("-");
-      } else if (grille[largeur - 1][x].getCote(Cellule.BAS) == ValeurCote.CROIX) {
-        strBuilder.append("*");
-      } else {
-        strBuilder.append(" ");
-      }
-    }
-
-    strBuilder.append("+");
-
-    return strBuilder.toString();
-  }
 
   /**
    * Méthode pour obtenir la représentation textuelle du puzzle
@@ -229,9 +163,9 @@ public class Puzzle implements Serializable, Cloneable {
     str = "Longueur : " + longueur + "\n";
     strBuilder.append(str);
     strBuilder.append("\nGrille Solution : \n");
-    strBuilder.append(grilleTostring(grilleSolution));
+    strBuilder.append(Cellule.grilleTostring(this.largeur,this.longueur,grilleSolution));
     strBuilder.append("\nGrille Cellules : \n");
-    strBuilder.append(grilleTostring(grilleJeu));
+    strBuilder.append(Cellule.grilleTostring(this.largeur,this.longueur,grilleJeu));
     strBuilder.append("\n");
 
     return strBuilder.toString();

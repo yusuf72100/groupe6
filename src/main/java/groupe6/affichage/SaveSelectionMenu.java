@@ -23,29 +23,123 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+/**
+ * Classe qui correspond au menu de sélection de sauvegarde
+ *
+ * @author Yusuf
+ */
 public class SaveSelectionMenu extends MainMenu {
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le bouton de back
+     */
     private static Button backButton;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le texte du bouton de back
+     */
     private static Label backText;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le sélecteur de profil
+     */
     private static ComboBox<String> profilSelector;
-    private static String[] buttonTextsLabels;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * La boîte horizontale principale
+     */
     private static HBox mainHbox;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le panneau d'affichage principal
+     */
     private static StackPane mainPane;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * La description des backgrounds
+     */
     private static HBox[] descriptionsBackground;
+
+    // TODO
+    /**
+     * Le conteneur des boutons
+     */
     private static StackPane[] buttonsContainer;
+
+    /**
+     * Les textes des boutons du menu de sélection de sauvegarde
+     */
+    private static String[] buttonTextsLabels;
+
+    /**
+     * Les boutons du menu de sélection de sauvegarde
+     */
     private static Button[] buttons;
+
+    /**
+     * Les textes des descriptions dans les boutons du menu de sélection de sauvegarde
+     */
     private static Label[] descriptionText;
+
+    /**
+     * L.es labels des boutons du menu de sélection de sauvegarde
+     */
     private static Label[] buttonsText;
 
     // animations
+    // TODO : supprimer si pas utilisé
+    /**
+     * Les transitions de translation des rectangles
+     */
     private static TranslateTransition[] rectangleTransition;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Les transitions de translation des rectangles en sens inverse
+     */
     private static TranslateTransition[] rectangleTransitionReverse;
+
+    /**
+     * Les transitions de fade des rectangles
+     */
     private static FadeTransition[] fadeTransition;
+
+    /**
+     * Les transitions de fade des rectangles en sens inverse
+     */
     private static FadeTransition[] fadeTransitionReverse;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Les rectangles pour l'animation de l'affichage des descriptions
+     */
     private static Rectangle[] clipRectangle;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le titre de la fenêtre
+     */
     private static Text title = new Text("Slitherlink");
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * La liste des profils chargés dans le catalogue de profils
+     */
     private static List<Profil> profils;
+
+    /**
+     * La liste des noms des sauvegardes du profil actuel
+     */
     private static List<String> lstSave;
 
+    /**
+     * Méthode qui initialise le menu de sélection de sauvegarde
+     */
     public static void initMenu() {
         lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
         title = new Text("Choisissez une partie");
@@ -67,6 +161,12 @@ public class SaveSelectionMenu extends MainMenu {
         buttons = new Button[lstSave.size() + 10];
     }
 
+    /**
+     * Méthode qui extrait la difficulté depuis le nom de la sauvegarde
+     *
+     * @param data le nom de la sauvegarde
+     * @return la difficulté de la sauvegarde ( String )
+     */
     private static String extraireDifficulte(String data) {
         String difficulte = data.split("_")[0];
         String premiereLettre = difficulte.substring(0, 1).toUpperCase();
@@ -74,14 +174,33 @@ public class SaveSelectionMenu extends MainMenu {
         return premiereLettre + resteDuMot;
     }
 
+    /**
+     * Méthode qui extrait la taille depuis le nom de la sauvegarde
+     *
+     * @param data le nom de la sauvegarde
+     * @return la taille de la sauvegarde ( String )
+     */
     private static String extraireTaille(String data) {
         return data.split("_")[1];
     }
 
+    /**
+     * Méthode qui extrait la date depuis le nom de la sauvegarde
+     *
+     * @param data le nom de la sauvegarde
+     * @return la date de la sauvegarde ( String )
+     */
     private static String extraireDate(String data) {
         return (data.split("_")[2] + "-" + data.split("_")[3] + "-" + data.split("_")[4]);
     }
 
+    /**
+     * Méthode qui retourne le menu de sélection de sauvegarde
+     *
+     * @param windowWidth  la largeur de la fenêtre
+     * @param windowHeigth la hauteur de la fenêtre
+     * @return le menu de sélection de sauvegarde
+     */
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         initMenu();
         for (int i = 0; i < lstSave.size() + 10; i++) {
@@ -158,6 +277,7 @@ public class SaveSelectionMenu extends MainMenu {
                             PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,
                                     Launcher.catalogueProfils.getProfilActuel());
                             Partie partie = Partie.chargerPartie(save, Launcher.catalogueProfils.getProfilActuel());
+                            Main.showGridMenu(partie);
                         } else {
                             System.out.println("Aucune sauvegarde trouvée");
                         }

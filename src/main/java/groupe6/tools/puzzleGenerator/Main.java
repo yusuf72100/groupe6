@@ -6,12 +6,39 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe principale du puzzle generator
+ *
+ * @author Yusuf
+ */
 public class Main extends Application {
+
+    /**
+     * La scène principale
+     */
     private static Scene scene;
+
+    /**
+     * Le menu principal
+     */
     private static MainMenu main;
+
+    /**
+     * Le gridMenu utilisé dans le puzzle generator
+     */
     private static GridMenu grid;
+
+    /**
+     * La fenêtre principale
+     */
     private static Stage MainStage;
 
+    /**
+     * Méthode start qui lance le puzzle generator
+     *
+     * @param primaryStage la fenêtre principale
+     * @throws Exception si une erreur survient
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainStage = primaryStage;
@@ -27,15 +54,19 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Méthode statique qui affiche le menu principal
+     */
     public static void showMainMenu() {
         scene.setRoot(main.getMenu());
     }
 
     /**
-     * On affiche une toute nouvelle grille
-     * @param longueur TODO
-     * @param largeur TODO
-     * @param diff TODO
+     * Méthode statique qui affiche une toute nouvelle grille
+     *
+     * @param longueur la longueur du puzzle
+     * @param largeur la largeur du puzzle
+     * @param diff la difficulté du puzzle
      */
     public static void showNewPuzzle(int largeur, int longueur, DifficultePuzzle diff) {
         grid = new GridMenu(largeur, longueur, diff);
@@ -43,8 +74,9 @@ public class Main extends Application {
     }
 
     /**
-     * On affiche le puzzle choisit avec le gestionnaire des fichiers
-     * @param selectedFile TODO
+     * Méthode statique qui affiche le puzzle choisit avec le gestionnaire des fichiers
+     *
+     * @param selectedFile le fichier choisi
      */
     public static void showLoadedPuzzle(java.io.File selectedFile) {
         grid = new GridMenu(1, 1, DifficultePuzzle.FACILE);             // on charge un puzzle de base
@@ -53,13 +85,19 @@ public class Main extends Application {
     }
 
     /**
-     * Renvoi la référence de la fenêtre
+     * Méthode statique qui renvoi la référence de la fenêtre
+     *
      * @return MainStage
      */
     public static Stage getStage() {
         return MainStage;
     }
 
+    /**
+     * Méthode statique main qui lance le puzzle generator
+     *
+     * @param args les arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -31,6 +31,7 @@ public class Hypothese {
      *
      * @param puzzle le puzzle sur lequel on effectue notre hypothèse
      * @param gestionnaire le gestionnaire d'action lié au puzzle d'hypothèse
+     * @param gestionnaireErreur le gestionnaire des erreurs commises par l'utilisateur dans la partie
      */
     public Hypothese(Puzzle puzzle,GestionnaireAction gestionnaire, GestionnaireErreur gestionnaireErreur){
         this.puzzle = puzzle;

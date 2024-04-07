@@ -1,17 +1,22 @@
 package groupe6.test;
 
+import groupe6.model.partie.puzzle.CataloguePuzzle;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
-import groupe6.model.profil.CatalogueProfil;
-import groupe6.model.profil.Profil;
-
-import java.util.Arrays;
+import groupe6.model.partie.puzzle.PuzzleSauvegarde;
+import groupe6.model.partie.puzzle.cellule.Cellule;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 
 /**
  * Classe de test qui est lancer avec le paramètre --test
- *
- * @author Yamis
  */
 public class TestMain {
+
+    /**
+     * Méthode main qui lance les tests
+     *
+     * @param args les arguments
+     */
     public static void main(String[] args) {
 
 //        TestProfils.main(args);
@@ -21,21 +26,43 @@ public class TestMain {
 //        Puzzle.sauvegarderPuzzle(puzzle, "Slitherlink/puzzles/FACILE_6x6.puzzle");
 
         try {
-            CatalogueProfil catalogueProfil = new CatalogueProfil();
-            catalogueProfil.creerNouveauProfil("invite");
+            System.out.println("==== Test Création & Sauvegarde de SauvegardePuzzle ====");
 
-            Profil p = catalogueProfil.getProfilActuel();
-            System.out.println(p.getNom());
-            System.out.println(p.getIMG());
-            System.out.println(p.getHistorique());
-            System.out.println(p.getHistorique().getReultatPartie());
-            System.out.println(p.getParametre());
-            System.out.println(p.getParametre().getAideRemplissageCroix());
-            System.out.println(Arrays.toString(p.getParametre().getAideTechniqueDemarrage()));
-            System.out.println(p.getNiveauAventure());
+            Puzzle puzzle = Puzzle.chargerPuzzle("Slitherlink/test/FACILE_6x6.puzzle");
+            System.out.println("-- Puzzle chargé --");
+            System.out.println(puzzle.toString());
 
 
-            System.out.printf(catalogueProfil.toString());
+            System.out.println("-- PuzzleSauvegarde créé --");
+            PuzzleSauvegarde puzzleSauvegarde = new PuzzleSauvegarde(
+                puzzle.getLargeur(),
+                puzzle.getLongueur(),
+                puzzle.getDifficulte(),
+                Cellule.clonerMatriceCellule(puzzle.getGrilleSolution()),
+                Cellule.clonerMatriceCellule(puzzle.getGrilleJeu()),
+                Cellule.clonerMatriceCellule(puzzle.getGrilleJeu())
+            );
+
+           for (int i = 0; i < 4; i++) {
+               puzzleSauvegarde.modifierValeurCoteCelluleEtAdjGrille(
+                   4,
+                   1,
+                   i,
+                   puzzleSauvegarde.getGrilleTechDemarrage(),
+                   ValeurCote.CROIX
+               );
+           }
+
+            System.out.println(puzzleSauvegarde.toString());
+
+            PuzzleSauvegarde.sauvegarderPuzzleSauvegarde(puzzleSauvegarde, "Slitherlink/puzzles/FACILE_6x6_T.puzzle");
+
+            System.out.println("==== Test Chargement de SauvegardePuzzle ====");
+
+            PuzzleSauvegarde puzzleSauvegardeCharge = PuzzleSauvegarde.chargerPuzzleSauvegarde("Slitherlink/puzzles/FACILE_6x6_T.puzzle");
+
+            System.out.println(puzzleSauvegardeCharge.toString());
+
         }
         catch (Exception e) {
             e.printStackTrace();
