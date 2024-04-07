@@ -95,6 +95,7 @@ public class Partie {
     this.hypothese = null;
     this.gestionnaireErreur = new GestionnaireErreur();
     this.chrono = new Chronometre();
+    this.sauvegarder();
   }
 
   /**
@@ -224,6 +225,11 @@ public class Partie {
     return this.infos.getScore();
   }
 
+  /**
+   * Méthode pour verifier si le temps est écoulé
+   *
+   * @return vrai si le temps est écoulé et que le mode de jeu est contre la montre, faux sinon
+   */
   public boolean verifierTemps() {
     return this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
         this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0;
@@ -236,6 +242,8 @@ public class Partie {
     ErreurInfos premiereErreur = this.gestionnaireErreur.getPremiereErreur();
     this.getGestionnaireAction().annulerActionApresErreur(premiereErreur.getIndexAction());
     this.gestionnaireErreur.supprimerErreurs();
+    // Sauvegarde de la partie
+    this.sauvegarder();
   }
 
   /**
@@ -254,6 +262,8 @@ public class Partie {
 
   /**
    * Méthode pour demander une aide ( detection de technique )
+   *
+   * @return le résultat de la recherche de l'aide ( ResultatTechnique )
    */
   public ResultatTechnique chercherAide() {
     ResultatTechnique result = GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
@@ -268,6 +278,8 @@ public class Partie {
 
   /**
    * Méthode upgrade une aide de niveau 1 en une aide de niveau 2
+   *
+   * @param idxAide l'index de l'aide à upgrader
    */
   public void upgradeAide(int idxAide) {
     // Verification de l'index de l'aide
@@ -555,6 +567,9 @@ public class Partie {
     System.out.println();
     System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
     System.out.println("--------------------");
+
+    // Sauvegarde de la partie après chaque action
+    this.sauvegarder();
   }
 
   /**
@@ -566,6 +581,8 @@ public class Partie {
       detectionErreur(action);
     }
     System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
+    // Sauvegarde de la partie
+    this.sauvegarder();
   }
 
   /**
@@ -643,8 +660,12 @@ public class Partie {
   public static Partie nouvellePartie(CataloguePuzzle catalogue, DifficultePuzzle difficulte, int numero,
                                       ModeJeu modeJeu, Profil profil
   ) {
-    Puzzle puzzleVide = catalogue.getCopyPuzzle(difficulte, numero);
-    return new Partie(puzzleVide, modeJeu, profil);
+    // Récupération du booléen qui indique si l'application des techniques de démarrage est activée
+    boolean optionTechDemarage = profil.getParametre().getAideTechniqueDemarrage(difficulte);
+    // Création d'un nouveau puzzle en fonction de la difficulté, du numéro et de l'option technique de démarrage
+    Puzzle nvPuzzle = catalogue.getNouveauPuzzle(difficulte, numero, optionTechDemarage);
+    // Création d'une nouvelle partie à partir du nouveau puzzle, du mode de jeu et du profil
+    return new Partie(nvPuzzle, modeJeu, profil);
   }
 
   /**

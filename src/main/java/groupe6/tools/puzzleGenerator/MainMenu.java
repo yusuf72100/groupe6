@@ -15,13 +15,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
+/**
+ * Classe du menu principal du puzzle generator
+ *
+ * @author Yusuf
+ */
 public class MainMenu implements Menu {
 
     /**
-     * Vérifie les valeurs entrées dans les textfields
+     * Méthode statique qui vérifie les valeurs entrées dans les textfields
      * 
-     * @param prompt TODO
-     * @return TextField
+     * @param prompt le prompt
+     * @return le textfield
      */
     private static TextField createUnrestrictedTextField(String prompt) {
         TextField textField = new TextField();
@@ -44,9 +49,9 @@ public class MainMenu implements Menu {
     /**
      * Méthode d'interface pour récupérer le menu
      * 
-     * @param args TODO
-     * @return TODO
-     * @param <T> TODO
+     * @param args les arguments
+     * @return le menu
+     * @param <T> le type de l'argument
      */
     public <T> VBox getMenu(T... args) {
         Main main = new Main();

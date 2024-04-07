@@ -16,19 +16,74 @@ import javafx.util.Duration;
 
 import java.util.function.Function;
 
+/**
+ * Classe qui correspond à l'affichage d'une cellule
+ *
+ * @author Yusuf
+ */
 public class CelluleNode extends Node {
+
+    /**
+     * Les boutons qui correspondent aux côtés de la cellule
+     */
     private Button[] cellule;
+
+    /**
+     * Les images qui correspondent aux croix sur les côtés de la cellule
+     */
     private ImageView[] image;
+
+    /**
+     * Les rectangles qui correspondent aux coins de la cellule
+     */
     private Rectangle[] coins;
+
+    /**
+     * Le paneau central de la cellule qui contient le label de la valeur numérique de la cellule
+     */
     private StackPane centerPane;
+
+    /**
+     * Le label de la valeur numérique de la cellule
+     */
     private Label centerTextField;
+
+    /**
+     * Les cotes de la cellule
+     */
     private ValeurCote[] cotes;
+
+    /**
+     * Sauvegarde des anciens css des boutons ( côtés de la cellule )
+     */
     private String[] buttonsOldCss;
+
+    /**
+     * Sauvegarde des anciens css des images ( croix sur les côtés de la cellule )
+     */
     private String[] imagesOldCss;
+
+    /**
+     * Sauvegarde des anciens css du paneau central de la cellule
+     */
     private String centerPaneOldCss;
+
+    /**
+     * Sauvegarde des anciens css du label de la valeur numérique de la cellule
+     */
     private String centerTextFieldOldCss;
+
+    /**
+     * La valeur numérique de la cellule
+     */
     private int label;
 
+    /**
+     * Constructeur de la classe CelluleNode
+     *
+     * @param label la valeur numérique de la cellule
+     * @param cotes les cotes de la cellule
+     */
     public CelluleNode(int label, ValeurCote[] cotes) {
         // récupération du label qui correspond à la valeur numérique de la cellule
         this.buttonsOldCss = new String[4];
@@ -81,8 +136,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Met à jour l'affichage des côtés de la cellule
-     * @param cotes
+     * Méthode qui met a jour le styles des boutons en fonction des cotes
+     *
+     * @param cotes les cotes de la cellule
      */
     public void updateCotes(ValeurCote[] cotes) {
         for ( int i = 0; i < 4; i++ ) {
@@ -96,6 +152,7 @@ public class CelluleNode extends Node {
                     this.cellule[i].getStyleClass().remove("croix");
                     this.cellule[i].getStyleClass().add("clicked");
                     this.image[i].setVisible(false);
+
                     break;
                 case CROIX:
                     this.cellule[i].getStyleClass().remove("clicked");
@@ -109,8 +166,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Création du label de la cellule
-     * @return StackPane
+     * Méthode qui crée le label de la valeur numérique de la cellule
+     *
+     * @return StackPane le paneau central de la cellule
      */
     private StackPane createCenterContent() {
         this.centerTextField = new Label();
@@ -129,10 +187,12 @@ public class CelluleNode extends Node {
         return new StackPane(this.centerTextField);
     }
 
+    // TODO: param "v" non utilisé
     /**
-     * Méthode de création d'un carré noir
-     * @param v TODO
-     * @return Rectangle
+     * Méthode qui crée un carré noir
+     *
+     * @param v la taille du carré
+     * @return le carré noir créé
      */
     private Rectangle createBlackSquare(double v) {
         Rectangle square = new Rectangle(7, 7);
@@ -140,13 +200,20 @@ public class CelluleNode extends Node {
         return square;
     }
 
+    /**
+     * Méthode pour obtenir la valeur numérique de la cellule
+     *
+     * @param i le coté qu'on veut obtenir
+     * @return la valeur du coté de la cellule
+     */
     public ValeurCote getValeurCote(int i) {
         return this.cotes[i];
     }
 
     /**
-     * Changer le css de la cellule
-     * @param color TODO
+     * Méthode pour changer l'affichage css de la cellule
+     *
+     * @param color la couleur css
      */
     public void changeCellulesCss(String color) {
         for ( int i = 0; i < 4; i++ ) {
@@ -162,9 +229,10 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Chnage le style d'affichage du bouton
-     * @param buttonIndex
-     * @param color
+     * Méthode qui change l'affichage css d'un bouton
+     *
+     * @param buttonIndex le bouton qu'on veut changer ( coté )
+     * @param color la couleur css
      */
     public void changeButtonCss(int buttonIndex, String color) {
         if(this.buttonsOldCss[buttonIndex] == null) {
@@ -174,8 +242,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Remet l'affichage du bouton à l'état précédent
-     * @param buttonIndex
+     * Méthode qui remet l'affichage d'un bouton à l'état précédent
+     *
+     * @param buttonIndex le bouton qu'on veut remettre à l'état précédent ( coté )
      */
     public void resetButtonCss(int buttonIndex) {
         System.out.println("\n\nBouton n°" + buttonIndex + " : " + this.buttonsOldCss[buttonIndex]);
@@ -183,7 +252,7 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Remet l'affichage de la cellule à l'état précédent
+     * Méthode qui remet l'affichage de la cellule à l'état précédent
      */
     public void resetCellulesCss() {
         for ( int i = 0; i < 4; i++ ) {
@@ -195,18 +264,26 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Getter coin
-     * @param c TODO
-     * @return Rectangle
+     * Méthode qui permet d'obtenir le rectangle qui correspond à un coin
+     *
+     * @param c le coin qu'on veut obtenir
+     * @return le rectangle qui correspond au coin
      */
     public Rectangle getCoin(int c) { return this.coins[c]; }
 
+    /**
+     * Méthode qui permet d'obtenir l'image qui correspond à un coté
+     *
+     * @param i le coté qu'on veut obtenir
+     * @return l'image qui correspond au coté
+     */
     public ImageView getImage(int i) { return this.image[i]; }
 
     /**
-     * Changer la taille d'une cellule
-     * @param width TODO
-     * @param height TODO
+     * Méthode pour changer la taille de la cellule
+     *
+     * @param width la largeur
+     * @param height la hauteur
      */
     public void setPrefSize(double width, double height) {
         for (Button button : this.cellule) {
@@ -235,35 +312,40 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Getter bouton
-     * @param c TODO
-     * @return Button
+     * Méthode pour obtenir un bouton de la cellule
+     *
+     * @param c le bouton qu'on veut obtenir ( coté )
+     * @return le bouton de la cellule
      */
     public Button getButton(int c) {
         return this.cellule[c];
     }
 
     /**
-     * Getter pane de la cellule
-     * @return StackPane
+     * Méthode pour obtenir le paneau central de la cellule
+     *
+     * @return le paneau central de la cellule
      */
     public StackPane getCenterPane() { return this.centerPane; }
 
     /**
-     * Getter label cellule
-     * @return int
+     * Méthode pour obtenir la valeur numérique de la cellule
+     *
+     * @return la valeur numérique de la cellule
      */
     public int getLabel() { return this.label; }
 
     /**
-     * Récupérer le label de la cellule
-     * @param label
+     * Métode pour changer la valeur numérique de la cellule
+     *
+     * @param label la valeur numérique de la cellule
      */
     public void setLabel(int label) { this.label = label; }
 
     /**
-     * Changer le label de la cellule
-     * @param i
+     * Méthode pour obtenir le label de la valeur numérique de la cellule
+     *
+     * @param i la valeur numérique de la cellule
      */
     public void setLabeText(int i) {
         this.centerTextField.setText(Integer.toString(i));

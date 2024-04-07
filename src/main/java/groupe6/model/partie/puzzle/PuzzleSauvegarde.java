@@ -3,8 +3,7 @@ package groupe6.model.partie.puzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -38,7 +37,7 @@ public class PuzzleSauvegarde implements Serializable {
   /**
    * La grille avec la solution du puzzle
    */
-  private Cellule[][] grilleSolution;
+  private final Cellule[][] grilleSolution;
 
   /**
    * La grille vide du puzzle
@@ -48,7 +47,7 @@ public class PuzzleSauvegarde implements Serializable {
   /**
    * La grille avec les techniques de départ déja remplies
    */
-  private Cellule[][] grilleDepart;
+  private Cellule[][] grilleTechDemarrage;
 
 
   /**
@@ -58,10 +57,10 @@ public class PuzzleSauvegarde implements Serializable {
    * @param longueur la longueur du puzzle
    * @param grilleSolution la grille avec la solution du puzzle
    * @param grilleVide la grille vide du puzzle
-   * @param grilleDepart la grille avec les techniques de départ déja remplies
+   * @param grilleTechDemarrage la grille avec les techniques de démarrage déja remplies
    * @param difficulte la difficulté du puzzle
    */
-  public PuzzleSauvegarde(int largeur, int longueur, Cellule[][] grilleSolution, Cellule[][] grilleVide, Cellule[][] grilleDepart, DifficultePuzzle difficulte) {
+  public PuzzleSauvegarde(int largeur, int longueur, DifficultePuzzle difficulte, Cellule[][] grilleSolution, Cellule[][] grilleVide, Cellule[][] grilleTechDemarrage) {
 
     if (grilleSolution.length != largeur || grilleSolution[0].length != longueur) {
       throw new IllegalArgumentException("La taille de la grille Solution ne correspond pas à la largeur et la longueur");
@@ -71,8 +70,8 @@ public class PuzzleSauvegarde implements Serializable {
       throw new IllegalArgumentException("La taille de la grille Vide ne correspond pas à la largeur et la longueur");
     }
 
-    if (grilleDepart.length != largeur || grilleDepart[0].length != longueur) {
-      throw new IllegalArgumentException("La taille de la grille Depart ne correspond pas à la largeur et la longueur");
+    if (grilleTechDemarrage.length != largeur || grilleTechDemarrage[0].length != longueur) {
+      throw new IllegalArgumentException("La taille de la grille grilleTechDemmarage  ne correspond pas à la largeur et la longueur");
     }
 
     this.largeur = largeur;
@@ -80,11 +79,11 @@ public class PuzzleSauvegarde implements Serializable {
     this.difficulte = difficulte;
     this.grilleSolution = grilleSolution;
     this.grilleVide = grilleVide;
-    this.grilleDepart = grilleDepart;
+    this.grilleTechDemarrage = grilleTechDemarrage;
   }
 
   /**
-   * Constructeur de la classe PuzzleSauvegarde ( grilleSollution vide, grilleVide null, grilleDepart null)
+   * Constructeur de la classe PuzzleSauvegarde ( grilleSollution vide, grilleVide null, grilleTechDemmarage null)
    *
    * @param largeur la largeur du puzzle
    * @param longueur la longueur du puzzle
@@ -96,7 +95,7 @@ public class PuzzleSauvegarde implements Serializable {
     this.difficulte = difficulte;
     this.grilleSolution = initGrilleSolution();
     this.grilleVide = null;
-    this.grilleDepart = null;
+    this.grilleTechDemarrage = null;
   }
 
   /**
@@ -129,6 +128,73 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
+   * Méthode pour générer la grille avec les techniques de départ déja remplies depuis la grille vide
+   */
+  public void genererGrilleTechDemarrage() {
+    this.grilleTechDemarrage = Cellule.clonerMatriceCellule(this.grilleVide);
+  }
+
+  /**
+   * Méthode pour verifier si une coordonnée est dans la grille
+   *
+   * @param y la position en y
+   * @param x la position en x
+   * @return vrai si la coordonnée est dans la grille, faux sinon
+   */
+  public boolean estDansGrille(int y, int x) {
+    return y >= 0 && y < largeur && x >= 0 && x < longueur;
+  }
+
+  /**
+   * Méthode pour obtenir la valeur d'une cellule d'une grille
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param grille la grille à lire
+   * @return la valeur de la cellule
+   */
+  public int getValeurCelluleGrille(int y, int x, Cellule[][] grille) {
+    if ( !estDansGrille(y,x) ) {
+      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
+    }
+    return grille[y][x].getValeur();
+  }
+
+  /**
+   * Méthode pour obtenir la valeur d'un cote d'une cellule d'une grille
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param grille la grille à lire
+   * @param cote le cote à lire
+   * @return la valeur du cote
+   */
+  public ValeurCote getCoteCelluleGrille(int y, int x, Cellule[][] grille, int cote) {
+    if (!estDansGrille(y, x)) {
+      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
+    }
+    if (cote < 0 || cote > 3) {
+      throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+    }
+    return grille[y][x].getCote(cote);
+  }
+
+  /**
+   * Méthode pour obtenir les cotes d'une cellule d'une grille
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param grille la grille à lire
+   * @return les cotes de la cellule
+   */
+  public ValeurCote[] getCotesCelluleGrille(int y, int x, Cellule[][] grille) {
+    if (!estDansGrille(y, x)) {
+      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
+    }
+    return grille[y][x].getCotes();
+  }
+
+  /**
    * Méthode pour modifier la valeur d'une cellule d'une grille
    *
    * @param y la position en y de la cellule
@@ -137,7 +203,7 @@ public class PuzzleSauvegarde implements Serializable {
    * @param valeur la nouvelle valeur de la cellule
    */
   public void modifierValeurCelluleGrille(int y, int x, Cellule[][] grille, int valeur) {
-    if ( y < 0 || y >= grille.length || x < 0 || x >= grille[0].length) {
+    if ( !estDansGrille(y,x) ) {
       throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
     }
     grille[y][x].setValeur(valeur);
@@ -152,8 +218,8 @@ public class PuzzleSauvegarde implements Serializable {
    * @param cote le cote à modifier
    * @param valeur la nouvelle valeur du cote
    */
-  public void modifierCoteCelluleGrille(int y, int x, Cellule[][] grille, int cote, ValeurCote valeur) {
-    if ( y < 0 || y >= grille.length || x < 0 || x >= grille[0].length) {
+  public void modifierCoteCelluleGrille(int y, int x, int cote, Cellule[][] grille, ValeurCote valeur) {
+    if ( !estDansGrille(y,x) ) {
       throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
     }
     if ( cote < 0 || cote > 3) {
@@ -161,6 +227,92 @@ public class PuzzleSauvegarde implements Serializable {
     }
 
     grille[y][x].setCote(cote, valeur);
+  }
+
+  /**
+   * Méthode pour modifier la valeur d'un cote d'une cellule et de sa cellule adjacente dans une grille
+   *
+   * @param y la position en y
+   * @param x la position en x
+   * @param cote le cote à modifier
+   * @param grille la grille à modifier
+   * @param valeur la nouvelle valeur du cote
+   */
+  public void modifierValeurCoteCelluleEtAdjGrille(int y, int x, int cote, Cellule[][] grille, ValeurCote valeur) {
+    if ( !estDansGrille(y,x) ) {
+      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
+    }
+    if ( cote < 0 || cote > 3) {
+      throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+    }
+
+    grille[y][x].setCote(cote, valeur);
+    Cellule celluleAdj = getCelluleAdjacentGrille(y,x,cote,grille);
+    if (celluleAdj != null) {
+      int coteAdj = Cellule.getCoteAdjacent(cote);
+      celluleAdj.setCote(coteAdj, valeur);
+    }
+  }
+
+  /**
+   * Méthode pour obtenir une cellule d'une grille
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param grille la grille à lire
+   * @return la cellule
+   */
+  public Cellule getCelluleGrille(int y, int x, Cellule[][] grille) {
+    if ( !estDansGrille(y,x) ) {
+      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
+    }
+    return grille[y][x];
+  }
+
+  /**
+   * Méthode pour obtenir une cellule adjacente d'une grille
+   *
+   * @param y la position en y de la cellule
+   * @param x la position en x de la cellule
+   * @param cote le cote de la cellule
+   * @param grille la grille à lire
+   * @return la cellule adjacente
+   */
+  public Cellule getCelluleAdjacentGrille(int y, int x, int cote, Cellule[][] grille) {
+    if (cote < 0 || cote > 3) {
+      throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+    }
+    int yAdj;
+    int xAdj;
+    switch (cote) {
+      // Haut = y-1
+      case Cellule.HAUT:
+        yAdj = y - 1;
+        xAdj = x;
+        break;
+      // Bas = y+1
+      case Cellule.BAS:
+        yAdj = y + 1;
+        xAdj = x;
+        break;
+      // Gauche = x-1
+      case Cellule.GAUCHE:
+        yAdj = y;
+        xAdj = x - 1;
+        break;
+      // Droite = x+1
+      case Cellule.DROITE:
+        yAdj = y;
+        xAdj = x + 1;
+        break;
+      default:
+        throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+    }
+
+    if ( estDansGrille(yAdj, xAdj) ) {
+      return grille[yAdj][xAdj];
+    }
+    return null;
   }
 
   /**
@@ -244,8 +396,8 @@ public class PuzzleSauvegarde implements Serializable {
    *
    * @return la grille avec les techniques de départ déja remplies
    */
-  public Cellule[][] getGrilleDepart() {
-    return grilleDepart;
+  public Cellule[][] getGrilleTechDemarrage() {
+    return this.grilleTechDemarrage;
   }
 
   /**
@@ -255,5 +407,69 @@ public class PuzzleSauvegarde implements Serializable {
    */
   public DifficultePuzzle getDifficulte() {
     return difficulte;
+  }
+
+  /**
+   * Méthode pour obtenir la représentation textuelle d'une sauvegarde de puzzle
+   *
+   * @return la représentation textuelle de la sauvegarde de puzzle
+   */
+  @Override
+  public String toString() {
+    StringBuilder strBuilder = new StringBuilder();
+
+    String str = "Difficulté : " + difficulte + "\n";
+    strBuilder.append(str);
+    str = "Largeur : " + largeur + "\n";
+    strBuilder.append(str);
+    str = "Longueur : " + longueur + "\n";
+    strBuilder.append(str);
+    strBuilder.append("\nGrille Solution : \n");
+    strBuilder.append(Cellule.grilleTostring(this.largeur,this.longueur,grilleSolution));
+    strBuilder.append("\nGrille Vide : \n");
+    strBuilder.append(Cellule.grilleTostring(this.largeur,this.longueur,grilleVide));
+    strBuilder.append("\nGrille Départ : \n");
+    strBuilder.append(Cellule.grilleTostring(this.largeur,this.longueur, grilleTechDemarrage));
+    strBuilder.append("\n");
+
+    return strBuilder.toString();
+  }
+
+  /**
+   * Méthode statique pour sauvegarder une sauvegarde de puzzle
+   *
+   * @param puzzleSauvegarde la sauvegarde de puzzle à sauvegarder
+   * @param chemin le chemin du fichier de sauvegarde créé
+   */
+  public static void sauvegarderPuzzleSauvegarde(PuzzleSauvegarde puzzleSauvegarde, String chemin) {
+    try {
+      FileOutputStream fileOut = new FileOutputStream(chemin);
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(puzzleSauvegarde);
+      out.close();
+      fileOut.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Méthode statique pour charger un puzzle
+   *
+   * @param chemin le chemin du fichier de sauvegarde
+   * @return la sauvegarde de puzzle chargée
+   */
+  public static PuzzleSauvegarde chargerPuzzleSauvegarde(String chemin) {
+    PuzzleSauvegarde puzzleSauvegarde = null;
+    try {
+      FileInputStream fileIn = new FileInputStream(chemin);
+      ObjectInputStream in = new ObjectInputStream(fileIn);
+      puzzleSauvegarde = (PuzzleSauvegarde) in.readObject();
+      in.close();
+      fileIn.close();
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return puzzleSauvegarde;
   }
 }

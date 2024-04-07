@@ -80,6 +80,17 @@ public class Parametre implements Serializable{
     }
 
     /**
+     * Méthode pour obtenir le booléen qui indique si l'application automatique des techniques de démarrage est activée
+     * pour une difficulté donnée
+     *
+     * @param difficulte la difficulté dont on veut obtenir le paramètre d'application des techniques de démarrage
+     * @return le booléen de l'application des techniques de démarrage pour la difficulté donnée
+     */
+    public boolean getAideTechniqueDemarrage(DifficultePuzzle difficulte){
+        return aideTechniqueDemarrage[difficulte.ordinal()];
+    }
+
+    /**
      * Méthode pour definir si l'aide de remplissage des croix est activée
      *
      * @param aideRemplissage le booléen de l'aide au remplissage des croix

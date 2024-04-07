@@ -25,21 +25,90 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Classe qui correspond a l'inteface graphique d'un puzzle dans le puzzle generator
+ *
+ * @author Yusuf
+ */
 public class GridMenu implements Menu {
-    private Button sauvegarder;
-    private Button home;
+
+    /**
+     * Le bouton pour sauvegarder la partie
+     */
+    private final Button sauvegarder;
+
+    /**
+     * Le bouton pour revenir au menu principal
+     */
+    private final Button home;
+
+    /**
+     * Le label pour afficher les informations du puzzle
+     */
     private Label infos;
+
+    // TODO : a supprimer si pas utilisé
+    /**
+     * Le layout vertical
+     */
     private VBox layout_v;
+
+    /**
+     * Le gridPane qui contient les cellules
+     */
     private GridPane gridPane;
+
+    /**
+     * Le container qui contient le gridPane
+     */
     private VBox container;
+
+    /**
+     * La grille des nodes des cellules
+     */
     private CelluleNode[][] celluleNodes;
+
+    /**
+     * La grille des données des cellules
+     */
     private Cellule[][] cellulesData;
+
+    /**
+     * La sauvegarde du puzzle qui modifié
+     */
     private PuzzleSauvegarde puzzle;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * La scène de l'interface graphique
+     */
     private Scene scene;
-    private int longueur;
+
+    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
+    /**
+     * La largeur du puzzle
+     */
     private int largeur;
+
+    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
+    /**
+     * La longueur du puzzle
+     */
+    private int longueur;
+
+    // TODO : supprimer après test
+    /**
+     * Le compteur de barres
+     */
     private int compteur; // utilisé à des fins de test
 
+    /**
+     * Constructeur de la classe GridMenu du puzzle generator
+     *
+     * @param largeur la largeur du puzzle
+     * @param longueur la longueur du puzzle
+     * @param diff la difficulté du puzzle
+     */
     public GridMenu(int largeur, int longueur, DifficultePuzzle diff) {
         this.compteur = 0;
         this.infos = new Label();
@@ -82,7 +151,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Met à jour l'affichage du puzzle en fonction du modèle
+     * Méthode qui met à jour l'affichage du puzzle en fonction du modèle
      */
     private void updateAffichage() {
         // Update des cellules
@@ -94,11 +163,21 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Gestion de chaque bouton (barre)
+     * Classe qui s'occupe de la gestion de chaque bouton (barre)
      */
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
+        /**
+         * Les coordonnées en y et x de la cellule
+         */
         private final int i, j;
 
+        /**
+         * Le constructeur de la classe CelluleButtonEventHandler
+         *
+         * @param i la position en y de la cellule
+         * @param j la position en x de la cellule
+         * @param data la grille des données des cellules
+         */
         public CelluleButtonEventHandler(int i, int j, Cellule[][] data) {
             this.i = i;
             this.j = j;
@@ -106,9 +185,9 @@ public class GridMenu implements Menu {
         }
 
         /**
-         * Execute l'action demandée sur le bouton
+         * Méthode qui execute l'action demandée sur le bouton
          * 
-         * @param event TODO
+         * @param event l'événement qui a déclenché l'action
          */
         @Override
         public void handle(ActionEvent event) {
@@ -134,7 +213,7 @@ public class GridMenu implements Menu {
                 valeur = ValeurCote.TRAIT;
             }
 
-            Cellule cell1 = GridMenu.this.puzzle.getCelluleGrilleSolution(i, j);
+            Cellule cell1 = puzzle.getCelluleGrille(i, j,GridMenu.this.puzzle.getGrilleSolution());
             Cellule cell2;
             switch (clickedButton.getText()) {
                 case "Top":
@@ -143,7 +222,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(0);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.HAUT);
+                    cell2 =  GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.HAUT, puzzle.getGrilleSolution());
                     cell1.setCote(Cellule.HAUT, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.HAUT));
                     if (cell2 != null) {
@@ -158,7 +237,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(1);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.BAS);
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.BAS, puzzle.getGrilleSolution());
                     cell1.setCote(Cellule.BAS, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.BAS));
                     if (cell2 != null) {
@@ -173,7 +252,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(2);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.GAUCHE);
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.GAUCHE, puzzle.getGrilleSolution());
                     cell1.setCote(Cellule.GAUCHE, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.GAUCHE));
                     if (cell2 != null) {
@@ -188,7 +267,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(3);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.DROITE);
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.DROITE, puzzle.getGrilleSolution());
                     cell1.setCote(Cellule.DROITE, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.DROITE));
                     if (cell2 != null) {
@@ -208,9 +287,9 @@ public class GridMenu implements Menu {
     /**
      * Méthode d'interface pour récupérer le menu
      * 
-     * @param args TODO
-     * @return TODO
-     * @param <T> TODO
+     * @param args les arguments du menu
+     * @return le GridMenu du puzzle generator
+     * @param <T> le type de l'argument
      */
     public <T> HBox getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -232,7 +311,7 @@ public class GridMenu implements Menu {
                 java.io.File file = fileChooser.showSaveDialog(Main.getStage());
 
                 if (file != null) {
-                    PuzzleSauvegarde.sauvegarderPuzzle(puzzle, file.getAbsolutePath());
+                    PuzzleSauvegarde.sauvegarderPuzzleSauvegarde(puzzle, file.getAbsolutePath());
                 }
             }
         });
@@ -264,7 +343,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Initialise les données de l'affichage et le stockage du puzzle
+     * Méthode qui initialise les données de l'affichage et le stockage du puzzle
      *
      * @param l la largeur du puzzle
      * @param L la longueur du puzzle
@@ -282,12 +361,12 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Initialise un nouveau puzzle
+     * Méthode qui initialise un nouveau puzzle
      * 
-     * @param path TODO
+     * @param path le chemin du fichier de sauvegarde du puzzle
      */
     public void initNewPuzzle(String path) {
-        this.puzzle = PuzzleSauvegarde.chargerPuzzle(path);
+        this.puzzle = PuzzleSauvegarde.chargerPuzzleSauvegarde(path);
         this.largeur = this.puzzle.getLargeur();
         this.longueur = this.puzzle.getLongueur();
 
@@ -306,7 +385,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
+     * Méthode qui affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
      * 
      * @param nouveau TODO
      */
@@ -395,10 +474,10 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Règle l'animation d'entrée sur le bouton souhaité
+     * Méthode statique qui règle l'animation d'entrée sur le bouton souhaité
      * 
-     * @param fade   TODO
-     * @param button TODO
+     * @param fade le fadeTransition
+     * @param button le bouton
      */
     private static void mouseEntered(FadeTransition fade, Button button) {
         fade.setRate(1);
@@ -407,10 +486,10 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Règle l'animation de sortie sur le bouton souhaité
+     * Méthode statique qui règle l'animation de sortie sur le bouton souhaité
      * 
-     * @param fade   TODO
-     * @param button TODO
+     * @param fade le fadeTransition
+     * @param button le bouton
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);

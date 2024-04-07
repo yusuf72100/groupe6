@@ -12,15 +12,53 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import java.util.function.Function;
 
+/**
+ * Classe CelluleNode qui représente une cellule dans le puzzle generator
+ *
+ * @author Yusuf
+ */
 public class CelluleNode extends Node {
+    /**
+     * Les boutons qui correspondent aux côtés de la cellule
+     */
     private Button[] cellule;
+
+    /**
+     * Les images qui correspondent aux croix sur les côtés de la cellule
+     */
     private ImageView[] image;
+
+    /**
+     * Les rectangles qui correspondent aux coins de la cellule
+     */
     private Rectangle[] coins;
+
+    /**
+     * Le paneau central de la cellule qui contient le label de la valeur numérique de la cellule
+     */
     private StackPane centerPane;
+
+    /**
+     * Le label de la valeur numérique de la cellule
+     */
     private TextField centerTextField;
+
+    /**
+     * Les cotes de la cellule
+     */
     private ValeurCote[] cotes;
+
+    /**
+     * La valeur numérique de la cellule
+     */
     private int label;
 
+    /**
+     * Constructeur de la classe CelluleNode du puzzle generator
+     *
+     * @param label La valeur numérique de la cellule
+     * @param cotes Les cotes de la cellule
+     */
     public CelluleNode(int label, ValeurCote[] cotes) {
         this.label = -1;
         double cellSize = 50;
@@ -69,8 +107,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Met à jour l'affichage des côtés de la cellule
-     * @param cotes
+     * Méthode qui met a jour le styles des boutons en fonction des cotes
+     *
+     * @param cotes les cotes de la cellule
      */
     public void updateCotes(ValeurCote[] cotes) {
         for ( int i = 0; i < 4; i++ ) {
@@ -97,8 +136,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Création du label de la cellule
-     * @return StackPane
+     * Méthode qui crée le label de la valeur numérique de la cellule
+     *
+     * @return StackPane le paneau central de la cellule
      */
     private StackPane createCenterContent() {
         this.centerTextField = new TextField();
@@ -134,10 +174,12 @@ public class CelluleNode extends Node {
         this.image[cote].setVisible(false);
     }
 
+    // TODO: param "v" non utilisé
     /**
-     * Méthode de création d'un carré noir
-     * @param v TODO
-     * @return Rectangle
+     * Méthode qui crée un carré noir
+     *
+     * @param v la taille du carré
+     * @return le carré noir créé
      */
     private Rectangle createBlackSquare(double v) {
         Rectangle square = new Rectangle(7, 7);
@@ -146,8 +188,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Changer le css de la cellule
-     * @param css
+     * Méthode qui change le style des cellules
+     *
+     * @param css le style des cellules
      */
     public void changeCellulesCss(String css) {
         cellule[0].getStyleClass().addAll(css + "-top");
@@ -156,6 +199,12 @@ public class CelluleNode extends Node {
         cellule[3].getStyleClass().addAll(css + "-right");
     }
 
+    /**
+     * Méthode qui change le style des boutons
+     *
+     * @param buttonIndex l'index du bouton
+     * @param cssFunction la fonction qui retourne le style des boutons
+     */
     public void changeButtonCss(int buttonIndex, Function<Integer, String> cssFunction) {
         Button button = cellule[buttonIndex];
         String cssClass = cssFunction.apply(label);
@@ -165,9 +214,10 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Changer la taille d'une cellule
-     * @param width TODO
-     * @param height TODO
+     * Méthode pour changer la taille de la cellule
+     *
+     * @param width la largeur
+     * @param height la hauteur
      */
     public void setPrefSize(double width, double height) {
         for (Button button : this.cellule) {
@@ -196,18 +246,26 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Getter coin
-     * @param c TODO
-     * @return Rectangle
+     * Méthode qui permet d'obtenir le rectangle qui correspond à un coin
+     *
+     * @param c le coin qu'on veut obtenir
+     * @return le rectangle qui correspond au coin
      */
     public Rectangle getCoin(int c) { return coins[c]; }
 
+    /**
+     * Méthode qui permet d'obtenir l'image qui correspond à un coté
+     *
+     * @param i le coté qu'on veut obtenir
+     * @return l'image qui correspond au coté
+     */
     public ImageView getImage(int i) { return this.image[i]; }
 
     /**
-     * Getter bouton
-     * @param c TODO
-     * @return Button
+     * Méthode pour obtenir un bouton de la cellule
+     *
+     * @param c le bouton qu'on veut obtenir ( coté )
+     * @return le bouton de la cellule
      */
     public Button getButton(int c) {
         return cellule[c];
@@ -220,13 +278,24 @@ public class CelluleNode extends Node {
     public StackPane getCenterPane() { return centerPane; }
 
     /**
-     * Getter label cellule
-     * @return int
+     * Méthode pour obtenir la valeur numérique de la cellule
+     *
+     * @return la valeur numérique de la cellule
      */
     public int getLabel() { return label; }
 
+    /**
+     * Métode pour changer la valeur numérique de la cellule
+     *
+     * @param label la valeur numérique de la cellule
+     */
     public void setLabel(int label) { this.label = label; }
 
+    /**
+     * Méthode pour obtenir le label de la valeur numérique de la cellule
+     *
+     * @param i la valeur numérique de la cellule
+     */
     public void setLabeText(int i) {
         centerTextField.setPromptText(Integer.toString(i));
     }

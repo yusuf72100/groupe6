@@ -52,6 +52,7 @@ public class Historique implements Serializable {
      *
      * @param chemin le chemin du fichier de sauvegarde a charger
      * @throws ClassNotFoundException si la classe n'est pas trouvée
+     * @return l'historique des parties
      */
     public static Historique chargerHistorique (String chemin) throws ClassNotFoundException{
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))){

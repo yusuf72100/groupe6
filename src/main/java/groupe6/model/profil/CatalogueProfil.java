@@ -184,6 +184,7 @@ public class CatalogueProfil {
    * Méthode pour créer un nouveau profil demandé par l'utilisateur
    *
    * @param nom le nom du profil à créer
+   * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void creerNouveauProfil(String nom) throws IOException {
 

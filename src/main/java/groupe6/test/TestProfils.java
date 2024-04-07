@@ -16,11 +16,20 @@ import java.io.IOException;
 
 /**
  * Classe de test pour les profils
- *
- * @author Yamis
  */
 public class TestProfils extends Application {
+
+  /**
+   * La fenêtre de l'application
+   */
   private static Stage fenetre;
+
+  /**
+   * Méthode qui lance l'application
+   *
+   * @param primary la fenêtre principale
+   * @throws Exception si une erreur survient
+   */
   @Override
   public void start(Stage primary) throws Exception {
     Button bouton = new Button("Charger une image");
@@ -51,6 +60,12 @@ public class TestProfils extends Application {
     primary.show();
   }
 
+  /**
+   * Méthode statique qui teste la création de nouveaux profils
+   *
+   * @param fenetre la fenêtre de l'application
+   * @throws IOException si une erreur survient
+   */
   public static void creerNouveauxProfils(Stage fenetre) throws IOException {
     System.out.println("===================================");
     System.out.println("Création de nouveaux profils");
@@ -76,6 +91,9 @@ public class TestProfils extends Application {
     chargerProfilsExistant();
   }
 
+  /**
+   * Méthode statique qui teste le chargement des profils existants
+   */
   public static void chargerProfilsExistant() {
     System.out.println("===================================");
     System.out.println("Chargement des profils existants");
@@ -85,6 +103,11 @@ public class TestProfils extends Application {
     System.out.println(catalogueProfil);
   }
 
+  /**
+   * Méthode main qui lance l'application
+   *
+   * @param args les arguments
+   */
   public static void main(String[] args) {
     launch();
   }

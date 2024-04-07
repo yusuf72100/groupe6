@@ -272,6 +272,77 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
+   * Méthode pour obtenir la représentation textuelle de la grille
+   *
+   * @param largeur la largeur de la grille
+   * @param longueur la longueur de la grille
+   * @param grille la grille dont on veut obtenir la représentation textuelle
+   * @return la représentation textuelle de la grille
+   */
+  public static String grilleTostring(int largeur, int longueur, Cellule[][] grille) {
+    if ( largeur < 1 || longueur < 1 || largeur != grille.length || longueur != grille[0].length) {
+      throw new IllegalArgumentException("La taille de la grille est invalide");
+    }
+
+    StringBuilder strBuilder = new StringBuilder();
+
+    for (int y = 0; y < largeur; y++) {
+      // Affichage des lignes horizontales
+      for (int x = 0; x < longueur; x++) {
+        strBuilder.append("+");
+        if (grille[y][x].getCote(Cellule.HAUT) == ValeurCote.TRAIT) {
+          strBuilder.append("-");
+        } else if (grille[y][x].getCote(Cellule.HAUT) == ValeurCote.CROIX) {
+          strBuilder.append("*");
+        } else {
+          strBuilder.append(" ");
+        }
+      }
+      strBuilder.append("+\n");
+
+      // Affichage des lignes verticales et valeurs
+      for (int x = 0; x < longueur; x++) {
+        if (grille[y][x].getCote(Cellule.GAUCHE) == ValeurCote.TRAIT) {
+          strBuilder.append("|");
+        } else if (grille[y][x].getCote(Cellule.GAUCHE) == ValeurCote.CROIX) {
+          strBuilder.append("*");
+        } else {
+          strBuilder.append(" ");
+        }
+        if (grille[y][x].getValeur() != -1) {
+          strBuilder.append(grille[y][x].getValeur());
+        } else {
+          strBuilder.append(" ");
+        }
+      }
+      // Affichage du côté droit de la grille
+      if (grille[y][longueur - 1].getCote(Cellule.DROITE) == ValeurCote.TRAIT) {
+        strBuilder.append("|\n");
+      } else if ( grille[y][longueur - 1].getCote(Cellule.DROITE) == ValeurCote.CROIX) {
+        strBuilder.append("*\n");
+      } else {
+        strBuilder.append(" \n");
+      }
+    }
+
+    // Affichage de la dernière ligne horizontale
+    for (int x = 0; x < longueur; x++) {
+      strBuilder.append("+");
+      if (grille[largeur - 1][x].getCote(Cellule.BAS) == ValeurCote.TRAIT) {
+        strBuilder.append("-");
+      } else if (grille[largeur - 1][x].getCote(Cellule.BAS) == ValeurCote.CROIX) {
+        strBuilder.append("*");
+      } else {
+        strBuilder.append(" ");
+      }
+    }
+
+    strBuilder.append("+");
+
+    return strBuilder.toString();
+  }
+
+  /**
    * Méthode pour obtenir une représentation textuelle de la cellule
    *
    * @return la représentation textuelle de la cellule
