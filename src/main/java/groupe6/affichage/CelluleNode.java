@@ -120,6 +120,7 @@ public class CelluleNode extends Node {
         this.centerTextField.setPrefSize(cellSize, cellSize);
         this.centerTextField.setFont(new Font(25));
         this.centerTextField.setAlignment(Pos.CENTER);
+
         // Affichage du label si la cellule a une valeur numérique
         if ( this.label != -1 ) {
             this.centerTextField.setText(Integer.toString(this.label));

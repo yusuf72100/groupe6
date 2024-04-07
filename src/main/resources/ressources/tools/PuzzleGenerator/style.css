@@ -19,8 +19,8 @@
 .button-top, .button-bottom {
     -fx-min-width: 60px;
     -fx-max-width: 60px;
-    -fx-min-height: 5px;
-    -fx-max-height: 5px;
+    -fx-min-height: 7px;
+    -fx-max-height: 7px;
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;
@@ -33,11 +33,27 @@
     -fx-border-radius: 0;
 }
 
+.button-top.croix, .button-bottom.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-left.croix, .button-right.croix {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
+    -fx-border-radius: 0;
+}
+
+.button-top.croix:hover, .button-bottom.croix:hover, .button-left.croix:hover, .button-right.croix:hover {
+    -fx-background-color: gray;
+}
+
 .button-left, .button-right {
     -fx-min-height: 60px;
     -fx-max-height: 60px;
-    -fx-min-width: 5px;
-    -fx-max-width: 5px;
+    -fx-min-width: 7px;
+    -fx-max-width: 7px;
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;

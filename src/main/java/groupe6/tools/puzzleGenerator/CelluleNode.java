@@ -1,9 +1,12 @@
 package groupe6.tools.puzzleGenerator;
 
+import groupe6.launcher.Launcher;
+import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -11,33 +14,85 @@ import java.util.function.Function;
 
 public class CelluleNode extends Node {
     private Button[] cellule;
+    private ImageView[] image;
     private Rectangle[] coins;
     private StackPane centerPane;
     private TextField centerTextField;
+    private ValeurCote[] cotes;
     private int label;
 
-    public CelluleNode() {
+    public CelluleNode(int label, ValeurCote[] cotes) {
         this.label = -1;
         double cellSize = 50;
-        cellule = new Button[4];
-        coins = new Rectangle[4];
-        centerPane = new StackPane();
+        this.image = new ImageView[4];
+        this.cotes = cotes;
+        this.cellule = new Button[4];
+        this.coins = new Rectangle[4];
+        this.centerPane = new StackPane();
+        this.centerPane.getChildren().add(createCenterContent());
+        this.centerPane.setAlignment(Pos.CENTER);
 
-        centerPane.getChildren().add(createCenterContent());
-        centerPane.setAlignment(Pos.CENTER);
+        this.cellule[0] = new Button("Top");
+        this.cellule[1] = new Button("Bottom");
+        this.cellule[2] = new Button("Left");
+        this.cellule[3] = new Button("Right");
 
-        cellule[0] = new Button("Top");
-        cellule[1] = new Button("Bottom");
-        cellule[2] = new Button("Left");
-        cellule[3] = new Button("Right");
+        this.cellule[0].getStyleClass().addAll("button-top");
+        this.cellule[1].getStyleClass().addAll("button-bottom");
+        this.cellule[2].getStyleClass().addAll("button-left");
+        this.cellule[3].getStyleClass().addAll("button-right");
 
-        cellule[0].getStyleClass().addAll("button-top");
-        cellule[1].getStyleClass().addAll("button-bottom");
-        cellule[2].getStyleClass().addAll("button-left");
-        cellule[3].getStyleClass().addAll("button-right");
+        String cheminCroix = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/croix.png");
 
-        for (int i = 0; i < 4; i++) {
-            coins[i] = createBlackSquare(cellSize / 5);
+        for ( int i = 0; i < 4; i++ ) {
+            this.image[i] = new ImageView(Launcher.chargerImage(cheminCroix));
+            this.image[i].setFitWidth(15);
+            this.image[i].setFitHeight(15);
+            this.image[i].setFocusTraversable(false);
+            this.image[i].setMouseTransparent(true);
+            this.image[i].setVisible(false);
+
+            this.coins[i] = createBlackSquare(cellSize / 5);
+            switch (this.cotes[i]) {
+                case VIDE:
+                    break;
+                case TRAIT:
+                    this.cellule[i].getStyleClass().add("clicked");
+                    break;
+                case CROIX:
+                    this.cellule[i].getStyleClass().add("croix");
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + this.cotes[i]);
+            }
+        }
+    }
+
+    /**
+     * Met à jour l'affichage des côtés de la cellule
+     * @param cotes
+     */
+    public void updateCotes(ValeurCote[] cotes) {
+        for ( int i = 0; i < 4; i++ ) {
+            switch (cotes[i]) {
+                case VIDE:
+                    this.cellule[i].getStyleClass().remove("clicked");
+                    this.cellule[i].getStyleClass().remove("croix");
+                    this.image[i].setVisible(false);
+                    break;
+                case TRAIT:
+                    this.cellule[i].getStyleClass().remove("croix");
+                    this.cellule[i].getStyleClass().add("clicked");
+                    this.image[i].setVisible(false);
+                    break;
+                case CROIX:
+                    this.cellule[i].getStyleClass().remove("clicked");
+                    this.cellule[i].getStyleClass().add("croix");
+                    this.image[i].setVisible(true);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + this.cotes[i]);
+            }
         }
     }
 
@@ -46,7 +101,7 @@ public class CelluleNode extends Node {
      * @return StackPane
      */
     private StackPane createCenterContent() {
-        centerTextField = new TextField();
+        this.centerTextField = new TextField();
         double cellSize = 50;
 
         centerTextField.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-background-insets: 0;");
@@ -68,7 +123,7 @@ public class CelluleNode extends Node {
             }
         });
 
-        return new StackPane(centerTextField);
+        return new StackPane(this.centerTextField);
     }
 
     /**
@@ -77,14 +132,14 @@ public class CelluleNode extends Node {
      * @return Rectangle
      */
     private Rectangle createBlackSquare(double v) {
-        Rectangle square = new Rectangle(5, 5);
+        Rectangle square = new Rectangle(7, 7);
         square.getStyleClass().add("black-square");
         return square;
     }
 
     /**
      * Changer le css de la cellule
-     * @param TODO
+     * @param css
      */
     public void changeCellulesCss(String css) {
         cellule[0].getStyleClass().addAll(css + "-top");
@@ -102,11 +157,44 @@ public class CelluleNode extends Node {
     }
 
     /**
+     * Changer la taille d'une cellule
+     * @param width TODO
+     * @param height TODO
+     */
+    public void setPrefSize(double width, double height) {
+        for (Button button : this.cellule) {
+            if(button.getStyleClass().contains("button-top") || button.getStyleClass().contains("button-bottom")) {
+                button.setStyle(
+                        "-fx-min-width: " + width + "px; " +
+                                "-fx-max-width: " + width + "px; " +
+                                "-fx-min-height: 7px; " +
+                                "-fx-max-height: 7px;"
+                );
+            } else {
+                button.setStyle(
+                        "-fx-min-height: " + height + "px; " +
+                                "-fx-max-height: " + height + "px; " +
+                                "-fx-min-width: 7px; " +
+                                "-fx-max-width: 7px;"
+                );
+            }
+
+            double adaptativeSize = ((width*80)/500);
+            double adaptativeFontSize = ((width*50)/83.3);
+
+            this.centerTextField.setPrefSize(adaptativeSize, adaptativeSize);
+            this.centerTextField.setFont(new Font(adaptativeFontSize));
+        }
+    }
+
+    /**
      * Getter coin
      * @param c TODO
      * @return Rectangle
      */
     public Rectangle getCoin(int c) { return coins[c]; }
+
+    public ImageView getImage(int i) { return this.image[i]; }
 
     /**
      * Getter bouton

@@ -1,6 +1,7 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.affichage.Menu;
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
@@ -12,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -79,6 +81,18 @@ public class GridMenu implements Menu {
     }
 
     /**
+     * Met à jour l'affichage du puzzle en fonction du modèle
+     */
+    private void updateAffichage() {
+        // Update des cellules
+        for ( int y = 0; y < this.largeur; y++ ) {
+            for (int x = 0; x < this.longueur; x++) {
+                this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
+            }
+        }
+    }
+
+    /**
      * Gestion de chaque bouton (barre)
      */
     public class CelluleButtonEventHandler implements EventHandler<ActionEvent> {
@@ -103,9 +117,10 @@ public class GridMenu implements Menu {
 
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
-                clickedButton.getStyleClass().remove("clicked");
+                valeur = ValeurCote.CROIX;
+            } else if(clickedButton.getStyleClass().contains("croix")) {
+                valeur = ValeurCote.VIDE;
             } else {
-                clickedButton.getStyleClass().add("clicked");
                 valeur = ValeurCote.TRAIT;
             }
 
@@ -157,7 +172,7 @@ public class GridMenu implements Menu {
                 default: // rien
                     break;
             }
-            System.out.println(celluleNodes[i][j].getLabel());
+            updateAffichage();
         }
     }
 
@@ -221,19 +236,19 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise les données de l'affichage et le stockage du puzzle
-     * 
-     * @param largeur  TODO
-     * @param longueur TODO
+     *
+     * @param l la largeur du puzzle
+     * @param L la longueur du puzzle
      */
-    private void initCellules(int largeur, int longueur) {
-        this.celluleNodes = new CelluleNode[largeur][longueur];
-        this.cellulesData = new Cellule[largeur][longueur];
+    private void initCellules(int l, int L) {
+        this.celluleNodes = new CelluleNode[l][L];
+        this.cellulesData = new Cellule[l][L];
 
-        for (int y = 0; y < largeur; y++) {
-            for (int x = 0; x < longueur; x++) {
-                this.celluleNodes[y][x] = new CelluleNode();
-                this.cellulesData[y][x] = new Cellule(-1,
-                        new ValeurCote[] { ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE });
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < L; j++) {
+                this.cellulesData[i][j] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+                this.celluleNodes[i][j] = new CelluleNode(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+                //this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 / this.longueur);
             }
         }
     }
@@ -272,6 +287,7 @@ public class GridMenu implements Menu {
                 }
             }
         }
+        updateAffichage();
     }
 
     /**
@@ -294,14 +310,14 @@ public class GridMenu implements Menu {
             // Lignes
             for (int j = 0; j < this.celluleNodes[i].length; j++) {
                 if (nouveau)
-                    this.celluleNodes[i][j] = new CelluleNode();
+                    this.celluleNodes[i][j] = new CelluleNode(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
                 System.out.print(this.cellulesData[i][j].getValeur() + " ");
 
                 // Coins
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(0), j * 2, i * 2); // top left
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(1), j * 2 + 2, i * 2); // top right
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(2), j * 2, i * 2 + 2); // bottom left
-                this.gridPane.add(this.celluleNodes[i][j].getCoin(3), j * 2 + 2, i * 2 + 2); // bottom right
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(0), j * 2, i * 2);            // top left
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(1), j * 2 + 2, i * 2);        // top right
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(2), j * 2, i * 2 + 2);        // bottom left
+                this.gridPane.add(this.celluleNodes[i][j].getCoin(3), j * 2 + 2, i * 2 + 2);    // bottom right
 
                 // animation fade
                 for (int boutonIndex = 0; boutonIndex < 4; boutonIndex++) {
@@ -309,7 +325,7 @@ public class GridMenu implements Menu {
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(150), button);
 
                     button.setOnMouseEntered(event -> {
-                        if (button.getStyleClass().contains("clicked")) {
+                        if(button.getStyleClass().contains("clicked")) {
                             fadeTransition.setFromValue(1.0);
                             fadeTransition.setToValue(0.2);
                         } else {
@@ -325,33 +341,42 @@ public class GridMenu implements Menu {
                 }
 
                 // Barres
-                // Éviter la duplication de la barre horizontale
+                // Avoid horizontal bar duplication
                 if (i == 0) {
-                    this.gridPane.add(this.celluleNodes[i][j].getButton(0), j * 2 + 1, i * 2); // top
-                    this.celluleNodes[i][j].getButton(0)
-                            .setOnAction(new CelluleButtonEventHandler(i, j, this.cellulesData));
+                    this.celluleNodes[i][j].getButton(0).setGraphic(this.celluleNodes[i][j].getImage(0));
+                    this.celluleNodes[i][j].getButton(0).setContentDisplay(ContentDisplay.CENTER);
+                    this.gridPane.add(this.celluleNodes[i][j].getImage(0), j * 2 + 1, i * 2);   // top
+                    this.gridPane.add(this.celluleNodes[i][j].getButton(0), j * 2 + 1, i * 2);   // top
+                    this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                     this.compteur++;
                 }
-                this.gridPane.add(this.celluleNodes[i][j].getCenterPane(), j * 2 + 1, i * 2 + 1); // center
-                this.gridPane.add(this.celluleNodes[i][j].getButton(1), j * 2 + 1, i * 2 + 2); // bottom
-                this.celluleNodes[i][j].getButton(1)
-                        .setOnAction(new CelluleButtonEventHandler(i, j, this.cellulesData));
+                this.celluleNodes[i][j].getButton(1).setGraphic(this.celluleNodes[i][j].getImage(1));
+                this.celluleNodes[i][j].getButton(1).setContentDisplay(ContentDisplay.CENTER);
+                this.gridPane.add(this.celluleNodes[i][j].getCenterPane(), j * 2 + 1, i * 2 + 1);   // center
+                this.gridPane.add(this.celluleNodes[i][j].getImage(1), j * 2 + 1, i * 2 + 2);   // bottom
+                this.gridPane.add(this.celluleNodes[i][j].getButton(1), j * 2 + 1, i * 2 + 2);   // bottom
+                this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
 
-                // Éviter la duplication de la barre verticale
-                if (j == 0) {
-                    this.gridPane.add(this.celluleNodes[i][j].getButton(2), j * 2, i * 2 + 1); // left
-                    this.celluleNodes[i][j].getButton(2)
-                            .setOnAction(new CelluleButtonEventHandler(i, j, this.cellulesData));
+                // Avoid vertical bar duplication
+                if(j == 0){
+                    this.celluleNodes[i][j].getButton(2).setGraphic(this.celluleNodes[i][j].getImage(2));
+                    this.celluleNodes[i][j].getButton(2).setContentDisplay(ContentDisplay.CENTER);
+                    this.gridPane.add(this.celluleNodes[i][j].getImage(2), j * 2, i * 2 + 1);   // left
+                    this.gridPane.add(this.celluleNodes[i][j].getButton(2), j * 2, i * 2 + 1);   // left
+                    this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                     this.compteur++;
                 }
-                this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1); // right
-                this.celluleNodes[i][j].getButton(3)
-                        .setOnAction(new CelluleButtonEventHandler(i, j, this.cellulesData));
+                this.celluleNodes[i][j].getButton(3).setGraphic(this.celluleNodes[i][j].getImage(3));
+                this.celluleNodes[i][j].getButton(3).setContentDisplay(ContentDisplay.CENTER);
+                this.gridPane.add(this.celluleNodes[i][j].getImage(3), j * 2 + 2, i * 2 + 1);   // right
+                this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
+                this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
             }
             System.out.println(" ");
         }
+        updateAffichage();
     }
 
     /**
