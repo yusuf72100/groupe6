@@ -2,6 +2,7 @@ package groupe6.model.partie.sauvegarde;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
+import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.erreur.GestionnaireErreur;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.info.PartieInfos;
@@ -43,7 +44,7 @@ public class PartieSauvegarde implements Serializable {
   /**
    * L'historique des aides demandées par l'utilisateur
    */
-  private final List<AideInfos> historiqueAide;
+  private final HistoriqueAides historiqueAide;
 
   /**
    * Le gestionnaire des erreurs commises par l'utilisateur dans la partie
@@ -60,7 +61,7 @@ public class PartieSauvegarde implements Serializable {
    * @param gestionnaireErreur le gestionnaire des erreurs commises par l'utilisateur dans la partie
    */
   public PartieSauvegarde(Puzzle puzzle, PartieInfos infos, GestionnaireAction gestionnaireAction,
-                          List<AideInfos> historiqueAide, GestionnaireErreur gestionnaireErreur
+                          HistoriqueAides historiqueAide, GestionnaireErreur gestionnaireErreur
   ) {
     this.puzzle = puzzle;
     this.infos = infos;
@@ -101,7 +102,7 @@ public class PartieSauvegarde implements Serializable {
    *
    * @return l'historique des aides
    */
-  public List<AideInfos> getHistoriqueAide() {
+  public HistoriqueAides getHistoriqueAide() {
     return historiqueAide;
   }
 

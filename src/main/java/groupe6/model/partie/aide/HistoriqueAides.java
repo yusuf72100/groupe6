@@ -28,7 +28,7 @@ public class HistoriqueAides implements Serializable {
     /**
      * Constructeur de la classe HistoriqueAides
      */
-    HistoriqueAides(){
+    public HistoriqueAides(){
         this.listeAides=new ArrayList<AideInfos>();
     }
 
