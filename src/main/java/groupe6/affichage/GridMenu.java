@@ -317,7 +317,6 @@ public class GridMenu implements Menu {
                 mouseExited(fadeButton, button);
                 this.buttonHoverLabel.setText("");
             }
-
         });
 
         button.setOnMouseMoved(event -> {
