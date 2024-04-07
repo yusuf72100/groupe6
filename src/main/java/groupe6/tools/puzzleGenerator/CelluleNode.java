@@ -126,6 +126,14 @@ public class CelluleNode extends Node {
         return new StackPane(this.centerTextField);
     }
 
+    public void addCroix(int cote) {
+        this.image[cote].setVisible(true);
+    }
+
+    public void removeCroix(int cote) {
+        this.image[cote].setVisible(false);
+    }
+
     /**
      * Méthode de création d'un carré noir
      * @param v TODO

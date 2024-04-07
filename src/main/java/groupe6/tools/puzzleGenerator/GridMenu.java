@@ -113,23 +113,37 @@ public class GridMenu implements Menu {
         public void handle(ActionEvent event) {
             System.out.println("Button clicked at (" + i + ", " + j + ")");
             Button clickedButton = (Button) event.getSource();
-            ValeurCote valeur = ValeurCote.VIDE;
+            ValeurCote valeur;
 
             // toggle
             if (clickedButton.getStyleClass().contains("clicked")) {
+                clickedButton.getStyleClass().remove("clicked");
+                clickedButton.getStyleClass().add("croix");
+                System.out.println("trait");
                 valeur = ValeurCote.CROIX;
             } else if(clickedButton.getStyleClass().contains("croix")) {
+                clickedButton.getStyleClass().remove("clicked");
+                clickedButton.getStyleClass().remove("croix");
+                System.out.println("croix");
                 valeur = ValeurCote.VIDE;
             } else {
+                clickedButton.getStyleClass().add("clicked");
+                clickedButton.getStyleClass().remove("croix");
+                System.out.println("vide");
                 valeur = ValeurCote.TRAIT;
             }
+            System.out.println(Math.random());
 
-            Puzzle puzzle = GridMenu.this.puzzle;
-            Cellule cell1 = puzzle.getCelluleSolution(i, j);
+            Cellule cell1 = GridMenu.this.puzzle.getCelluleSolution(i, j);
             Cellule cell2;
             switch (clickedButton.getText()) {
                 case "Top":
-                    cell2 = puzzle.getCelluleAdjacenteSolution(i, j, Cellule.HAUT);
+                    if(valeur == ValeurCote.CROIX) {
+                        celluleNodes[i][j].addCroix(0);
+                    } else {
+                        celluleNodes[i][j].removeCroix(0);
+                    }
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.HAUT);
                     cell1.setCote(Cellule.HAUT, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.HAUT));
                     if (cell2 != null) {
@@ -139,7 +153,12 @@ public class GridMenu implements Menu {
                     }
                     break;
                 case "Bottom":
-                    cell2 = puzzle.getCelluleAdjacenteSolution(i, j, Cellule.BAS);
+                    if(valeur == ValeurCote.CROIX) {
+                        celluleNodes[i][j].addCroix(1);
+                    } else {
+                        celluleNodes[i][j].removeCroix(1);
+                    }
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.BAS);
                     cell1.setCote(Cellule.BAS, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.BAS));
                     if (cell2 != null) {
@@ -149,7 +168,12 @@ public class GridMenu implements Menu {
                     }
                     break;
                 case "Left":
-                    cell2 = puzzle.getCelluleAdjacenteSolution(i, j, Cellule.GAUCHE);
+                    if(valeur == ValeurCote.CROIX) {
+                        celluleNodes[i][j].addCroix(2);
+                    } else {
+                        celluleNodes[i][j].removeCroix(2);
+                    }
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.GAUCHE);
                     cell1.setCote(Cellule.GAUCHE, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.GAUCHE));
                     if (cell2 != null) {
@@ -159,7 +183,12 @@ public class GridMenu implements Menu {
                     }
                     break;
                 case "Right":
-                    cell2 = puzzle.getCelluleAdjacenteSolution(i, j, Cellule.DROITE);
+                    if(valeur == ValeurCote.CROIX) {
+                        celluleNodes[i][j].addCroix(3);
+                    } else {
+                        celluleNodes[i][j].removeCroix(3);
+                    }
+                    cell2 = GridMenu.this.puzzle.getCelluleAdjacenteSolution(i, j, Cellule.DROITE);
                     cell1.setCote(Cellule.DROITE, valeur);
                     System.out.println("cell1 :" + cell1.getCote(Cellule.DROITE));
                     if (cell2 != null) {
@@ -172,7 +201,7 @@ public class GridMenu implements Menu {
                 default: // rien
                     break;
             }
-            updateAffichage();
+            //updateAffichage();
         }
     }
 
@@ -248,7 +277,6 @@ public class GridMenu implements Menu {
             for (int j = 0; j < L; j++) {
                 this.cellulesData[i][j] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
                 this.celluleNodes[i][j] = new CelluleNode(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-                //this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 / this.longueur);
             }
         }
     }
@@ -272,18 +300,6 @@ public class GridMenu implements Menu {
 
                 if (this.cellulesData[i][j].getValeur() != -1) {
                     this.celluleNodes[i][j].setLabeText(this.cellulesData[i][j].getValeur());
-                }
-
-                for (int k = 0; k < 4; k++) {
-                    switch (this.cellulesData[i][j].getCote(k)) {
-                        case VIDE:
-                            break;
-                        case TRAIT:
-                            this.celluleNodes[i][j].getButton(k).getStyleClass().add("clicked");
-                            break;
-                        default: // rien
-                            break;
-                    }
                 }
             }
         }
