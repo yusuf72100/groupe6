@@ -10,21 +10,14 @@ import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class GridMenu implements Menu {
     private Partie partie;
@@ -38,7 +31,6 @@ public class GridMenu implements Menu {
     private Button help;
     private HBox layout_v;
     private GridPane gridPane;
-    private GridPane gridPaneAide;
     private StackPane container;
     private CelluleNode[][] celluleNodes;
     private Cellule[][] cellulesData;
@@ -48,7 +40,6 @@ public class GridMenu implements Menu {
     private Label buttonHoverLabel;
     private int longueur;
     private int largeur;
-    private Rectangle[][] rectangle;
     private Stage primaryStage;
 
     public GridMenu(Partie partie, Stage primaryStage){
@@ -68,16 +59,9 @@ public class GridMenu implements Menu {
 
         this.partie = partie;
         this.gridPane = new GridPane();
-        this.gridPaneAide = new GridPane();
-        this.gridPaneAide.setFocusTraversable(false);
-        this.gridPaneAide.setMouseTransparent(true);
-        this.gridPaneAide.setHgap(0);
-        this.gridPaneAide.setVgap(0);
-        this.gridPaneAide.setPadding(new Insets(0));
-        this.container = new StackPane(gridPane, gridPaneAide);
+        this.container = new StackPane(gridPane);
         this.longueur = partie.getPuzzle().getLongueur();
         this.largeur = partie.getPuzzle().getLargeur();
-        this.rectangle = new Rectangle[largeur][longueur];
         initCellules(this.longueur, this.largeur);
         this.puzzle = partie.getPuzzle();
         updateAffichage();
@@ -478,10 +462,8 @@ public class GridMenu implements Menu {
         }
 
         gridPane.setAlignment(Pos.CENTER);
-        gridPaneAide.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
-        gridPaneAide.getStyleClass().addAll("button-square");
 
         HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
@@ -561,8 +543,6 @@ public class GridMenu implements Menu {
         for (int i = 0; i < this.celluleNodes.length; i++) {
             // Lignes
             for (int j = 0; j < this.celluleNodes[i].length; j++) {
-                // if(nouveau) this.celluleNodes[i][j] = new CelluleNode(-1);
-
                 // Coins
                 this.gridPane.add(this.celluleNodes[i][j].getCoin(0), j * 2, i * 2);            // top left
                 this.gridPane.add(this.celluleNodes[i][j].getCoin(1), j * 2 + 2, i * 2);        // top right
@@ -623,19 +603,6 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
-            }
-        }
-
-        for (int i = 0; i < this.celluleNodes.length; i++) {
-            for (int j = 0; j < this.celluleNodes[i].length; j++) {
-                // rectangle d'aide
-                this.rectangle[i][j] = new Rectangle();
-                this.rectangle[i][j].setWidth((555.0 / this.largeur));
-                this.rectangle[i][j].setHeight((555.0 / this.longueur));
-                this.rectangle[i][j].setFocusTraversable(false);
-                this.rectangle[i][j].setMouseTransparent(true);
-                this.rectangle[i][j].setVisible(false);
-                this.gridPaneAide.add(this.rectangle[i][j], i, j);
             }
         }
     }

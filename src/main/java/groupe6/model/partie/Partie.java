@@ -438,7 +438,6 @@ public class Partie {
       System.out.println("Nouvelle action bascule a trois etats :\n  - "+action);
     }
 
-
     pourChaqueAction(action);
   }
 
