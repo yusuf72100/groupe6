@@ -303,7 +303,6 @@ public class GridMenu implements Menu {
                 }
             }
         }
-        updateAffichage();
     }
 
     /**
