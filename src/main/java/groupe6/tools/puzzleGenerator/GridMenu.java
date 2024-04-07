@@ -50,12 +50,6 @@ public class GridMenu implements Menu {
      */
     private Label infos;
 
-    // TODO : a supprimer si pas utilisé
-    /**
-     * Le layout vertical
-     */
-    private VBox layout_v;
-
     /**
      * Le gridPane qui contient les cellules
      */
@@ -81,29 +75,15 @@ public class GridMenu implements Menu {
      */
     private PuzzleSauvegarde puzzle;
 
-    // TODO : supprimer si pas utilisé
-    /**
-     * La scène de l'interface graphique
-     */
-    private Scene scene;
-
-    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
     /**
      * La largeur du puzzle
      */
     private int largeur;
 
-    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
     /**
      * La longueur du puzzle
      */
     private int longueur;
-
-    // TODO : supprimer après test
-    /**
-     * Le compteur de barres
-     */
-    private int compteur; // utilisé à des fins de test
 
     /**
      * Constructeur de la classe GridMenu du puzzle generator
@@ -113,7 +93,6 @@ public class GridMenu implements Menu {
      * @param diff la difficulté du puzzle
      */
     public GridMenu(int largeur, int longueur, DifficultePuzzle diff) {
-        this.compteur = 0;
         this.infos = new Label();
         this.infos.setAlignment(Pos.CENTER);
 
@@ -339,7 +318,6 @@ public class GridMenu implements Menu {
 
         afficher((boolean) args[0]);
 
-        System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
@@ -357,8 +335,6 @@ public class GridMenu implements Menu {
 
     /**
      * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
-     *
-     * @return vrai si on veut revenir sur la première erreur trouvée, faux sinon
      */
     private void afficherPopup(){
         boolean resultat = false;
@@ -411,6 +387,10 @@ public class GridMenu implements Menu {
         }
     }
 
+    /**
+     * Met à jour le texte d'informations de la grille
+     * @param s indicatif de la grille actuellement utiliée (solution / technique démarrage)
+     */
     private void updateInfosText(String s) {
         String textToShow = "";
         switch (this.puzzle.getDifficulte()) {
@@ -429,12 +409,10 @@ public class GridMenu implements Menu {
     /**
      * Méthode qui affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
      * 
-     * @param nouveau TODO
+     * @param nouveau indique s'il faut créer des nouvelles instances de cellules ou non
      */
     private void afficher(boolean nouveau) {
         updateInfosText("Grille actuelle: Solution");
-
-        // TODO : afficher le bon label en fonction du puzzle qu'on charge (solution ou jeu)
 
         // Colonnes
         for (int i = 0; i < this.celluleNodes.length; i++) {
@@ -479,7 +457,6 @@ public class GridMenu implements Menu {
                     this.gridPane.add(this.celluleNodes[i][j].getImage(0), j * 2 + 1, i * 2);   // top
                     this.gridPane.add(this.celluleNodes[i][j].getButton(0), j * 2 + 1, i * 2);   // top
                     this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.compteur++;
                 }
                 this.celluleNodes[i][j].getButton(1).setGraphic(this.celluleNodes[i][j].getImage(1));
                 this.celluleNodes[i][j].getButton(1).setContentDisplay(ContentDisplay.CENTER);
@@ -487,7 +464,6 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getImage(1), j * 2 + 1, i * 2 + 2);   // bottom
                 this.gridPane.add(this.celluleNodes[i][j].getButton(1), j * 2 + 1, i * 2 + 2);   // bottom
                 this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
 
                 // Avoid vertical bar duplication
                 if(j == 0){
@@ -496,14 +472,12 @@ public class GridMenu implements Menu {
                     this.gridPane.add(this.celluleNodes[i][j].getImage(2), j * 2, i * 2 + 1);   // left
                     this.gridPane.add(this.celluleNodes[i][j].getButton(2), j * 2, i * 2 + 1);   // left
                     this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.compteur++;
                 }
                 this.celluleNodes[i][j].getButton(3).setGraphic(this.celluleNodes[i][j].getImage(3));
                 this.celluleNodes[i][j].getButton(3).setContentDisplay(ContentDisplay.CENTER);
                 this.gridPane.add(this.celluleNodes[i][j].getImage(3), j * 2 + 2, i * 2 + 1);   // right
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
             }
             System.out.println(" ");
         }
