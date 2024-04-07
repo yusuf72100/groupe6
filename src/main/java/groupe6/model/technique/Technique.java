@@ -46,7 +46,7 @@ public abstract class Technique{
      *
      * @param uneDifficulte la difficulté de la technique
      */
-    Technique(DifficulteTechnique uneDifficulte){
+    public Technique(DifficulteTechnique uneDifficulte){
         this.difficulte = uneDifficulte;
     }
 
