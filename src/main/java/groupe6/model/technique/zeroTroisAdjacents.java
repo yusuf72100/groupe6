@@ -139,12 +139,12 @@ public class zeroTroisAdjacents extends Technique {
                     return false;
                 }
             } else { // Le zéro est au dessus
-                if(grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
-                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
-                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
-                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) == ValeurCote.TRAIT
-                        || grille.getCellule(coord2.getY(), coord2.getX() - 1).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                        || grille.getCellule(coord2.getY(), coord2.getX() + 1).getCote(Cellule.HAUT) != ValeurCote.TRAIT){
+                if(grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.HAUT) == ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX() - 1).getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX() + 1).getCote(Cellule.HAUT) != ValeurCote.TRAIT){
                     return true;
                 } else {
                     return false;
@@ -155,7 +155,7 @@ public class zeroTroisAdjacents extends Technique {
                 if(grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
                 || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
                 || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) == ValeurCote.TRAIT
+                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) == ValeurCote.TRAIT
                 || grille.getCellule(coord2.getY() - 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
                 || grille.getCellule(coord2.getY() + 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT){
                     return true;
@@ -163,17 +163,17 @@ public class zeroTroisAdjacents extends Technique {
                     return false;
                 }
             } else {
-                if(grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) == ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY() - 1, coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY() + 1, coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT) {
-                    // TODO
+                if(grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
+                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
+                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.DROITE) == ValeurCote.TRAIT
+                || grille.getCellule(coord1.getY() - 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                || grille.getCellule(coord1.getY() + 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         }
-
-        return false;
     }
 }
