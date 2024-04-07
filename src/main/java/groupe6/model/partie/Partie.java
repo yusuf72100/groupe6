@@ -1,6 +1,7 @@
 package groupe6.model.partie;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
 import groupe6.model.partie.info.LimiteTemps;
 import groupe6.model.partie.info.Score;
@@ -51,7 +52,7 @@ public class Partie {
   /**
    * L'historique des aides demandées par l'utilisateur
    */
-  private final List<AideInfos> historiqueAide;
+  private final HistoriqueAides historiqueAide;
 
   /**
    * L'hypothèse en cours dans une partie
@@ -90,7 +91,7 @@ public class Partie {
         LimiteTemps.getLimiteTemps(this.puzzle.getDifficulte())
     );
     this.gestionnaireAction = new GestionnaireAction(this.puzzle);
-    this.historiqueAide = new ArrayList<AideInfos>();
+    this.historiqueAide = new HistoriqueAides();
     this.profil = profil;
     this.hypothese = null;
     this.gestionnaireErreur = new GestionnaireErreur();
@@ -138,7 +139,7 @@ public class Partie {
    *
    * @return l'historique des aides demandées par l'utilisateur
    */
-  public List<AideInfos> getHistoriqueAide() {
+  public HistoriqueAides getHistoriqueAide() {
     return this.historiqueAide;
   }
 
@@ -283,12 +284,12 @@ public class Partie {
    */
   public void upgradeAide(int idxAide) {
     // Verification de l'index de l'aide
-    if ( idxAide < 0 || idxAide >= this.historiqueAide.size() ) {
+    if ( idxAide < 0 || idxAide >= this.historiqueAide.getListeAides().size() ) {
       throw new IllegalArgumentException("Index de l'aide invalide !");
     }
 
     // Augemente le niveau de l'aide
-    this.historiqueAide.get(idxAide).upgradeNiveau();
+    this.historiqueAide.getListeAides().get(idxAide).upgradeNiveau();
 
     // Malus supplémentaire pour avoir demandé une aide de niveau 2
     this.infos.enleverPoints(Score.MALUSE_SUPPLEMENTAIRE_AIDE_NIVEAU_2);
