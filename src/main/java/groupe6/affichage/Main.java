@@ -9,35 +9,62 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
 
+/**
+ * Classe qui correspond à la méthode principale de l'application
+ *
+ * @author Yusuf
+ */
 public class Main extends Application {
 
+    /**
+     * La scène principale
+     */
     private static Scene Main;
+
+    /**
+     * La gridMenu actuelle
+     */
     private static GridMenu grid;
+
+    /**
+     * La scène principale
+     */
     private static Stage primaryStage;
 
     /**
-     * Programme principal jfx
-     * @param primary TODO
-     * @throws IOException TODO
+     * Métode qui démarre l'application
+     *
+     * @param primary la scène principale
+     * @throws IOException si une erreur d'entrée/sortie se produit
      */
     @Override
     public void start(Stage primary) throws IOException {
         try {
             primaryStage = primary;
-            // gestion de la scène
-            Main = new Scene(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()), Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
+
+            // Gestion de la scène
+            Main = new Scene(
+                MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(),
+                Screen.getPrimary().getVisualBounds().getHeight()),
+                Screen.getPrimary().getVisualBounds().getWidth(),
+                Screen.getPrimary().getVisualBounds().getHeight()
+            );
+
+            // Gestion du style
             String cheminStyleCss = Launcher.normaliserChemin(Launcher.dossierAssets + "/style.css");
             Main.getStylesheets().add(Launcher.chargerFichierEnUrl(cheminStyleCss));
 
-            // gestion de la fenêtre
+            // Gestion de la fenêtre
             primary.initStyle(StageStyle.DECORATED);
             primary.setScene(Main);
             primary.setTitle("SlitherLink");
-            String cheminImgIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/icon.png");
-            primary.getIcons().add(Launcher.chargerImage(cheminImgIcon));
             primary.setResizable(true);
             primary.setMaximized(true);
             primary.show();
+
+            // Gestion de l'icône
+            String cheminImgIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/icon.png");
+            primary.getIcons().add(Launcher.chargerImage(cheminImgIcon));
 
 
         } catch (Exception e) {
@@ -46,22 +73,23 @@ public class Main extends Application {
     }
 
     /**
-     * Affichage du menu de sélection de mode de jeu
+     * Méthode statique pour afficher le menu de sélection du mode de jeu
      */
     public static void showGameModeMenu() {
         Main.setRoot(GameModeSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     /**
-     * Affichage du menu principal
+     * Méthode statique pour afficher le menu principal
      */
     public static void showMainMenu() {
         Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     /**
-     * Affichage du menu de jeu
-     * @param partie
+     * Méthode statique pour afficher le menu de sélection de profil
+     *
+     * @param partie la partie à afficher
      */
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
@@ -70,13 +98,17 @@ public class Main extends Application {
     }
 
     /**
-     * Affichage du menu de sauvegardes
+     * Méthode statique pour afficher le menu de sélection de sauvegarde
      */
     public static void showSaveSelectionMenu() {
         Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
-    // programme principal
+    /**
+     * Méthode principale qui lance l'application javaFX
+     *
+     * @param args les arguments de la ligne de commande
+     */
     public static void main(String[] args) {
         launch();
     }

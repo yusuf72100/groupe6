@@ -40,6 +40,8 @@ public class PartieFinieInfos extends PartieInfos implements Serializable {
      *
      * @param infos les informations de la partie
      * @param difficulte la difficulté du puzzle
+     * @param largeur la largeur du puzzle
+     * @param longeur la longueur du puzzle
      */
     public PartieFinieInfos(PartieInfos infos, DifficultePuzzle difficulte, int largeur, int longeur){
         super(

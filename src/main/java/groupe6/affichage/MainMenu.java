@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
 import groupe6.model.partie.sauvegarde.PartieSauvegarde;
 import groupe6.model.profil.CatalogueProfil;
@@ -32,28 +33,120 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+/**
+ * Classe qui correspond au menu principal de l'application
+ *
+ * @author Yusuf
+ */
 public class MainMenu implements Menu {
+    // TODO
+    /**
+     * Le bouton de back
+     */
     protected static Button backButton;
+
+    // TODO
+    /**
+     * Le texte du bouton de back
+     */
     protected static Label backText;
+
+    /**
+     * Le sélecteur de profil
+     */
     protected static ComboBox<String> profilSelector;
-    protected static String[] buttonTextsLabels;
+
+    // TODO
+    /**
+     * La boîte horizontale principale
+     */
     protected static HBox mainHbox;
+
+    // TODO
+    /**
+     * Le panneau d'affichage principal
+     */
     protected static StackPane mainPane;
+
+    // TODO
+    /**
+     * La description des backgrounds
+     */
     protected static HBox[] descriptionsBackground;
+
+    // TODO
+    /**
+     * Le conteneur des boutons
+     */
     protected static StackPane[] buttonsContainer;
+
+    /**
+     * Les textes des boutons du menu principal
+     */
+    protected static String[] buttonTextsLabels;
+
+    /**
+     *  Les boutons du menu principal
+     */
     protected static Button[] buttons;
+
+    /**
+     * Les textes des descriptions dans les boutons du menu principal
+     */
     protected static Label[] descriptionText;
+
+    /**
+     * Les labels des boutons du menu principal
+     */
     protected static Label[] buttonsText;
 
     // animations
+    // TODO
+    /**
+     * Les transitions de translation des rectangles
+     */
     protected static TranslateTransition[] rectangleTransition;
+
+    // TODO
+    /**
+     * Les transitions de translation des rectangles en sens inverse
+     */
     protected static TranslateTransition[] rectangleTransitionReverse;
+
+    /**
+     * Les transitions de fade
+     */
     protected static FadeTransition[] fadeTransition;
+
+    /**
+     * Les transitions de fade en sens inverse
+     */
     protected static FadeTransition[] fadeTransitionReverse;
+
+    // TODO
+    /**
+     * Les rectangles pour l'animation de l'affichage des descriptions
+     */
     protected static Rectangle[] clipRectangle;
+
+    /**
+     * La liste des profils chargés dans le catalogue de profils
+     */
     protected static List<Profil> profils;
+
+    /**
+     * Le titre de la fenêtre
+     */
     protected static Text title = new Text("Slitherlink");
+
+    /**
+     * La largeur de la fenêtre
+     */
     protected static Double windowWidth;
+
+    /**
+     * La hauteur de la fenêtre
+     */
     protected static Double windowHeight;
 
     /**
@@ -343,6 +436,7 @@ public class MainMenu implements Menu {
                         break;
                     case 2:
                         descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
+                        Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
                         break;
                     default:
                         descriptionText[finalI].setText("Placeholder #" + finalI);

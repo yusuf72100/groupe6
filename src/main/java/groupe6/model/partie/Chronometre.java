@@ -69,6 +69,7 @@ public class Chronometre {
    * Méthode verifier si le temps écoulé dépasse un temps limite
    *
    * @param limite le temps limite
+   * @return vrai si le temps écoulé dépasse le temps limite, faux sinon
    */
   boolean depassementTempsLimite(Duration limite) {
     return getTempsEcoule().compareTo(limite) > 0;

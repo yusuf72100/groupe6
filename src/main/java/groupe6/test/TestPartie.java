@@ -11,8 +11,14 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 
 import java.util.List;
 
+/**
+ * Classe de test pour la partie
+ */
 public class TestPartie {
 
+  /**
+   * Méthode qui teste la création d'une nouvelle partie
+   */
   public static void  creerNouvellePartie() {
 
     System.out.println("====================================");
@@ -51,6 +57,9 @@ public class TestPartie {
 
   }
 
+  /**
+   * Méthode qui teste le chargement d'une partie existante
+   */
   public static void chargerPartieExistante() {
 
     System.out.println("====================================");
@@ -79,6 +88,11 @@ public class TestPartie {
 
   }
 
+  /**
+   * Méthode principale
+   *
+   * @param args les arguments de la ligne de commande
+   */
   public static void main(String[] args) {
     creerNouvellePartie();
     chargerPartieExistante();

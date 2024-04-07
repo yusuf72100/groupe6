@@ -58,6 +58,7 @@ public class PartieInfos implements Serializable{
      * @param chrono le chrono de la partie
      * @param score le score de la partie
      * @param mode le mode de jeu de la partie
+     * @param complete boolean qui indique si la partie est complète
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete){
         this.date = new Date();
@@ -74,6 +75,7 @@ public class PartieInfos implements Serializable{
      * @param chrono le chrono de la partie
      * @param score le score de la partie
      * @param mode le mode de jeu de la partie
+     * @param complete boolean qui indique si la partie est complète
      * @param limiteTemps la limite de temps de la partie
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps){

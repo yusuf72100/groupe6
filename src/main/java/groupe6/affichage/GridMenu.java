@@ -4,6 +4,7 @@ import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
 import groupe6.model.partie.puzzle.Coordonnee;
+import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
@@ -19,29 +20,131 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Classe qui correspond a l'inteface graphique d'une partie joué de Slitherlink
+ *
+ * @author Yusuf
+ */
 public class GridMenu implements Menu {
-    private Partie partie;
-    private Button sauvegarder;
-    private Button home;
-    private Button pause;
-    private Button undo;
-    private Button redo;
-    private Button check;
-    private Button hypothese;
-    private Button help;
+
+    /**
+     * La partie en cours
+     */
+    private final Partie partie;
+
+    /**
+     * Le bouton pour sauvegarder la partie
+     */
+    private final Button sauvegarder;
+
+    /**
+     * Le bouton pour revenir au menu principal
+     */
+    private final Button home;
+
+    /**
+     * Le bouton pour mettre en pause la partie
+     */
+    private final Button pause;
+
+    /**
+     * Le bouton pour annuler une action
+     */
+    private final Button undo;
+
+    /**
+     * Le bouton pour rétablir une action
+     */
+    private final Button redo;
+
+    /**
+     * Le bouton pour vérifier les erreurs
+     */
+    private final Button check;
+
+    /**
+     * Le bouton pour activer le mode hypothèse
+     */
+    private final Button hypothese;
+
+    /**
+     * Le bouton pour demander de l'aide
+     */
+    private final Button help;
+
+    // TODO : a supprimer si pas utilisé
+    /**
+     * Le layout vertical
+     */
     private HBox layout_v;
+
+    /**
+     * Le gridPane qui contient les cellules
+     */
     private GridPane gridPane;
+
+    /**
+     * Le container qui contient le gridPane
+     */
     private StackPane container;
+
+    /**
+     * La grille des nodes des cellules
+     */
     private CelluleNode[][] celluleNodes;
+
+    /**
+     * La grille des données des cellules
+     */
     private Cellule[][] cellulesData;
-    private int compteur;        // utilisé à des fins de test
+
+    // TODO : supprimer après test
+    /**
+     * Le compteur de barres
+     */
+    private int compteur;
+
+    /**
+     * Le puzzle sur lequel on joue la partie
+     */
     private Puzzle puzzle;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * La scène de l'interface graphique
+     */
     private Scene scene;
+
+    // TODO
+    /**
+     * Le label du bouton hover
+     */
     private Label buttonHoverLabel;
-    private int longueur;
+
+    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
+    /**
+     * La largeur du puzzle
+     */
     private int largeur;
+
+    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
+    /**
+     * La longueur du puzzle
+     */
+    private int longueur;
+
+    // TODO : supprimer si pas utilisé
+    /**
+     * Le stage principal
+     */
     private Stage primaryStage;
 
+    /**
+     * Constructeur de la classe GridMenu
+     *
+     * @param partie la partie auquel est lié l'inteface graphique
+     * @param primaryStage le stage principal
+     */
     public GridMenu(Partie partie, Stage primaryStage){
         this.primaryStage = primaryStage;
         this.compteur = 0;
@@ -72,7 +175,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui change la couleur du fond d'une cellule
+     * Méthode qui highlight une cellule
      *
      * @param x la position x de la cellule
      * @param y la position y de la cellule
@@ -82,15 +185,20 @@ public class GridMenu implements Menu {
         this.celluleNodes[y][x].changeCellulesCss(color);
     }
 
+    /**
+     * Méthode qui verifie si des coordonnées sont dans la grille
+     *
+     * @param y la position y
+     * @param x la position x
+     * @return vrai si les coordonnées sont dans la grille, faux sinon
+     */
     public boolean estDansGrille(int y, int x) {
-        if ( y < 0 || y >= this.cellulesData.length || x < 0 || x >= this.cellulesData[0].length ) {
-            return false;
-        }
-        return true;
+      return y >= 0 && y < this.cellulesData.length && x >= 0 && x < this.cellulesData[0].length;
     }
 
     /**
-     * Permet de changer les couleurs des traits voisins
+     * Méthode qui change la couleurs des boutons ( traits ) des cellules voisines
+     *
      * @param y la position y de la cellule
      * @param x la position x de la cellule
      * @param color la couleur à appliquer ( format css )
@@ -116,7 +224,8 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Remet l'affichage de la cellule à l'état précédent
+     * Méthode qui remet l'affichage à l'état précédent
+     *
      * @param y la position y de la cellule
      * @param x la position x de la cellule
      */
@@ -141,8 +250,9 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Affichage du popup de l'aide de vérification
-     * @return renvoi un booléen qui vaut vrai si on veut revenir sur la première erreur trouvée, faux sinon
+     * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
+     *
+     * @return vrai si on veut revenir sur la première erreur trouvée, faux sinon
      */
     private boolean afficherPopup(){
         boolean resultat = false;
@@ -172,9 +282,10 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Permet d'ajouter une bouton parmis les boutons headers du menu de grille
-     * @param style
-     * @param hoverText
+     * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
+     *
+     * @param style le style du bouton
+     * @param hoverText le texte à afficher lors du hover
      * @return renvoi un bouton initialisé
      */
     private Button initHeaderButton(String style, String hoverText) {
@@ -217,6 +328,11 @@ public class GridMenu implements Menu {
         return button;
     }
 
+    /**
+     * Méthode qui permet d'obtenir la partie actuelle
+     *
+     * @return la partie actuelle
+     */
     public Partie getPartie() {
         return partie;
     }
@@ -292,6 +408,7 @@ public class GridMenu implements Menu {
      *
      * @param args les arguments à passer à la méthode
      * @return T le menu à afficher
+     * @param <T> le type de menu à afficher
      */
     public <T> AnchorPane getMenu(T... args) {
         // handler bouton de sauvegarde
@@ -503,7 +620,7 @@ public class GridMenu implements Menu {
      * @param path TODO
      */
     public void initNewPuzzle(String path) {
-        this.puzzle = Puzzle.chargerPuzzle(path);
+        this.puzzle = new Puzzle(PuzzleSauvegarde.chargerPuzzleSauvegarde(path), false);
         this.longueur = this.puzzle.getLargeur();
         this.largeur = this.puzzle.getLongueur();
 
@@ -621,6 +738,8 @@ public class GridMenu implements Menu {
                 this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
             }
         }
+
+
         // Update btn undo
         if ( this.partie.getGestionnaireAction().debutListe() ) {
             this.undo.getStyleClass().add("button-disabled");

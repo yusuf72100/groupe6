@@ -13,28 +13,28 @@ import java.util.*;
 public class CataloguePuzzle {
 
   /**
-   * Catalogue des puzzles indexé par difficulté
+   * Catalogue des sauvegardes de puzzles indexées par difficulté
    */
-  private final Map<DifficultePuzzle, List<Puzzle>> cataloguePuzzle;
+  private final Map<DifficultePuzzle, List<PuzzleSauvegarde>> cataloguePuzzle;
 
   /**
    * Constructeur de la classe CataloguePuzzle
    */
   public CataloguePuzzle() {
-    cataloguePuzzle = new HashMap<DifficultePuzzle, List<Puzzle>>();
+    cataloguePuzzle = new HashMap<DifficultePuzzle, List<PuzzleSauvegarde>>();
 
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
-      cataloguePuzzle.put(d, new ArrayList<Puzzle>());
+      cataloguePuzzle.put(d, new ArrayList<PuzzleSauvegarde>());
     }
 
   }
 
   /**
-   * Méthode pour ajouter un puzzle au catalogue
+   * Méthode pour ajouter une sauvegarde de puzzle au catalogue
    *
-   * @param puzzle le puzzle à ajouter
+   * @param puzzle la sauvegarde de puzzle à ajouter
    */
-  public void ajouterPuzzle(Puzzle puzzle) {
+  public void ajouterPuzzle(PuzzleSauvegarde puzzle) {
     cataloguePuzzle.get(puzzle.getDifficulte()).add(puzzle);
   }
 
@@ -44,17 +44,17 @@ public class CataloguePuzzle {
    * @param difficulte la difficulté des puzzles à obtenir
    * @return la liste des puzzles de la difficulté donnée
    */
-  public List<Puzzle> getListePuzzle(DifficultePuzzle difficulte) {
+  public List<PuzzleSauvegarde> getListePuzzle(DifficultePuzzle difficulte) {
     return cataloguePuzzle.get(difficulte);
   }
 
   /**
-   * Méthode pour obtenir la liste de tous les puzzles du catalogue
+   * Méthode pour obtenir la liste de toutes les sauvegardes de puzzles du catalogue
    *
-   * @return la liste de tous les puzzles du catalogue
+   * @return la liste de toutes les sauvegardes de puzzles du catalogue
    */
-  public List<Puzzle> getListePuzzle() {
-    List<Puzzle> liste = new ArrayList<Puzzle>();
+  public List<PuzzleSauvegarde> getListePuzzle() {
+    List<PuzzleSauvegarde> liste = new ArrayList<PuzzleSauvegarde>();
 
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
       liste.addAll(cataloguePuzzle.get(d));
@@ -64,30 +64,28 @@ public class CataloguePuzzle {
   }
 
   /**
-   * Méthode pour obtenir un puzzle à partir de sa difficulté et de son numéro
+   * Méthode pour obtenir une sauvegarde de puzzle depuis le catalogue
    *
-   * @param difficulte la difficulté du puzzle que l'on veut obtenir
-   * @param numero le numéro du puzzle parmi ceux de la difficulté donnée
-   * @return le puzzle correspondant à la difficulté et au numéro donnés
+   * @param difficulte la difficulté de la sauvegarde de puzzle à obtenir
+   * @param numero le numéro de la sauvegarde de puzzle à obtenir dans la liste des puzzles de la difficulté donnée
+   * @return la sauvegarde de puzzle correspondant à la difficulté et au numéro donnés
    */
-  public Puzzle getPuzzle(DifficultePuzzle difficulte, int numero) {
-    return cataloguePuzzle.get(difficulte).get(numero);
+  public PuzzleSauvegarde getPuzzleSauvegarde(DifficultePuzzle difficulte, int numero) {
+    return this.cataloguePuzzle.get(difficulte).get(numero);
   }
 
   /**
-   * Méthode pour obtenir une copie d'un puzzle à partir de sa difficulté et de son numéro
+   * Méthode pour obtenir un nouveau puzzle depuis le catalogue
    *
-   * @param difficulte la difficulté du puzzle que l'on veut obtenir
-   * @param numero le numéro du puzzle parmi ceux de la difficulté donnée
-   * @return une copie du puzzle correspondant à la difficulté et au numéro donnés
+   * @param difficulte la difficulté du puzzle à obtenir
+   * @param numero le numéro du puzzle à obtenir dans la liste des puzzles de la difficulté donnée
+   * @param optionTechDemarrage le boolén qui indique si l'application des techniques de démarrage est activée
+   * @return le nouveau puzzle obtenu
    */
-  public Puzzle getCopyPuzzle(DifficultePuzzle difficulte, int numero) {
-    try {
-      return (Puzzle) this.getPuzzle(difficulte, numero).clone();
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
-    return null;
+  public Puzzle getNouveauPuzzle(DifficultePuzzle difficulte, int numero, boolean optionTechDemarrage) {
+    PuzzleSauvegarde puzzleSauvegarde = getPuzzleSauvegarde(difficulte, numero);
+    System.out.println(puzzleSauvegarde);
+    return new Puzzle(puzzleSauvegarde, optionTechDemarrage);
   }
 
   /**
@@ -101,8 +99,8 @@ public class CataloguePuzzle {
     // Affichage pôur chaque puzzle de chaque difficulté sa difficulté et sa taille
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
       strBuilder.append("=> Difficulté " + d + " : \n");
-      for (Puzzle p : cataloguePuzzle.get(d)) {
-        strBuilder.append("  - " + d.toString().toLowerCase() + "_" + p.getLargeur() + "x" + p.getLongueur() + "\n");
+      for (PuzzleSauvegarde p : cataloguePuzzle.get(d)) {
+        strBuilder.append("  - " + p.getDifficulte().toString().toUpperCase() + "_" + p.getLargeur() + "x" + p.getLongueur() + "\n");
       }
     }
 
@@ -110,15 +108,15 @@ public class CataloguePuzzle {
   }
 
   /**
-   * Méthode pour trier le catalogue de puzzles par taille croissante dans chaque difficulté
+   * Méthode pour trier le catalogue de sauvegardes de puzzles par taille croissante dans chaque difficulté
    *
-   * @param catalogue le catalogue de puzzles à trier
+   * @param catalogue le catalogue de sauvegardes de puzzles à trier
    */
   static public void trierCataloguePuzzle(CataloguePuzzle catalogue) {
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
-      catalogue.getListePuzzle(d).sort(new Comparator<Puzzle>() {
+      catalogue.getListePuzzle(d).sort(new Comparator<PuzzleSauvegarde>() {
         @Override
-        public int compare(Puzzle p1, Puzzle p2) {
+        public int compare(PuzzleSauvegarde p1, PuzzleSauvegarde p2) {
           int tailleP1 = p1.getLongueur() * p1.getLargeur();
           int tailleP2 = p2.getLongueur() * p2.getLargeur();
           if (tailleP1 < tailleP2) {
@@ -148,8 +146,8 @@ public class CataloguePuzzle {
     if (contenu != null) {
       for (String s : contenu) {
         if (s.endsWith(".puzzle")) {
-          Puzzle puzzle = Puzzle.chargerPuzzle(cheminRessourcesPuzzles + File.separator + s);
-          catalogue.ajouterPuzzle(Objects.requireNonNull(puzzle));
+          PuzzleSauvegarde puzzleSauvegarde = PuzzleSauvegarde.chargerPuzzleSauvegarde(cheminRessourcesPuzzles + File.separator + s);
+          catalogue.ajouterPuzzle(Objects.requireNonNull(puzzleSauvegarde));
         }
       }
     }
