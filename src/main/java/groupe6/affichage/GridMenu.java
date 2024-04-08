@@ -250,38 +250,6 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
-     *
-     * @return vrai si on veut revenir sur la première erreur trouvée, faux sinon
-     */
-    private boolean afficherPopup(){
-        boolean resultat = false;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Action demandée");
-        alert.setHeaderText("Les cellules en rouge et orange seront modifiées si vous acceptez la correction!");
-        alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
-
-        // on enlève le bouton OK qui est mis de base
-        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setVisible(false);
-
-        ButtonType ouiButton = new ButtonType("Oui");
-        alert.getButtonTypes().add(ouiButton);
-
-        ButtonType nonButton = new ButtonType("Non");
-        alert.getButtonTypes().add(nonButton);
-        alert.showAndWait();
-
-        ButtonType boutonChoisi = alert.getResult();
-
-        if (boutonChoisi == ouiButton) {
-            resultat = true;
-        }
-
-        return resultat;
-    }
-
-    /**
      * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
      *
      * @param style le style du bouton
@@ -499,7 +467,10 @@ public class GridMenu implements Menu {
                     }
 
                     // Affiche une popup pour demander si l'utilisateur accepte la correction
-                    boolean accepteCorrection = afficherPopup();
+                    String titlePopUp = "Correction des erreurs";
+                    String headerPopUp = "Les cellules en rouge et orange seront modifiées si vous acceptez la correction!";
+                    String contentPopUp = "Acceptez de revenir sur la première erreur trouvée?";
+                    boolean accepteCorrection = Main.afficherPopUpChoixOuiNon(titlePopUp,headerPopUp,contentPopUp);
                     if ( accepteCorrection ) {
                         partie.corrigerErreur();
                     }
@@ -519,6 +490,7 @@ public class GridMenu implements Menu {
                 }
                 else {
                     // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
+
                 }
             }
         });
