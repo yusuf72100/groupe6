@@ -4,10 +4,14 @@ import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Classe qui correspond à la méthode principale de l'application
@@ -111,5 +115,60 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch();
+    }
+
+    /**
+     * Méthode statique pour afficher une pop-up d'information
+     *
+     * @param title le titre de la pop-up
+     * @param headerTexte le texte de l'en-tête
+     * @param contentTexte le texte du contenu
+     */
+    public static void afficherPopUpInformation(String title, String headerTexte, String contentTexte) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerTexte);
+        alert.setContentText(contentTexte);
+
+        alert.showAndWait();
+    }
+
+    /**
+     * Méthode statique pour afficher une pop-up de choix oui/non
+     *
+     * @param title le titre de la pop-up
+     * @param headerTexte le texte de l'en-tête
+     * @param contentTexte le texte du contenu
+     * @return vrai si l'utilisateur a choisi oui, faux sinon
+     */
+    public static boolean afficherPopUpChoixOuiNon(String title, String headerTexte, String contentTexte) {
+        // Initialisation du résultat
+        AtomicBoolean resultat = new AtomicBoolean(false);
+
+        // Création de la fenêtre de dialogue
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerTexte);
+        alert.setContentText(contentTexte);
+
+        // Changement du bouton ok en bouton oui
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setText("Oui");
+
+        // Changement du bouton cancel en bouton non
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setText("Non");
+
+        // Récupération du résultat
+        alert.showAndWait().ifPresent(type -> {
+            if (type == ButtonType.OK) {
+                resultat.set(true);
+            } else {
+                resultat.set(false);
+            }
+        });
+
+        // Retourne le résultat
+        return resultat.get();
     }
 }
