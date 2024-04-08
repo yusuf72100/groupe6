@@ -119,7 +119,7 @@ public class GridMenu implements Menu {
     /**
      * Le label du bouton hover
      */
-    private Label buttonHoverLabel;
+    private static Label buttonHoverLabel;
 
     // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
     /**
@@ -148,7 +148,7 @@ public class GridMenu implements Menu {
     public GridMenu(Partie partie, Stage primaryStage){
         this.primaryStage = primaryStage;
         this.compteur = 0;
-        this.buttonHoverLabel = new Label();
+        buttonHoverLabel = new Label();
 
         // buttons
         this.home = initHeaderButton("button-home", "Retourner au menu");
@@ -300,28 +300,27 @@ public class GridMenu implements Menu {
         button.setOnMouseEntered(event -> {
             if ( button.getStyleClass().contains("button-disabled") ) {
                 button.setStyle("-fx-opacity: 1");
-                this.buttonHoverLabel.setText(hoverText);
-            }
-            else {
+
+            } else {
                 mouseEntered(fadeButton, button);
-                this.buttonHoverLabel.setText(hoverText);
             }
+            buttonHoverLabel.setText(hoverText);
         });
-        
+
         button.setOnMouseExited(event -> {
             if ( button.getStyleClass().contains("button-disabled") ) {
                 button.setStyle("-fx-opacity: 0.5");
-                this.buttonHoverLabel.setText(hoverText);
+                button.setCursor(Cursor.DEFAULT);
             }
             else {
                 mouseExited(fadeButton, button);
-                this.buttonHoverLabel.setText("");
             }
+            buttonHoverLabel.setText("");
         });
 
         button.setOnMouseMoved(event -> {
-            this.buttonHoverLabel.setTranslateX(event.getSceneX() + 10);
-            this.buttonHoverLabel.setTranslateY(event.getSceneY() + 15);
+            buttonHoverLabel.setTranslateX(event.getSceneX() + 10);
+            buttonHoverLabel.setTranslateY(event.getSceneY() + 15);
         });
 
         return button;
