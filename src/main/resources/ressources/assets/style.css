@@ -8,9 +8,16 @@
     -fx-font-weight: bold;
     -fx-font-size: 80;
     -fx-fill: black;
-    -fx-stroke: black;            /* #ff005b */
+    -fx-stroke: black;
     -fx-stroke-width: 2;
     /*-fx-effect: dropshadow(gaussian, #ff005b, 30, 0.1, 0, 0);*/
+}
+
+.title_help {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 50;
+    -fx-underline: true;
 }
 
 .description-background {
@@ -181,10 +188,6 @@
 }
 
 .button-top, .button-bottom {
-    /*-fx-min-width: 100px;
-    -fx-max-width: 100px;
-    -fx-min-height: 5px;
-    -fx-max-height: 5px;*/
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;
@@ -218,10 +221,6 @@
 }
 
 .button-left, .button-right {
-    /*-fx-min-height: 100px;
-    -fx-max-height: 100px;
-    -fx-min-width: 5px;
-    -fx-max-width: 5px;*/
     -fx-background-color: lightgray;
     -fx-opacity: 0.0;
     -fx-border-radius: 0;
@@ -238,4 +237,9 @@
 .button-disabled {
     -fx-opacity: 0.5;
     -fx-cursor: default;
+}
+
+.historiqueAidesVBox {
+    -fx-background-image:  url('img/design_historique_aides.png');
+    -fx-background-size: cover;
 }

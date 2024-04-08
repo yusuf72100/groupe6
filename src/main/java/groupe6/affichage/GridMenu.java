@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -68,6 +67,9 @@ public class GridMenu implements Menu {
     private final Button hypothese;
 
     /**
+     * ScrollPane de la zone d'affichage d'aides
+     */
+    /**
      * Le bouton pour demander de l'aide
      */
     private final Button help;
@@ -87,6 +89,11 @@ public class GridMenu implements Menu {
      * Le container qui contient le gridPane
      */
     private StackPane container;
+
+    /**
+     * Zone d'affichage de l'historique d'aides
+     */
+    private StackPane historiqueAidesStackPane;
 
     /**
      * La grille des nodes des cellules
@@ -133,20 +140,13 @@ public class GridMenu implements Menu {
      */
     private int longueur;
 
-    // TODO : supprimer si pas utilisé
-    /**
-     * Le stage principal
-     */
-    private Stage primaryStage;
 
     /**
      * Constructeur de la classe GridMenu
      *
      * @param partie la partie auquel est lié l'inteface graphique
-     * @param primaryStage le stage principal
      */
-    public GridMenu(Partie partie, Stage primaryStage){
-        this.primaryStage = primaryStage;
+    public GridMenu(Partie partie){
         this.compteur = 0;
         buttonHoverLabel = new Label();
 
@@ -291,7 +291,7 @@ public class GridMenu implements Menu {
     private Button initHeaderButton(String style, String hoverText) {
         Button button = new Button();
         button.getStyleClass().add(style);
-        button.setPrefSize(30, 30);
+        button.setPrefSize(50, 50);
 
         FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
         fadeButton.setFromValue(1.0);
@@ -404,11 +404,14 @@ public class GridMenu implements Menu {
     /**
      * Méthode d'interface pour récupérer le menu
      *
-     * @param args les arguments à passer à la méthode
+     * @param isNew indique s'il faut créer une nouvelle grille
+     * @param w largeur de la fenêtre
+     * @param h hauteur de la fenêtre
      * @return T le menu à afficher
-     * @param <T> le type de menu à afficher
      */
-    public <T> AnchorPane getMenu(T... args) {
+    public <T> AnchorPane getMenu(boolean isNew, Double w, Double h) {
+        this.historiqueAidesStackPane = new historiqueAidesArea(w, h).getHistoriqueAidesStackPane();
+
         // handler bouton de sauvegarde
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -513,7 +516,7 @@ public class GridMenu implements Menu {
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
 
-//                    updateAffichage();
+                    // updateAffichage();
                 }
                 else {
                     // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
@@ -548,8 +551,6 @@ public class GridMenu implements Menu {
                         System.out.println("Annulation de l'hypothèse");
                     }
                 }
-
-
             }
         });
 
@@ -570,7 +571,7 @@ public class GridMenu implements Menu {
             }
         });
 
-        afficher((boolean) args[0]);
+        afficher(isNew);
 
         if ( Launcher.getVerbose() ) {
             System.out.println("Compteurs de barres : "+compteur);
@@ -583,14 +584,21 @@ public class GridMenu implements Menu {
         HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
-        buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
+        buttonContainer.setStyle("-fx-background-color: #e0ac1e; -fx-background-radius: 10; -fx-padding: 5 20 5 20;");
 
-        AnchorPane anchorPane = new AnchorPane(container, buttonContainer, buttonHoverLabel);
+        buttonContainer.widthProperty().addListener((obs, oldVal, newVal) -> {
+            buttonContainer.setTranslateX((w/2) - (newVal.doubleValue()/2));
+        });
+
+        buttonContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+            buttonContainer.setTranslateY(Menu.toPourcentHeight(50.0, 500.0));
+        });
+
+        AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer,  buttonHoverLabel, this.historiqueAidesStackPane);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);
         AnchorPane.setBottomAnchor(container, 0.0);
-        buttonContainer.prefWidthProperty().bind(anchorPane.widthProperty());
 
         return anchorPane;
     }

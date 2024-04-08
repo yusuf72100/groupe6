@@ -24,14 +24,6 @@ public interface Menu {
         return new Parent() { };
     }
 
-    // TODO : à supprimer si pas utilisé
-    /**
-     * Méthode complémentaire à but de test uniquement
-     *
-     * @param stage le stage
-     */
-    static void showMenu(Stage stage) {};
-
     /**
      * Méthode qui adapte la hauteur d'un node en fonction de la taille de l'écran
      *

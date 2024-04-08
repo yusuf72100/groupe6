@@ -480,6 +480,7 @@ public class MainMenu implements Menu {
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.getChildren().addAll(buttonsContainer);
         mainPane.setAlignment(Pos.CENTER);
+
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
         mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
                 profilSelector, backButton, backText);
