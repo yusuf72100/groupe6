@@ -53,41 +53,49 @@ public class zeroTroisAdjacents extends Technique {
             for(int j = 0; j < grille.getLongueur(); j++){
                 int valeur = grille.getCellule(i, j).getValeur();
                 if(valeur == 0){
-                    int gauche = grille.getCellule(i-1, j).getValeur();
-                    int bas = grille.getCellule(i, j+1).getValeur();
-                    int droite = grille.getCellule(i+1, j).getValeur();
-                    int haut = grille.getCellule(i, j-1).getValeur();
+                    int gauche = grille.getCellule(i, j-1).getValeur();
+                    int bas = grille.getCellule(i+1, j).getValeur();
+                    int droite = grille.getCellule(i, j+1).getValeur();
+                    int haut = grille.getCellule(i-1, j).getValeur();
                     if(gauche == 3){
+                        System.out.println("gauche = 3");
                         Coordonnee trois = new Coordonnee(i, j-1);
                         Coordonnee zero = new Coordonnee(i, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), HORIZ)) {
+                            System.out.println("verifZeroTroisAdjacents1");
                             ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if(haut == 3){
+                        System.out.println("haut = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i-1, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), VERTI)){
+                            System.out.println("verifZeroTroisAdjacents2");
                             ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if (droite == 3){
+                        System.out.println("droite = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i, j+1);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), HORIZ)){
+                            System.out.println("verifZeroTroisAdjacents3");
                             ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if (bas == 3){
+                        System.out.println("bas = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i+1, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), VERTI)){
+                            System.out.println("verifZeroTroisAdjacents4");
                             ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
