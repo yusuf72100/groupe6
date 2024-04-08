@@ -75,6 +75,16 @@ public class CataloguePuzzle {
   }
 
   /**
+   * Méthode pour obtenir le nombre de puzzles disponibles pour une difficulté donnée
+   *
+   * @param difficulte la difficulté des puzzles à compter
+   * @return le nombre de puzzles disponibles pour la difficulté donnée
+   */
+  public int getNombrePuzzleParDifficulte(DifficultePuzzle difficulte) {
+    return this.cataloguePuzzle.get(difficulte).size();
+  }
+
+  /**
    * Méthode pour obtenir un nouveau puzzle depuis le catalogue
    *
    * @param difficulte la difficulté du puzzle à obtenir
@@ -129,6 +139,26 @@ public class CataloguePuzzle {
         }
       });
     }
+  }
+
+  /**
+   * Méthode pour obtenir le nom d'une sauvegarde de puzzle
+   *
+   * @param puzzle la sauvegarde de puzzle dont on veut obtenir le nom
+   * @return le nom de la sauvegarde de puzzle
+   */
+  public static String getPuzzleName(PuzzleSauvegarde puzzle) {
+    return puzzle.getDifficulte().toString().toUpperCase() + "_" + puzzle.getLargeur() + "x" + puzzle.getLongueur();
+  }
+
+  /**
+   * Méthode pour obtenir le nom d'un puzzle
+   *
+   * @param puzzle le puzzle dont on veut obtenir le nom
+   * @return le nom du puzzle
+   */
+  public static String getPuzzleName(Puzzle puzzle) {
+    return puzzle.getDifficulte().toString().toUpperCase() + "_" + puzzle.getLargeur() + "x" + puzzle.getLongueur();
   }
 
   /**

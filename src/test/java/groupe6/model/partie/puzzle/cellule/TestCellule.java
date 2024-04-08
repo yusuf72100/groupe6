@@ -1,12 +1,20 @@
 package groupe6.model.partie.puzzle.cellule;
 
 import groupe6.ModelTest;
+import groupe6.model.partie.puzzle.TestPuzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCellule extends ModelTest {
+
+  @BeforeAll
+  public static void initAll(){
+    ModelTest.afficherNomDebut(TestCellule.class);
+  }
 
   @Test
   public void testNouvelleCellule() {
@@ -166,5 +174,10 @@ public class TestCellule extends ModelTest {
 
     // Vérification de la non équivalence des cellules
     assertNotEquals(cellule, clone);
+  }
+
+  @AfterAll
+  public static void tearDownAll() {
+    ModelTest.afficherNomFin(TestCellule.class);
   }
 }

@@ -150,6 +150,11 @@ public class MainMenu implements Menu {
     protected static Double windowHeight;
 
     /**
+     * Constructeur de la classe MainMenu qui est entièrement statique
+     */
+    protected MainMenu() {}
+
+    /**
      * Méthode d'initialisation du menu qui fait office de constructeur
      */
     public static void initMenu() {
@@ -437,6 +442,13 @@ public class MainMenu implements Menu {
                     case 2:
                         descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
                         Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
+                        // bouton nouvelle partie
+                        buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                Main.showClassicModeMenu();
+                            }
+                        });
                         break;
                     default:
                         descriptionText[finalI].setText("Placeholder #" + finalI);

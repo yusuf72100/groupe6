@@ -45,4 +45,16 @@ public class LimiteTemps {
     }
   }
 
+  /**
+   * Méthode qui permet de convertir une durée en minutes et secondes
+   *
+   * @param duration la durée à convertir
+   * @return la durée en minutes et secondes
+   */
+  public static String convertDurationToMinSec(Duration duration) {
+    long minutes = duration.toMinutes();
+    long seconds = duration.minusMinutes(minutes).getSeconds();
+    return minutes + "m" + seconds + "s";
+  }
+
 }

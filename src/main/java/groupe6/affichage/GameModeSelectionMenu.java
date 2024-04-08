@@ -16,6 +16,12 @@ import javafx.scene.text.TextAlignment;
  * @author Yusuf
  */
 public class GameModeSelectionMenu extends MainMenu {
+
+    /**
+     * Constructeur privé de la classe GameModeSelectionMenu qui est entièrement statique
+     */
+    private GameModeSelectionMenu() {}
+
     /**
      * Récupère le menu de sélection du mode de jeu sous forme de Node pour l'affichage
      *

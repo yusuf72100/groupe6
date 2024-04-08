@@ -8,6 +8,7 @@ import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import groupe6.model.technique.ResultatTechnique;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -441,8 +442,20 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                partie.chercherAide();
-                // TODO : Update l'affichage de l'historique d'aide
+                ResultatTechnique result = partie.chercherAide();
+                if (result.isTechniqueTrouvee() ) {
+                    // TODO : Update l'affichage de l'historique d'aide
+                }
+                else {
+                    Main.afficherPopUpInformation(
+                        "Aide à la progression",
+                        "Aucune aide trouvée. " +
+                            "\n\n" +
+                            "Vous ne serez pas pénalisé pour cette recherche d'aide.",
+                        "Appuyez sur OK pour continuer"
+                    );
+                }
+
             }
         });
 
@@ -489,8 +502,13 @@ public class GridMenu implements Menu {
 //                    updateAffichage();
                 }
                 else {
-                    // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
-
+                    Main.afficherPopUpInformation(
+                        "Vérification des erreurs",
+                        "Aucune erreur trouvée. " +
+                            "\n\n" +
+                            "Vous ne serez pas pénalisé pour cette vérification.",
+                        "Appuyez sur OK pour continuer"
+                    );
                 }
             }
         });
@@ -499,20 +517,32 @@ public class GridMenu implements Menu {
         hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Activer le mode hypothèse
                 if ( partie.getHypothese() == null ) {
                     partie.activerHypothese();
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Activation du mode hypothèse");
                     }
+                    Main.afficherPopUpInformation(
+                        "Mode hypothèse",
+                        "Le mode hypothèse est activé. " +
+                            "\n\n" +
+                            "Vous prochaines actions seront enregistrées en tant qu'hypothèses.",
+                        "Appuyez sur OK pour continuer"
+                    );
+                    // TODO : Modifier couleurs action hypothese ( trait, barre, etc ), ou utiliser un autre moyen pour indiquer le mode hypothèse
                 }
                 else {
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Désactivation du mode hypothèse");
                     }
-                    // TODO : Affiche pop up 2 btn ("oui","non") et message "Voulez-vous valider l'hypothèse ?"
 
-                    boolean validerHypothese = false;
+                    boolean validerHypothese = Main.afficherPopUpChoixOuiNon(
+                        "Validation de l'hypothèse",
+                        "Le mode hypothèse va être désactivé.",
+                        "Voulez-vous valider l'hypothèse ?" +
+                            "\n " +
+                            "( Les actions effectuées en mode hypothèse seront validées )"
+                    );
                     if ( validerHypothese ) {
                         partie.validerHypothese();
                         System.out.println("Validation de l'hypothèse");
@@ -521,6 +551,8 @@ public class GridMenu implements Menu {
                         partie.annulerHypothese();
                         System.out.println("Annulation de l'hypothèse");
                     }
+
+                    // TODO : Remettre le style par defaut pour signaler la fin du mode hypothèse
                 }
 
 
@@ -589,7 +621,7 @@ public class GridMenu implements Menu {
 
     /**
      * Initialise un nouveau puzzle
-     * @param path TODO
+     * @param path les arguments à passer à la méthode
      */
     public void initNewPuzzle(String path) {
         this.puzzle = new Puzzle(PuzzleSauvegarde.chargerPuzzleSauvegarde(path), false);
@@ -744,8 +776,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation de sortie sur le bouton souhaité
-     * @param fade TODO
-     * @param button TODO
+     * @param fade le fade
+     * @param button le bouton
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);

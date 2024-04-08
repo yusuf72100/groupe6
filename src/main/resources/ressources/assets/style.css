@@ -239,3 +239,7 @@
     -fx-opacity: 0.5;
     -fx-cursor: default;
 }
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

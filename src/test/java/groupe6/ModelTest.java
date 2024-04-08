@@ -34,22 +34,4 @@ public abstract class ModelTest {
     System.out.println(CouleursANSI.BLUE_BOLD + "──────────────────────────────────────────────────" + CouleursANSI.RESET);
   }
 
-  /**
-   * Méthode exécutée avant tous les tests de cette classe.
-   * Appelle au minimum la méthode afficherNomDebut.
-   */
-  @BeforeAll
-  public static void initAll(){
-    afficherNomDebut(ModelTest.class);
-  }
-
-  /**
-   * Méthode exécutée après tous les tests de cette classe.
-   * Appelle au minimum la méthode afficherNomFin.
-   */
-  @AfterAll
-  public static void tearDownAll(){
-    afficherNomFin(ModelTest.class);
-  }
-
 }

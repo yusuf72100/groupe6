@@ -91,6 +91,13 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu de sélection de puzzle en mode classique
+     */
+    public static void showClassicModeMenu() {
+        Main.setRoot(ClassicModeMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher le menu de sélection de profil
      *
      * @param partie la partie à afficher
@@ -106,15 +113,6 @@ public class Main extends Application {
      */
     public static void showSaveSelectionMenu() {
         Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
-    }
-
-    /**
-     * Méthode principale qui lance l'application javaFX
-     *
-     * @param args les arguments de la ligne de commande
-     */
-    public static void main(String[] args) {
-        launch();
     }
 
     /**
@@ -170,5 +168,14 @@ public class Main extends Application {
 
         // Retourne le résultat
         return resultat.get();
+    }
+
+    /**
+     * Méthode principale qui lance l'application javaFX
+     *
+     * @param args les arguments de la ligne de commande
+     */
+    public static void main(String[] args) {
+        launch();
     }
 }
