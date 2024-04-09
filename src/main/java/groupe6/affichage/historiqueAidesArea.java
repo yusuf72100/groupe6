@@ -2,7 +2,6 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -145,24 +144,23 @@ public class historiqueAidesArea {
 
         int index = aidesInfosList.size();
 
-        // IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      TEST
-        IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
+        // Handler de la variable de niveau
+        IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
+        //TODO : IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
         niveauProperty.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + newValue + ".png");
-                System.out.println("La valeur de la variable a changé : " + newValue + " " + cheminLevel);
-
                 imageLevel[0].setImage(Launcher.chargerImage(cheminLevel));
             }
         });
 
-        // handler
+        // handler bouton upgrade niveau
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // aidesInfosList.get(index).upgradeNiveau();
-                lvl[0]++;
+                // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
+                lvl[0]++;   // test
                 niveauProperty.set(lvl[0]);
             }
         });
