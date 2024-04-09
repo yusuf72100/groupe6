@@ -3,6 +3,22 @@
     -fx-font-weight: bold;
 }
 
+.scroll-pane .scroll-bar {
+    -fx-background-color: white;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: black;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: gray;
+}
+
+.scroll-pane .scroll-bar .thumb:pressed {
+    -fx-background-color: gray;
+}
+
 .title {
     -fx-font-family: 'Inter';
     -fx-font-weight: bold;

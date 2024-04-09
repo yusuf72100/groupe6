@@ -76,6 +76,7 @@ public class historiqueAidesArea {
         this.historiqueAidesScrollPane = new ScrollPane(this.historiqueAidesVBox);
         this.historiqueAidesScrollPane.setFitToWidth(true);
         this.historiqueAidesScrollPane.setFitToHeight(true);
+        this.historiqueAidesScrollPane.getStyleClass().add("scroll-pane");
         this.historiqueAidesStackPane.getChildren().add(this.historiqueAidesScrollPane);
         this.historiqueAidesStackPane.setAlignment(Pos.CENTER_RIGHT);
         this.historiqueAidesVBox.setSpacing(50);
