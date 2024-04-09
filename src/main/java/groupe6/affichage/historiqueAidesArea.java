@@ -116,11 +116,12 @@ public class historiqueAidesArea {
      */
     private void ajouterNouvelleAide(int level, String description) {
         Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide");
+        Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations");
         String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + level + ".png");
         final ImageView[] imageLevel = {new ImageView(Launcher.chargerImage(cheminLevel))};
         Label niveau = new Label("Niveau");
         Label descriptionText = new Label(description);
-        HBox header = new HBox(niveau, imageLevel[0], upgradeHelp);
+        HBox header = new HBox(niveau, imageLevel[0], upgradeHelp, more);
         Rectangle separator = new Rectangle(this.historiqueAidesVBox.getPrefWidth()-30, 5);
         VBox aideNode = new VBox(header, descriptionText, separator);
         final int[] lvl = {level};
@@ -132,6 +133,7 @@ public class historiqueAidesArea {
         imageLevel[0].setFitWidth(Menu.toPourcentWidth(200.0, 300.0));
         imageLevel[0].setFitHeight(Menu.toPourcentWidth(200.0, 300.0));
         upgradeHelp.setPrefSize(imageLevel[0].getFitWidth(), imageLevel[0].getFitHeight());
+        more.setPrefSize(upgradeHelp.getPrefWidth(), upgradeHelp.getPrefHeight());
         descriptionText.setStyle("-fx-font-family: 'Inter'");
         Menu.adaptTextSize(niveau, 25, this.width, this.height);
         Menu.adaptTextSize(descriptionText, 20, this.width, this.height);
@@ -162,6 +164,14 @@ public class historiqueAidesArea {
                 // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
                 lvl[0]++;   // test
                 niveauProperty.set(lvl[0]);
+            }
+        });
+
+        // handler bouton d'affichage des informations supplémentaires
+        more.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // TODO : Popup avec les schémas explicatifs ...
             }
         });
     }
