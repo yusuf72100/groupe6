@@ -292,6 +292,11 @@ public class GridMenu implements Menu {
         switchGrille.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                for (int i = 0; i < celluleNodes.length; i++) {
+                    for (int j = 0; j < celluleNodes[i].length; j++) {
+                        cellulesData[i][j].setValeur(celluleNodes[i][j].getLabel());
+                    }
+                }
                 if(puzzle.getGrilleVide() == null) {
                     puzzle.genererGrillePropre();
                     puzzle.genererGrilleTechDemarrage();
