@@ -123,8 +123,8 @@ public class historiqueAidesArea {
      * @param description description de l'aide
      */
     private void ajouterNouvelleAide(int level, String description) {
-        Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide");
-        Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations");
+        Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide", this.width, this.height);
+        Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations", this.width, this.height);
         String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + level + ".png");
         final ImageView[] imageLevel = {new ImageView(Launcher.chargerImage(cheminLevel))};
         Label niveau = new Label("Niveau");

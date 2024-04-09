@@ -93,7 +93,7 @@ public class Main extends Application {
      */
     public static void showGridMenu(Partie partie) {
         // Crée un GridMenu avec la partie passé en paramètre
-        grid = new GridMenu(partie);
+        grid = new GridMenu(partie, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
         Main.setRoot(grid.getMenu(false, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 

@@ -146,26 +146,26 @@ public class GridMenu implements Menu {
      *
      * @param partie la partie auquel est lié l'inteface graphique
      */
-    public GridMenu(Partie partie){
+    public GridMenu(Partie partie, Double w, Double h){
         this.compteur = 0;
         buttonHoverLabel = new Label();
 
         // buttons
-        this.home = initHeaderButton("button-home", "Retourner au menu");
-        this.undo = initHeaderButton("button-undo", "Annuler l'action");
-        this.redo = initHeaderButton("button-redo", "Rétablir l'action");
-        this.sauvegarder = initHeaderButton("button-sauvegarder", "Sauvegarder");
-        this.pause = initHeaderButton("button-pause", "Mettre en pause");
-        this.check = initHeaderButton("button-check", "Vérifier");
-        this.hypothese = initHeaderButton("button-hypothese", "Mode hypothèse");
-        this.help = initHeaderButton("button-help", "Aide");
+        this.home = initHeaderButton("button-home", "Retourner au menu", w, h);
+        this.undo = initHeaderButton("button-undo", "Annuler l'action", w, h);
+        this.redo = initHeaderButton("button-redo", "Rétablir l'action", w, h);
+        this.sauvegarder = initHeaderButton("button-sauvegarder", "Sauvegarder", w, h);
+        this.pause = initHeaderButton("button-pause", "Mettre en pause", w, h);
+        this.check = initHeaderButton("button-check", "Vérifier", w, h);
+        this.hypothese = initHeaderButton("button-hypothese", "Mode hypothèse", w, h);
+        this.help = initHeaderButton("button-help", "Aide", w, h);
 
         this.partie = partie;
         this.gridPane = new GridPane();
         this.container = new StackPane(gridPane);
         this.longueur = partie.getPuzzle().getLongueur();
         this.largeur = partie.getPuzzle().getLargeur();
-        initCellules(this.longueur, this.largeur);
+        initCellules(this.longueur, this.largeur, w, h);
         this.puzzle = partie.getPuzzle();
         updateAffichage();
 
@@ -288,10 +288,10 @@ public class GridMenu implements Menu {
      * @param hoverText le texte à afficher lors du hover
      * @return renvoi un bouton initialisé
      */
-    public static Button initHeaderButton(String style, String hoverText) {
+    public static Button initHeaderButton(String style, String hoverText, Double w, Double h) {
         Button button = new Button();
         button.getStyleClass().add(style);
-        button.setPrefSize(50, 50);
+        button.setPrefSize(Menu.toPourcentWidth(50.0, w), Menu.toPourcentWidth(50.0, w));
 
         FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
         fadeButton.setFromValue(1.0);
@@ -608,49 +608,14 @@ public class GridMenu implements Menu {
      * @param l la largeur du puzzle
      * @param L la longueur du puzzle
      */
-    private void initCellules(int l, int L) {
+    private void initCellules(int l, int L, Double w, Double h) {
         this.celluleNodes = new CelluleNode[l][L];
         this.cellulesData = this.partie.getPuzzle().getGrilleJeu();
 
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < L; j++) {
                 this.celluleNodes[i][j] = new CelluleNode(this.cellulesData[i][j].getValeur(), this.cellulesData[i][j].getCotes());
-                this.celluleNodes[i][j].setPrefSize((double) 500 / this.largeur, (double) 500 / this.longueur);
-            }
-        }
-    }
-
-    /**
-     * Initialise un nouveau puzzle
-     * @param path TODO
-     */
-    public void initNewPuzzle(String path) {
-        this.puzzle = new Puzzle(PuzzleSauvegarde.chargerPuzzleSauvegarde(path), false);
-        this.longueur = this.puzzle.getLargeur();
-        this.largeur = this.puzzle.getLongueur();
-
-        initCellules(this.longueur, this.largeur);
-        this.cellulesData = this.puzzle.getGrilleSolution();
-
-        for (int i  = 0 ; i < this.cellulesData.length; i++) {
-            for (int j = 0; j < this.cellulesData[i].length; j++) {
-                this.celluleNodes[i][j].setLabel(this.cellulesData[i][j].getValeur());
-
-                if(this.cellulesData[i][j].getValeur() != -1) {
-                    this.celluleNodes[i][j].setLabeText(this.cellulesData[i][j].getValeur());
-                }
-
-                for (int k = 0; k < 4; k++) {
-                    switch (this.cellulesData[i][j].getCote(k)) {
-                        case VIDE :
-                            break ;
-                        case TRAIT:
-                            this.celluleNodes[i][j].getButton(k).getStyleClass().add("clicked");
-                            break ;
-                        default: // rien
-                            break;
-                    }
-                }
+                this.celluleNodes[i][j].setPrefSize(Menu.toPourcentWidth(500.0 / this.longueur, w), Menu.toPourcentWidth(500.0 / this.longueur, w));
             }
         }
     }
