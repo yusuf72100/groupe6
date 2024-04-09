@@ -288,7 +288,7 @@ public class GridMenu implements Menu {
      * @param hoverText le texte à afficher lors du hover
      * @return renvoi un bouton initialisé
      */
-    private Button initHeaderButton(String style, String hoverText) {
+    public static Button initHeaderButton(String style, String hoverText) {
         Button button = new Button();
         button.getStyleClass().add(style);
         button.setPrefSize(50, 50);
@@ -300,7 +300,6 @@ public class GridMenu implements Menu {
         button.setOnMouseEntered(event -> {
             if ( button.getStyleClass().contains("button-disabled") ) {
                 button.setStyle("-fx-opacity: 1");
-
             } else {
                 mouseEntered(fadeButton, button);
             }
@@ -594,7 +593,7 @@ public class GridMenu implements Menu {
             buttonContainer.setTranslateY(Menu.toPourcentHeight(50.0, 500.0));
         });
 
-        AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer,  buttonHoverLabel, this.historiqueAidesStackPane);
+        AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);

@@ -1,6 +1,6 @@
-@font-face {
-    font-family: 'Snake Venom';
-    src: url('font/SNAKV___.TTF');
+.aideNiveau {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
 }
 
 .title {
@@ -113,6 +113,15 @@
     -fx-font-weight: bold;
     -fx-background-color: #e0ac1e;
     -fx-text-fill: black;
+}
+
+.button-upgradeLevel {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/upgradeLevel.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
 }
 
 .button-sauvegarder {
@@ -241,5 +250,5 @@
 
 .historiqueAidesVBox {
     -fx-background-image:  url('img/design_historique_aides.png');
-    -fx-background-size: cover;
+    -fx-background-size: contain;
 }

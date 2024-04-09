@@ -51,7 +51,7 @@ public class AideInfos implements Serializable {
      *
      * @return les informations sur la technique
      */
-    TechniqueInfos getInfoTechnique(){
+    public TechniqueInfos getInfoTechnique(){
         return this.infoTechnique;
     }
 
@@ -60,7 +60,7 @@ public class AideInfos implements Serializable {
      *
      * @return le résultat de la technique
      */
-    ResultatTechnique getResultatTechnique (){
+    public ResultatTechnique getResultatTechnique (){
         return this.resultatTechnique;
     }
 
