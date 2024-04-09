@@ -57,13 +57,14 @@
     -fx-background-color: #e0ac1e;
 }
 
-.button-rounded-inverted {
+.button-rounded-play {
     -fx-background-radius: 10px;
-    -fx-background-color: #e0ac1e;
+    -fx-background-color: #D9D9D9;
 }
 
-.button-rounded-inverted:hover {
-    -fx-background-color: #D9D9D9;
+.button-rounded-play:hover {
+    -fx-background-color: #354458;
+    -fx-text-fill: white;
 }
 
 .button {

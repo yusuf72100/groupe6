@@ -54,11 +54,13 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     infoPane.setMaxWidth(0.25 * windowWidth);
 
     Label titre = new Label("Information sur le puzzle");
+    Menu.adaptTextSize(titre, 35, windowWidth, windowHeight);
     titre.setStyle(
+        titre.getStyle() +
         " -fx-text-fill: white;" +
         " -fx-padding: 10px;" +
-        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-        " -fx-background-radius: 10px;"
+        " -fx-background-radius: 10px;" +
+        "-fx-font-weight: bold;"
     );
 
     // Les informations textuelles sur le puzzle
@@ -68,22 +70,31 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     tempsLimite = new Label("Temps limite : ");
 
     // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    Menu.adaptTextSize(infoDifficulte, 28, windowWidth, windowHeight);
     infoDifficulte.setStyle(
-        "-fx-text-fill: white;" +
-        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+        infoDifficulte.getStyle() +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;"
     );
+    Menu.adaptTextSize(infoTaille, 28, windowWidth, windowHeight);
     infoTaille.setStyle(
-        "-fx-text-fill: white;" +
-        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+        infoTaille.getStyle() +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;"
     );
+    Menu.adaptTextSize(infoPointsDepart, 28, windowWidth, windowHeight);
     infoPointsDepart.setStyle(
-        "-fx-text-fill: white;" +
-        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+        infoPointsDepart.getStyle() +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;"
     );
+    Menu.adaptTextSize(tempsLimite, 28, windowWidth, windowHeight);
     tempsLimite.setStyle(
+        tempsLimite.getStyle() +
         "-fx-text-fill: white;" +
-        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+            "-fx-font-weight: bold;"
     );
+
 
     // Element qui sert a faire un espace entre l'image et les informations textuelles
     Pane espace = new Pane();
@@ -97,7 +108,11 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     Button btnJouer = new Button("JOUER");
     btnJouer.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
     // Style du bouton pour lancer le puzzle
-
+    btnJouer.getStyleClass().add("button-rounded-play");
+    btnJouer.getStyleClass().add("button-text");
+    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
+    double newSize = 28 * Math.min(windowWidth / 1920, windowHeight / 1080);
+    btnJouer.setStyle(btnJouer.getStyle() + "-fx-font-size: " + newSize + "px;");
     // Detecte les clics sur le bouton pour lancer le puzzle en mode classique
     btnJouer.setOnMouseClicked(e -> {
       Main.lancerPartie(difficulteSelectionne, numeroPuzzleSelectionne, ModeJeu.CONTRELAMONTRE);
@@ -120,12 +135,16 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     infoPuzzle.setAlignment(Pos.CENTER);
 
     // Création de la croix pour fermer le paneau lateral d'information
-    Label croix = new Label("X");
+    Label croix = new Label("✖");
     croix.setStyle(
         "-fx-text-fill: white;" +
         "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
         "-fx-cursor: hand;"
     );
+
+    // Boite horizontale pour mettre la croix en haut à droite
+    HBox HBoxCroix = new HBox(croix);
+    HBoxCroix.setAlignment(Pos.TOP_RIGHT);
 
     // Detecte les clics sur la croix pour fermer le paneau lateral d'information
     VBox finalInfoPane = infoPane;
@@ -137,7 +156,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
     // Ajout des informations dans le paneau lateral d'information
     infoPane.getChildren().addAll(
-        croix,
+        HBoxCroix,
         titre,
         infoPuzzle
     );
@@ -222,11 +241,12 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
           "-fx-background-color: "+Main.secondaryColorCSS+";" +
-              " -fx-text-fill: white;" +
-              " -fx-padding: 10px;" +
-              " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-              " -fx-background-radius: 10px;" +
-              " -fx-cursor: hand;"
+          "-fx-text-fill: white;" +
+          "-fx-font-weight: bold;" +
+          "-fx-padding: 10px;" +
+          "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+          "-fx-background-radius: 10px;" +
+          "-fx-cursor: hand;"
       );
       // Création d'un StackPane intermédiaire pour obtenir le style souhaité
       StackPane headerPane = new StackPane(header);
@@ -280,18 +300,20 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     mainVbox.setAlignment(Pos.CENTER);
 
     // Gestion du bouton de retour
-    backButton = new Button("Retour");
+    backButton = new Button("RETOUR");
     StackPane.setMargin(backButton, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
-    backButton.getStyleClass().add("button-text");
     backButton.getStyleClass().add("button-rounded");
-    backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
+    backButton.getStyleClass().add("button-text");
+//    backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
+    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
+    double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
+    backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
+    // Adaptation de la taille du bouton en fonction de la taille de la fenêtre
     backButton.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+    // Action du bouton de retour
     backButton.setOnMouseClicked(e -> {
       Main.showGameModeMenu();
     });
-
-    // Change le curseur quand on passe sur le bouton de retour avec le css
-
 
     // Chargement de l'image de fond
     String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
