@@ -98,6 +98,13 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu de sélection de puzzle en mode classique
+     */
+    public static void showContreLaMontreModeMenu() {
+        Main.setRoot(ContreLaMontreModeMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher le menu de sélection de profil
      *
      * @param partie la partie à afficher

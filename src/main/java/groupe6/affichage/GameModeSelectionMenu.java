@@ -62,6 +62,7 @@ public class GameModeSelectionMenu extends MainMenu {
             }
         });
 
+
         // Bouton menu classique
         MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -71,6 +72,22 @@ public class GameModeSelectionMenu extends MainMenu {
                 Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
                 Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numPuzzle, ModeJeu.NORMAL, profilJoueur);
                 Main.showGridMenu(partieClassique);
+            }
+        });
+
+        // Bouton menu aventure
+        MainMenu.buttons[1].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        // Bouton menu contre la montre
+        MainMenu.buttons[2].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.showContreLaMontreModeMenu();
             }
         });
 

@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -71,9 +72,14 @@ public class ClassicModeMenu implements Menu {
   protected static VBox infoPane;
 
   /**
-   * L'image de preview du puzzle sélectionné
+   * Le puzzle sélectionné
    */
   protected static ImageView previewSelectionne;
+
+  /**
+   * L'image du puzzle sélectionné dans le panneau latéral d'info
+   */
+  protected static ImageView imgPreviewInfo;
 
   /**
    * La difficulté du puzzle sélectionné
@@ -108,10 +114,17 @@ public class ClassicModeMenu implements Menu {
     VBoxDifficulteContainer = new VBox();
     PuzzlePreviewContainer = new HBox[]{new HBox(), new HBox(), new HBox()};
     stackPaneSelecteurPuzzle = new StackPane();
+  }
 
-    previewSelectionne = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
-    previewSelectionne.setFitWidth(Math.round(0.10 * windowWidth));
-    previewSelectionne.setFitHeight(Math.round(0.10 * windowWidth));
+  public static StackPane getMenu(Double w, Double h) {
+    windowWidth = w;
+    windowHeight = h;
+
+    initMenuSelectionPuzzle();
+
+    imgPreviewInfo = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
+    imgPreviewInfo.setFitWidth(Math.round(0.16 * windowWidth));
+    imgPreviewInfo.setFitHeight(Math.round(0.16 * windowWidth));
 
     // Pour les 3 difficultés, on crée un conteneur de preview de puzzle
     for (int i = 0; i < 3; i++) {
@@ -121,8 +134,8 @@ public class ClassicModeMenu implements Menu {
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       HBoxPreviewContainer.setStyle(
           "-fx-background-color: gray;" +
-              " -fx-padding: "+Math.round(0.04 * windowHeight)+"px;" +
-              " -fx-background-radius: 10px;"
+          " -fx-padding: "+Math.round(0.04 * windowHeight)+"px;" +
+          " -fx-background-radius: 10px;"
       );
       int nbPuzzleParDifficulte = Launcher.cataloguePuzzles.getNombrePuzzleParDifficulte(DifficultePuzzle.values()[i]);
       // Si il n'y a pas de puzzle pour la difficulté, on affiche une image spéciale
@@ -137,9 +150,10 @@ public class ClassicModeMenu implements Menu {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
           for (int k = 0; k < 8; k++) {
             final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
-            String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
+            final String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
             System.out.println(cheminImgPreviewPuzzle);
-            ImageView imgPreviewPuzzle = new ImageView(Launcher.chargerImage(cheminImgPreviewPuzzle));
+            Image imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
+            ImageView imgPreviewPuzzle = new ImageView(imgPreview);
             imgPreviewPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
             imgPreviewPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
             HBoxPreviewContainer.getChildren().add(imgPreviewPuzzle);
@@ -148,13 +162,13 @@ public class ClassicModeMenu implements Menu {
             imgPreviewPuzzle.setOnMouseClicked(e -> {
               // Change la visibilité du paneau lateral si on vient de reselectionner le même puzzle
               if ( previewSelectionne == imgPreviewPuzzle ) {
-                infoPane.setVisible(!infoPane.isVisible());
-                infoPane.setManaged(!infoPane.isManaged());
+                infoPane.setVisible(false);
+                infoPane.setManaged(false);
               }
               // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
               else {
                 previewSelectionne = imgPreviewPuzzle;
-                updateInfoPuzzleSelectionne(puzzle);
+                updateInfoPuzzleSelectionne(cheminImgPreviewPuzzle, puzzle);
                 infoPane.setVisible(true);
                 infoPane.setManaged(true);
               }
@@ -162,7 +176,6 @@ public class ClassicModeMenu implements Menu {
           }
         }
       }
-      // Ajout de la HBox intermédiaire au conteneur de preview de puzzle
       PuzzlePreviewContainer[i].getChildren().add(HBoxPreviewContainer);
     }
 
@@ -249,8 +262,8 @@ public class ClassicModeMenu implements Menu {
 
     // Création du paneau lateral d'information sur le puzzle sélectionné
     infoPane = creerPaneauLateralInformation();
-    infoPane.setVisible(false);
-    infoPane.setManaged(false);
+    infoPane.setVisible(true);
+    infoPane.setManaged(true);
 
     // Ajout des éléments graphiques au panneau principal
     mainPane.getChildren().addAll(
@@ -271,13 +284,19 @@ public class ClassicModeMenu implements Menu {
 
     // Met le paneau lateral d'information à droite
     StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
+
+    return mainPane;
   }
 
-  public static void updateInfoPuzzleSelectionne(PuzzleSauvegarde puzzleSelectionne) {
-    System.out.println("Update");
+  public static void updateInfoPuzzleSelectionne(String cheminImg, PuzzleSauvegarde puzzleSelectionne) {
+    // Change les info textuel
     infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());
     infoTaille.setText("Taille : " + puzzleSelectionne.getLargeur() + "x" + puzzleSelectionne.getLongueur());
     infoPointsDepart.setText("Points de départ : " + Score.getScoreDebut(puzzleSelectionne.getDifficulte()));
+    // Change l'image
+    Image img = Launcher.chargerImage(cheminImg);
+    previewSelectionne.setImage(img);
+    System.out.println(cheminImg);
   }
 
   public static VBox creerPaneauLateralInformation() {
@@ -343,13 +362,12 @@ public class ClassicModeMenu implements Menu {
         infoPointsDepart
     );
 
-    // Met le texte à gauche
-    infoPuzzleText.setAlignment(Pos.CENTER_LEFT);
-
-
     // La boite verticale qui contient les informations sur le puzzle
     VBox infoPuzzle = new VBox();
 
+    if ( previewSelectionne == null ) {
+      previewSelectionne = new ImageView(Launcher.chargerImage(Launcher.dossierAssets+"/img/noPuzzle.png"));
+    }
 
     infoPuzzle.getChildren().addAll(
         previewSelectionne,
@@ -394,13 +412,5 @@ public class ClassicModeMenu implements Menu {
     return infoPane;
   }
 
-  public static StackPane getMenu(Double w, Double h) {
-    windowWidth = w;
-    windowHeight = h;
-
-    initMenuSelectionPuzzle();
-
-    return mainPane;
-  }
 
 }
