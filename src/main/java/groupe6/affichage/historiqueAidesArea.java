@@ -2,6 +2,11 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -113,20 +118,21 @@ public class historiqueAidesArea {
     private void ajouterNouvelleAide(int level, String description) {
         Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide");
         String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + level + ".png");
-        ImageView imageLevel = new ImageView(Launcher.chargerImage(cheminLevel));
+        final ImageView[] imageLevel = {new ImageView(Launcher.chargerImage(cheminLevel))};
         Label niveau = new Label("Niveau");
         Label descriptionText = new Label(description);
-        HBox header = new HBox(niveau, imageLevel, upgradeHelp);
+        HBox header = new HBox(niveau, imageLevel[0], upgradeHelp);
         Rectangle separator = new Rectangle(this.historiqueAidesVBox.getPrefWidth()-30, 5);
         VBox aideNode = new VBox(header, descriptionText, separator);
+        final int[] lvl = {level};
 
         header.setSpacing(10);
         aideNode.setSpacing(20);
         descriptionText.setWrapText(true);
         separator.setFill(Color.BLACK);
-        imageLevel.setFitWidth(Menu.toPourcentWidth(200.0, 300.0));
-        imageLevel.setFitHeight(Menu.toPourcentWidth(200.0, 300.0));
-        upgradeHelp.setPrefSize(imageLevel.getFitWidth(), imageLevel.getFitHeight());
+        imageLevel[0].setFitWidth(Menu.toPourcentWidth(200.0, 300.0));
+        imageLevel[0].setFitHeight(Menu.toPourcentWidth(200.0, 300.0));
+        upgradeHelp.setPrefSize(imageLevel[0].getFitWidth(), imageLevel[0].getFitHeight());
         descriptionText.setStyle("-fx-font-family: 'Inter'");
         Menu.adaptTextSize(niveau, 25, this.width, this.height);
         Menu.adaptTextSize(descriptionText, 20, this.width, this.height);
@@ -138,11 +144,26 @@ public class historiqueAidesArea {
         aideNode.setMaxSize(this.historiqueAidesVBox.getMaxWidth(), Region.USE_PREF_SIZE);  // fixer la taile d'un composant de la liste
 
         int index = aidesInfosList.size();
+
+        // IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      TEST
+        IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
+        niveauProperty.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + newValue + ".png");
+                System.out.println("La valeur de la variable a changé : " + newValue + " " + cheminLevel);
+
+                imageLevel[0].setImage(Launcher.chargerImage(cheminLevel));
+            }
+        });
+
         // handler
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                aidesInfosList.get(index).upgradeNiveau();
+                // aidesInfosList.get(index).upgradeNiveau();
+                lvl[0]++;
+                niveauProperty.set(lvl[0]);
             }
         });
     }
