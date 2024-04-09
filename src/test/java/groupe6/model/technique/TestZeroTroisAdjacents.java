@@ -49,7 +49,7 @@ public class TestZeroTroisAdjacents extends ModelTest {
 
         profil = new Profil("Test", null);
 
-        partie = new Partie(puzzle, ModeJeu.NORMAL, profil);
+        partie = new Partie(puzzle, ModeJeu.CLASSIQUE, profil);
     }
 
     @Test

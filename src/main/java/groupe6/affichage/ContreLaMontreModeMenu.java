@@ -1,6 +1,7 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.info.LimiteTemps;
 import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
@@ -8,8 +9,10 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -25,11 +28,135 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     windowWidth = w;
     windowHeight = h;
 
+    // Initialisation des éléments graphiques
     initMenuSelectionPuzzle();
 
-    previewSelectionne = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
-    previewSelectionne.setFitWidth(Math.round(0.10 * windowWidth));
-    previewSelectionne.setFitHeight(Math.round(0.10 * windowWidth));
+    // ==========================================================================
+    // Création des éléments du panneau d'information sur le puzzle sélectionné
+    // ==========================================================================
+
+    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    infoPane.setSpacing(0.08 * windowHeight);
+
+    // Ajout du padding dans le paneau lateral d'information
+    infoPane.setPadding(new Insets(0.04 * windowHeight,0.02 * windowHeight,0.04 * windowHeight,0.02 * windowHeight));
+
+    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    infoPane.setStyle(
+        "-fx-background-color: "+Main.mainColorCSS+";" +
+        " -fx-padding: "+Math.round(0.02 * windowHeight)+"px;" +
+        " -fx-background-radius: 10px 0px 0px 10px;" +
+        "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
+    );
+
+    // Definition de la taille du paneau lateral d'information
+    infoPane.setMinWidth(0.25 * windowWidth);
+    infoPane.setMaxWidth(0.25 * windowWidth);
+
+    Label titre = new Label("Information sur le puzzle");
+    titre.setStyle(
+        " -fx-text-fill: white;" +
+        " -fx-padding: 10px;" +
+        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+        " -fx-background-radius: 10px;"
+    );
+
+    // Les informations textuelles sur le puzzle
+    infoDifficulte = new Label("Difficulté : ");
+    infoTaille = new Label("Taille : ");
+    infoPointsDepart = new Label("Points de départ : ");
+    tempsLimite = new Label("Temps limite : ");
+
+    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    infoDifficulte.setStyle(
+        "-fx-text-fill: white;" +
+        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+    );
+    infoTaille.setStyle(
+        "-fx-text-fill: white;" +
+        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+    );
+    infoPointsDepart.setStyle(
+        "-fx-text-fill: white;" +
+        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+    );
+    tempsLimite.setStyle(
+        "-fx-text-fill: white;" +
+        " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
+    );
+
+    // Element qui sert a faire un espace entre l'image et les informations textuelles
+    Pane espace = new Pane();
+    espace.setMinHeight(0.02 * windowHeight);
+
+    // Deuxieme espace pour separer les informations textuelles du bouton pour lancer le puzzle
+    Pane espace2 = new Pane();
+    espace2.setMinHeight(0.02 * windowHeight);
+
+    // Bouton pour lancer le puzzle
+    Button btnJouer = new Button("JOUER");
+    btnJouer.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+    // Style du bouton pour lancer le puzzle
+
+    // Detecte les clics sur le bouton pour lancer le puzzle en mode classique
+    btnJouer.setOnMouseClicked(e -> {
+      Main.lancerPartie(difficulteSelectionne, numeroPuzzleSelectionne, ModeJeu.CONTRELAMONTRE);
+    });
+    // Ajoute une marge de 5% en bas au bouton pour lancer le puzzle
+    StackPane.setMargin(btnJouer, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
+
+    // Ajout de l'image et des informations textuelles sur le puzzle
+    infoPuzzle.getChildren().addAll(
+        imgPreviewInfo,
+        espace,
+        infoDifficulte,
+        infoTaille,
+        infoPointsDepart,
+        tempsLimite,
+        espace2,
+        btnJouer
+    );
+    infoPuzzle.setSpacing(0.01 * windowHeight);
+    infoPuzzle.setAlignment(Pos.CENTER);
+
+    // Création de la croix pour fermer le paneau lateral d'information
+    Label croix = new Label("X");
+    croix.setStyle(
+        "-fx-text-fill: white;" +
+        "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+        "-fx-cursor: hand;"
+    );
+
+    // Detecte les clics sur la croix pour fermer le paneau lateral d'information
+    VBox finalInfoPane = infoPane;
+    croix.setOnMouseClicked(e -> {
+      finalInfoPane.setVisible(false);
+      finalInfoPane.setManaged(false);
+    });
+
+
+    // Ajout des informations dans le paneau lateral d'information
+    infoPane.getChildren().addAll(
+        croix,
+        titre,
+        infoPuzzle
+    );
+    infoPane.setSpacing(0.05 * windowHeight);
+    // Met les elements du paneau lateral d'information au centre
+    infoPane.setAlignment(Pos.TOP_CENTER);
+
+    // Met la croix en haut à droite
+    StackPane.setAlignment(croix, Pos.TOP_RIGHT);
+
+//    // Cente le titre
+//    StackPane.setAlignment(titre, Pos.TOP_CENTER);
+//
+//    // Centre les informations sur le puzzle
+//    StackPane.setAlignment(infoPuzzle, Pos.CENTER);
+
+    // ==========================================================================
+    // Création du selecteur de puzzle
+    // ==========================================================================
 
     // Pour les 3 difficultés, on crée un conteneur de preview de puzzle
     for (int i = 0; i < 3; i++) {
@@ -38,9 +165,9 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       HBoxPreviewContainer.setSpacing(0.03 * windowWidth);
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       HBoxPreviewContainer.setStyle(
-          "-fx-background-color: gray;" +
-              " -fx-padding: "+Math.round(0.04 * windowHeight)+"px;" +
-              " -fx-background-radius: 10px;"
+          "-fx-background-color: "+Main.mainColorCSS+";" +
+          " -fx-padding: "+Math.round(0.04 * windowHeight)+"px;" +
+          " -fx-background-radius: 10px;"
       );
       int nbPuzzleParDifficulte = Launcher.cataloguePuzzles.getNombrePuzzleParDifficulte(DifficultePuzzle.values()[i]);
       // Si il n'y a pas de puzzle pour la difficulté, on affiche une image spéciale
@@ -53,34 +180,39 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       // Sinon on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
-          for (int k = 0; k < 8; k++) {
-            final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
-            String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
-            System.out.println(cheminImgPreviewPuzzle);
-            ImageView imgPreviewPuzzle = new ImageView(Launcher.chargerImage(cheminImgPreviewPuzzle));
-            imgPreviewPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
-            imgPreviewPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
-            HBoxPreviewContainer.getChildren().add(imgPreviewPuzzle);
-            // Detecte les clics sur les previews des puzzles pour afficher les informations sur le puzzle
-            int finalJ = j;
-            imgPreviewPuzzle.setOnMouseClicked(e -> {
-              // Change la visibilité du paneau lateral si on vient de reselectionner le même puzzle
-              if ( previewSelectionne == imgPreviewPuzzle ) {
-                infoPane.setVisible(!infoPane.isVisible());
-                infoPane.setManaged(!infoPane.isManaged());
-              }
-              // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
-              else {
-                previewSelectionne = imgPreviewPuzzle;
-                updateInfoPuzzleSelectionne(puzzle);
-                infoPane.setVisible(true);
-                infoPane.setManaged(true);
-              }
-            });
-          }
+          final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
+          final String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
+          Image imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
+          ImageView imgPreviewPuzzle = new ImageView(imgPreview);
+          imgPreviewPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
+          imgPreviewPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
+          imgPreviewPuzzle.setStyle(
+              "-fx-cursor: hand;"
+          );
+          HBoxPreviewContainer.getChildren().add(imgPreviewPuzzle);
+          // Detecte les clics sur les previews des puzzles pour afficher les informations sur le puzzle
+          final int finalI = i;
+          final int finalJ = j;
+          imgPreviewPuzzle.setOnMouseClicked(e -> {
+            // Change la visibilité du paneau lateral si on vient de reselectionner le même puzzle
+            if ( previewSelectionne == imgPreviewPuzzle ) {
+              boolean isVisible = infoPane.isVisible();
+              infoPane.setVisible(!isVisible);
+              infoPane.setManaged(!isVisible);
+            }
+            // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
+            else {
+              previewSelectionne = imgPreviewPuzzle;
+              difficulteSelectionne = finalI;
+              numeroPuzzleSelectionne = finalJ;
+              imgPreviewInfo.setImage(Launcher.chargerImage(cheminImgPreviewPuzzle));
+              updateInfoPuzzleSelectionneContreLaMontre(puzzle);
+              infoPane.setVisible(true);
+              infoPane.setManaged(true);
+            }
+          });
         }
       }
-      // Ajout de la HBox intermédiaire au conteneur de preview de puzzle
       PuzzlePreviewContainer[i].getChildren().add(HBoxPreviewContainer);
     }
 
@@ -89,11 +221,12 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       Label header = new Label(DifficultePuzzle.values()[i].toString());
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
-          "-fx-background-color: gray;" +
+          "-fx-background-color: "+Main.secondaryColorCSS+";" +
               " -fx-text-fill: white;" +
               " -fx-padding: 10px;" +
               " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-              " -fx-background-radius: 10px;"
+              " -fx-background-radius: 10px;" +
+              " -fx-cursor: hand;"
       );
       // Création d'un StackPane intermédiaire pour obtenir le style souhaité
       StackPane headerPane = new StackPane(header);
@@ -132,7 +265,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     stackPaneSelecteurPuzzle.getChildren().add(scrollPane);
 
     // Ajouter une marge de 7% à gauche et 12% en bas au scrollPane
-    StackPane.setMargin(scrollPane, new javafx.geometry.Insets(0,  0, 0.12 * windowHeight, 0.07 * windowWidth));
+    StackPane.setMargin(scrollPane, new javafx.geometry.Insets(0.08 * windowWidth,  0, 0.17 * windowHeight, 0.08 * windowWidth));
 
     // Gestion du titre
     title = new Label("Mode Contre La Montre");
@@ -143,36 +276,31 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
     // Boite verticale principale qui contient le titre et le selecteur de puzzle
     mainVbox.setSpacing(0.10 * windowHeight);
-    mainVbox.getChildren().add(title);
     mainVbox.getChildren().add(stackPaneSelecteurPuzzle);
-    mainVbox.setAlignment(Pos.TOP_CENTER);
+    mainVbox.setAlignment(Pos.CENTER);
 
     // Gestion du bouton de retour
-    backButton = new Label("Retour");
+    backButton = new Button("Retour");
     StackPane.setMargin(backButton, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
+    backButton.getStyleClass().add("button-text");
     backButton.getStyleClass().add("button-rounded");
-    backButton.getStyleClass().add("text-button");
+    backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
     backButton.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
     backButton.setOnMouseClicked(e -> {
       Main.showGameModeMenu();
     });
 
-
     // Change le curseur quand on passe sur le bouton de retour avec le css
-    backButton.setStyle("-fx-cursor: hand;");
+
 
     // Chargement de l'image de fond
     String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
     backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
 
-    // Création du paneau lateral d'information sur le puzzle sélectionné
-    infoPane = creerPaneauLateralInformation();
-    infoPane.setVisible(false);
-    infoPane.setManaged(false);
-
     // Ajout des éléments graphiques au panneau principal
     mainPane.getChildren().addAll(
         backgroundImage,
+        title,
         mainVbox,
         backButton,
         infoPane
@@ -197,7 +325,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
    *
    * @param puzzleSelectionne
    */
-  public static void updateInfoPuzzleSelectionne(PuzzleSauvegarde puzzleSelectionne) {
+  public static void updateInfoPuzzleSelectionneContreLaMontre(PuzzleSauvegarde puzzleSelectionne) {
     System.out.println("Update Contre la montre");
     infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());
     infoTaille.setText("Taille : " + puzzleSelectionne.getLargeur() + "x" + puzzleSelectionne.getLongueur());
@@ -207,134 +335,6 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
           LimiteTemps.getLimiteTemps(puzzleSelectionne.getDifficulte())
         )
     );
-  }
-
-  /**
-   * Méthode qui crée le paneau latéral d'information
-   *
-   * @return le paneau latéral d'information
-   */
-  public static VBox creerPaneauLateralInformation() {
-    // Création de la boite verticale qui contient les informations sur le puzzle
-    VBox infoPane = new VBox();
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPane.setSpacing(0.08 * windowHeight);
-
-    // Ajout de la marge
-    infoPane.setPadding(new Insets(0.04 * windowHeight,0.02 * windowHeight,0.04 * windowHeight,0.02 * windowHeight));
-
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPane.setStyle(
-        "-fx-background-color: gray;" +
-            " -fx-padding: "+Math.round(0.02 * windowHeight)+"px;" +
-            " -fx-background-radius: 10px 0px 0px 10px;"
-    );
-
-    // Definition de la taille du paneau lateral d'information
-    infoPane.setMinWidth(0.25 * windowWidth);
-    infoPane.setMaxWidth(0.25 * windowWidth);
-
-    Label titre = new Label("Information sur le puzzle");
-    titre.setStyle(
-        "-fx-background-color: gray;" +
-            " -fx-text-fill: white;" +
-            " -fx-padding: 10px;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-            " -fx-background-radius: 10px;"
-    );
-
-    if ( infoDifficulte == null ) {
-      infoDifficulte = new Label("Difficulté : ");
-    }
-    if ( infoTaille == null ) {
-      infoTaille = new Label("Taille : ");
-    }
-    if ( infoPointsDepart == null ) {
-      infoPointsDepart = new Label("Points de départ : ");
-    }
-
-    if ( tempsLimite == null ) {
-      tempsLimite = new Label("Temps limite : ");
-    }
-
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoDifficulte.setStyle(
-        "-fx-text-fill: white;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
-    );
-    infoTaille.setStyle(
-        "-fx-text-fill: white;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
-    );
-    infoPointsDepart.setStyle(
-        "-fx-text-fill: white;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
-    );
-    tempsLimite.setStyle(
-        "-fx-text-fill: white;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
-    );
-
-
-    // Création de la boite verticale qui contient les informations textuelles sur le puzzle
-    VBox infoPuzzleText = new VBox();
-    infoPuzzleText.setSpacing(0.02 * windowHeight);
-    infoPuzzleText.getChildren().addAll(
-        infoDifficulte,
-        infoTaille,
-        infoPointsDepart,
-        tempsLimite
-    );
-
-    // Met le texte à gauche
-    infoPuzzleText.setAlignment(Pos.CENTER_LEFT);
-
-
-    // La boite verticale qui contient les informations sur le puzzle
-    VBox infoPuzzle = new VBox();
-
-
-    infoPuzzle.getChildren().addAll(
-        imgPreviewInfo,
-        infoPuzzleText
-    );
-
-    // Création de la croix pour fermer le paneau lateral d'information
-    Label croix = new Label("X");
-    croix.setStyle(
-        "-fx-text-fill: white;" +
-            " -fx-font-size: "+Math.round(1080 * 0.03)+"px ;"
-    );
-
-    // Detecte les clics sur la croix pour fermer le paneau lateral d'information
-    croix.setOnMouseClicked(e -> {
-      infoPane.setVisible(false);
-      infoPane.setManaged(false);
-    });
-
-    // Change le curseur quand on passe sur la croix avec le css
-    croix.setStyle("-fx-cursor: hand;");
-
-
-    // Met la croix en haut à droite
-
-    // Ajout des informations dans le paneau lateral d'information
-    infoPane.getChildren().addAll(
-        croix,
-        titre,
-        infoPuzzle
-    );
-
-    // Met la croix en haut à droite
-    StackPane.setAlignment(croix, Pos.TOP_RIGHT);
-
-    // Cente le titre
-    StackPane.setAlignment(titre, Pos.TOP_CENTER);
-
-    // Centre les informations sur le puzzle
-    StackPane.setAlignment(infoPuzzle, Pos.CENTER);
-
-    return infoPane;
   }
 
 

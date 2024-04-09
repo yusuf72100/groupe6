@@ -169,10 +169,12 @@ public class CataloguePuzzle {
   static public CataloguePuzzle chargerCataloguePuzzle() {
     CataloguePuzzle catalogue = new CataloguePuzzle();
 
+    // Chemin du dossier de ressources des puzzles
     String cheminRessourcesPuzzles = Launcher.normaliserChemin(Launcher.dossierPuzzles);
     File pathDossier = new File(cheminRessourcesPuzzles);
     String[] contenu = pathDossier.list();
 
+    // Chargement des sauvegardes de puzzles depuis le dossier de ressources
     if (contenu != null) {
       for (String s : contenu) {
         if (s.endsWith(".puzzle")) {
@@ -181,6 +183,9 @@ public class CataloguePuzzle {
         }
       }
     }
+
+    // Trié le catalogue de puzzles ( par taille croissante dans chaque difficulté )
+    trierCataloguePuzzle(catalogue);
 
     return catalogue;
   }

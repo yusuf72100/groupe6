@@ -429,8 +429,9 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Charger une partie existante");
                         break;
+                    // bouton nouvelle partie
                     case 1:
-                        // bouton nouvelle partie
+
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
@@ -439,14 +440,15 @@ public class MainMenu implements Menu {
                         });
                         descriptionText[finalI].setText("Choisissez un mode de jeu");
                         break;
+                    // bouton entrainement
                     case 2:
                         descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
                         Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
-                        // bouton nouvelle partie
+
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                Main.showClassicModeMenu();
+                                // Lance le mode entrainement
                             }
                         });
                         break;

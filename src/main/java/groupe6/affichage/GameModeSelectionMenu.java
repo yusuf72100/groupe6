@@ -67,11 +67,7 @@ public class GameModeSelectionMenu extends MainMenu {
         MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DifficultePuzzle difficultePuzzle = DifficultePuzzle.FACILE;
-                int numPuzzle = 0;
-                Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
-                Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numPuzzle, ModeJeu.NORMAL, profilJoueur);
-                Main.showGridMenu(partieClassique);
+                Main.showClassicModeMenu();
             }
         });
 
