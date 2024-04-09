@@ -10,7 +10,7 @@ public enum ModeJeu {
     /**
      * Mode de jeu normal
      */
-    NORMAL,
+    CLASSIQUE,
     /**
      * Mode de jeu aventure
      */

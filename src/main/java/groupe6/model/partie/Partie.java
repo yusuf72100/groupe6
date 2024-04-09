@@ -96,7 +96,6 @@ public class Partie {
     this.hypothese = null;
     this.gestionnaireErreur = new GestionnaireErreur();
     this.chrono = new Chronometre();
-    this.sauvegarder();
   }
 
   /**
@@ -569,6 +568,11 @@ public class Partie {
     System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
     System.out.println("--------------------");
 
+    // Suppression des erreurs si l'on est revenu à l'état de départ du puzzle
+    if ( this.gestionnaireAction.getIndex() == -1 ) {
+      this.gestionnaireErreur.supprimerErreurs();
+    }
+
     // Sauvegarde de la partie après chaque action
     this.sauvegarder();
   }
@@ -627,6 +631,7 @@ public class Partie {
     this.puzzle = hypothese.getPuzzle();
     this.gestionnaireAction = hypothese.getGestionnaireAction();
     this.gestionnaireErreur = hypothese.getGestionnaireErreur();
+    this.hypothese = null;
   }
 
   /**
@@ -666,7 +671,9 @@ public class Partie {
     // Création d'un nouveau puzzle en fonction de la difficulté, du numéro et de l'option technique de démarrage
     Puzzle nvPuzzle = catalogue.getNouveauPuzzle(difficulte, numero, optionTechDemarage);
     // Création d'une nouvelle partie à partir du nouveau puzzle, du mode de jeu et du profil
-    return new Partie(nvPuzzle, modeJeu, profil);
+    Partie partie = new Partie(nvPuzzle, modeJeu, profil);
+    partie.sauvegarder();
+    return partie;
   }
 
   /**

@@ -57,6 +57,15 @@
     -fx-background-color: #e0ac1e;
 }
 
+.button-rounded-inverted {
+    -fx-background-radius: 10px;
+    -fx-background-color: #e0ac1e;
+}
+
+.button-rounded-inverted:hover {
+    -fx-background-color: #D9D9D9;
+}
+
 .button {
     -fx-background-radius: 10px;
     -fx-background-color: #D9D9D9;
@@ -276,4 +285,8 @@
 .historiqueAidesVBox {
     -fx-background-image:  url('img/design_historique_aides.png');
     -fx-background-size: contain;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
 }

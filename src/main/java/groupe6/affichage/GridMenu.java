@@ -8,6 +8,7 @@ import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import groupe6.model.technique.ResultatTechnique;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -250,38 +251,6 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
-     *
-     * @return vrai si on veut revenir sur la première erreur trouvée, faux sinon
-     */
-    private boolean afficherPopup(){
-        boolean resultat = false;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Action demandée");
-        alert.setHeaderText("Les cellules en rouge et orange seront modifiées si vous acceptez la correction!");
-        alert.setContentText("Acceptez de revenir sur la première erreur trouvée?");
-
-        // on enlève le bouton OK qui est mis de base
-        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setVisible(false);
-
-        ButtonType ouiButton = new ButtonType("Oui");
-        alert.getButtonTypes().add(ouiButton);
-
-        ButtonType nonButton = new ButtonType("Non");
-        alert.getButtonTypes().add(nonButton);
-        alert.showAndWait();
-
-        ButtonType boutonChoisi = alert.getResult();
-
-        if (boutonChoisi == ouiButton) {
-            resultat = true;
-        }
-
-        return resultat;
-    }
-
-    /**
      * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
      *
      * @param style le style du bouton
@@ -473,8 +442,20 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                partie.chercherAide();
-                // TODO : Update l'affichage de l'historique d'aide
+                ResultatTechnique result = partie.chercherAide();
+                if (result.isTechniqueTrouvee() ) {
+                    // TODO : Update l'affichage de l'historique d'aide
+                }
+                else {
+                    Main.afficherPopUpInformation(
+                        "Aide à la progression",
+                        "Aucune aide trouvée. " +
+                            "\n\n" +
+                            "Vous ne serez pas pénalisé pour cette recherche d'aide.",
+                        "Appuyez sur OK pour continuer"
+                    );
+                }
+
             }
         });
 
@@ -499,7 +480,10 @@ public class GridMenu implements Menu {
                     }
 
                     // Affiche une popup pour demander si l'utilisateur accepte la correction
-                    boolean accepteCorrection = afficherPopup();
+                    String titlePopUp = "Correction des erreurs";
+                    String headerPopUp = "Les cellules en rouge et orange seront modifiées si vous acceptez la correction!";
+                    String contentPopUp = "Acceptez de revenir sur la première erreur trouvée?";
+                    boolean accepteCorrection = Main.afficherPopUpChoixOuiNon(titlePopUp,headerPopUp,contentPopUp);
                     if ( accepteCorrection ) {
                         partie.corrigerErreur();
                     }
@@ -518,7 +502,13 @@ public class GridMenu implements Menu {
                     // updateAffichage();
                 }
                 else {
-                    // TODO : Afficher pop up un btn "ok" et message "Aucune erreur trouvée"
+                    Main.afficherPopUpInformation(
+                        "Vérification des erreurs",
+                        "Aucune erreur trouvée. " +
+                            "\n\n" +
+                            "Vous ne serez pas pénalisé pour cette vérification.",
+                        "Appuyez sur OK pour continuer"
+                    );
                 }
             }
         });
@@ -527,20 +517,32 @@ public class GridMenu implements Menu {
         hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Activer le mode hypothèse
                 if ( partie.getHypothese() == null ) {
                     partie.activerHypothese();
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Activation du mode hypothèse");
                     }
+                    Main.afficherPopUpInformation(
+                        "Mode hypothèse",
+                        "Le mode hypothèse est activé. " +
+                            "\n\n" +
+                            "Vous prochaines actions seront enregistrées en tant qu'hypothèses.",
+                        "Appuyez sur OK pour continuer"
+                    );
+                    // TODO : Modifier couleurs action hypothese ( trait, barre, etc ), ou utiliser un autre moyen pour indiquer le mode hypothèse
                 }
                 else {
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Désactivation du mode hypothèse");
                     }
-                    // TODO : Affiche pop up 2 btn ("oui","non") et message "Voulez-vous valider l'hypothèse ?"
 
-                    boolean validerHypothese = false;
+                    boolean validerHypothese = Main.afficherPopUpChoixOuiNon(
+                        "Validation de l'hypothèse",
+                        "Le mode hypothèse va être désactivé.",
+                        "Voulez-vous valider l'hypothèse ?" +
+                            "\n " +
+                            "( Les actions effectuées en mode hypothèse seront validées )"
+                    );
                     if ( validerHypothese ) {
                         partie.validerHypothese();
                         System.out.println("Validation de l'hypothèse");
@@ -549,6 +551,8 @@ public class GridMenu implements Menu {
                         partie.annulerHypothese();
                         System.out.println("Annulation de l'hypothèse");
                     }
+
+                    // TODO : Remettre le style par defaut pour signaler la fin du mode hypothèse
                 }
             }
         });
@@ -742,8 +746,8 @@ public class GridMenu implements Menu {
 
     /**
      * Règle l'animation de sortie sur le bouton souhaité
-     * @param fade TODO
-     * @param button TODO
+     * @param fade le fade
+     * @param button le bouton
      */
     private static void mouseExited(FadeTransition fade, Button button) {
         fade.setRate(-1);
