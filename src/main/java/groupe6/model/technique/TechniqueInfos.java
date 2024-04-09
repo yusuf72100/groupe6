@@ -58,8 +58,8 @@ public class TechniqueInfos implements Serializable {
    *
    * @return l'explication textuelle de la technique
    */
-  public DifficulteTechnique getExplicationTxt() {
-      return this.difficulte;
+  public String getExplicationTxt() {
+      return "PlaceHolder";
   }
 
   /**

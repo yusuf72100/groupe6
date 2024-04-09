@@ -13,9 +13,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -38,6 +36,11 @@ public class GridMenu implements Menu {
     private final Button sauvegarder;
 
     /**
+     * Bouton pour changer de grille
+     */
+    private final Button switchGrille;
+
+    /**
      * Le bouton pour revenir au menu principal
      */
     private final Button home;
@@ -46,12 +49,6 @@ public class GridMenu implements Menu {
      * Le label pour afficher les informations du puzzle
      */
     private Label infos;
-
-    // TODO : a supprimer si pas utilisé
-    /**
-     * Le layout vertical
-     */
-    private VBox layout_v;
 
     /**
      * Le gridPane qui contient les cellules
@@ -78,29 +75,15 @@ public class GridMenu implements Menu {
      */
     private PuzzleSauvegarde puzzle;
 
-    // TODO : supprimer si pas utilisé
-    /**
-     * La scène de l'interface graphique
-     */
-    private Scene scene;
-
-    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
     /**
      * La largeur du puzzle
      */
     private int largeur;
 
-    // TODO : mettre en final si pas modifié par la méthode initNewPuzzle(String)
     /**
      * La longueur du puzzle
      */
     private int longueur;
-
-    // TODO : supprimer après test
-    /**
-     * Le compteur de barres
-     */
-    private int compteur; // utilisé à des fins de test
 
     /**
      * Constructeur de la classe GridMenu du puzzle generator
@@ -110,37 +93,13 @@ public class GridMenu implements Menu {
      * @param diff la difficulté du puzzle
      */
     public GridMenu(int largeur, int longueur, DifficultePuzzle diff) {
-        this.compteur = 0;
         this.infos = new Label();
         this.infos.setAlignment(Pos.CENTER);
 
-        this.home = new Button();
-        this.home.getStyleClass().add("button-home");
-        this.home.setPrefSize(30, 30);
-        this.sauvegarder = new Button();
-        this.sauvegarder.getStyleClass().add("button-sauvegarder");
-        this.sauvegarder.setPrefSize(30, 30);
-
-        FadeTransition fadeSauvegarder = new FadeTransition(Duration.millis(150), this.sauvegarder);
-        fadeSauvegarder.setFromValue(1.0);
-        fadeSauvegarder.setToValue(0.2);
-
-        FadeTransition fadeHome = new FadeTransition(Duration.millis(150), this.home);
-        fadeHome.setFromValue(1.0);
-        fadeHome.setToValue(0.2);
-
-        this.sauvegarder.setOnMouseEntered(event -> {
-            mouseEntered(fadeSauvegarder, this.sauvegarder);
-        });
-        this.sauvegarder.setOnMouseExited(event -> {
-            mouseExited(fadeSauvegarder, this.sauvegarder);
-        });
-        this.home.setOnMouseEntered(event -> {
-            mouseEntered(fadeHome, this.home);
-        });
-        this.home.setOnMouseExited(event -> {
-            mouseExited(fadeHome, this.home);
-        });
+        // boutons panneaux latéral
+        this.home = initHeaderButton("button-home");
+        this.sauvegarder = initHeaderButton("button-sauvegarder");
+        this.switchGrille = initHeaderButton("button-switchGrille");
 
         this.gridPane = new GridPane();
         this.container = new VBox(infos, gridPane);
@@ -148,6 +107,43 @@ public class GridMenu implements Menu {
         this.largeur = largeur;
         initCellules(this.largeur, this.longueur);
         this.puzzle = new PuzzleSauvegarde(this.largeur, this.longueur, diff);
+        this.cellulesData = this.puzzle.getGrilleSolution();
+    }
+
+    /**
+     * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
+     *
+     * @param style le style du bouton
+     * @return renvoi un bouton initialisé
+     */
+    private Button initHeaderButton(String style) {
+        Button button = new Button();
+        button.getStyleClass().add(style);
+        button.setPrefSize(30, 30);
+
+        FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
+        fadeButton.setFromValue(1.0);
+        fadeButton.setToValue(0.2);
+
+        button.setOnMouseEntered(event -> {
+            if ( button.getStyleClass().contains("button-disabled") ) {
+                button.setStyle("-fx-opacity: 1");
+            }
+            else {
+                mouseEntered(fadeButton, button);
+            }
+        });
+
+        button.setOnMouseExited(event -> {
+            if ( button.getStyleClass().contains("button-disabled") ) {
+                button.setStyle("-fx-opacity: 0.5");
+            }
+            else {
+                mouseExited(fadeButton, button);
+            }
+        });
+
+        return button;
     }
 
     /**
@@ -213,7 +209,7 @@ public class GridMenu implements Menu {
                 valeur = ValeurCote.TRAIT;
             }
 
-            Cellule cell1 = puzzle.getCelluleGrille(i, j,GridMenu.this.puzzle.getGrilleSolution());
+            Cellule cell1 = puzzle.getCelluleGrille(i, j, cellulesData);
             Cellule cell2;
             switch (clickedButton.getText()) {
                 case "Top":
@@ -222,14 +218,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(0);
                     }
-                    cell2 =  GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.HAUT, puzzle.getGrilleSolution());
-                    cell1.setCote(Cellule.HAUT, valeur);
-                    System.out.println("cell1 :" + cell1.getCote(Cellule.HAUT));
-                    if (cell2 != null) {
-                        int coteAdjacent = Cellule.getCoteAdjacent(Cellule.HAUT);
-                        cell2.setCote(coteAdjacent, valeur);
-                        System.out.println("cell2 :" + cell2.getCote(coteAdjacent));
-                    }
+                    puzzle.modifierValeurCoteCelluleEtAdjGrille(i, j, Cellule.HAUT, cellulesData, valeur);
                     break;
                 case "Bottom":
                     if(valeur == ValeurCote.CROIX) {
@@ -237,14 +226,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(1);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.BAS, puzzle.getGrilleSolution());
-                    cell1.setCote(Cellule.BAS, valeur);
-                    System.out.println("cell1 :" + cell1.getCote(Cellule.BAS));
-                    if (cell2 != null) {
-                        int coteAdjacent = Cellule.getCoteAdjacent(Cellule.BAS);
-                        cell2.setCote(coteAdjacent, valeur);
-                        System.out.println("cell2 :" + cell2.getCote(coteAdjacent));
-                    }
+                    puzzle.modifierValeurCoteCelluleEtAdjGrille(i, j, Cellule.BAS, cellulesData, valeur);
                     break;
                 case "Left":
                     if(valeur == ValeurCote.CROIX) {
@@ -252,14 +234,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(2);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.GAUCHE, puzzle.getGrilleSolution());
-                    cell1.setCote(Cellule.GAUCHE, valeur);
-                    System.out.println("cell1 :" + cell1.getCote(Cellule.GAUCHE));
-                    if (cell2 != null) {
-                        int coteAdjacent = Cellule.getCoteAdjacent(Cellule.GAUCHE);
-                        cell2.setCote(coteAdjacent, valeur);
-                        System.out.println("cell2 :" + cell2.getCote(coteAdjacent));
-                    }
+                    puzzle.modifierValeurCoteCelluleEtAdjGrille(i, j, Cellule.GAUCHE, cellulesData, valeur);
                     break;
                 case "Right":
                     if(valeur == ValeurCote.CROIX) {
@@ -267,14 +242,7 @@ public class GridMenu implements Menu {
                     } else {
                         celluleNodes[i][j].removeCroix(3);
                     }
-                    cell2 = GridMenu.this.puzzle.getCelluleAdjacentGrille(i, j, Cellule.DROITE, puzzle.getGrilleSolution());
-                    cell1.setCote(Cellule.DROITE, valeur);
-                    System.out.println("cell1 :" + cell1.getCote(Cellule.DROITE));
-                    if (cell2 != null) {
-                        int coteAdjacent = Cellule.getCoteAdjacent(Cellule.DROITE);
-                        cell2.setCote(coteAdjacent, valeur);
-                        System.out.println("cell2 :" + cell2.getCote(coteAdjacent));
-                    }
+                    puzzle.modifierValeurCoteCelluleEtAdjGrille(i, j, Cellule.DROITE, cellulesData, valeur);
                     break;
 
                 default: // rien
@@ -301,18 +269,47 @@ public class GridMenu implements Menu {
                         cellulesData[i][j].setValeur(celluleNodes[i][j].getLabel());
                     }
                 }
-                // File chooser
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Sauvegarder le puzzle");
-                fileChooser.getExtensionFilters()
-                        .add(new FileChooser.ExtensionFilter("Fichiers PUZZLE (*.puzzle)", "*.puzzle"));
+                if(puzzle.getGrilleVide() != null && puzzle.getGrilleTechDemarrage() != null) {
+                    // File chooser
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Sauvegarder le puzzle");
+                    fileChooser.getExtensionFilters()
+                            .add(new FileChooser.ExtensionFilter("Fichiers PUZZLE (*.puzzle)", "*.puzzle"));
 
-                Stage stage = (Stage) sauvegarder.getScene().getWindow();
-                java.io.File file = fileChooser.showSaveDialog(Main.getStage());
+                    Stage stage = (Stage) sauvegarder.getScene().getWindow();
+                    java.io.File file = fileChooser.showSaveDialog(Main.getStage());
 
-                if (file != null) {
-                    PuzzleSauvegarde.sauvegarderPuzzleSauvegarde(puzzle, file.getAbsolutePath());
+                    if (file != null) {
+                        PuzzleSauvegarde.sauvegarderPuzzleSauvegarde(puzzle, file.getAbsolutePath());
+                    }
+                } else {
+                    afficherPopup();
                 }
+            }
+        });
+
+        // handler bouton de switch de grille
+        switchGrille.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                for (int i = 0; i < celluleNodes.length; i++) {
+                    for (int j = 0; j < celluleNodes[i].length; j++) {
+                        cellulesData[i][j].setValeur(celluleNodes[i][j].getLabel());
+                    }
+                }
+                if(puzzle.getGrilleVide() == null) {
+                    puzzle.genererGrillePropre();
+                    puzzle.genererGrilleTechDemarrage();
+                }
+                if(cellulesData == puzzle.getGrilleTechDemarrage()) {
+                    cellulesData = puzzle.getGrilleSolution();
+                    updateInfosText("Grille actuelle: Solution");
+                } else {
+                    cellulesData = puzzle.getGrilleTechDemarrage();
+                    updateInfosText("Grille actuelle: Techniques démarrage");
+                }
+
+                updateAffichage();
             }
         });
 
@@ -326,12 +323,11 @@ public class GridMenu implements Menu {
 
         afficher((boolean) args[0]);
 
-        System.out.println(compteur + " bars counted");
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        VBox buttonContainer = new VBox(home, sauvegarder);
+        VBox buttonContainer = new VBox(home, sauvegarder, switchGrille);
         buttonContainer.setAlignment(Pos.TOP_LEFT);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #d0d0d0;");
@@ -340,6 +336,18 @@ public class GridMenu implements Menu {
         HBox.setHgrow(container, Priority.ALWAYS);
 
         return globalContainer;
+    }
+
+    /**
+     * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
+     */
+    private void afficherPopup(){
+        boolean resultat = false;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Attention");
+        alert.setHeaderText("Il faut que tu remplisse la grille de techniques de démarrage trouffion!");
+
+        alert.showAndWait();
     }
 
     /**
@@ -385,19 +393,31 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
-     * 
-     * @param nouveau TODO
+     * Met à jour le texte d'informations de la grille
+     * @param s indicatif de la grille actuellement utiliée (solution / technique démarrage)
      */
-    private void afficher(boolean nouveau) {
+    private void updateInfosText(String s) {
+        String textToShow = "";
         switch (this.puzzle.getDifficulte()) {
             case FACILE ->
-                this.infos.setText("Difficulté : Facile\nDimensions : " + this.largeur + " X " + this.longueur);
+                    textToShow += "Difficulté : Facile\nDimensions : " + this.largeur + " X " + this.longueur;
             case MOYEN ->
-                this.infos.setText("Difficulté : Moyen\nDimensions : " + this.largeur + " X " + this.longueur);
+                    textToShow += "Difficulté : Moyen\nDimensions : " + this.largeur + " X " + this.longueur;
             case DIFFICILE ->
-                this.infos.setText("Difficulté : Difficile\nDimensions : " + this.largeur + " X " + this.longueur);
+                    textToShow += "Difficulté : Difficile\nDimensions : " + this.largeur + " X " + this.longueur;
         }
+
+        textToShow += "\n" + s;
+        this.infos.setText(textToShow);
+    }
+
+    /**
+     * Méthode qui affiche le puzzle en fonction de si on veut créer un nouveau puzzle ou non
+     * 
+     * @param nouveau indique s'il faut créer des nouvelles instances de cellules ou non
+     */
+    private void afficher(boolean nouveau) {
+        updateInfosText("Grille actuelle: Solution");
 
         // Colonnes
         for (int i = 0; i < this.celluleNodes.length; i++) {
@@ -442,7 +462,6 @@ public class GridMenu implements Menu {
                     this.gridPane.add(this.celluleNodes[i][j].getImage(0), j * 2 + 1, i * 2);   // top
                     this.gridPane.add(this.celluleNodes[i][j].getButton(0), j * 2 + 1, i * 2);   // top
                     this.celluleNodes[i][j].getButton(0).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.compteur++;
                 }
                 this.celluleNodes[i][j].getButton(1).setGraphic(this.celluleNodes[i][j].getImage(1));
                 this.celluleNodes[i][j].getButton(1).setContentDisplay(ContentDisplay.CENTER);
@@ -450,7 +469,6 @@ public class GridMenu implements Menu {
                 this.gridPane.add(this.celluleNodes[i][j].getImage(1), j * 2 + 1, i * 2 + 2);   // bottom
                 this.gridPane.add(this.celluleNodes[i][j].getButton(1), j * 2 + 1, i * 2 + 2);   // bottom
                 this.celluleNodes[i][j].getButton(1).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
 
                 // Avoid vertical bar duplication
                 if(j == 0){
@@ -459,14 +477,12 @@ public class GridMenu implements Menu {
                     this.gridPane.add(this.celluleNodes[i][j].getImage(2), j * 2, i * 2 + 1);   // left
                     this.gridPane.add(this.celluleNodes[i][j].getButton(2), j * 2, i * 2 + 1);   // left
                     this.celluleNodes[i][j].getButton(2).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                    this.compteur++;
                 }
                 this.celluleNodes[i][j].getButton(3).setGraphic(this.celluleNodes[i][j].getImage(3));
                 this.celluleNodes[i][j].getButton(3).setContentDisplay(ContentDisplay.CENTER);
                 this.gridPane.add(this.celluleNodes[i][j].getImage(3), j * 2 + 2, i * 2 + 1);   // right
                 this.gridPane.add(this.celluleNodes[i][j].getButton(3), j * 2 + 2, i * 2 + 1);   // right
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
-                this.compteur++;
             }
             System.out.println(" ");
         }
