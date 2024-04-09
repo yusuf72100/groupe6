@@ -212,7 +212,6 @@ public class historiqueAidesArea {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : Popup avec les schémas explicatifs ...
-                ajouterNouvelleAide(3, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
             }
         });
     }
