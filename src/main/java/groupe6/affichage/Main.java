@@ -1,7 +1,10 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
+import groupe6.model.profil.Profil;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -34,6 +37,16 @@ public class Main extends Application {
      * La scène principale
      */
     private static Stage primaryStage;
+
+    /**
+     * Couleur principale pour le CSS
+     */
+    public static String mainColorCSS = "#e0ac1e";
+
+    /**
+     * Couleur secondaire pour le CSS
+     */
+    public static String secondaryColorCSS = "#4688AE";
 
     /**
      * Métode qui démarre l'application
@@ -91,6 +104,20 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu de sélection de puzzle en mode classique
+     */
+    public static void showClassicModeMenu() {
+        Main.setRoot(ClassicModeMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
+     * Méthode statique pour afficher le menu de sélection de puzzle en mode classique
+     */
+    public static void showContreLaMontreModeMenu() {
+        Main.setRoot(ContreLaMontreModeMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher le menu de sélection de profil
      *
      * @param partie la partie à afficher
@@ -106,15 +133,6 @@ public class Main extends Application {
      */
     public static void showSaveSelectionMenu() {
         Main.setRoot(SaveSelectionMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
-    }
-
-    /**
-     * Méthode principale qui lance l'application javaFX
-     *
-     * @param args les arguments de la ligne de commande
-     */
-    public static void main(String[] args) {
-        launch();
     }
 
     /**
@@ -170,5 +188,28 @@ public class Main extends Application {
 
         // Retourne le résultat
         return resultat.get();
+    }
+
+    /**
+     * Méthode statique pour lancer une partie
+     *
+     * @param difficulte la difficulté du puzzle
+     * @param numero le numéro du puzzle
+     * @param modeJeu le mode de jeu de la partie
+     */
+    public static void lancerPartie(int difficulte, int numero, ModeJeu modeJeu) {
+        DifficultePuzzle difficultePuzzle = DifficultePuzzle.values()[difficulte];
+        Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
+        Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numero, modeJeu, profilJoueur);
+        showGridMenu(partieClassique);
+    }
+
+    /**
+     * Méthode principale qui lance l'application javaFX
+     *
+     * @param args les arguments de la ligne de commande
+     */
+    public static void main(String[] args) {
+        launch();
     }
 }

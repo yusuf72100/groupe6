@@ -40,7 +40,7 @@ public class AideInfos implements Serializable {
      * @param uneInfoTechnique l'information sur la technique
      * @param unResultatTechnique le résultat de la technique
      */
-    AideInfos(TechniqueInfos uneInfoTechnique, ResultatTechnique unResultatTechnique){
+    public AideInfos(TechniqueInfos uneInfoTechnique, ResultatTechnique unResultatTechnique){
         this.infoTechnique=uneInfoTechnique;
         this.resultatTechnique=unResultatTechnique;
         this.niveau=1;

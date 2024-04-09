@@ -35,7 +35,7 @@ public class TestPartie {
         cataloguePuzzle,
         DifficultePuzzle.FACILE,
         0,
-        ModeJeu.NORMAL,
+        ModeJeu.CLASSIQUE,
         catalogueProfil.getProfilActuel()
     );
 

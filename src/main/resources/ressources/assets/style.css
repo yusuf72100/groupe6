@@ -34,6 +34,15 @@
     -fx-background-color: #e0ac1e;
 }
 
+.button-rounded-inverted {
+    -fx-background-radius: 10px;
+    -fx-background-color: #e0ac1e;
+}
+
+.button-rounded-inverted:hover {
+    -fx-background-color: #D9D9D9;
+}
+
 .button {
     -fx-background-radius: 10px;
     -fx-background-color: #D9D9D9;
@@ -238,4 +247,8 @@
 .button-disabled {
     -fx-opacity: 0.5;
     -fx-cursor: default;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
 }

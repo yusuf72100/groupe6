@@ -16,6 +16,12 @@ import javafx.scene.text.TextAlignment;
  * @author Yusuf
  */
 public class GameModeSelectionMenu extends MainMenu {
+
+    /**
+     * Constructeur privé de la classe GameModeSelectionMenu qui est entièrement statique
+     */
+    private GameModeSelectionMenu() {}
+
     /**
      * Récupère le menu de sélection du mode de jeu sous forme de Node pour l'affichage
      *
@@ -56,15 +62,28 @@ public class GameModeSelectionMenu extends MainMenu {
             }
         });
 
+
         // Bouton menu classique
         MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DifficultePuzzle difficultePuzzle = DifficultePuzzle.FACILE;
-                int numPuzzle = 0;
-                Profil profilJoueur = Launcher.catalogueProfils.getProfilActuel();
-                Partie partieClassique = Partie.nouvellePartie(Launcher.cataloguePuzzles, difficultePuzzle, numPuzzle, ModeJeu.NORMAL, profilJoueur);
-                Main.showGridMenu(partieClassique);
+                Main.showClassicModeMenu();
+            }
+        });
+
+        // Bouton menu aventure
+        MainMenu.buttons[1].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        // Bouton menu contre la montre
+        MainMenu.buttons[2].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.showContreLaMontreModeMenu();
             }
         });
 

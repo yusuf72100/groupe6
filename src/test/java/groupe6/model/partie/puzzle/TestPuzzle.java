@@ -3,6 +3,7 @@ package groupe6.model.partie.puzzle;
 import groupe6.ModelTest;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,8 @@ public class TestPuzzle extends ModelTest {
 
   @BeforeAll
   public static void initAll(){
+    ModelTest.afficherNomDebut(TestPuzzle.class);
+
     int largeur = 3;
     int longueur = 4;
 
@@ -113,4 +116,11 @@ public class TestPuzzle extends ModelTest {
     }
 
   }
+
+  @AfterAll
+  public static void tearDownAll() {
+      ModelTest.afficherNomFin(TestPuzzle.class);
+  }
+
+
 }

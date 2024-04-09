@@ -138,6 +138,12 @@ public class SaveSelectionMenu extends MainMenu {
     private static List<String> lstSave;
 
     /**
+     * Constructeur privé de la classe SaveSelectionMenu qui est entièrement statique
+     */
+    private SaveSelectionMenu() {}
+
+
+    /**
      * Méthode qui initialise le menu de sélection de sauvegarde
      */
     public static void initMenu() {
