@@ -123,36 +123,11 @@ public class ClassicModeMenu implements Menu {
    */
   protected static Button backButton;
 
-  protected static HBox HBoxPreviewContainer;
-
-  protected static ImageView imgNoPuzzle;
-
   /**
    * Le texte du bouton de retour
    */
   protected static Label backText;
 
-  protected static Label titre;
-
-  protected static Pane espace;
-
-  protected static Pane espace2;
-
-  protected static Button btnJouer;
-
-  protected static Label croix;
-
-  protected static HBox HBoxCroix;
-
-  protected static VBox finalInfoPane;
-
-  protected static PuzzleSauvegarde puzzle;
-
-  protected static String cheminImgPreviewPuzzle;
-
-  protected static Image imgPreview;
-
-  protected static ImageView imgPreviewPuzzle;
 
   /**
    * Constructeur privé de la ClassicModeMenu qui est entièrement statique
@@ -206,7 +181,7 @@ public class ClassicModeMenu implements Menu {
     infoPane.setMinWidth(0.25 * windowWidth);
     infoPane.setMaxWidth(0.25 * windowWidth);
 
-    titre = new Label("Information sur le puzzle");
+    Label titre = new Label("Information sur le puzzle");
     Menu.adaptTextSize(titre, 35, windowWidth, windowHeight);
 
     titre.setStyle(
@@ -243,15 +218,15 @@ public class ClassicModeMenu implements Menu {
     );
 
     // Element qui sert a faire un espace entre l'image et les informations textuelles
-    espace = new Pane();
+    Pane espace = new Pane();
     espace.setMinHeight(0.02 * windowHeight);
 
     // Deuxieme espace pour separer les informations textuelles du bouton pour lancer le puzzle
-    espace2 = new Pane();
+    Pane espace2 = new Pane();
     espace2.setMinHeight(0.02 * windowHeight);
 
     // Bouton pour lancer le puzzle
-    btnJouer = new Button("JOUER");
+    Button btnJouer = new Button("JOUER");
     btnJouer.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
 
     // Style du bouton pour lancer le puzzle
@@ -285,7 +260,7 @@ public class ClassicModeMenu implements Menu {
     infoPuzzle.setAlignment(Pos.CENTER);
 
     // Création de la croix pour fermer le paneau lateral d'information
-    croix = new Label("✖");
+    Label croix = new Label("✖");
     croix.setStyle(
         "-fx-text-fill: black;" +
         "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
@@ -293,11 +268,11 @@ public class ClassicModeMenu implements Menu {
     );
 
     // Boite horizontale pour mettre la croix en haut à droite
-    HBoxCroix = new HBox(croix);
+    HBox HBoxCroix = new HBox(croix);
     HBoxCroix.setAlignment(Pos.TOP_RIGHT);
 
     // Detecte les clics sur la croix pour fermer le paneau lateral d'information
-    finalInfoPane = infoPane;
+    VBox finalInfoPane = infoPane;
     croix.setOnMouseClicked(e -> {
       finalInfoPane.setVisible(false);
       finalInfoPane.setManaged(false);
@@ -328,7 +303,7 @@ public class ClassicModeMenu implements Menu {
     // Pour les 3 difficultés, on crée un conteneur de preview de puzzle
     for (int i = 0; i < 3; i++) {
       // HBox intermédiaire pour obtenir le style souhaité
-      HBoxPreviewContainer = new HBox();
+      HBox HBoxPreviewContainer = new HBox();
       HBoxPreviewContainer.setSpacing(0.03 * windowWidth);
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       HBoxPreviewContainer.setStyle(
@@ -340,7 +315,7 @@ public class ClassicModeMenu implements Menu {
       int nbPuzzleParDifficulte = Launcher.cataloguePuzzles.getNombrePuzzleParDifficulte(DifficultePuzzle.values()[i]);
       // Si il n'y a pas de puzzle pour la difficulté, on affiche une image spéciale
       if ( nbPuzzleParDifficulte <= 0 ) {
-        imgNoPuzzle = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
+        ImageView imgNoPuzzle = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
         imgNoPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
         imgNoPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
         HBoxPreviewContainer.getChildren().add(imgNoPuzzle);
@@ -349,10 +324,10 @@ public class ClassicModeMenu implements Menu {
       // Sinon on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
-          puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
-          cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
-          imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
-          imgPreviewPuzzle = new ImageView(imgPreview);
+          final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
+          final String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
+          Image imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
+          ImageView imgPreviewPuzzle = new ImageView(imgPreview);
           imgPreviewPuzzle.setFitWidth(Math.round(0.25 * windowWidth));
           imgPreviewPuzzle.setFitHeight(Math.round(0.25 * windowWidth));
           imgPreviewPuzzle.setStyle(
