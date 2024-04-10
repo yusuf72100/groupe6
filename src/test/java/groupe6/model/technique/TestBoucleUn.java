@@ -9,6 +9,7 @@ import groupe6.model.partie.puzzle.TestPuzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import groupe6.model.profil.Profil;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import groupe6.model.partie.aide.AideInfos;
@@ -25,7 +26,9 @@ public class TestBoucleUn extends ModelTest{
 
     @BeforeAll
     public static void initAll(){
-        ModelTest.afficherNomDebut(TestPuzzle.class);
+
+        ModelTest.afficherNomDebut(TestBoucleUn.class);
+
         int largeur3 = 3;
         int longueur3 = 3;
 
@@ -90,5 +93,10 @@ public class TestBoucleUn extends ModelTest{
     public void testDetectionBoucleUnDejaPresente(){
         ResultatTechnique resultat = techniqueBoucleUn.run(partieTrue, 4);
         assertFalse(resultat.isTechniqueTrouvee());
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestBoucleUn.class);
     }
 }

@@ -1,5 +1,6 @@
 package groupe6.model.technique;
 
+import groupe6.ModelTest;
 import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.puzzle.*;
@@ -11,6 +12,7 @@ public abstract class PartieTest{
 
     //Constructeur privé de PartieTest
     public static Partie getPartieTest(){
+
         Cellule[][] grilleCellules = new Cellule[6][6];
         grilleCellules[0][0] = new Cellule(0, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});

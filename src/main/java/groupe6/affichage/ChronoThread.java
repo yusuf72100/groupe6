@@ -29,7 +29,7 @@ public class ChronoThread implements Runnable {
 
             System.out.println(this.partie.getChrono().getElapsedTimeFormatted());
             this.partie.getInfos().setChrono(this.partie.getChrono().getTempsEcoule());
-            this.label.setText(this.partie.getChrono().getElapsedTimeFormatted());
+//            this.label.setText(this.partie.getChrono().getElapsedTimeFormatted());
 
             try {
                 Thread.sleep(1000);

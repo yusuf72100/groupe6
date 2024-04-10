@@ -9,6 +9,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,9 @@ public class TestAnyNumberCorner extends ModelTest {
      */
     @BeforeAll
     public static void initAll(){
+
+        ModelTest.afficherNomDebut(TestAnyNumberCorner.class);
+
         techniqueAnyNumberCorner = AnyNumberCorner.getInstance();
         techniqueSimpleZero = SimpleZero.getInstance();
         Cellule[][] grilleCellules = new Cellule[6][6];
@@ -103,5 +107,10 @@ public class TestAnyNumberCorner extends ModelTest {
 //        assertFalse(resultatTechnique.isTechniqueTrouvee());
 
 
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestAnyNumberCorner.class);
     }
 }
