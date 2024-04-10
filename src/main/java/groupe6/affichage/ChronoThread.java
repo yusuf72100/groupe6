@@ -25,7 +25,7 @@ public class ChronoThread implements Runnable {
         while (true) {
             if (stopRequested) {
                 partie.sauvegarder();
-                break;
+                return;
             }
 
             this.partie.getInfos().setChrono(this.partie.getChrono().getTempsEcoule());
