@@ -7,6 +7,7 @@ import groupe6.model.partie.Partie;
 import groupe6.model.profil.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
@@ -32,6 +33,7 @@ public class GameModeSelectionMenu extends MainMenu {
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
         MainMenu.initMenu();
         MainMenu.getMenu(windowWidth, windowHeigth);
+
         MainMenu.buttonTextsLabels = new String[]{"CLASSIQUE", "AVENTURE", "CONTRE\nLA\nMONTRE"};
         MainMenu.backText.setText("RETOUR");
 
@@ -62,7 +64,6 @@ public class GameModeSelectionMenu extends MainMenu {
             }
         });
 
-
         // Bouton menu classique
         MainMenu.buttons[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -75,7 +76,7 @@ public class GameModeSelectionMenu extends MainMenu {
         MainMenu.buttons[1].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                // TODO : Menu aventure
             }
         });
 

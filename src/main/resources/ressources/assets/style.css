@@ -141,6 +141,24 @@
     -fx-text-fill: black;
 }
 
+.eye_opened {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/eye_opened.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
+.eye_closed {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/eye_closed.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}
+
 .button-more {
     -fx-background-color: rgba(208, 208, 208, 0);
     -fx-background-image: url('icon/more.png');

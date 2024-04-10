@@ -124,6 +124,7 @@ public class historiqueAidesArea {
      * @param description description de l'aide
      */
     private void ajouterNouvelleAide(int level, String description) {
+        boolean[] eye_opened = {true};
         Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide", this.width, this.height);
         Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations", this.width, this.height);
         String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + level + ".png");
@@ -186,6 +187,8 @@ public class historiqueAidesArea {
 
         int index = aidesInfosList.size();
 
+        eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+
         // Handler de la variable de niveau
         IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
         //TODO : IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
@@ -202,8 +205,18 @@ public class historiqueAidesArea {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
+
                 lvl[0]++;   // test
-                niveauProperty.set(lvl[0]);
+                niveauProperty.set(lvl[0]);     // test
+
+                if(lvl[0] >= 2) {
+                    eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+                    if(eye_opened[0]) {
+                        // TODO : afficher l'aide en question
+                    } else {
+                        // TODO : masquer l'aide en question
+                    }
+                }
             }
         });
 
@@ -214,5 +227,20 @@ public class historiqueAidesArea {
                 // TODO : Popup avec les schémas explicatifs ...
             }
         });
+    }
+
+    private boolean updateUpgradeButtonDisplay(int lvl, Button upgradeHelp, boolean eye_opened) {
+        //if(aidesInfosList.get(index).getNiveau() >= 2) {
+        if(lvl >= 2) {
+            upgradeHelp.getStyleClass().clear();
+            if(!eye_opened) {
+                upgradeHelp.getStyleClass().add("eye_closed");
+                eye_opened = true;
+            } else {
+                upgradeHelp.getStyleClass().add("eye_opened");
+                eye_opened = false;
+            }
+        }
+        return eye_opened;
     }
 }
