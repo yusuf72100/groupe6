@@ -2,7 +2,9 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
+import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.technique.DifficulteTechnique;
+import groupe6.model.technique.ResultatTechnique;
 import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,8 +25,15 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class historiqueAidesArea {
+public class HistoriqueAidesArea {
+
+    /**
+     * Le GridMenu qui contient l'historique des aides
+     */
+    private GridMenu gridMenu;
+
     /**
      * Boîte vertical de scroll
      */
@@ -47,11 +55,6 @@ public class historiqueAidesArea {
     private final Label titre;
 
     /**
-     * Liste des aides
-     */
-    private final List<AideInfos> aidesInfosList;
-
-    /**
      * Largeut de la fenêtre
      */
     private final Double width;
@@ -61,13 +64,14 @@ public class historiqueAidesArea {
      */
     private final Double height;
 
+
     private final VBox elementsBox;
 
-    public historiqueAidesArea(Double w, Double h) {
+    public HistoriqueAidesArea(GridMenu gridMenu, Double w, Double h) {
         this.elementsBox = new VBox();
+        this.gridMenu = gridMenu;
         this.width = w;
         this.height = h;
-        this.aidesInfosList = new ArrayList<>();
         this.titre = new Label("Aides");
         this.titre.getStyleClass().add("title_help");
         this.historiqueAidesStackPane = new StackPane();
@@ -90,16 +94,6 @@ public class historiqueAidesArea {
         Menu.adaptTextSize(this.titre, 50, w, h);
         StackPane.setAlignment(this.historiqueAidesScrollPane, Pos.CENTER);
         this.historiqueAidesStackPane.setTranslateX(w-this.historiqueAidesVBox.getPrefWidth()); // placement à droite
-
-        // test
-        ajouterNouvelleAide(1, "Nouvelle Aide");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(3, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(3, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
     }
 
     /**
@@ -110,21 +104,15 @@ public class historiqueAidesArea {
         return this.historiqueAidesStackPane;
     }
 
-    /**
-     * Ajouter une aide à la liste des aides
-     * @param aideInfos aide à ajouter
-     */
-    public void ajouterNouvelleAide(AideInfos aideInfos) {
-        this.aidesInfosList.add(aideInfos);
-        ajouterNouvelleAide(aideInfos.getNiveau(), aideInfos.getInfoTechnique().getExplicationTxt());
-    }
 
     /**
-     * Ajouter une aide visuellement à la liste
-     * @param level niveau d'aide
-     * @param description description de l'aide
+     * Ajouter une aide à la liste des aides
+     *
+     * @param aide l'aide à ajouter
      */
-    private void ajouterNouvelleAide(int level, String description) {
+    public void ajouterNouvelleAide(AideInfos aide) {
+        int level = aide.getNiveau();
+        String description = aide.getResultatTechnique().getNomTechniqueStylise();
         boolean[] eye_opened = {true};
         Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide", this.width, this.height);
         Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations", this.width, this.height);
@@ -186,8 +174,6 @@ public class historiqueAidesArea {
         scale.setToY(1);
         scale.play();
 
-        int index = aidesInfosList.size();
-
         eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
 
         // Handler de la variable de niveau
@@ -201,40 +187,66 @@ public class historiqueAidesArea {
             }
         });
 
+        final Set<Coordonnee> coordonnees = aide.getResultatTechnique().getCoordonnees();
+        final String nomSyliseTechnique = description;
+        final String nomTechnique = aide.getResultatTechnique().getNomTechnique();
+        final DifficulteTechnique difficulteTechnique = aide.getResultatTechnique().getDifficulte();
         // handler bouton upgrade niveau
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
-
-                lvl[0]++;   // test
-                niveauProperty.set(lvl[0]);     // test
-
-                if(lvl[0] >= 2) {
-                    eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
-                    if(eye_opened[0]) {
-                        // TODO : afficher l'aide en question
-                    } else {
-                        // TODO : masquer l'aide en question
-                    }
+                System.out.println(aide.getNiveau());
+                if ( aide.getNiveau() < 2 ) {
+                    // Augmente le niveau de l'aide
+                    aide.upgradeNiveau();
+                    lvl[0]++;
+                    niveauProperty.set(lvl[0]);
+                    // Change l'icone de l'upgrade en icon afficher coordonnées
+                    upgradeHelp.getStyleClass().clear();
+                    upgradeHelp.getStyleClass().add("eye_opened");
+                    montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
                 }
+                else {
+                    montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
+                }
+
             }
         });
-
         // handler bouton d'affichage des informations supplémentaires
         more.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : Popup avec les schémas explicatifs ...
                 Main.afficherPopUpInfoTechnique(
-                    "Technique du zéro et trois adjacent",
-                    "zeroTroisAdjacents",
-                    DifficulteTechnique.BASIQUE,
+                    nomSyliseTechnique,
+                    nomTechnique,
+                    difficulteTechnique,
                     width,
                     height
                 );
             }
         });
+    }
+
+    private void montrerCoordonneesTechnique(Set<Coordonnee> coordonnees, String nomSyliseTechnique) {
+        // Highlight les coordonnées de la technique
+        for ( Coordonnee coord : coordonnees ) {
+            this.gridMenu.highlightCellule(coord.getY(), coord.getX(), "blue");
+            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX(), "blue");
+        }
+
+        Main.afficherPopUpInformation(
+            "Aide de niveau 2",
+            "Les cellules où à été détectée la technique " + nomSyliseTechnique + " sont mises en évidence en bleu.",
+            "Appuyez sur OK pour continuer"
+
+        );
+
+        // Unhighlight les coordonnées de la technique
+        for ( Coordonnee coord : coordonnees ) {
+            this.gridMenu.resetCellule(coord.getY(), coord.getX());
+            this.gridMenu.resetCellulesAdjacentesCss(coord.getY(), coord.getX());
+        }
     }
 
     private boolean updateUpgradeButtonDisplay(int lvl, Button upgradeHelp, boolean eye_opened) {

@@ -2,9 +2,9 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
+import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
 import groupe6.model.partie.puzzle.Coordonnee;
-import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
@@ -92,6 +92,11 @@ public class GridMenu implements Menu {
     private StackPane container;
 
     /**
+     * L'historique des aides
+     */
+    private HistoriqueAidesArea historiqueAides;
+
+    /**
      * Zone d'affichage de l'historique d'aides
      */
     private StackPane historiqueAidesStackPane;
@@ -99,7 +104,7 @@ public class GridMenu implements Menu {
     /**
      * La grille des nodes des cellules
      */
-    private CelluleNode[][] celluleNodes;
+    public CelluleNode[][] celluleNodes;
 
     /**
      * La grille des données des cellules
@@ -187,6 +192,16 @@ public class GridMenu implements Menu {
     }
 
     /**
+     * Méthode qui met à jour l'affichage de la grille
+     *
+     * @param y la position y de la cellule
+     * @param x la position x de la cellule
+     */
+    public void resetCellule(int y, int x) {
+        celluleNodes[y][x].resetCellulesCss();
+    }
+
+    /**
      * Méthode qui verifie si des coordonnées sont dans la grille
      *
      * @param y la position y
@@ -204,7 +219,7 @@ public class GridMenu implements Menu {
      * @param x la position x de la cellule
      * @param color la couleur à appliquer ( format css )
      */
-    private void setCellulesAdjacentesCss(int y, int x, String color) {
+    public void setCellulesAdjacentesCss(int y, int x, String color) {
 
         if ( estDansGrille(y, x-1) ) {
             if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
@@ -230,7 +245,7 @@ public class GridMenu implements Menu {
      * @param y la position y de la cellule
      * @param x la position x de la cellule
      */
-    private void resetCellulesAdjacentesCss(int y, int x) {
+    public void resetCellulesAdjacentesCss(int y, int x) {
 
         if ( estDansGrille(y, x-1) ) {
             if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].resetButtonCss(3);
@@ -378,7 +393,8 @@ public class GridMenu implements Menu {
      * @return T le menu à afficher
      */
     public <T> AnchorPane getMenu(boolean isNew, Double w, Double h) {
-        this.historiqueAidesStackPane = new historiqueAidesArea(w, h).getHistoriqueAidesStackPane();
+        this.historiqueAides = new HistoriqueAidesArea(this,w, h);
+        this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
         // handler bouton de sauvegarde
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -442,9 +458,10 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                ResultatTechnique result = partie.chercherAide();
-                if (result.isTechniqueTrouvee() ) {
+                AideInfos aide = partie.chercherAide();
+                if ( aide != null ) {
                     // TODO : Update l'affichage de l'historique d'aide
+                    historiqueAides.ajouterNouvelleAide(aide);
                 }
                 else {
                     Main.afficherPopUpInformation(

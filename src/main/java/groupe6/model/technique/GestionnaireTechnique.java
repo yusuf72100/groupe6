@@ -37,8 +37,7 @@ public class GestionnaireTechnique{
      */
     private void chargerTechniques() {
         // Charger les techniques
-
-        // this.ajouterTechnique(technique1);
+        this.ajouterTechnique(new Adjacents03(DifficulteTechnique.DEMARRAGE));
     }
 
     /**
@@ -82,18 +81,25 @@ public class GestionnaireTechnique{
                 completionService.submit(() -> listeTechnique.get(currentIndex).run(partie,currentIndex));
             }
 
-            // Attendre qu'une technique soit trouvée
-            // TODO : choisir la technique la moins complexe
-            for (int i = 0; i < Math.min(4, listeTechnique.size() - index); i++) {
+            // Attends le résultat de chaque technique et renvoie la technique la moins complexe
+            List <ResultatTechnique> lstResultats = new ArrayList<>();
+            for (int i = 0; i < Math.min(4, listeTechnique.size() - (index-1)); i++) {
                 try {
                     Future<ResultatTechnique> future = completionService.take();
                     ResultatTechnique resultat = future.get();
-                    if (resultat.isTechniqueTrouvee()) {
-                        executor.shutdown();
-                        return resultat;
-                    }
+                    lstResultats.add(resultat);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
+                }
+            }
+
+            // Tri la liste des résultats par l'index dans ResultatTechnique
+            lstResultats.sort((r1, r2) -> r1.getIdx() - r2.getIdx());
+
+            // Retourne le premier résultat technique trouvé
+            for (ResultatTechnique resultat : lstResultats) {
+                if (resultat.isTechniqueTrouvee()) {
+                    return resultat;
                 }
             }
         }

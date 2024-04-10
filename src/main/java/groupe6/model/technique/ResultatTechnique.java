@@ -5,6 +5,7 @@ import groupe6.model.partie.puzzle.Coordonnee;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * La classe qui représente un résultat technique
@@ -22,17 +23,32 @@ public class ResultatTechnique implements Serializable {
     /**
      * Booléen qui indique si une technique a été trouvée
      */
-    private boolean techniqueTrouvee;
+    private final boolean techniqueTrouvee;
 
     /**
      * La listes des coordonnées qui matchent avec la technique
      */
-    private List<Coordonnee> coordonnees;
+    private final Set<Coordonnee> coordonnees;
+
+    /**
+     * Nom de la classe de la technique
+     */
+    private final String nomTechnique;
+
+    /**
+     * Nom stylisé de la technique
+     */
+    private final String nomTechniqueStylise;
+
+    /**
+     * La difficulté de la technique
+     */
+    private final DifficulteTechnique difficulte;
 
     /**
      * L'index de la technique dans la liste des techniques
      */
-    private int idx;
+    private final int idx;
 
     /**
      * Constructeur de la classe ResultatTechnique
@@ -41,10 +57,16 @@ public class ResultatTechnique implements Serializable {
      * @param desCoordonnees la liste des coordonnées qui matchent avec la technique
      * @param idx l'index de la technique dans la liste des techniques
      */
-    public ResultatTechnique(boolean uneTechniqueTrouvee, List<Coordonnee> desCoordonnees, int idx){
+    public ResultatTechnique(
+        boolean uneTechniqueTrouvee, Set<Coordonnee> desCoordonnees, int idx,
+        String nomTechnique, String nomTechniqueStylise, DifficulteTechnique uneDifficulte
+    ){
         this.techniqueTrouvee=uneTechniqueTrouvee;
         this.coordonnees=desCoordonnees;
         this.idx=idx;
+        this.nomTechnique = nomTechnique;
+        this.nomTechniqueStylise = nomTechniqueStylise;
+        this.difficulte = uneDifficulte;
     }
 
     /**
@@ -60,6 +82,9 @@ public class ResultatTechnique implements Serializable {
             this.techniqueTrouvee = false;
             this.coordonnees = null;
             this.idx = -1;
+            this.nomTechnique = null;
+            this.nomTechniqueStylise = null;
+            this.difficulte = null;
         }
     }
 
@@ -77,7 +102,7 @@ public class ResultatTechnique implements Serializable {
      *
      * @return la liste des coordonnées qui matchent avec la technique
      */
-    public List<Coordonnee> getCoordonnees() {
+    public Set<Coordonnee> getCoordonnees() {
         return coordonnees;
     }
 
@@ -88,6 +113,33 @@ public class ResultatTechnique implements Serializable {
      */
     public int getIdx(){
         return this.idx;
+    }
+
+    /**
+     * Méthode pour obtenir le nom de la technique
+     *
+     * @return le nom de la technique
+     */
+    public String getNomTechnique() {
+        return nomTechnique;
+    }
+
+    /**
+     * Méthode pour obtenir le nom stylisé de la technique
+     *
+     * @return le nom stylisé de la technique
+     */
+    public String getNomTechniqueStylise() {
+        return nomTechniqueStylise;
+    }
+
+    /**
+     * Méthode pour obtenir la difficulté de la technique
+     *
+     * @return la difficulté de la technique
+     */
+    public DifficulteTechnique getDifficulte() {
+        return difficulte;
     }
 
     /**
@@ -120,6 +172,8 @@ public class ResultatTechnique implements Serializable {
         }
 
         ResultatTechnique rt = (ResultatTechnique) o;
-        return rt.techniqueTrouvee == this.techniqueTrouvee && rt.coordonnees.equals(this.coordonnees) && rt.idx == this.idx;
+        return  rt.techniqueTrouvee == this.techniqueTrouvee &&
+                rt.coordonnees.equals(this.coordonnees) &&
+                rt.idx == this.idx;
     }
 }
