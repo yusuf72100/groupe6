@@ -12,29 +12,19 @@ import java.util.List;
 /**
  * Classe abstraite qui représente une technique
  *
- * @author Nathan
+ * @author Nathan, Mateo
  */
 public abstract class Technique{
 
     /**
-     * Booleen vrai si les cases concerné par la détection sont positionné de manière adjacente.
+     * Booleen vrai si les cases concernées par la détection sont positionné de manière adjacente.
      */
     protected static final boolean ADJ = true;
 
     /**
-     * TODO
+     * Booleen vrai si les cases concernées par la détection sont positionné en diagonale.
      */
     protected static final boolean DIAG = false;
-
-    /**
-     * TODO
-     */
-    public static final boolean HORIZ = false;
-
-    /**
-     * TODO
-     */
-    public static final boolean VERTI = true;
 
     /**
      * La difficulté de la technique
@@ -119,26 +109,26 @@ public abstract class Technique{
     }
 
     /**
-     * TODO
+     * Recherche d'un numero en diagonal, cette méthode connait:
      *
-     * @param uneGrille TODO
-     * @param unNumero TODO
-     * @param y TODO
-     * @param x TODO
-     * @return TODO
+     * @param uneGrille La grille dans laquelle on cherche le numéro.
+     * @param unNumero Le numéro qu'il faut rechercher.
+     * @param y La coordonnée en y de la position autour de laquelle chercher.
+     * @param x La coordonnée en x de la position autour de laquelle chercher.
+     * @return Une liste contenant les coordonnées de toutes les cellules diagonales dans lesquelles unNumero a été trouvé.
      */
     private static List<Coordonnee> rechercherNumeroDiagonal(Puzzle uneGrille, int unNumero, int y, int x) {
         List<Coordonnee> diagonal = new ArrayList<>();
-        if(uneGrille.getCellule(y-1,x-1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y-1,x-1) && uneGrille.getCellule(y-1,x-1).getValeur() == unNumero){
             diagonal.add(new Coordonnee(y-1,x-1));
         }
-        if(uneGrille.getCellule(y+1,x-1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y+1,x-1) && uneGrille.getCellule(y+1,x-1).getValeur() == unNumero){
             diagonal.add(new Coordonnee(y+1,x-1));
         }
-        if(uneGrille.getCellule(y+1,x+1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y+1,x+1) && uneGrille.getCellule(y+1,x+1).getValeur() == unNumero){
             diagonal.add(new Coordonnee(y+1,x+1));
         }
-        if(uneGrille.getCellule(y-1,x+1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y-1,x+1) && uneGrille.getCellule(y-1,x+1).getValeur() == unNumero){
             diagonal.add(new Coordonnee(y-1,x+1));
         }
         return diagonal;
@@ -146,39 +136,39 @@ public abstract class Technique{
     }
 
     /**
-     * TODO
+     * Recherche d'un numero adjacent, cette méthode connait:
      *
-     * @param uneGrille TODO
-     * @param unNumero TODO
-     * @param y TODO
-     * @param x TODO
-     * @return TODO
+     * @param uneGrille La grille dans laquelle on cherche le numéro.
+     * @param unNumero Le numéro qu'il faut rechercher.
+     * @param y La coordonnée en y de la position autour de laquelle chercher.
+     * @param x La coordonnée en x de la position autour de laquelle chercher.
+     * @return Une liste contenant les coordonnées de toutes les cellules adjacentes dans lesquelles unNumero a été trouvé.
      */
     private static List<Coordonnee> rechercherNumeroAdjacent(Puzzle uneGrille, int unNumero, int y, int x) {
         List<Coordonnee> adjacent = new ArrayList<>();
-        if(uneGrille.getCellule(y,x-1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y,x-1) && uneGrille.getCellule(y,x-1).getValeur() == unNumero){
             adjacent.add(new Coordonnee(y,x-1));
         }
-        if(uneGrille.getCellule(y+1,x).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y+1,x) && uneGrille.getCellule(y+1,x).getValeur() == unNumero){
             adjacent.add(new Coordonnee(y+1,x));
         }
-        if(uneGrille.getCellule(y,x+1).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y,x+1) && uneGrille.getCellule(y,x+1).getValeur() == unNumero){
             adjacent.add(new Coordonnee(y,x+1));
         }
-        if(uneGrille.getCellule(y-1,x).getValeur() == unNumero){
+        if(uneGrille.estDansGrille(y-1,x) && uneGrille.getCellule(y-1,x).getValeur() == unNumero){
             adjacent.add(new Coordonnee(y-1,x));
         }
         return adjacent;
     }
 
     /**
-     * TODO
+     * Recherche d'un numero en diagonal, cette méthode connait:
      *
-     * @param uneGrille TODO
-     * @param unNumero TODO
-     * @param unePosition TODO
-     * @param direction TODO
-     * @return TODO
+     * @param uneGrille La grille dans laquelle on cherche le numéro.
+     * @param unNumero Le numéro qu'il faut rechercher.
+     * @param unePosition Les coordonées de la position autour de laquelle chercher.
+     * @param direction Une précision sur la recherche (uniquement en diagonal, adjacent ou les deux)
+     * @return Une liste dans laquelle on été concaténé les listes de coordonnées soit diagonale, adjacente ou bien les deux.
      */
     public static List<Coordonnee> rechercherNumeroAutour(Puzzle uneGrille, int unNumero, Coordonnee unePosition, Direction direction) {
         List<Coordonnee> coord = new ArrayList<>();
@@ -196,36 +186,39 @@ public abstract class Technique{
     }
 
     /**
-     * TODO
-     *
-     * @param uneGrille TODO
-     * @param unePosition TODO
-     * @return TODO
+     * Recherche d'une extremité de boucle autour d'une cellule
+     * @param uneGrille Une grille dans laquelle on recherche la boucle.
+     * @param unePosition Une position autour de laquelle on cherche une extremité de boucle.
+     * @return Renvoie vrai si on trouve une boucle sur un coté de cellule rejoignant un coin de la cellule sur unPosition.
      */
     public boolean rechercherBoucleAutour(Puzzle uneGrille, Coordonnee unePosition) {
         int positionY = unePosition.getY();
         int positionX = unePosition.getX();
-        Cellule hautGauche = uneGrille.getCellule(positionY-1,positionX-1);
-        Cellule hautDroit = uneGrille.getCellule(positionY+1,positionX-1);
-        Cellule basGauche = uneGrille.getCellule(positionY-1,positionX+1);
-        Cellule basDroit = uneGrille.getCellule(positionY+1,positionX+1);
-        if(hautGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || hautGauche.getCote(Cellule.BAS) == ValeurCote.TRAIT) return true;
-        if(hautDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || hautDroit.getCote(Cellule.BAS) == ValeurCote.TRAIT) return true;
-        if(basGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || basGauche.getCote(Cellule.HAUT) == ValeurCote.TRAIT) return true;
-        if(basDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || basDroit.getCote(Cellule.HAUT) == ValeurCote.TRAIT) return true;
+        Cellule hautGauche = null;
+        Cellule hautDroit = null;
+        Cellule basGauche = null;
+        Cellule basDroit = null;
+
+        if(uneGrille.estDansGrille(positionY-1,positionX-1))hautGauche = uneGrille.getCellule(positionY-1,positionX-1);
+        if(uneGrille.estDansGrille(positionY+1,positionX-1))hautDroit = uneGrille.getCellule(positionY+1,positionX-1);
+        if(uneGrille.estDansGrille(positionY-1,positionX+1))basGauche = uneGrille.getCellule(positionY-1,positionX+1);
+        if(uneGrille.estDansGrille(positionY+1,positionX+1))basDroit = uneGrille.getCellule(positionY+1,positionX+1);
+
+        if(hautGauche != null && (hautGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || hautGauche.getCote(Cellule.BAS) == ValeurCote.TRAIT)) return true;
+        if(hautDroit != null && (hautDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || hautDroit.getCote(Cellule.BAS) == ValeurCote.TRAIT)) return true;
+        if(basGauche != null && (basGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || basGauche.getCote(Cellule.HAUT) == ValeurCote.TRAIT)) return true;
+        if(basDroit != null && (basDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || basDroit.getCote(Cellule.HAUT) == ValeurCote.TRAIT)) return true;
         return false;
     }
 
     /**
-     * TODO
-     *
-     * @param grille TODO
-     * @param listeCoordonnee TODO
-     * @param adjacent TODO
-     * @param sens TODO
-     * @return TODO
+     * Vérification de la completion de plusieurs schemas d'aide
+     * @param grille La grille dans laquelle rechercher.
+     * @param listeCoordonnee La liste des coordonées des cellules concernées par la vérification.
+     * @param adjacent Booleen servant à informer si les cellules sont positionnées de manière adjacentes.
+     * @return Renvoie vrai si les schemas d'aides n'ont pas été completés.
      */
-    public static boolean verificationMultidir(Puzzle grille, List<Coordonnee> listeCoordonnee, boolean adjacent, boolean sens) {
+    public static boolean verificationMultidir(Puzzle grille, List<Coordonnee> listeCoordonnee, boolean adjacent) {
         Coordonnee coordonneeA = listeCoordonnee.get(0);
         Coordonnee coordonneeB = listeCoordonnee.get(1);
         int yA = coordonneeA.getY(), yB = coordonneeB.getY();
@@ -234,21 +227,21 @@ public abstract class Technique{
         Cellule celluleB = grille.getCellule(yB,xB);
 
         if(adjacent){
-            if(sens == VERTI){
+            if(yA == yB){
                 Cellule cellule1 = (xA < xB ? celluleA : celluleB);
                 Cellule cellule2 = (xA < xB ? celluleB : celluleA);
                 return (
                     cellule1.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
-                    cellule1.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
-                    cellule2.getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                        cellule1.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
+                        cellule2.getCote(Cellule.HAUT) != ValeurCote.TRAIT
                 );
             }else{
                 Cellule cellule1 = (yA < yB ? celluleA : celluleB);
                 Cellule cellule2 = (yA < yB ? celluleB : celluleA);
                 return (
                     cellule1.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT ||
-                    cellule1.getCote(Cellule.DROITE) != ValeurCote.TRAIT ||
-                    cellule2.getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                        cellule1.getCote(Cellule.DROITE) != ValeurCote.TRAIT ||
+                        cellule2.getCote(Cellule.DROITE) != ValeurCote.TRAIT
                 ); //HORIZ
             }
         }else{

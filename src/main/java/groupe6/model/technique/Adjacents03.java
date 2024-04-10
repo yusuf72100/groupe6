@@ -35,10 +35,10 @@ public class Adjacents03 extends Technique {
      *
      * @param uneDifficulte difficulté de la technique
      */
-    public Adjacents03(DifficulteTechnique uneDifficulte) {
+    public Adjacents03() {
         super(
-            uneDifficulte,
-            "Zéro et trois adjacents"
+            DifficulteTechnique.BASIQUE,
+            "zéro et trois adjacents"
         );
     }
 
