@@ -63,7 +63,7 @@
 }
 
 .button-rounded-play:hover {
-    -fx-background-color: #354458;
+    -fx-background-color: black;
     -fx-text-fill: white;
 }
 
