@@ -39,15 +39,27 @@ public abstract class Technique{
     /**
      * La difficulté de la technique
      */
-    private final DifficulteTechnique difficulte;
+    protected final DifficulteTechnique difficulte;
+
+    /**
+     * Nom de la classe de la technique
+     */
+    protected final String nomTechnique;
+
+    /**
+     * Nom stylisé de la technique
+     */
+    protected final String nomTechniqueStylise;
 
     /**
      * Constructeur de la classe Technique
      *
      * @param uneDifficulte la difficulté de la technique
      */
-    public Technique(DifficulteTechnique uneDifficulte){
+    public Technique(DifficulteTechnique uneDifficulte, String nomTechniqueStylise){
         this.difficulte = uneDifficulte;
+        this.nomTechnique = this.getClass().getSimpleName();
+        this.nomTechniqueStylise = nomTechniqueStylise;
     }
 
     /**
@@ -66,6 +78,24 @@ public abstract class Technique{
      */
     public DifficulteTechnique getDifficulte() {
         return difficulte;
+    }
+
+    /**
+     * Méthode pour obtenir le nom de la technique
+     *
+     * @return le nom de la technique
+     */
+    public String getNomTechnique() {
+        return nomTechnique;
+    }
+
+    /**
+     * Méthode pour obtenir le nom stylisé de la technique
+     *
+     * @return le nom stylisé de la technique
+     */
+    public String getNomTechniqueStylise() {
+        return nomTechniqueStylise;
     }
 
     /**

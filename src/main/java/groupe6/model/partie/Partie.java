@@ -265,15 +265,20 @@ public class Partie {
    *
    * @return le résultat de la recherche de l'aide ( ResultatTechnique )
    */
-  public ResultatTechnique chercherAide() {
+  public AideInfos chercherAide() {
     ResultatTechnique result = GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
+    System.out.println(result);
 
     if ( result.isTechniqueTrouvee() ) {
       // Malus pour avoir demandé une aide de niveau 1
       this.infos.enleverPoints(Score.MALUSE_AIDE_NIVEAU_1);
+      // Ajout de l'aide detectée dans l'historique des aides
+      AideInfos aide = new AideInfos(result);
+      this.historiqueAide.ajouterAide(aide);
+      return aide;
     }
 
-    return result;
+    return null;
   }
 
   /**

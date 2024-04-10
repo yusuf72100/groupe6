@@ -20,11 +20,6 @@ public class AideInfos implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Informations sur la technique utilisée
-     */
-    private final TechniqueInfos infoTechnique;
-
-    /**
      * Résultat de la technique utilisée
      */
     private final ResultatTechnique resultatTechnique;
@@ -37,22 +32,11 @@ public class AideInfos implements Serializable {
     /**
      * Constructeur de la classe AideInfos
      *
-     * @param uneInfoTechnique l'information sur la technique
      * @param unResultatTechnique le résultat de la technique
      */
-    public AideInfos(TechniqueInfos uneInfoTechnique, ResultatTechnique unResultatTechnique){
-        this.infoTechnique=uneInfoTechnique;
+    public AideInfos(ResultatTechnique unResultatTechnique){
         this.resultatTechnique=unResultatTechnique;
         this.niveau=1;
-    }
-
-    /**
-     * Méthode pour obtenir les informations sur la technique
-     *
-     * @return les informations sur la technique
-     */
-    public TechniqueInfos getInfoTechnique(){
-        return this.infoTechnique;
     }
 
     /**

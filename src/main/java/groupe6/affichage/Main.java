@@ -214,7 +214,9 @@ public class Main extends Application {
             nbImage = 3;
         }
         for (int i = 1; i <= nbImage; i++) {
-            String cheminImgTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques + "/" + techniqueName + "_" + i + ".png");
+            String cheminImgTechnique = Launcher.normaliserChemin(
+                Launcher.dossierTechniques + "/img/" + techniqueName + "_" + i + ".png"
+            );
             ImageView imgTechnique = new ImageView(Launcher.chargerImage(cheminImgTechnique));
             imgTechnique.setFitWidth( (0.4 * width) / nbImage );
             imgTechnique.setPreserveRatio(true);
@@ -223,7 +225,9 @@ public class Main extends Application {
         imagesTechniqueHBox.setSpacing(50);
 
         // Récupération de la description de la technique
-        String cheminTxtTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques + "/" + techniqueName + ".desc");
+        String cheminTxtTechnique = Launcher.normaliserChemin(
+            Launcher.dossierTechniques + "/description/" + techniqueName + ".desc"
+        );
         File fichierDescriptionTechnique = new File(cheminTxtTechnique);
         System.out.println(cheminTxtTechnique);
         String descriptionTechnique = "";
