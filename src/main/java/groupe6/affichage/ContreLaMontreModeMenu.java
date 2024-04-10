@@ -155,7 +155,6 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       finalInfoPane.setManaged(false);
     });
 
-
     // Ajout des informations dans le paneau lateral d'information
     infoPane.getChildren().addAll(
         HBoxCroix,
@@ -240,6 +239,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     // Ajoute les headers de chaque difficulté et ses conteneurs de preview des puzzles
     for (int i = 0; i < 3; i++) {
       Label header = new Label(DifficultePuzzle.values()[i].toString());
+
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
           "-fx-background-color: "+Main.secondaryColorCSS+";" +
@@ -250,10 +250,13 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
           "-fx-background-radius: 10px;" +
           "-fx-cursor: hand;"
       );
+
       // Création d'un StackPane intermédiaire pour obtenir le style souhaité
       StackPane headerPane = new StackPane(header);
+
       // Met le text du header à gauche
       StackPane.setAlignment(header, Pos.CENTER_LEFT);
+
       // Detecte les clics sur le header pour afficher ou cacher les previews des puzzles
       int finalI = i;
       header.setOnMouseClicked(e -> {
@@ -382,7 +385,5 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
         )
     );
   }
-
-
 }
 
