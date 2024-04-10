@@ -3,6 +3,7 @@ package groupe6.affichage;
 import groupe6.model.partie.Chronometre;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.info.PartieInfos;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 
 public class ChronoThread implements Runnable {
@@ -27,9 +28,8 @@ public class ChronoThread implements Runnable {
                 break;
             }
 
-            System.out.println(this.partie.getChrono().getElapsedTimeFormatted());
             this.partie.getInfos().setChrono(this.partie.getChrono().getTempsEcoule());
-            this.label.setText(this.partie.getChrono().getElapsedTimeFormatted());
+            Platform.runLater(() ->  this.label.setText(this.partie.getChrono().getElapsedTimeFormatted()));
 
             try {
                 Thread.sleep(1000);

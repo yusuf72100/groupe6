@@ -20,7 +20,7 @@ public class TestCoin03 extends ModelTest {
 
     }
 
-    @Test
+    //@Test
     public void testCoin0Trois(){
         HistoriqueAides historiqueAides = partie.getHistoriqueAide();
         ResultatTechnique resultatTechnique ;

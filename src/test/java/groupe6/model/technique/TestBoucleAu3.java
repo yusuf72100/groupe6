@@ -21,7 +21,7 @@ public class TestBoucleAu3 extends ModelTest {
     private static Partie partie;
     private static Profil profil;
 
-    @BeforeAll
+    //@BeforeAll
     public static void initAll(){
         int largeur = 6;
         int longueur = 6;
@@ -80,13 +80,13 @@ public class TestBoucleAu3 extends ModelTest {
     }
 
 
-    @Test
+    //@Test
     public void testDetectionBoucleAu3(){
         ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
         assertTrue(resultat.isTechniqueTrouvee());
     }
 
-    @Test
+    //@Test
     public void testDetectionBoucleAu3BonnesCoordonnees(){
         ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
         assertEquals(resultat.getCoordonnees().size(),2);

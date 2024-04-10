@@ -625,10 +625,7 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        Menu.adaptTextSize(this.chronoLabel,30, w, h);
-        this.chronoLabel.setStyle("-fx-font-family: 'Inter Semi Bold'");
-
-        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help, this.chronoLabel);
+        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #e0ac1e; -fx-background-radius: 10; -fx-padding: 5 20 5 20;");
@@ -643,7 +640,10 @@ public class GridMenu implements Menu {
 
         Rectangle separator = new Rectangle(5, this.help.getPrefHeight());
         separator.setFill(Color.BLACK);
-        buttonContainer.getChildren().add(separator);
+
+        this.chronoLabel.setStyle("-fx-font-family: 'Inter'");
+        Menu.adaptTextSize(this.chronoLabel,35.0, w, h);
+        buttonContainer.getChildren().addAll(separator, this.chronoLabel);
 
         this.partie.getChrono().start();
         this.thread.start();

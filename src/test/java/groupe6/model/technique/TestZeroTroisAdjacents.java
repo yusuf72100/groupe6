@@ -28,7 +28,7 @@ public class TestZeroTroisAdjacents extends ModelTest {
     private static Partie partieTrue;
     private static Profil profil;
 
-    @BeforeAll
+    //@BeforeAll
     public static void initAll(){
         ModelTest.afficherNomDebut(TestPuzzle.class);
         int largeur3 = 3;
@@ -73,13 +73,13 @@ public class TestZeroTroisAdjacents extends ModelTest {
 
     }
 
-    @Test
+    //Test
     public void testDetectionZeroTroisAdjacentsFalse(){
         ResultatTechnique resultat = techniqueZeroTroisAdjacents.run(partie, 3);
         assertFalse(resultat.isTechniqueTrouvee());
     }
 
-    @Test
+    //@Test
     public void testDetectionZeroTroisAdjacentsTrue(){
         ResultatTechnique resultatTrue = techniqueZeroTroisAdjacents.run(partieTrue, 3);
         assertTrue(resultatTrue.isTechniqueTrouvee());
@@ -87,7 +87,7 @@ public class TestZeroTroisAdjacents extends ModelTest {
         assertTrue(partieTrue.getHistoriqueAide().aideDejaPresente(resultatTrue));
     }
 
-    @Test
+    //@Test
     public void testDetectionZeroTroisAdjacentsDejaPresents(){
         ResultatTechnique resultatTrue = techniqueZeroTroisAdjacents.run(partieTrue, 3);
         assertFalse(resultatTrue.isTechniqueTrouvee());

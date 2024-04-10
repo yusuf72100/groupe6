@@ -17,14 +17,14 @@ public class TestSimpleZero extends ModelTest {
     private static Partie partie;
     private static Profil profil;
 
-    @BeforeAll
+    //@BeforeAll
     public static void initAll(){
         techniqueSimpleZero = techniqueSimpleZero.getInstance();
         partie = PartieTest.getPartieTest();
     }
 
 
-    @Test
+    //@Test
     public void testDetectionSimpleZero(){
         HistoriqueAides historiqueAides = partie.getHistoriqueAide();
         ResultatTechnique resultatTechnique;

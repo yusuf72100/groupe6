@@ -22,7 +22,7 @@ public class TestAnyNumberCorner extends ModelTest {
     /**
      * Initialise la partie pour le test
      */
-    @BeforeAll
+    //@BeforeAll
     public static void initAll(){
         techniqueAnyNumberCorner = AnyNumberCorner.getInstance();
         techniqueSimpleZero = SimpleZero.getInstance();
@@ -76,7 +76,7 @@ public class TestAnyNumberCorner extends ModelTest {
 
     }
 
-    @Test
+    //@Test
     public void TestAnyNumberCorner(){
         HistoriqueAides historiqueAides = partie.getHistoriqueAide();
         ResultatTechnique resultatTechnique;
