@@ -88,6 +88,12 @@ public class Main extends Application {
             primary.setMaximized(true);
             primary.show();
 
+            primary.setOnCloseRequest(event -> {
+                if(grid!=null) {
+                    grid.saveGame();
+                }
+            });
+
             // Gestion de l'icône
             String cheminImgIcon = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/icon.png");
             primary.getIcons().add(Launcher.chargerImage(cheminImgIcon));
