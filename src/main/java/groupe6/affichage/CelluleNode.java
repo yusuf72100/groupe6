@@ -219,13 +219,13 @@ public class CelluleNode extends Node {
         for ( int i = 0; i < 4; i++ ) {
             this.buttonsOldCss[i] = this.cellule[i].getStyle();
             this.imagesOldCss[i] = this.image[i].getStyle();
-            this.image[i].setStyle(this.image[i].getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
-            this.cellule[i].setStyle(this.cellule[i].getStyle() + " -fx-background-color: " + color + ";" + "-fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
+            this.image[i].setStyle(this.imagesOldCss[i] + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+            this.cellule[i].setStyle(this.buttonsOldCss[i] + " -fx-background-color: " + color + ";" + "-fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
         }
         this.centerPaneOldCss = this.centerPane.getStyle();
         this.centerTextFieldOldCss = this.centerTextField.getStyle();
-        this.centerPane.setStyle(this.centerPane.getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
-        this.centerTextField.setStyle(this.centerTextField.getStyle() + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+        this.centerPane.setStyle(this.centerPaneOldCss + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+        this.centerTextField.setStyle(this.centerTextFieldOldCss + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
     }
 
     /**

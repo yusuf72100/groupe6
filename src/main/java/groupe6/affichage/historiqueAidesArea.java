@@ -2,6 +2,7 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
+import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.technique.DifficulteTechnique;
 import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
@@ -12,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -93,13 +93,8 @@ public class historiqueAidesArea {
 
         // test
         ajouterNouvelleAide(1, "Nouvelle Aide");
+        ajouterNouvelleAide(1, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
         ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(3, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(3, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
     }
 
     /**
@@ -188,16 +183,25 @@ public class historiqueAidesArea {
 
         int index = aidesInfosList.size();
 
-        eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+        //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+        eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
 
         // Handler de la variable de niveau
-        IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
+        //IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
         //TODO : IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
+
+        IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
         niveauProperty.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + newValue + ".png");
                 imageLevel[0].setImage(Launcher.chargerImage(cheminLevel));
+
+                //if(lvl[0] >= 2) {
+                if(aidesInfosList.get(index).getNiveau() >= 2){
+                    //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+                    eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
+                }
             }
         });
 
@@ -205,18 +209,27 @@ public class historiqueAidesArea {
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
-
-                lvl[0]++;   // test
-                niveauProperty.set(lvl[0]);     // test
-
-                if(lvl[0] >= 2) {
-                    eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+                // ON CHANGE L'OEIL
+                //if(lvl[0] >= 2) {
+                if(aidesInfosList.get(index).getNiveau() >= 2) {
                     if(eye_opened[0]) {
-                        // TODO : afficher l'aide en question
+                        // masquer l'aide en question
+                        resetCellulesAtIndex(index);
                     } else {
-                        // TODO : masquer l'aide en question
+                        // afficher l'aide en question ainsi que la cellule
+                        highLightCellulesAtIndex(index);
                     }
+                    //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
+                    eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
+                } else {
+                    // ON UPGRADE L'AIDE
+                    // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
+
+                    aidesInfosList.get(index).upgradeNiveau();
+                    niveauProperty.set(aidesInfosList.get(index).getNiveau());
+
+                    //lvl[0]++;   // test
+                    //niveauProperty.set(lvl[0]);     // test
                 }
             }
         });
@@ -237,6 +250,25 @@ public class historiqueAidesArea {
         });
     }
 
+    private void highLightCellulesAtIndex(int index) {
+        for (Coordonnee c : aidesInfosList.get(index).getResultatTechnique().getCoordonnees()) {
+            GridMenu.highlightCellule(c.getY(), c.getX(), "blue");
+        }
+    }
+
+    private void resetCellulesAtIndex(int index) {
+        for (Coordonnee c : aidesInfosList.get(index).getResultatTechnique().getCoordonnees()) {
+            GridMenu.resetCelluleCss(c.getY(), c.getX());
+        }
+    }
+
+    /**
+     * Met à jour l'affichage du bouton de visibilité de la technique sur la cellule
+     * @param lvl niveau de l'aide
+     * @param upgradeHelp bouton dont l'affichage doit être modifié
+     * @param eye_opened indicatif de l'état actuel du bouton
+     * @return
+     */
     private boolean updateUpgradeButtonDisplay(int lvl, Button upgradeHelp, boolean eye_opened) {
         //if(aidesInfosList.get(index).getNiveau() >= 2) {
         if(lvl >= 2) {

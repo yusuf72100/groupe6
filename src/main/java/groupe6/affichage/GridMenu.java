@@ -99,7 +99,7 @@ public class GridMenu implements Menu {
     /**
      * La grille des nodes des cellules
      */
-    private CelluleNode[][] celluleNodes;
+    private static CelluleNode[][] celluleNodes;
 
     /**
      * La grille des données des cellules
@@ -182,8 +182,17 @@ public class GridMenu implements Menu {
      * @param y la position y de la cellule
      * @param color la couleur à appliquer ( format css )
      */
-    public void highlightCellule(int y, int x, String color) {
-        this.celluleNodes[y][x].changeCellulesCss(color);
+    public static void highlightCellule(int y, int x, String color) {
+        celluleNodes[y][x].changeCellulesCss(color);
+    }
+
+    /**
+     * Réinitialise l'affichage de la cellule
+     * @param y la position x de la cellule
+     * @param x la position y de la cellule
+     */
+    public static void resetCelluleCss(int y, int x) {
+        celluleNodes[y][x].resetCellulesCss();
     }
 
     /**
