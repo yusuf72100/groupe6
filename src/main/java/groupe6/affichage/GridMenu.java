@@ -1,6 +1,7 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.Chronometre;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
@@ -18,7 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * Classe qui correspond a l'inteface graphique d'une partie joué de Slitherlink
@@ -104,8 +110,7 @@ public class GridMenu implements Menu {
     /**
      * La grille des nodes des cellules
      */
-    public CelluleNode[][] celluleNodes;
-
+    private CelluleNode[][] celluleNodes;
     /**
      * La grille des données des cellules
      */
@@ -146,6 +151,11 @@ public class GridMenu implements Menu {
      */
     private int longueur;
 
+    private final ChronoThread chronoThread;
+
+    private final Thread thread;
+
+    private Label chronoLabel;
 
     /**
      * Constructeur de la classe GridMenu
@@ -155,6 +165,7 @@ public class GridMenu implements Menu {
     public GridMenu(Partie partie, Double w, Double h){
         this.compteur = 0;
         buttonHoverLabel = new Label();
+        this.chronoLabel = new Label();
 
         // buttons
         this.home = initHeaderButton("button-home", "Retourner au menu", w, h);
@@ -175,6 +186,9 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
         updateAffichage();
 
+        this.chronoThread = new ChronoThread(this.partie, this.chronoLabel);
+        this.thread = new Thread(chronoThread);
+
         if ( Launcher.getVerbose() ) {
             System.out.println("Puzzle au lancement :\n"+this.puzzle);
         }
@@ -187,8 +201,17 @@ public class GridMenu implements Menu {
      * @param y la position y de la cellule
      * @param color la couleur à appliquer ( format css )
      */
-    public void highlightCellule(int y, int x, String color) {
-        this.celluleNodes[y][x].changeCellulesCss(color);
+    public static void highlightCellule(int y, int x, String color) {
+        celluleNodes[y][x].changeCellulesCss(color);
+    }
+
+    /**
+     * Réinitialise l'affichage de la cellule
+     * @param y la position x de la cellule
+     * @param x la position y de la cellule
+     */
+    public static void resetCelluleCss(int y, int x) {
+        celluleNodes[y][x].resetCellulesCss();
     }
 
     /**
@@ -209,7 +232,8 @@ public class GridMenu implements Menu {
      * @return vrai si les coordonnées sont dans la grille, faux sinon
      */
     public boolean estDansGrille(int y, int x) {
-      return y >= 0 && y < this.cellulesData.length && x >= 0 && x < this.cellulesData[0].length;
+      return y >= 0 && y < 
+        llulesData.length && x >= 0 && x < this.cellulesData[0].length;
     }
 
     /**
@@ -578,7 +602,7 @@ public class GridMenu implements Menu {
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                partie.pause();
+                //partie.pause();
                 // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
             }
         });
@@ -587,6 +611,7 @@ public class GridMenu implements Menu {
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+                saveGame();
                 Main.showMainMenu();
             }
         });
@@ -601,7 +626,10 @@ public class GridMenu implements Menu {
         container.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().addAll("button-square");
 
-        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help);
+        Menu.adaptTextSize(this.chronoLabel,30, w, h);
+        this.chronoLabel.setStyle("-fx-font-family: 'Inter Semi Bold'");
+
+        HBox buttonContainer = new HBox(this.home, this.sauvegarder, this.pause, this.undo, this.redo, this.hypothese, this.check, this.help, this.chronoLabel);
         buttonContainer.setAlignment(Pos.TOP_CENTER);
         buttonContainer.setSpacing(10);
         buttonContainer.setStyle("-fx-background-color: #e0ac1e; -fx-background-radius: 10; -fx-padding: 5 20 5 20;");
@@ -614,6 +642,13 @@ public class GridMenu implements Menu {
             buttonContainer.setTranslateY(Menu.toPourcentHeight(50.0, 500.0));
         });
 
+        Rectangle separator = new Rectangle(5, this.help.getPrefHeight());
+        separator.setFill(Color.BLACK);
+        buttonContainer.getChildren().add(separator);
+
+        this.partie.getChrono().start();
+        this.thread.start();
+
         AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
@@ -621,6 +656,15 @@ public class GridMenu implements Menu {
         AnchorPane.setBottomAnchor(container, 0.0);
 
         return anchorPane;
+    }
+
+    /**
+     * Arrête le chrono et enregistre la partie
+     */
+    public void saveGame() {
+        this.partie.getChrono().stop();
+        this.chronoThread.stopThread();
+        this.partie.sauvegarder();
     }
 
     /**

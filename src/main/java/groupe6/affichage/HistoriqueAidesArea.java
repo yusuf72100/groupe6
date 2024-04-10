@@ -64,7 +64,6 @@ public class HistoriqueAidesArea {
      */
     private final Double height;
 
-
     private final VBox elementsBox;
 
     public HistoriqueAidesArea(GridMenu gridMenu, Double w, Double h) {

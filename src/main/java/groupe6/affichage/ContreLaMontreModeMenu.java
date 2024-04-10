@@ -265,7 +265,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
         TranslateTransition transitionElement;
         if(!isVisible) {
-          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement = new TranslateTransition(Duration.seconds(0.5), PuzzlePreviewContainer[finalI]);
           transitionElement.setFromX(0);
           transitionElement.setToX(-(windowWidth));
           transitionElement.play();
@@ -275,7 +275,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
             PuzzlePreviewContainer[finalI].setManaged(isVisible);
           });
         } else {
-          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement = new TranslateTransition(Duration.seconds(0.5), PuzzlePreviewContainer[finalI]);
           transitionElement.setFromX(-(windowWidth));
           transitionElement.setToX(0);
           transitionElement.play();

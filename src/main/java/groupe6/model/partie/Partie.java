@@ -249,16 +249,16 @@ public class Partie {
   /**
    * Méthode pour mettre en pause la partie
    */
-  public void pause() {
+  /*public void pause() {
     this.chrono.pause();
-  }
+  }*/
 
   /**
    * Méthode pour reprendre la partie
    */
-  public void reprendre() {
+  /*public void reprendre() {
     this.chrono.reprendre();
-  }
+  }*/
 
   /**
    * Méthode pour demander une aide ( detection de technique )
@@ -653,7 +653,7 @@ public class Partie {
     if ( Launcher.getVerbose() ) {
       System.out.println("Debut de la sauvegarde : "+this.getPuzzle().getDifficulte()+"_"+this.getPuzzle().getLargeur()+"x"+this.getPuzzle().getLongueur());
     }
-    this.infos.setChrono(this.chrono.getTempsEcoule());
+    //this.infos.setChrono(this.chrono.getTempsEcoule());
     // Lance un thread séparé pour sauvegarder la partie
     new Thread(() -> PartieSauvegarde.creerSauvegardePartie(this)).start();
   }

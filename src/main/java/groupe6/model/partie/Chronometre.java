@@ -9,70 +9,56 @@ import java.time.Duration;
  */
 public class Chronometre {
 
-  /**
-   * Le temps qui sert de référence pour le lancement du chronomètre
-   */
-  private long debut;
+  private Duration tempsEcoule;
+  private boolean demarre;
 
-  /**
-   * Le temps écoulé au moment de la pause
-   */
-  private Duration pause;
-
-  /**
-   * Constructeur de la classe Chronometre
-   */
-  public Chronometre() {
-    this.debut = System.currentTimeMillis();
-    this.pause = null;
-  }
-
-  /**
-   * Constructeur de la classe Chronometre
-   *
-   * @param tempsEcoule le temps écoulé pour initialiser le chronomètre
-   */
   public Chronometre(Duration tempsEcoule) {
-    this.debut = System.currentTimeMillis() - tempsEcoule.toMillis();
-    this.pause = null;
+    this.tempsEcoule = tempsEcoule;
+    this.demarre = false;
   }
 
-  /**
-   * Méthode pour obtenir le temps écoulé depuis le lancement du chronomètre
-   *
-   * @return le temps écoulé
-   */
-  Duration getTempsEcoule() {
-    if ( this.pause != null )
-      return this.pause;
-    else {
-      return Duration.ofMillis(System.currentTimeMillis() - debut);
+  public Chronometre() {
+    this.tempsEcoule = Duration.ZERO;
+    this.demarre = false;
+  }
+
+  public void start() {
+    if (!demarre) {
+      startTime = System.nanoTime();
+      demarre = true;
     }
   }
 
-  /**
-   * Méthode pour mettre en pause le chronomètre
-   */
-  public void pause() {
-    this.pause = getTempsEcoule();
+  public void stop() {
+    if (demarre) {
+      tempsEcoule = tempsEcoule.plus(Duration.ofNanos(System.nanoTime() - startTime));
+      demarre = false;
+    }
   }
 
-  /**
-   * Méthode pour reprendre le chronomètre
-   */
-  public void reprendre() {
-    this.debut = System.currentTimeMillis() - this.pause.toMillis();
-    this.pause = null;
+   public Duration getTempsEcoule() {
+    if (demarre) {
+      return tempsEcoule.plus(Duration.ofNanos(System.nanoTime() - startTime));
+    } else {
+      return tempsEcoule;
+    }
   }
 
-  /**
-   * Méthode verifier si le temps écoulé dépasse un temps limite
-   *
-   * @param limite le temps limite
-   * @return vrai si le temps écoulé dépasse le temps limite, faux sinon
-   */
-  boolean depassementTempsLimite(Duration limite) {
-    return getTempsEcoule().compareTo(limite) > 0;
+  public String getElapsedTimeFormatted() {
+    long seconds = getTempsEcoule().getSeconds();
+    long minutes = seconds / 60;
+    long hours = minutes / 60;
+
+    return String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60);
   }
 
+  public Chronometre getChrono() {
+    return this;
+  }
+
+  public void setTempsEcoule(Duration tempsEcoule) {
+    this.tempsEcoule = tempsEcoule;
+  }
+
+  private long startTime;
 }

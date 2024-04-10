@@ -215,7 +215,6 @@ public class SaveSelectionMenu extends MainMenu {
         noSavesLabel.setStyle("-fx-font-weight: bold;");
         Menu.adaptTextSize(noSavesLabel, 100, windowWidth, windowHeigth);
 
-
         if(!lstSave.isEmpty()) {
             for (int i = 0; i < lstSave.size(); i++) {
                 buttonTextsLabels[i] = lstSave.get(i);
