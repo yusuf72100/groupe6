@@ -37,7 +37,7 @@ public class GestionnaireTechnique{
      */
     private void chargerTechniques() {
         // Charger les techniques
-        this.ajouterTechnique(new Adjacents03(DifficulteTechnique.DEMARRAGE));
+        this.ajouterTechnique(new Adjacents03());
     }
 
     /**
