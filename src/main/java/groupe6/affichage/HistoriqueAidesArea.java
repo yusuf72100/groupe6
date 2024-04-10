@@ -4,6 +4,7 @@ import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.technique.DifficulteTechnique;
+import groupe6.model.technique.ResultatTechnique;
 import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,8 +25,15 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class HistoriqueAidesArea {
+
+    /**
+     * Le GridMenu qui contient l'historique des aides
+     */
+    private GridMenu gridMenu;
+
     /**
      * Boîte vertical de scroll
      */
@@ -47,11 +55,6 @@ public class HistoriqueAidesArea {
     private final Label titre;
 
     /**
-     * Liste des aides
-     */
-    private final List<AideInfos> aidesInfosList;
-
-    /**
      * Largeut de la fenêtre
      */
     private final Double width;
@@ -63,9 +66,9 @@ public class HistoriqueAidesArea {
 
     private final VBox elementsBox;
 
-    public HistoriqueAidesArea(Double w, Double h, List<AideInfos> aides) {
-        this.aidesInfosList = aides;
+    public HistoriqueAidesArea(GridMenu gridMenu, Double w, Double h) {
         this.elementsBox = new VBox();
+        this.gridMenu = gridMenu;
         this.width = w;
         this.height = h;
         this.titre = new Label("Aides");
@@ -100,20 +103,15 @@ public class HistoriqueAidesArea {
         return this.historiqueAidesStackPane;
     }
 
-    /**
-     * Ajouter une aide à la liste des aides
-     * @param aideInfos aide à ajouter
-     */
-    public void ajouterNouvelleAide(AideInfos aideInfos) {
-        ajouterNouvelleAide(aideInfos.getNiveau(), "aideInfos.getInfoTechnique().getExplicationTxt()");
-    }
 
     /**
-     * Ajouter une aide visuellement à la liste
-     * @param level niveau d'aide
-     * @param description description de l'aide
+     * Ajouter une aide à la liste des aides
+     *
+     * @param aide l'aide à ajouter
      */
-    private void ajouterNouvelleAide(int level, String description) {
+    public void ajouterNouvelleAide(AideInfos aide) {
+        int level = aide.getNiveau();
+        String description = aide.getResultatTechnique().getNomTechniqueStylise();
         boolean[] eye_opened = {true};
         Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide", this.width, this.height);
         Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations", this.width, this.height);
@@ -175,68 +173,53 @@ public class HistoriqueAidesArea {
         scale.setToY(1);
         scale.play();
 
-        int index = aidesInfosList.size();
-
-        //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
-        eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
+        eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
 
         // Handler de la variable de niveau
-        //IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
+        IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
         //TODO : IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
-
-        IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
         niveauProperty.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + newValue + ".png");
                 imageLevel[0].setImage(Launcher.chargerImage(cheminLevel));
-
-                //if(lvl[0] >= 2) {
-                if(aidesInfosList.get(index).getNiveau() >= 2){
-                    //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
-                    eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
-                }
             }
         });
 
+        final Set<Coordonnee> coordonnees = aide.getResultatTechnique().getCoordonnees();
+        final String nomSyliseTechnique = description;
+        final String nomTechnique = aide.getResultatTechnique().getNomTechnique();
+        final DifficulteTechnique difficulteTechnique = aide.getResultatTechnique().getDifficulte();
         // handler bouton upgrade niveau
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // ON CHANGE L'OEIL
-                //if(lvl[0] >= 2) {
-                if(aidesInfosList.get(index).getNiveau() >= 2) {
-                    if(eye_opened[0]) {
-                        // masquer l'aide en question
-                        resetCellulesAtIndex(index);
-                    } else {
-                        // afficher l'aide en question ainsi que la cellule
-                        highLightCellulesAtIndex(index);
-                    }
-                    //eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
-                    eye_opened[0] = updateUpgradeButtonDisplay(aidesInfosList.get(index).getNiveau(), upgradeHelp, eye_opened[0]);
-                } else {
-                    // ON UPGRADE L'AIDE
-                    // TODO : aidesInfosList.get(index).upgradeNiveau(); niveauProperty.set(aidesInfosList.get(index).getNiveau());
-
-                    aidesInfosList.get(index).upgradeNiveau();
-                    niveauProperty.set(aidesInfosList.get(index).getNiveau());
-
-                    //lvl[0]++;   // test
-                    //niveauProperty.set(lvl[0]);     // test
+                System.out.println(aide.getNiveau());
+                if ( aide.getNiveau() < 2 ) {
+                    // Augmente le niveau de l'aide
+                    aide.upgradeNiveau();
+                    lvl[0]++;
+                    niveauProperty.set(lvl[0]);
+                    // Change l'icone de l'upgrade en icon afficher coordonnées
+                    upgradeHelp.getStyleClass().clear();
+                    upgradeHelp.getStyleClass().add("eye_opened");
+                    montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
                 }
+                else {
+                    montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
+                }
+
             }
         });
-
         // handler bouton d'affichage des informations supplémentaires
         more.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : Popup avec les schémas explicatifs ...
                 Main.afficherPopUpInfoTechnique(
-                    "Technique du zéro et trois adjacent",
-                    "zeroTroisAdjacents",
-                    DifficulteTechnique.BASIQUE,
+                    nomSyliseTechnique,
+                    nomTechnique,
+                    difficulteTechnique,
                     width,
                     height
                 );
@@ -244,25 +227,27 @@ public class HistoriqueAidesArea {
         });
     }
 
-    private void highLightCellulesAtIndex(int index) {
-        for (Coordonnee c : aidesInfosList.get(index).getResultatTechnique().getCoordonnees()) {
-            GridMenu.highlightCellule(c.getY(), c.getX(), "blue");
+    private void montrerCoordonneesTechnique(Set<Coordonnee> coordonnees, String nomSyliseTechnique) {
+        // Highlight les coordonnées de la technique
+        for ( Coordonnee coord : coordonnees ) {
+            this.gridMenu.highlightCellule(coord.getY(), coord.getX(), "blue");
+            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX(), "blue");
+        }
+
+        Main.afficherPopUpInformation(
+            "Aide de niveau 2",
+            "Les cellules où à été détectée la technique " + nomSyliseTechnique + " sont mises en évidence en bleu.",
+            "Appuyez sur OK pour continuer"
+
+        );
+
+        // Unhighlight les coordonnées de la technique
+        for ( Coordonnee coord : coordonnees ) {
+            this.gridMenu.resetCellule(coord.getY(), coord.getX());
+            this.gridMenu.resetCellulesAdjacentesCss(coord.getY(), coord.getX());
         }
     }
 
-    private void resetCellulesAtIndex(int index) {
-        for (Coordonnee c : aidesInfosList.get(index).getResultatTechnique().getCoordonnees()) {
-            GridMenu.resetCelluleCss(c.getY(), c.getX());
-        }
-    }
-
-    /**
-     * Met à jour l'affichage du bouton de visibilité de la technique sur la cellule
-     * @param lvl niveau de l'aide
-     * @param upgradeHelp bouton dont l'affichage doit être modifié
-     * @param eye_opened indicatif de l'état actuel du bouton
-     * @return
-     */
     private boolean updateUpgradeButtonDisplay(int lvl, Button upgradeHelp, boolean eye_opened) {
         //if(aidesInfosList.get(index).getNiveau() >= 2) {
         if(lvl >= 2) {

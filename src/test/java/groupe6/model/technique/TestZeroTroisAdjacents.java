@@ -5,22 +5,17 @@ import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
-import groupe6.model.partie.puzzle.TestPuzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
-import groupe6.model.partie.Partie;
 import groupe6.model.profil.Profil;
-import javafx.scene.control.Cell;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import groupe6.model.partie.puzzle.Puzzle;
-import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestZeroTroisAdjacents extends ModelTest {
     private static Puzzle puzzle;
-    private static zeroTroisAdjacents techniqueZeroTroisAdjacents;
+    private static Adjacents03 techniqueZeroTroisAdjacents;
     private static Partie partie;
     private static Profil profil;
 
@@ -43,7 +38,7 @@ public class TestZeroTroisAdjacents extends ModelTest {
         grille[2][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grille[2][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
-        techniqueZeroTroisAdjacents = new zeroTroisAdjacents(DifficulteTechnique.BASIQUE);
+        techniqueZeroTroisAdjacents = new Adjacents03(DifficulteTechnique.BASIQUE);
 
         puzzle = new Puzzle(largeur3, longueur3, grille, grille, DifficultePuzzle.FACILE);
 
