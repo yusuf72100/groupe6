@@ -2,6 +2,7 @@ package groupe6.model.partie.puzzle;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Classe qui modélise une coordonnée
@@ -73,13 +74,17 @@ public class Coordonnee implements Serializable,Cloneable {
       return false;
     }
     Coordonnee other = (Coordonnee) obj;
-    if (x != other.x) {
-      return false;
-    }
-    if (y != other.y) {
-      return false;
-    }
-    return true;
+    return y == other.y && x == other.x;
+  }
+
+  /**
+   * Méthode pour obtenir le hashcode d'une coordonnée
+   *
+   * @return le hashcode de la coordonnée
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(y, x);
   }
 
   /**

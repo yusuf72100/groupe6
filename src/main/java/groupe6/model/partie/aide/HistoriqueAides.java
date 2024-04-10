@@ -65,4 +65,18 @@ public class HistoriqueAides implements Serializable {
         return false;
     }
 
+    /**
+     * Méthode pour obtenir une représentation textuelle de l'historique des aides
+     *
+     * @return la représentation textuelle de l'historique des aides
+     */
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (AideInfos a : this.listeAides){
+            str.append(a.toString()).append("\n");
+        }
+        return str.toString();
+    }
+
 }

@@ -32,8 +32,6 @@ public class Adjacents03 extends Technique {
 
     /**
      * Constructeur de la classe de la zeroTroisAdjacents
-     *
-     * @param uneDifficulte difficulté de la technique
      */
     public Adjacents03() {
         super(
@@ -50,61 +48,48 @@ public class Adjacents03 extends Technique {
      */
     @Override
     public ResultatTechnique run(Partie partie, int idxTechnique) {
-        System.out.println("test detec zero trois adjacents");
         Puzzle grille = partie.getPuzzle();
-
         for(int i = 0; i < grille.getLargeur(); i++){
             for(int j = 0; j < grille.getLongueur(); j++){
                 int valeur = grille.getCellule(i, j).getValeur();
                 if(valeur == 0){
-                    System.out.println("y = " + i + " x = " + (j-1));
                     int gauche = grille.getCellule(i, j-1).getValeur();
                     int bas = grille.getCellule(i+1, j).getValeur();
                     int droite = grille.getCellule(i, j+1).getValeur();
                     int haut = grille.getCellule(i-1, j).getValeur();
                     if(gauche == 3){
-                        System.out.println("gauche = 3");
                         Coordonnee trois = new Coordonnee(i, j-1);
                         Coordonnee zero = new Coordonnee(i, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), HORIZ)) {
-                            System.out.println("verifZeroTroisAdjacents1");
                             ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if(haut == 3){
-                        System.out.println("haut = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i-1, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), VERTI)){
-                            System.out.println("verifZeroTroisAdjacents2");
                             ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if (droite == 3){
-                        System.out.println("droite = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i, j+1);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), HORIZ)){
-                            System.out.println("verifZeroTroisAdjacents3");
                             ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
                                 return result;
                             }
                         }
                     } else if (bas == 3){
-                        System.out.println("bas = 3");
                         Coordonnee zero = new Coordonnee(i, j);
                         Coordonnee trois = new Coordonnee(i+1, j);
                         if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), VERTI)){
-                            System.out.println("verifZeroTroisAdjacents4");
                             ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
-                            System.out.println("res :" + result);
                             if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
-                                System.out.println("zeroTroisAdjacents existe pas encore");
                                 return result;
                             }
                         }

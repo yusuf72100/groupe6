@@ -22,15 +22,21 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TestZeroTroisAdjacents extends ModelTest {
     private static Puzzle puzzle;
+
     private static Puzzle puzzleTrue;
+
     private static Adjacents03 techniqueZeroTroisAdjacents;
     private static Partie partie;
+
     private static Partie partieTrue;
+
     private static Profil profil;
 
     @BeforeAll
     public static void initAll(){
-        ModelTest.afficherNomDebut(TestPuzzle.class);
+
+        ModelTest.afficherNomDebut(TestZeroTroisAdjacents.class);
+
         int largeur3 = 3;
         int longueur3 = 3;
 
@@ -95,6 +101,6 @@ public class TestZeroTroisAdjacents extends ModelTest {
 
     @AfterAll
     public static void tearDownAll() {
-        ModelTest.afficherNomFin(TestPuzzle.class);
+        ModelTest.afficherNomFin(TestZeroTroisAdjacents.class);
     }
 }

@@ -64,4 +64,14 @@ public class AideInfos implements Serializable {
         this.niveau = 2;
     }
 
+    /**
+     * Méthode pour obtenir une représentation textuelle d'une aide
+     *
+     * @return la représentation textuelle de l'aide
+     */
+    @Override
+    public String toString(){
+        return "{niveau="+this.niveau+", "+this.resultatTechnique.toString()+"}";
+    }
+
 }

@@ -2,6 +2,7 @@ package groupe6.model.technique;
 
 import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.aide.HistoriqueAides;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +12,16 @@ import groupe6.model.partie.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCoin03 extends ModelTest {
+
     private static Partie partie;
+
     private static Coin03 techniqueCoin03;
+
     @BeforeAll
     public static void initAll(){
+
+        ModelTest.afficherNomDebut(TestCoin03.class);
+
         partie = PartieTest.getPartieTest();
         techniqueCoin03 = Coin03.getInstance();
 
@@ -59,5 +66,10 @@ public class TestCoin03 extends ModelTest {
 //        //Detection plus de technique détectée
 //        resultatTechnique = techniqueCoin03.run(partie, 6);
 //        assertFalse(resultatTechnique.isTechniqueTrouvee());
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestCoin03.class);
     }
 }
