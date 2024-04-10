@@ -5,15 +5,24 @@ import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
+import groupe6.model.technique.DifficulteTechnique;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -188,6 +197,113 @@ public class Main extends Application {
 
         // Retourne le résultat
         return resultat.get();
+    }
+
+    public static void afficherPopUpInfoTechnique(
+        String nomSyliseTechnique, String techniqueName, DifficulteTechnique difficulteTechnique,
+        double width, double height
+    ) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information sur la technique");
+        alert.setContentText("Appuyez sur OK pour continuer");
+
+        // Ajoute les images
+        HBox imagesTechniqueHBox = new HBox();
+        int nbImage = 2;
+        if ( difficulteTechnique == DifficulteTechnique.AVANCEE ) {
+            nbImage = 3;
+        }
+        for (int i = 1; i <= nbImage; i++) {
+            String cheminImgTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques + "/" + techniqueName + "_" + i + ".png");
+            ImageView imgTechnique = new ImageView(Launcher.chargerImage(cheminImgTechnique));
+            imgTechnique.setFitWidth( (0.4 * width) / nbImage );
+            imgTechnique.setPreserveRatio(true);
+            imagesTechniqueHBox.getChildren().add(imgTechnique);
+        }
+        imagesTechniqueHBox.setSpacing(50);
+
+        // Récupération de la description de la technique
+        String cheminTxtTechnique = Launcher.normaliserChemin(Launcher.dossierTechniques + "/" + techniqueName + ".desc");
+        File fichierDescriptionTechnique = new File(cheminTxtTechnique);
+        System.out.println(cheminTxtTechnique);
+        String descriptionTechnique = "";
+        if ( !fichierDescriptionTechnique.exists()) {
+            throw new IllegalArgumentException("Le fichier " + cheminTxtTechnique + " n'existe pas");
+        }
+        try {
+            Scanner scanner = new Scanner(fichierDescriptionTechnique);
+            while (scanner.hasNextLine()) {
+                descriptionTechnique += scanner.nextLine() + "\n";
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Le label qui montre le nom de la technique
+        Label labelNomTech = new Label(nomSyliseTechnique);
+        labelNomTech.setWrapText(true);
+        Menu.adaptTextSize(labelNomTech, 28, width, height);
+        labelNomTech.setAlignment(Pos.CENTER);
+
+        // Le label qui contient la description de la technique
+        Label textDescriptionTechnique = new Label(descriptionTechnique);
+        textDescriptionTechnique.setMinWidth(0.4 * width);
+        textDescriptionTechnique.setMaxWidth(0.4 * width);
+        textDescriptionTechnique.setWrapText(true);
+        Menu.adaptTextSize(textDescriptionTechnique, 22, width, height);
+
+        // HBox pour centrer le nom de la technique
+        HBox centeredTechName = new HBox();
+        centeredTechName.getChildren().add(labelNomTech);
+        centeredTechName.setAlignment(Pos.CENTER);
+
+
+        // Vbox qui contient les informations sur la technique
+        VBox infoTechniqueVBox = new VBox();
+        infoTechniqueVBox.getChildren().addAll(
+            centeredTechName,
+            new Label("\n"),
+            imagesTechniqueHBox,
+            new Label("\n"),
+            textDescriptionTechnique,
+            new Label("\n")
+
+        );
+        infoTechniqueVBox.setAlignment(Pos.CENTER);
+
+        // HBox centrée horizontalement le contenu
+        HBox explicationTechniqueHBox = new HBox();
+        explicationTechniqueHBox.getChildren().addAll(
+            infoTechniqueVBox
+        );
+        explicationTechniqueHBox.setAlignment(Pos.CENTER);
+
+        // VBox pour centrer verticalement le contenu
+        VBox ContenuVBox = new VBox();
+        ContenuVBox.getChildren().addAll(
+            explicationTechniqueHBox
+        );
+        ContenuVBox.setAlignment(Pos.CENTER);
+
+
+        // VBox principale pour mettre en place le contenu et le séparateur
+        VBox mainVBox = new VBox();
+        mainVBox.getChildren().addAll(
+            new Label("\n"),
+            ContenuVBox,
+            new Label("\n"),
+            new Separator()
+        );
+
+
+        // Gestion du dialogPane
+        alert.getDialogPane().setHeader(mainVBox);
+        alert.getDialogPane().setMinWidth(0.5 * width);
+        alert.getDialogPane().setMinHeight(0.5 * height);
+
+
+        alert.showAndWait();
     }
 
     /**

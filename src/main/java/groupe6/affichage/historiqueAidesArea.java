@@ -2,6 +2,7 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.AideInfos;
+import groupe6.model.technique.DifficulteTechnique;
 import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -225,6 +226,13 @@ public class historiqueAidesArea {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : Popup avec les schémas explicatifs ...
+                Main.afficherPopUpInfoTechnique(
+                    "Technique du zéro et trois adjacent",
+                    "zeroTroisAdjacents",
+                    DifficulteTechnique.BASIQUE,
+                    width,
+                    height
+                );
             }
         });
     }
