@@ -355,6 +355,7 @@ public class MainMenu implements Menu {
             buttonsText[finalI].setMouseTransparent(true);
             buttonsText[finalI].setTextAlignment(TextAlignment.CENTER);
             Menu.adaptTextSize(buttonsText[finalI], 35, windowWidth, windowHeight);
+            buttonsText[finalI].setWrapText(true);
 
             descriptionsBackground[finalI] = new HBox();
             descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(),
@@ -370,6 +371,7 @@ public class MainMenu implements Menu {
             descriptionText[finalI].setTranslateY(Menu.toPourcentHeight(200.0, windowHeight));
             descriptionText[finalI].getStyleClass().add("description-text");
             Menu.adaptTextSize(descriptionText[finalI], 18, windowWidth, windowHeight);
+            descriptionText[finalI].setWrapText(true);
 
             // déplacer le texte vers le bas
             buttonsContainer[finalI] = new StackPane();

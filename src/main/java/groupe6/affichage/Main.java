@@ -7,6 +7,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
 import groupe6.model.technique.DifficulteTechnique;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -92,6 +93,7 @@ public class Main extends Application {
                 if(grid!=null) {
                     grid.saveGame();
                 }
+                Platform.exit();
             });
 
             // Gestion de l'icône

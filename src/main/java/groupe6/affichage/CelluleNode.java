@@ -104,10 +104,10 @@ public class CelluleNode extends Node {
         this.cellule[2] = new Button("Left");
         this.cellule[3] = new Button("Right");
 
-        this.cellule[0].getStyleClass().addAll("button-top");
-        this.cellule[1].getStyleClass().addAll("button-bottom");
-        this.cellule[2].getStyleClass().addAll("button-left");
-        this.cellule[3].getStyleClass().addAll("button-right");
+        this.cellule[0].getStyleClass().add("button-top");
+        this.cellule[1].getStyleClass().add("button-bottom");
+        this.cellule[2].getStyleClass().add("button-left");
+        this.cellule[3].getStyleClass().add("button-right");
 
         String cheminCroix = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/croix.png");
 
@@ -144,18 +144,17 @@ public class CelluleNode extends Node {
         for ( int i = 0; i < 4; i++ ) {
             switch (cotes[i]) {
                 case VIDE:
-                    this.cellule[i].getStyleClass().remove("clicked");
-                    this.cellule[i].getStyleClass().remove("croix");
+                    this.cellule[i].getStyleClass().removeAll("clicked");
+                    this.cellule[i].getStyleClass().removeAll("croix");
                     this.image[i].setVisible(false);
                     break;
                 case TRAIT:
-                    this.cellule[i].getStyleClass().remove("croix");
+                    this.cellule[i].getStyleClass().removeAll("croix");
                     this.cellule[i].getStyleClass().add("clicked");
                     this.image[i].setVisible(false);
-
                     break;
                 case CROIX:
-                    this.cellule[i].getStyleClass().remove("clicked");
+                    this.cellule[i].getStyleClass().removeAll("clicked");
                     this.cellule[i].getStyleClass().add("croix");
                     this.image[i].setVisible(true);
                     break;
@@ -213,32 +212,37 @@ public class CelluleNode extends Node {
     /**
      * Méthode pour changer l'affichage css de la cellule
      *
-     * @param color la couleur css
      */
-    public void changeCellulesCss(String color) {
+    public void changeCellulesCss() {
         for ( int i = 0; i < 4; i++ ) {
-            this.buttonsOldCss[i] = this.cellule[i].getStyle();
-            this.imagesOldCss[i] = this.image[i].getStyle();
-            this.image[i].setStyle(this.imagesOldCss[i] + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
-            this.cellule[i].setStyle(this.buttonsOldCss[i] + " -fx-background-color: " + color + ";" + "-fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
+            changeButtonCss(i);
         }
-        this.centerPaneOldCss = this.centerPane.getStyle();
-        this.centerTextFieldOldCss = this.centerTextField.getStyle();
-        this.centerPane.setStyle(this.centerPaneOldCss + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
-        this.centerTextField.setStyle(this.centerTextFieldOldCss + " -fx-background-color: " + color + ";" + " -fx-transition: background-color 1s ease-in-out;");
+        this.centerPane.getStyleClass().add("bg_custom");
+        this.centerTextField.getStyleClass().add("bg_custom");
+    }
+
+    /**
+     * Méthode qui remet l'affichage de la cellule à l'état précédent
+     */
+    public void resetCellulesCss() {
+        for ( int i = 0; i < 4; i++ ) {
+            resetButtonCss(i);
+        }
+        this.centerPane.getStyleClass().removeAll("bg_custom");
+        this.centerTextField.getStyleClass().removeAll("bg_custom");
     }
 
     /**
      * Méthode qui change l'affichage css d'un bouton
      *
      * @param buttonIndex le bouton qu'on veut changer ( coté )
-     * @param color la couleur css
      */
-    public void changeButtonCss(int buttonIndex, String color) {
-        if(this.buttonsOldCss[buttonIndex] == null) {
-            this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyle();
+    public void changeButtonCss(int buttonIndex) {
+        if(this.cellule[buttonIndex].getStyleClass().size() == 3) {
+            this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1);
+            this.cellule[buttonIndex].getStyleClass().removeAll(this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
         }
-        this.cellule[buttonIndex].setStyle(this.cellule[buttonIndex].getStyle() + " -fx-background-color: " + color + ";" + " -fx-opacity: 1.0;" + " -fx-transition: background-color 1s ease-in-out;");
+        this.cellule[buttonIndex].getStyleClass().add("highlight");
     }
 
     /**
@@ -248,19 +252,11 @@ public class CelluleNode extends Node {
      */
     public void resetButtonCss(int buttonIndex) {
         System.out.println("\n\nBouton n°" + buttonIndex + " : " + this.buttonsOldCss[buttonIndex]);
-        this.cellule[buttonIndex].setStyle(this.buttonsOldCss[buttonIndex]);
-    }
-
-    /**
-     * Méthode qui remet l'affichage de la cellule à l'état précédent
-     */
-    public void resetCellulesCss() {
-        for ( int i = 0; i < 4; i++ ) {
-            this.image[i].setStyle(this.imagesOldCss[i]);
-            this.cellule[i].setStyle(this.buttonsOldCss[i]);
+        this.cellule[buttonIndex].getStyleClass().removeAll("highlight");
+        if(this.buttonsOldCss[buttonIndex] != null) {
+            this.cellule[buttonIndex].getStyleClass().add(this.buttonsOldCss[buttonIndex]);
+            this.buttonsOldCss[buttonIndex] = null;
         }
-        this.centerPane.setStyle(this.centerPaneOldCss);
-        this.centerTextField.setStyle(this.centerTextFieldOldCss);
     }
 
     /**

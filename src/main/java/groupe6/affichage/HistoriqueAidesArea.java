@@ -230,8 +230,8 @@ public class HistoriqueAidesArea {
     private void montrerCoordonneesTechnique(Set<Coordonnee> coordonnees, String nomSyliseTechnique) {
         // Highlight les coordonnées de la technique
         for ( Coordonnee coord : coordonnees ) {
-            this.gridMenu.highlightCellule(coord.getY(), coord.getX(), "blue");
-            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX(), "blue");
+            this.gridMenu.highlightCellule(coord.getY(), coord.getX());
+            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX());
         }
 
         Main.afficherPopUpInformation(

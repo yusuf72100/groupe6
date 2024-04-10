@@ -199,10 +199,9 @@ public class GridMenu implements Menu {
      *
      * @param x la position x de la cellule
      * @param y la position y de la cellule
-     * @param color la couleur à appliquer ( format css )
      */
-    public static void highlightCellule(int y, int x, String color) {
-        celluleNodes[y][x].changeCellulesCss(color);
+    public static void highlightCellule(int y, int x) {
+        celluleNodes[y][x].changeCellulesCss();
     }
 
     /**
@@ -240,24 +239,23 @@ public class GridMenu implements Menu {
      *
      * @param y la position y de la cellule
      * @param x la position x de la cellule
-     * @param color la couleur à appliquer ( format css )
      */
-    public void setCellulesAdjacentesCss(int y, int x, String color) {
+    public void setCellulesAdjacentesCss(int y, int x) {
 
         if ( estDansGrille(y, x-1) ) {
-            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, color);
+            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3);
         }
 
         if ( estDansGrille(y, x+1) ) {
-            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, color);
+            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2);
         }
 
         if ( estDansGrille(y-1, x) ) {
-            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, color);
+            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1);
         }
 
         if ( estDansGrille(y+1, x) ) {
-            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, color);
+            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0);
         }
 
     }
@@ -403,7 +401,9 @@ public class GridMenu implements Menu {
 
             ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
             partie.actionBasculeTroisEtat(i,j,cote);
-            updateAffichage();
+
+            //updateAffichage();
+            updateNode(i, j);
         }
     }
 
@@ -495,7 +495,6 @@ public class GridMenu implements Menu {
                         "Appuyez sur OK pour continuer"
                     );
                 }
-
             }
         });
 
@@ -510,13 +509,13 @@ public class GridMenu implements Menu {
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         System.out.println("Première erreur : "+coords);
-                        highlightCellule(coords.getY(), coords.getX(), "red");
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "red");
+                        highlightCellule(coords.getY(), coords.getX());
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         System.out.println("Erreur suivante : "+coords);
-                        highlightCellule(coords.getY(), coords.getX(), "orange");
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "orange");
+                        highlightCellule(coords.getY(), coords.getX());
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
 
                     // Affiche une popup pour demander si l'utilisateur accepte la correction
@@ -755,6 +754,35 @@ public class GridMenu implements Menu {
                 this.celluleNodes[i][j].getButton(3).setOnAction(new CelluleButtonEventHandler(i,j, this.cellulesData));
                 this.compteur++;
             }
+        }
+    }
+
+    /**
+     * Met à jour l'affichage du puzzle en fonction du modèle
+     */
+    private void updateNode(int y, int x) {
+        if ( Launcher.getVerbose() ) {
+            System.out.printf(this.partie.getPuzzle().toString());
+        }
+
+        // Update des cellules
+        this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
+
+        // Update btn undo
+        if ( this.partie.getGestionnaireAction().debutListe() ) {
+            this.undo.getStyleClass().add("button-disabled");
+        } else {
+            this.undo.getStyleClass().remove("button-disabled");
+            this.undo.setStyle("-fx-opacity: 1");
+        }
+
+        // Update btn redo
+        if ( this.partie.getGestionnaireAction().finListe() ) {
+            this.redo.getStyleClass().add("button-disabled");
+        }
+        else {
+            this.redo.getStyleClass().remove("button-disabled");
+            this.redo.setStyle("-fx-opacity: 1");
         }
     }
 
