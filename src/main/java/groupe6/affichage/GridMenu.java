@@ -110,7 +110,7 @@ public class GridMenu implements Menu {
     /**
      * La grille des nodes des cellules
      */
-    private CelluleNode[][] celluleNodes;
+    private static CelluleNode[][] celluleNodes;
     /**
      * La grille des données des cellules
      */
@@ -232,8 +232,7 @@ public class GridMenu implements Menu {
      * @return vrai si les coordonnées sont dans la grille, faux sinon
      */
     public boolean estDansGrille(int y, int x) {
-      return y >= 0 && y < 
-        llulesData.length && x >= 0 && x < this.cellulesData[0].length;
+        return y >= 0 && y < this.cellulesData.length && x >= 0 && x < this.cellulesData[0].length;
     }
 
     /**
