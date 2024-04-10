@@ -25,7 +25,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class historiqueAidesArea {
+public class HistoriqueAidesArea {
     /**
      * Boîte vertical de scroll
      */
@@ -63,11 +63,11 @@ public class historiqueAidesArea {
 
     private final VBox elementsBox;
 
-    public historiqueAidesArea(Double w, Double h) {
+    public HistoriqueAidesArea(Double w, Double h, List<AideInfos> aides) {
+        this.aidesInfosList = aides;
         this.elementsBox = new VBox();
         this.width = w;
         this.height = h;
-        this.aidesInfosList = new ArrayList<>();
         this.titre = new Label("Aides");
         this.titre.getStyleClass().add("title_help");
         this.historiqueAidesStackPane = new StackPane();
@@ -90,11 +90,6 @@ public class historiqueAidesArea {
         Menu.adaptTextSize(this.titre, 50, w, h);
         StackPane.setAlignment(this.historiqueAidesScrollPane, Pos.CENTER);
         this.historiqueAidesStackPane.setTranslateX(w-this.historiqueAidesVBox.getPrefWidth()); // placement à droite
-
-        // test
-        ajouterNouvelleAide(1, "Nouvelle Aide");
-        ajouterNouvelleAide(1, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
-        ajouterNouvelleAide(2, "Nouvelle Aide2abcdefghijklmnopqrstuvwxyzAide2abcdefghijklmnopqrstuvwxyz");
     }
 
     /**
@@ -110,8 +105,7 @@ public class historiqueAidesArea {
      * @param aideInfos aide à ajouter
      */
     public void ajouterNouvelleAide(AideInfos aideInfos) {
-        this.aidesInfosList.add(aideInfos);
-        ajouterNouvelleAide(aideInfos.getNiveau(), aideInfos.getInfoTechnique().getExplicationTxt());
+        ajouterNouvelleAide(aideInfos.getNiveau(), "aideInfos.getInfoTechnique().getExplicationTxt()");
     }
 
     /**

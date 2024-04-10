@@ -2,9 +2,9 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
+import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
 import groupe6.model.partie.puzzle.Coordonnee;
-import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 /**
  * Classe qui correspond a l'inteface graphique d'une partie joué de Slitherlink
@@ -90,6 +92,11 @@ public class GridMenu implements Menu {
      * Le container qui contient le gridPane
      */
     private StackPane container;
+
+    /**
+     * Historique des aides
+     */
+    private HistoriqueAidesArea historiqueAides;
 
     /**
      * Zone d'affichage de l'historique d'aides
@@ -387,7 +394,8 @@ public class GridMenu implements Menu {
      * @return T le menu à afficher
      */
     public <T> AnchorPane getMenu(boolean isNew, Double w, Double h) {
-        this.historiqueAidesStackPane = new historiqueAidesArea(w, h).getHistoriqueAidesStackPane();
+        this.historiqueAides = new HistoriqueAidesArea(w,h,this.partie.getHistoriqueAide().getListeAides());
+        this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
         // handler bouton de sauvegarde
         sauvegarder.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -451,9 +459,10 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                ResultatTechnique result = partie.chercherAide();
+                //ResultatTechnique result = partie.chercherAide();
+                ResultatTechnique result = new ResultatTechnique(true, new ArrayList<Coordonnee>(), 0);
                 if (result.isTechniqueTrouvee() ) {
-                    // TODO : Update l'affichage de l'historique d'aide
+                    historiqueAides.ajouterNouvelleAide(new AideInfos(null, result));
                 }
                 else {
                     Main.afficherPopUpInformation(
