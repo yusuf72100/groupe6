@@ -6,6 +6,8 @@ import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  * Classe qui correspond au menu du mode classique qui permet de choisir sur quel puzzle l'utilisateur veut jouer
@@ -174,15 +177,16 @@ public class ClassicModeMenu implements Menu {
         "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
     );
 
-    // Definition de la taille du paneau lateral d'information
+    // Definition de la taille du panneau lateral d'information
     infoPane.setMinWidth(0.25 * windowWidth);
     infoPane.setMaxWidth(0.25 * windowWidth);
 
     Label titre = new Label("Information sur le puzzle");
     Menu.adaptTextSize(titre, 35, windowWidth, windowHeight);
+
     titre.setStyle(
         titre.getStyle() +
-        " -fx-text-fill: white;" +
+        " -fx-text-fill: black;" +
         " -fx-padding: 10px;" +
         " -fx-background-radius: 10px;" +
         "-fx-font-weight: bold;"
@@ -197,19 +201,19 @@ public class ClassicModeMenu implements Menu {
     Menu.adaptTextSize(infoDifficulte, 28, windowWidth, windowHeight);
     infoDifficulte.setStyle(
         infoDifficulte.getStyle() +
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
         "-fx-font-weight: bold;"
     );
     Menu.adaptTextSize(infoTaille, 28, windowWidth, windowHeight);
     infoTaille.setStyle(
         infoTaille.getStyle() +
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
     Menu.adaptTextSize(infoPointsDepart, 28, windowWidth, windowHeight);
     infoPointsDepart.setStyle(
         infoPointsDepart.getStyle() +
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
 
@@ -224,16 +228,20 @@ public class ClassicModeMenu implements Menu {
     // Bouton pour lancer le puzzle
     Button btnJouer = new Button("JOUER");
     btnJouer.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+
     // Style du bouton pour lancer le puzzle
     btnJouer.getStyleClass().add("button-rounded-play");
     btnJouer.getStyleClass().add("button-text");
+
     // Adaptation de la taille du texte en fonction de la taille de la fenêtre
     double newSize = 28 * Math.min(windowWidth / 1920, windowHeight / 1080);
     btnJouer.setStyle(btnJouer.getStyle() + "-fx-font-size: " + newSize + "px;");
+
     // Detecte les clics sur le bouton pour lancer le puzzle en mode classique
     btnJouer.setOnMouseClicked(e -> {
       Main.lancerPartie(difficulteSelectionne, numeroPuzzleSelectionne, ModeJeu.CLASSIQUE);
     });
+
     // Ajoute une marge de 5% en bas au bouton pour lancer le puzzle
     StackPane.setMargin(btnJouer, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
 
@@ -247,13 +255,14 @@ public class ClassicModeMenu implements Menu {
         espace2,
         btnJouer
     );
+
     infoPuzzle.setSpacing(0.01 * windowHeight);
     infoPuzzle.setAlignment(Pos.CENTER);
 
     // Création de la croix pour fermer le paneau lateral d'information
     Label croix = new Label("✖");
     croix.setStyle(
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
         "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
         "-fx-cursor: hand;"
     );
@@ -269,7 +278,6 @@ public class ClassicModeMenu implements Menu {
       finalInfoPane.setManaged(false);
     });
 
-
     // Ajout des informations dans le paneau lateral d'information
     infoPane.getChildren().addAll(
         HBoxCroix,
@@ -277,7 +285,6 @@ public class ClassicModeMenu implements Menu {
         infoPuzzle
     );
     infoPane.setSpacing(0.05 * windowHeight);
-    // Met les elements du paneau lateral d'information au centre
     infoPane.setAlignment(Pos.TOP_CENTER);
 
     // Met la croix en haut à droite
@@ -304,6 +311,7 @@ public class ClassicModeMenu implements Menu {
           " -fx-padding: "+Math.round(0.04 * windowHeight)+"px;" +
           " -fx-background-radius: 10px;"
       );
+
       int nbPuzzleParDifficulte = Launcher.cataloguePuzzles.getNombrePuzzleParDifficulte(DifficultePuzzle.values()[i]);
       // Si il n'y a pas de puzzle pour la difficulté, on affiche une image spéciale
       if ( nbPuzzleParDifficulte <= 0 ) {
@@ -312,6 +320,7 @@ public class ClassicModeMenu implements Menu {
         imgNoPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
         HBoxPreviewContainer.getChildren().add(imgNoPuzzle);
       }
+
       // Sinon on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
@@ -319,12 +328,13 @@ public class ClassicModeMenu implements Menu {
           final String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
           Image imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
           ImageView imgPreviewPuzzle = new ImageView(imgPreview);
-          imgPreviewPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
-          imgPreviewPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
+          imgPreviewPuzzle.setFitWidth(Math.round(0.25 * windowWidth));
+          imgPreviewPuzzle.setFitHeight(Math.round(0.25 * windowWidth));
           imgPreviewPuzzle.setStyle(
               "-fx-cursor: hand;"
           );
           HBoxPreviewContainer.getChildren().add(imgPreviewPuzzle);
+
           // Detecte les clics sur les previews des puzzles pour afficher les informations sur le puzzle
           final int finalI = i;
           final int finalJ = j;
@@ -335,6 +345,7 @@ public class ClassicModeMenu implements Menu {
               infoPane.setVisible(!isVisible);
               infoPane.setManaged(!isVisible);
             }
+
             // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else {
               previewSelectionne = imgPreviewPuzzle;
@@ -354,32 +365,54 @@ public class ClassicModeMenu implements Menu {
     // Ajoute les headers de chaque difficulté et ses conteneurs de preview des puzzles
     for (int i = 0; i < 3; i++) {
       Label header = new Label(DifficultePuzzle.values()[i].toString());
-      // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
           "-fx-background-color: "+Main.secondaryColorCSS+";" +
-          "-fx-text-fill: white;" +
+          "-fx-text-fill: black;" +
           "-fx-font-weight: bold;" +
           "-fx-padding: 10px;" +
           "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
           "-fx-background-radius: 10px;" +
           "-fx-cursor: hand;"
       );
+
       // Création d'un StackPane intermédiaire pour obtenir le style souhaité
       StackPane headerPane = new StackPane(header);
-      // Met le text du header à gauche
       StackPane.setAlignment(header, Pos.CENTER_LEFT);
+
       // Detecte les clics sur le header pour afficher ou cacher les previews des puzzles
       int finalI = i;
       header.setOnMouseClicked(e -> {
         // Change la visibilité des previews des puzzles de la difficulté
         boolean isVisible = !PuzzlePreviewContainer[finalI].isVisible();
-        PuzzlePreviewContainer[finalI].setVisible(isVisible);
-        PuzzlePreviewContainer[finalI].setManaged(isVisible);
+
+        TranslateTransition transitionElement;
+        if(!isVisible) {
+          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement.setFromX(0);
+          transitionElement.setToX(-(windowWidth));
+          transitionElement.play();
+
+          transitionElement.setOnFinished(event -> {
+            PuzzlePreviewContainer[finalI].setVisible(isVisible);
+            PuzzlePreviewContainer[finalI].setManaged(isVisible);
+          });
+        } else {
+          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement.setFromX(-(windowWidth));
+          transitionElement.setToX(0);
+          transitionElement.play();
+
+          PuzzlePreviewContainer[finalI].setVisible(isVisible);
+          PuzzlePreviewContainer[finalI].setManaged(isVisible);
+        }
       });
+
       // Ajoute le header de la difficulté dans le conteneur
       VBoxDifficulteContainer.getChildren().add(headerPane);
+
       // Ajoute le conteneur de preview des puzzles de la difficulté dans le conteneur
       VBoxDifficulteContainer.getChildren().add(PuzzlePreviewContainer[i]);
+
       // Met le conteneur de preview des puzzles de la difficulté en invisible
       PuzzlePreviewContainer[finalI].setVisible(false);
       PuzzlePreviewContainer[finalI].setManaged(false);
@@ -407,7 +440,6 @@ public class ClassicModeMenu implements Menu {
     title = new Label("Mode Classique");
     title.getStyleClass().add("title");
     title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
     Menu.adaptTextSize(title,60, windowWidth, windowHeight);
 
     // Boite verticale principale qui contient le titre et le selecteur de puzzle
@@ -421,12 +453,11 @@ public class ClassicModeMenu implements Menu {
     backButton.getStyleClass().add("button-rounded");
     backButton.getStyleClass().add("button-text");
     backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
     double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
     backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
-    // Adaptation de la taille du bouton en fonction de la taille de la fenêtre
     backButton.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
-    // Action du bouton de retour
+
+    // Handler du bouton de retour
     backButton.setOnMouseClicked(e -> {
       Main.showGameModeMenu();
     });
@@ -445,16 +476,9 @@ public class ClassicModeMenu implements Menu {
         infoPane
     );
 
-    // Met le titre en haut de la boite verticale principale
     StackPane.setAlignment(title, Pos.TOP_CENTER);
-
-    // Met la boite verticale principale au centre du panneau
     StackPane.setAlignment(mainVbox, Pos.CENTER);
-
-    // Met le bouton de retour en bas du panneau
     StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
-
-    // Met le paneau lateral d'information à droite
     StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
 
     return mainPane;

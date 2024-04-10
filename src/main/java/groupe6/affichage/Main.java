@@ -55,7 +55,7 @@ public class Main extends Application {
     /**
      * Couleur secondaire pour le CSS
      */
-    public static String secondaryColorCSS = "#4688AE";
+    public static String secondaryColorCSS = "#e0ac1e";
 
     /**
      * Métode qui démarre l'application

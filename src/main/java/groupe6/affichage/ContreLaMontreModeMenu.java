@@ -7,6 +7,7 @@ import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
@@ -57,7 +59,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     Menu.adaptTextSize(titre, 35, windowWidth, windowHeight);
     titre.setStyle(
         titre.getStyle() +
-        " -fx-text-fill: white;" +
+        " -fx-text-fill: black;" +
         " -fx-padding: 10px;" +
         " -fx-background-radius: 10px;" +
         "-fx-font-weight: bold;"
@@ -73,25 +75,25 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     Menu.adaptTextSize(infoDifficulte, 28, windowWidth, windowHeight);
     infoDifficulte.setStyle(
         infoDifficulte.getStyle() +
-            "-fx-text-fill: white;" +
+            "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
     Menu.adaptTextSize(infoTaille, 28, windowWidth, windowHeight);
     infoTaille.setStyle(
         infoTaille.getStyle() +
-            "-fx-text-fill: white;" +
+            "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
     Menu.adaptTextSize(infoPointsDepart, 28, windowWidth, windowHeight);
     infoPointsDepart.setStyle(
         infoPointsDepart.getStyle() +
-            "-fx-text-fill: white;" +
+            "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
     Menu.adaptTextSize(tempsLimite, 28, windowWidth, windowHeight);
     tempsLimite.setStyle(
         tempsLimite.getStyle() +
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
             "-fx-font-weight: bold;"
     );
 
@@ -137,7 +139,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     // Création de la croix pour fermer le paneau lateral d'information
     Label croix = new Label("✖");
     croix.setStyle(
-        "-fx-text-fill: white;" +
+        "-fx-text-fill: black;" +
         "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
         "-fx-cursor: hand;"
     );
@@ -152,7 +154,6 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
       finalInfoPane.setVisible(false);
       finalInfoPane.setManaged(false);
     });
-
 
     // Ajout des informations dans le paneau lateral d'information
     infoPane.getChildren().addAll(
@@ -203,8 +204,8 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
           final String cheminImgPreviewPuzzle = Launcher.normaliserChemin(Launcher.dossierPuzzles + "/" + CataloguePuzzle.getPuzzleName(puzzle)+".png");
           Image imgPreview = Launcher.chargerImage(cheminImgPreviewPuzzle);
           ImageView imgPreviewPuzzle = new ImageView(imgPreview);
-          imgPreviewPuzzle.setFitWidth(Math.round(0.10 * windowWidth));
-          imgPreviewPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
+          imgPreviewPuzzle.setFitWidth(Math.round(0.25 * windowWidth));
+          imgPreviewPuzzle.setFitHeight(Math.round(0.25 * windowWidth));
           imgPreviewPuzzle.setStyle(
               "-fx-cursor: hand;"
           );
@@ -238,32 +239,58 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     // Ajoute les headers de chaque difficulté et ses conteneurs de preview des puzzles
     for (int i = 0; i < 3; i++) {
       Label header = new Label(DifficultePuzzle.values()[i].toString());
+
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
           "-fx-background-color: "+Main.secondaryColorCSS+";" +
-          "-fx-text-fill: white;" +
+          "-fx-text-fill: black;" +
           "-fx-font-weight: bold;" +
           "-fx-padding: 10px;" +
           "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
           "-fx-background-radius: 10px;" +
           "-fx-cursor: hand;"
       );
+
       // Création d'un StackPane intermédiaire pour obtenir le style souhaité
       StackPane headerPane = new StackPane(header);
+
       // Met le text du header à gauche
       StackPane.setAlignment(header, Pos.CENTER_LEFT);
+
       // Detecte les clics sur le header pour afficher ou cacher les previews des puzzles
       int finalI = i;
       header.setOnMouseClicked(e -> {
         // Change la visibilité des previews des puzzles de la difficulté
         boolean isVisible = !PuzzlePreviewContainer[finalI].isVisible();
-        PuzzlePreviewContainer[finalI].setVisible(isVisible);
-        PuzzlePreviewContainer[finalI].setManaged(isVisible);
+
+        TranslateTransition transitionElement;
+        if(!isVisible) {
+          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement.setFromX(0);
+          transitionElement.setToX(-(windowWidth));
+          transitionElement.play();
+
+          transitionElement.setOnFinished(event -> {
+            PuzzlePreviewContainer[finalI].setVisible(isVisible);
+            PuzzlePreviewContainer[finalI].setManaged(isVisible);
+          });
+        } else {
+          transitionElement = new TranslateTransition(Duration.seconds(1), PuzzlePreviewContainer[finalI]);
+          transitionElement.setFromX(-(windowWidth));
+          transitionElement.setToX(0);
+          transitionElement.play();
+
+          PuzzlePreviewContainer[finalI].setVisible(isVisible);
+          PuzzlePreviewContainer[finalI].setManaged(isVisible);
+        }
       });
+
       // Ajoute le header de la difficulté dans le conteneur
       VBoxDifficulteContainer.getChildren().add(headerPane);
+
       // Ajoute le conteneur de preview des puzzles de la difficulté dans le conteneur
       VBoxDifficulteContainer.getChildren().add(PuzzlePreviewContainer[i]);
+
       // Met le conteneur de preview des puzzles de la difficulté en invisible
       PuzzlePreviewContainer[finalI].setVisible(false);
       PuzzlePreviewContainer[finalI].setManaged(false);
@@ -358,7 +385,5 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
         )
     );
   }
-
-
 }
 
