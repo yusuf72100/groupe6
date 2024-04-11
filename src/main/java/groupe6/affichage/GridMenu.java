@@ -160,12 +160,13 @@ public class GridMenu implements Menu {
     /**
      * Constructeur de la classe GridMenu
      *
-     * @param partie la partie auquel est lié l'inteface graphique
+     * @param partie la partie à laquelle est liée l'interface graphique
      */
     public GridMenu(Partie partie, Double w, Double h){
         this.compteur = 0;
         buttonHoverLabel = new Label();
         this.chronoLabel = new Label();
+        partie.setObservateurGridMenu(this);
 
         // buttons
         this.home = initHeaderButton("button-home", "Retourner au menu", w, h);
@@ -186,7 +187,7 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
         updateAffichage();
 
-        this.chronoThread = new ChronoThread(this.partie, this.chronoLabel);
+        this.chronoThread = new ChronoThread(this.partie, this.chronoLabel, w, h);
         this.thread = new Thread(chronoThread);
 
         if ( Launcher.getVerbose() ) {
@@ -428,6 +429,7 @@ public class GridMenu implements Menu {
                 }
                 Partie partie = GridMenu.this.getPartie();
                 partie.sauvegarder();
+                Main.resetGrid();
             }
         });
 
@@ -789,7 +791,7 @@ public class GridMenu implements Menu {
     /**
      * Met à jour l'affichage du puzzle en fonction du modèle
      */
-    private void updateAffichage() {
+    public void updateAffichage() {
         if ( Launcher.getVerbose() ) {
             System.out.printf(this.partie.getPuzzle().toString());
         }

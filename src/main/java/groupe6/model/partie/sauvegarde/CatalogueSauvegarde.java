@@ -1,10 +1,12 @@
 package groupe6.model.partie.sauvegarde;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.info.PartieFinieInfos;
 import groupe6.model.profil.Profil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,5 +78,30 @@ public class CatalogueSauvegarde {
     }
 
     return listeSaves;
+  }
+
+  public static void suppimerAnciennesSauvegardes(Profil profil, PartieFinieInfos partieFinieInfos) {
+    System.out.println("supprimerAnciennesSauvegardes");
+    // Récupérer les fichiers de sauvegardes
+    String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
+    File dossierSauvegardes = new File(cheminDossier);
+    File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
+    System.out.println("fichiersSauvegardes : "+ Arrays.toString(fichiersSauvegardes));
+
+    // Nom attendu de la sauvegarde
+    String nomSauvegarde = PartieFinieInfos.getNomSauvegarde(partieFinieInfos);
+    System.out.println("nomSauvegarde : "+nomSauvegarde);
+
+    // Parcourir les fichiers de sauvegardes a la recherche de la sauvegarde a supprimer
+    for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
+      if (fichier.getName().endsWith(".save")) {
+        // Ajouter a la liste le nom du fichier sans .save
+        String nom = fichier.getName().substring(0, fichier.getName().length() - 5); //
+        System.out.println("nom           : "+nom);
+        if (nom.equals(nomSauvegarde)) {
+          fichier.delete();
+        }
+      }
+    }
   }
 }
