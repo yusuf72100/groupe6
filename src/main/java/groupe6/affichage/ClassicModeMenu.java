@@ -8,6 +8,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -480,6 +483,17 @@ public class ClassicModeMenu implements Menu {
     StackPane.setAlignment(mainVbox, Pos.CENTER);
     StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
     StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
+
+    // config des touches
+    EventHandler<KeyEvent> keyEventHandler = event -> {
+      KeyCode keyCode = event.getCode();
+
+      if (keyCode == KeyCode.ESCAPE) {
+        Main.showGameModeMenu();
+      }
+    };
+
+    mainPane.setOnKeyPressed(keyEventHandler);
 
     return mainPane;
   }

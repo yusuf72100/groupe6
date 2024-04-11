@@ -17,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -326,9 +328,9 @@ public class SaveSelectionMenu extends MainMenu {
         scrollPane.setFitToHeight(true);
         scrollPane.setPadding(new Insets(10, 10, 10, 10));
 
-        StackPane stack = new StackPane();
-        stack.getChildren().addAll(scrollPane, backButton, noSavesLabel);
-        stack.setAlignment(Pos.CENTER);
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(scrollPane, backButton, noSavesLabel);
+        stackPane.setAlignment(Pos.CENTER);
         StackPane.setAlignment(scrollPane, Pos.CENTER);
 
         StackPane.setMargin(backButton, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
@@ -339,13 +341,23 @@ public class SaveSelectionMenu extends MainMenu {
         double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
         backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
         backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
-        backButton.getStyleClass().add("button-rounded");
         StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
 
         backButton.setOnMouseClicked(e -> {
             Main.showMainMenu();
         });
 
-        return stack;
+        // config des touches
+        EventHandler<KeyEvent> keyEventHandler = event -> {
+            KeyCode keyCode = event.getCode();
+
+            if (keyCode == KeyCode.ESCAPE) {
+                Main.showMainMenu();
+            }
+        };
+
+        stackPane.setOnKeyPressed(keyEventHandler);
+
+        return stackPane;
     }
 }

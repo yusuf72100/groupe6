@@ -8,6 +8,8 @@ import groupe6.model.profil.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 
@@ -87,6 +89,17 @@ public class GameModeSelectionMenu extends MainMenu {
                 Main.showContreLaMontreModeMenu();
             }
         });
+
+        // config des touches
+        EventHandler<KeyEvent> keyEventHandler = event -> {
+            KeyCode keyCode = event.getCode();
+
+            if (keyCode == KeyCode.ESCAPE) {
+                Main.showMainMenu();
+            }
+        };
+
+        MainMenu.mainPane.setOnKeyPressed(keyEventHandler);
 
         return MainMenu.mainPane;
     }

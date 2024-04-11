@@ -17,6 +17,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -32,6 +34,10 @@ import java.util.Timer;
  * @author Yusuf
  */
 public class GridMenu implements Menu {
+
+    private final AnchorPane anchorPane;
+
+    private final StackPane stackPane;
 
     /**
      * La partie en cours
@@ -163,6 +169,8 @@ public class GridMenu implements Menu {
      * @param partie la partie à laquelle est liée l'interface graphique
      */
     public GridMenu(Partie partie, Double w, Double h){
+        this.stackPane = new StackPane();
+        this.anchorPane = new AnchorPane();
         this.compteur = 0;
         buttonHoverLabel = new Label();
         this.chronoLabel = new Label();
@@ -187,6 +195,9 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
         updateAffichage();
 
+        OptionsMenu.initMenu(w,h);
+        OptionsMenu.setProfil(Launcher.catalogueProfils.getProfilActuel());
+
         this.chronoThread = new ChronoThread(this.partie, this.chronoLabel, w, h);
         this.thread = new Thread(chronoThread);
 
@@ -201,8 +212,8 @@ public class GridMenu implements Menu {
      * @param x la position x de la cellule
      * @param y la position y de la cellule
      */
-    public static void highlightCellule(int y, int x) {
-        celluleNodes[y][x].changeCellulesCss();
+    public static void highlightCellule(int y, int x, String buttonCss, String centerCss) {
+        celluleNodes[y][x].changeCellulesCss(buttonCss, centerCss);
     }
 
     /**
@@ -241,22 +252,22 @@ public class GridMenu implements Menu {
      * @param y la position y de la cellule
      * @param x la position x de la cellule
      */
-    public void setCellulesAdjacentesCss(int y, int x) {
+    public void setCellulesAdjacentesCss(int y, int x, String css) {
 
         if ( estDansGrille(y, x-1) ) {
-            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3);
+            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, css);
         }
 
         if ( estDansGrille(y, x+1) ) {
-            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2);
+            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, css);
         }
 
         if ( estDansGrille(y-1, x) ) {
-            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1);
+            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, css);
         }
 
         if ( estDansGrille(y+1, x) ) {
-            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0);
+            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, css);
         }
 
     }
@@ -403,8 +414,8 @@ public class GridMenu implements Menu {
             ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
             partie.actionBasculeTroisEtat(i,j,cote);
 
-            //updateAffichage();
-            updateNode(i, j);
+            updateAffichage();
+            //updateNode(i, j);
         }
     }
 
@@ -416,7 +427,8 @@ public class GridMenu implements Menu {
      * @param h hauteur de la fenêtre
      * @return T le menu à afficher
      */
-    public <T> AnchorPane getMenu(boolean isNew, Double w, Double h) {
+    public <T> StackPane getMenu(boolean isNew, Double w, Double h) {
+        PauseMenu.initMenu(w,h);
         this.historiqueAides = new HistoriqueAidesArea(this,w, h);
         this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
@@ -497,6 +509,7 @@ public class GridMenu implements Menu {
                         "Appuyez sur OK pour continuer"
                     );
                 }
+                updateAffichage();
             }
         });
 
@@ -511,13 +524,13 @@ public class GridMenu implements Menu {
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         System.out.println("Première erreur : "+coords);
-                        highlightCellule(coords.getY(), coords.getX());
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
+                        highlightCellule(coords.getY(), coords.getX(), "highlight-red", "bg_custom-red");
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-red");
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         System.out.println("Erreur suivante : "+coords);
-                        highlightCellule(coords.getY(), coords.getX());
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
+                        highlightCellule(coords.getY(), coords.getX(),"highlight-orange", "bg_custom-orange" );
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-orange");
                     }
 
                     // Affiche une popup pour demander si l'utilisateur accepte la correction
@@ -539,8 +552,6 @@ public class GridMenu implements Menu {
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
-
-                    // updateAffichage();
                 }
                 else {
                     Main.afficherPopUpInformation(
@@ -551,6 +562,7 @@ public class GridMenu implements Menu {
                         "Appuyez sur OK pour continuer"
                     );
                 }
+                updateAffichage();
             }
         });
 
@@ -602,8 +614,11 @@ public class GridMenu implements Menu {
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                //partie.pause();
-                // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
+                if(!PauseMenu.getMenu().isVisible()) {
+                    PauseMenu.showMenu();
+                } else {
+                    PauseMenu.hideMenu();
+                }
             }
         });
 
@@ -611,8 +626,16 @@ public class GridMenu implements Menu {
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                saveGame();
                 Main.showMainMenu();
+            }
+        });
+
+        // handler visibilité pause menu
+        PauseMenu.getMenu().visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                partie.getChrono().start();
+            } else {
+                partie.getChrono().stop();
             }
         });
 
@@ -649,13 +672,33 @@ public class GridMenu implements Menu {
         this.partie.getChrono().start();
         this.thread.start();
 
-        AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
+        anchorPane.getChildren().addAll(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);
         AnchorPane.setBottomAnchor(container, 0.0);
 
-        return anchorPane;
+        stackPane.getChildren().addAll(anchorPane, PauseMenu.getMenu());
+        StackPane.setAlignment(anchorPane, Pos.TOP_CENTER);
+
+        // config des touches
+        EventHandler<KeyEvent> keyEventHandler = event -> {
+            KeyCode keyCode = event.getCode();
+
+            if (keyCode == KeyCode.ESCAPE) {
+                if(!PauseMenu.getMenu().isVisible()) {
+                    PauseMenu.showMenu();
+                } else if (!OptionsMenu.getMenu().isVisible() && PauseMenu.getMenu().isVisible()){
+                    PauseMenu.hideMenu();
+                } else {
+                    OptionsMenu.hideMenu();
+                }
+            }
+        };
+
+        stackPane.setOnKeyPressed(keyEventHandler);
+
+        return stackPane;
     }
 
     /**

@@ -8,6 +8,7 @@ import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -331,7 +334,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     StackPane.setMargin(backButton, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
     backButton.getStyleClass().add("button-rounded");
     backButton.getStyleClass().add("button-text");
-//    backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
+
     // Adaptation de la taille du texte en fonction de la taille de la fenêtre
     double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
     backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
@@ -366,6 +369,17 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
     // Met le paneau lateral d'information à droite
     StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
+
+    // config des touches
+    EventHandler<KeyEvent> keyEventHandler = event -> {
+      KeyCode keyCode = event.getCode();
+
+      if (keyCode == KeyCode.ESCAPE) {
+        Main.showGameModeMenu();
+      }
+    };
+
+    mainPane.setOnKeyPressed(keyEventHandler);
 
     return mainPane;
   }

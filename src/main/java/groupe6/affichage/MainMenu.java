@@ -12,6 +12,7 @@ import groupe6.model.partie.sauvegarde.PartieSauvegarde;
 import groupe6.model.profil.CatalogueProfil;
 import groupe6.model.profil.Profil;
 import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -25,6 +26,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -154,10 +157,13 @@ public class MainMenu implements Menu {
      */
     protected MainMenu() {}
 
+    private static Button settingsButton;
+
     /**
      * Méthode d'initialisation du menu qui fait office de constructeur
      */
     public static void initMenu() {
+        settingsButton = new Button();
         backText = new Label("QUITTER");
         buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
         title = new Text("Slitherlink");
@@ -335,6 +341,32 @@ public class MainMenu implements Menu {
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
         mainHbox.setSpacing(200);
 
+        OptionsMenu.initMenu(w,h);
+        OptionsMenu.setProfil(Launcher.catalogueProfils.getProfilActuel());
+
+        settingsButton.getStyleClass().add("settingsButton");
+        settingsButton.setPrefSize(Menu.toPourcentWidth(50.0, w), Menu.toPourcentWidth(50.0, w));
+
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), settingsButton);
+        rotateTransition.setAutoReverse(false);
+        rotateTransition.setCycleCount(1);
+
+        settingsButton.setOnMouseClicked(event -> {
+            OptionsMenu.showMenu();
+        });
+
+        settingsButton.setOnMouseEntered(event -> {
+            rotateTransition.stop();
+            rotateTransition.setByAngle(360);
+            rotateTransition.play();
+        });
+
+        settingsButton.setOnMouseExited(event -> {
+            rotateTransition.stop();
+            rotateTransition.setByAngle(-360);
+            rotateTransition.play();
+        });
+
         updateProfilsSelector();
 
         for (int i = 0; i < buttons.length; i++) {
@@ -492,10 +524,23 @@ public class MainMenu implements Menu {
         mainHbox.getChildren().addAll(buttonsContainer);
         mainPane.setAlignment(Pos.CENTER);
 
+        EventHandler<KeyEvent> keyEventHandler = event -> {
+            KeyCode keyCode = event.getCode();
+
+            if (keyCode == KeyCode.ESCAPE) {
+                OptionsMenu.hideMenu();
+            }
+        };
+
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
         mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
-                profilSelector, backButton, backText);
+                profilSelector, backButton, backText, settingsButton, OptionsMenu.getMenu());
         StackPane.setAlignment(title, Pos.TOP_CENTER);
+        StackPane.setAlignment(settingsButton, Pos.TOP_LEFT);
+
+        mainPane.setOnKeyPressed(keyEventHandler);
+
+        mainPane.setPadding(new Insets(10, 10, 10, 10));
 
         return mainPane;
     }
