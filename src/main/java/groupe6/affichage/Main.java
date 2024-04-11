@@ -106,6 +106,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Arrête les threads du grid menu
+     */
     public static void exitAll() {
         if(grid!=null) {
             grid.saveGame();

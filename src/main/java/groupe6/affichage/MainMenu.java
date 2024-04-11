@@ -333,7 +333,7 @@ public class MainMenu implements Menu {
         windowHeight = h;
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
-        mainHbox.setSpacing(200); // espacement entre les éléments
+        mainHbox.setSpacing(200);
 
         updateProfilsSelector();
 
@@ -422,7 +422,6 @@ public class MainMenu implements Menu {
                                 } else {
                                     System.out.println("Aucune sauvegarde trouvée");
                                 }
-
                             }
                         });
                         descriptionText[finalI].setText("Charger une partie existante");
@@ -446,7 +445,7 @@ public class MainMenu implements Menu {
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                // Lance le mode entrainement
+                                // TODO : Lance le mode entrainement
                             }
                         });
                         break;
