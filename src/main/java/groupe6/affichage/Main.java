@@ -164,6 +164,8 @@ public class Main extends Application {
         alert.setTitle(title);
         alert.setHeaderText(headerTexte);
         alert.setContentText(contentTexte);
+        alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
+        alert.setY(0);
 
         alert.showAndWait();
     }
