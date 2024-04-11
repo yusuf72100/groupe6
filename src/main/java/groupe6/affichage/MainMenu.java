@@ -302,7 +302,7 @@ public class MainMenu implements Menu {
     }
 
     /**
-     * Affichage du popup de création de profile
+     * Affichage du popup de création de profil
      */
     protected static void creerNouveauProfil() {
         TextInputDialog dialog = new TextInputDialog();
@@ -475,9 +475,7 @@ public class MainMenu implements Menu {
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                // TODO : Lance le mode entrainement
-                                Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
-                                Launcher.catalogueProfils.getProfilActuel().getParametre().setAideRemplissageCroix(true);
+                                Main.showEntrainementMenu();
                             }
                         });
                         break;

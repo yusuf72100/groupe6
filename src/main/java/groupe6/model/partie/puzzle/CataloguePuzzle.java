@@ -94,7 +94,6 @@ public class CataloguePuzzle {
    */
   public Puzzle getNouveauPuzzle(DifficultePuzzle difficulte, int numero, boolean optionTechDemarrage) {
     PuzzleSauvegarde puzzleSauvegarde = getPuzzleSauvegarde(difficulte, numero);
-    System.out.println(puzzleSauvegarde);
     return new Puzzle(puzzleSauvegarde, optionTechDemarrage);
   }
 

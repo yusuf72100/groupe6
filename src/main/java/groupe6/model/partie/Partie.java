@@ -136,9 +136,18 @@ public class Partie {
   /**
    * Méthode pour notifier le GridMenu qu'il faut mettre à jour l'affichage
    */
-  public void notifierObservateur() {
+  public void notifierObservateurUpdateAffichage() {
     if ( this.gridMenu != null ) {
       this.gridMenu.updateAffichage();
+    }
+  }
+
+  /**
+   * Méthode pour notifier le GridMenu qu'il faut mettre à jour le puzzle
+   */
+  public void notifierObservateurUpdatePuzzle() {
+    if ( this.gridMenu != null ) {
+      this.gridMenu.updatePuzzle();
     }
   }
 
@@ -197,9 +206,9 @@ public class Partie {
   }
 
   /**
-   * Méthode pour veifier si une erreur a été commise
+   * Méthode pour vérifier si une erreur a été commise
    *
-   * @return le résultat de la vérification des erreurs ( ResultatVerificationErreur )
+   * @return le résultat de la vérification des erreurs (ResultatVerificationErreur)
    */
   public ResultatVerificationErreur verifierErreur() {
     if ( this.gestionnaireErreur.estVide() ) {
@@ -226,9 +235,6 @@ public class Partie {
 
       // Malus pour avoir demandé une vérification d'erreur
       this.infos.enleverPoints(Score.MALUS_VERIFICATION_ERREUR);
-
-      System.out.println("Set premiere erreur : "+setPremiereErreur);
-      System.out.println("Set erreurs suivantes : "+coordsCasesErrone);
 
       return new ResultatVerificationErreur(true, setPremiereErreur, coordsCasesErrone);
     }
@@ -267,42 +273,28 @@ public class Partie {
    */
   public void corrigerErreur() {
     ErreurInfos premiereErreur = this.gestionnaireErreur.getPremiereErreur();
-    this.getGestionnaireAction().annulerActionApresErreur(premiereErreur.getIndexAction());
+    this.getGestionnaireAction().annulerActionApresIndice(premiereErreur.getIndexAction());
     this.gestionnaireErreur.supprimerErreurs();
     // Sauvegarde de la partie
     this.sauvegarder();
 
     // Notifier d'un besoin d'update de l'affichage
-    this.notifierObservateur();
+    this.notifierObservateurUpdateAffichage();
   }
 
   /**
-   * Méthode pour mettre en pause la partie
-   */
-  /*public void pause() {
-    this.chrono.pause();
-  }*/
-
-  /**
-   * Méthode pour reprendre la partie
-   */
-  /*public void reprendre() {
-    this.chrono.reprendre();
-  }*/
-
-  /**
-   * Méthode pour demander une aide ( detection de technique )
+   * Méthode pour demander une aide (détection de technique)
    *
-   * @return le résultat de la recherche de l'aide ( ResultatTechnique )
+   * @return le résultat de la recherche de l'aide (ResultatTechnique)
    */
   public AideInfos chercherAide() {
     ResultatTechnique result = GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
-    System.out.println(result);
+    System.out.println("result rechercheAideTechnique : " + result);
 
     if ( result.isTechniqueTrouvee() ) {
       // Malus pour avoir demandé une aide de niveau 1
       this.infos.enleverPoints(Score.MALUSE_AIDE_NIVEAU_1);
-      // Ajout de l'aide detectée dans l'historique des aides
+      // Ajout de l'aide détectée dans l'historique des aides
       AideInfos aide = new AideInfos(result);
       this.historiqueAide.ajouterAide(aide);
       return aide;
@@ -322,7 +314,7 @@ public class Partie {
       throw new IllegalArgumentException("Index de l'aide invalide !");
     }
 
-    // Augemente le niveau de l'aide
+    // Augmente le niveau de l'aide
     this.historiqueAide.getListeAides().get(idxAide).upgradeNiveau();
 
     // Malus supplémentaire pour avoir demandé une aide de niveau 2
@@ -330,7 +322,7 @@ public class Partie {
   }
 
   /**
-   * Méthode pour completer automatiquement les croix d'une case au nombre de trait maximum
+   * Méthode pour completer automatiquement les croix d'une case au nombre de traits maximum
    *
    * @param action l'action effectuée par l'utilisateur
    */
@@ -356,13 +348,13 @@ public class Partie {
 
     // Notifie si besoin d'un update de l'affichage
     if ( besoinDeUpdate ) {
-      this.notifierObservateur();
+      this.notifierObservateurUpdateAffichage();
     }
 
   }
 
   /**
-   * Méthode privée pour completer les croix d'une cellule si elle a atteint son nombre maximal de trait
+   * Méthode privée pour completer les croix d'une cellule si elle a atteint son nombre maximal de traits
    *
    * @param cellule la cellule à completer
    * @param coordsCellule les coordonnées de la cellule
@@ -387,36 +379,20 @@ public class Partie {
    * Méthode pour detecter une erreur causée par une action
    *
    * @param action l'action effectuée par l'utilisateur
-   * @return vrai si l'action est valide, faux sinon
    */
-  private boolean detectionErreur(Action action) {
+  private void detectionErreur(Action action) {
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
-    if ( Launcher.getVerbose() ) {
-      System.out.println("Coordonnee cellule 1 : "+coordsCell1);
-      System.out.println("Coordonnee cellule 2 : "+coordsCell2);
-    }
+
     int coteCell1 = action.getCoteCellule1();
     Cellule cellSol1 = this.puzzle.getCelluleSolution(coordsCell1.getY(),coordsCell1.getX());
     Cellule cellJeu1 = this.puzzle.getCellule(coordsCell1.getY(),coordsCell1.getX());
-
-    if ( Launcher.getVerbose() ) {
-      System.out.println("Cellule 1 solution :" + cellSol1.toString());
-      System.out.println("Cellule 1 : "+cellJeu1.toString() );
-      System.out.println("Cote cellule 1 : "+coteCell1);
-    }
 
     boolean valide;
     if ( coordsCell2 != null ) {
       Cellule cellSol2 = this.puzzle.getCelluleSolution(coordsCell2.getY(),coordsCell2.getX());
       Cellule cellJeu2 = this.puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
       int coteCell2 = Cellule.getCoteAdjacent(coteCell1);
-
-      if ( Launcher.getVerbose() ) {
-        System.out.println("Cellule 2 solution :" + cellSol2.toString());
-        System.out.println("Cellule 2 : "+cellJeu2.toString());
-        System.out.println("Cote cellule 2 : "+coteCell2);
-      }
 
       valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1)) &&
                Cellule.compareValeurCote(cellSol2.getCote(coteCell2),cellJeu2.getCote(coteCell2));
@@ -425,42 +401,30 @@ public class Partie {
       valide = Cellule.compareValeurCote(cellSol1.getCote(coteCell1),cellJeu1.getCote(coteCell1));
     }
 
-    if ( Launcher.getVerbose() ) {
-      System.out.println("Action valide : "+valide);
-    }
-
-    // Si une erreur existe deja sur ce cote de cellule, et que l'erreur a été corigé
+    // Si une erreur existe deja sur ce côté de cellule, et que l'erreur a été corrigé
     int idxErreurExistante = this.gestionnaireErreur.existe(action);
     if ( idxErreurExistante != -1 && valide ) {
-      if ( Launcher.getVerbose() ) {
-        System.out.println("Correction de l'erreur :\n  - "+this.gestionnaireErreur.getErreur(idxErreurExistante)+" .");
-      }
       this.gestionnaireErreur.supprimer(idxErreurExistante);
     }
 
-    // Si aucune erreur existe déja et que l'action n'est pas valide
+    // Si aucune erreur n'existe déja et que l'action n'est pas valide
     if ( idxErreurExistante == -1 && !valide ) {
       ErreurInfos erreur = new ErreurInfos(coordsCell1,coordsCell2, action.getCoteCellule1(), this.gestionnaireAction.getIndex());
       this.getGestionnaireErreur().ajouterErreur(erreur);
-      if ( Launcher.getVerbose() ) {
-        System.out.println("Nouvelle erreur detectée :\n  - "+erreur);
-      }
     }
 
-    return valide;
   }
 
   /**
-   * Méthode qui execute les différents comportement qui doivent être effectués pour chaque action
+   * Méthode qui execute les différents comportements qui doivent être effectués pour chaque action
    *
    * @param action l'action effectuée par l'utilisateur
    */
   private void pourChaqueAction(Action action) {
-    // Suppression des actions suivantes a l'index courant ( plus de redo )
+    // Suppression des actions suivantes a l'index courant (plus de redo)
     this.gestionnaireAction.effacerActionsSuivantes();
     // Ajout de l'action dans le gestionnaire d'actions
     this.gestionnaireAction.ajouterAction(action);
-    System.out.printf(this.gestionnaireAction.toString());
     // Application de l'action
     action.appliquerAction();
     // Detection d'erreur commise par l'utilisateur
@@ -617,17 +581,12 @@ public class Partie {
    * Méthode pour annuler la dernière action effectuée
    */
   public void undo() {
-    System.out.println("--------------------");
+
     Action action = this.gestionnaireAction.annulerAction();
     if ( action != null ) {
       Action actionInverse = Action.inverserAction(action);
-      System.out.println("action inverse : \n"+actionInverse);
       detectionErreur(actionInverse);
     }
-    System.out.println("Gestionnaire d'actions : \n - "+this.gestionnaireAction.toString());
-    System.out.println();
-    System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
-    System.out.println("--------------------");
 
     // Suppression des erreurs si l'on est revenu à l'état de départ du puzzle
     if ( this.gestionnaireAction.getIndex() == -1 ) {
@@ -638,7 +597,7 @@ public class Partie {
     this.sauvegarder();
 
     // Notifier d'un besoin d'update de l'affichage
-    this.notifierObservateur();
+    this.notifierObservateurUpdateAffichage();
   }
 
   /**
@@ -649,13 +608,12 @@ public class Partie {
     if ( action != null ) {
       detectionErreur(action);
     }
-    System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
 
     // Sauvegarde de la partie
     this.sauvegarder();
 
     // Notifier d'un besoin d'update de l'affichage
-    this.notifierObservateur();
+    this.notifierObservateurUpdateAffichage();
   }
 
   /**
@@ -696,27 +654,40 @@ public class Partie {
    * Méthode pour valider son hypothèse
    */
   public void validerHypothese(){
-    this.puzzle = hypothese.getPuzzle();
-    this.gestionnaireAction = hypothese.getGestionnaireAction();
-    this.gestionnaireErreur = hypothese.getGestionnaireErreur();
     this.hypothese = null;
   }
 
   /**
    * Méthode pour annuler son hypothèse
    */
-  public void annulerHypothese(){
+  public void annulerHypothese() {
+    this.puzzle = hypothese.getPuzzle();
+    System.out.println("annuler hypothese");
+    System.out.println(puzzle);
+    this.gestionnaireAction = hypothese.getGestionnaireAction();
+    this.gestionnaireErreur = hypothese.getGestionnaireErreur();
     this.hypothese = null;
+
+    // Notifier d'un besoin d'update du puzzle dans l'affichage
+    this.notifierObservateurUpdatePuzzle();
+
+    // Notifier d'un besoin d'update de l'affichage
+    this.notifierObservateurUpdateAffichage();
+  }
+
+  /**
+   * Méthode pour obtenir le booléen qui indique si le mode hypothèse est actif
+   *
+   * @return vrai si le mode hypothèse est actif, faux sinon
+   */
+  public boolean modeHypotheseActif() {
+    return this.hypothese != null;
   }
 
   /**
    * Méthode pour sauvegarder la partie
    */
   public synchronized void sauvegarder() {
-    if ( Launcher.getVerbose() ) {
-      System.out.println("Debut de la sauvegarde : "+this.getPuzzle().getDifficulte()+"_"+this.getPuzzle().getLargeur()+"x"+this.getPuzzle().getLongueur());
-    }
-    //this.infos.setChrono(this.chrono.getTempsEcoule());
     // Lance un thread séparé pour sauvegarder la partie
     new Thread(() -> PartieSauvegarde.creerSauvegardePartie(this)).start();
   }
