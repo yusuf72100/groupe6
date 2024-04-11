@@ -65,13 +65,8 @@ public class PauseMenu implements Menu {
         stackPane.setStyle("-fx-background-color: white;");
         stackPane.getChildren().add(vBox);
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
-        fadeTransition.play();
-
-        stackPane.setVisible(true);
-        stackPane.setManaged(true);
+        stackPane.setVisible(false);
+        stackPane.setManaged(false);
 
         // handler bouton reprendre la partie
         reprendre.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -93,7 +88,7 @@ public class PauseMenu implements Menu {
     /**
      * Cache le menu avec une animation
      */
-    private static void hideMenu() {
+    public static void hideMenu() {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
@@ -106,13 +101,22 @@ public class PauseMenu implements Menu {
     }
 
     /**
+     * Affiche le menu avec une animation
+     */
+    public static void showMenu() {
+        stackPane.setVisible(true);
+        stackPane.setManaged(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+    }
+
+    /**
      * Initialise et renvoi le menu sous forme de Node
-     * @param w largeur de la fenêtre
-     * @param h hauteur de la fenêtre
      * @return renvoi un stackpane
      */
-    public static StackPane getMenu(Double w, Double h) {
-        initMenu(w, h);
+    public static StackPane getMenu() {
         return stackPane;
     }
 }

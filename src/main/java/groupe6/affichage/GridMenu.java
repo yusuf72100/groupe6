@@ -17,6 +17,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -422,6 +424,7 @@ public class GridMenu implements Menu {
      * @return T le menu à afficher
      */
     public <T> StackPane getMenu(boolean isNew, Double w, Double h) {
+        PauseMenu.initMenu(w,h);
         this.historiqueAides = new HistoriqueAidesArea(this,w, h);
         this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
@@ -607,15 +610,11 @@ public class GridMenu implements Menu {
             @Override
             public void handle(MouseEvent event){
                 // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
-                partie.getChrono().stop();
-                StackPane menu = PauseMenu.getMenu(w, h);
-                stackPane.getChildren().add(menu);
-
-                menu.visibleProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!newValue) {
-                        partie.getChrono().start();
-                    }
-                });
+                if(!PauseMenu.getMenu().isVisible()) {
+                    PauseMenu.showMenu();
+                } else {
+                    PauseMenu.hideMenu();
+                }
             }
         });
 
@@ -624,6 +623,15 @@ public class GridMenu implements Menu {
             @Override
             public void handle(MouseEvent event){
                 Main.showMainMenu();
+            }
+        });
+
+        // handler visibilité pause menu
+        PauseMenu.getMenu().visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                partie.getChrono().start();
+            } else {
+                partie.getChrono().stop();
             }
         });
 
@@ -666,8 +674,22 @@ public class GridMenu implements Menu {
         AnchorPane.setRightAnchor(container, 0.0);
         AnchorPane.setBottomAnchor(container, 0.0);
 
-        stackPane.getChildren().add(anchorPane);
+        stackPane.getChildren().addAll(anchorPane, PauseMenu.getMenu());
         StackPane.setAlignment(anchorPane, Pos.TOP_CENTER);
+
+        EventHandler<KeyEvent> keyEventHandler = event -> {
+            KeyCode keyCode = event.getCode();
+
+            if (keyCode == KeyCode.ESCAPE) {
+                if(!PauseMenu.getMenu().isVisible()) {
+                    PauseMenu.showMenu();
+                } else {
+                    PauseMenu.hideMenu();
+                }
+            }
+        };
+
+        stackPane.setOnKeyPressed(keyEventHandler);
 
         return stackPane;
     }
