@@ -106,6 +106,13 @@ public class Main extends Application {
         }
     }
 
+    public static void exitAll() {
+        if(grid!=null) {
+            grid.saveGame();
+        }
+        Platform.exit();
+    }
+
     /**
      * Méthode statique pour afficher le menu de sélection du mode de jeu
      */

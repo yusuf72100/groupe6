@@ -483,7 +483,7 @@ public class MainMenu implements Menu {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Platform.exit();
+                Main.exitAll();
             }
         });
 
