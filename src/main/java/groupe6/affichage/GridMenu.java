@@ -196,7 +196,7 @@ public class GridMenu implements Menu {
         updateAffichage();
 
         OptionsMenu.initMenu(w,h);
-        OptionsMenu.setProfil(Launcher.catalogueProfils.getProfilActuel());
+        OptionsMenu.setProfil(partie.getProfil());
 
         this.chronoThread = new ChronoThread(this.partie, this.chronoLabel, w, h);
         this.thread = new Thread(chronoThread);
