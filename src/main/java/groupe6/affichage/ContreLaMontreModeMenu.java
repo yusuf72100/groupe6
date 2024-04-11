@@ -336,7 +336,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
     backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
     // Adaptation de la taille du bouton en fonction de la taille de la fenêtre
-    backButton.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+    backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
     // Action du bouton de retour
     backButton.setOnMouseClicked(e -> {
       Main.showGameModeMenu();
