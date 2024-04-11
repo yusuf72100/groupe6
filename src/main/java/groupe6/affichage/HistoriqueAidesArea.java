@@ -93,6 +93,12 @@ public class HistoriqueAidesArea {
         Menu.adaptTextSize(this.titre, 50, w, h);
         StackPane.setAlignment(this.historiqueAidesScrollPane, Pos.CENTER);
         this.historiqueAidesStackPane.setTranslateX(w-this.historiqueAidesVBox.getPrefWidth()); // placement à droite
+
+        // Ajout des aides déja chargé
+        List<AideInfos> lstAide = this.gridMenu.getPartie().getHistoriqueAide().getListeAides();
+        for ( AideInfos a : lstAide ) {
+            ajouterNouvelleAide(a);
+        }
     }
 
     /**
