@@ -16,12 +16,24 @@ public class PauseMenu implements Menu {
      */
     private static StackPane stackPane;
 
+    /**
+     * Boîte vertical qui agence les boutons
+     */
     private static VBox vBox;
 
+    /**
+     * Bouton pour reprendre la partie et donc relancer le chrono
+     */
     private static Button reprendre;
 
+    /**
+     * Bouton d'accès au menu d'options
+     */
     private static Button options;
 
+    /**
+     * Bouton d'accès au menu principal
+     */
     private static Button exitMenu;
 
     /**
@@ -78,6 +90,9 @@ public class PauseMenu implements Menu {
         });
     }
 
+    /**
+     * Cache le menu avec une animation
+     */
     private static void hideMenu() {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
         fadeTransition.setFromValue(1.0);
@@ -90,9 +105,14 @@ public class PauseMenu implements Menu {
         });
     }
 
+    /**
+     * Initialise et renvoi le menu sous forme de Node
+     * @param w largeur de la fenêtre
+     * @param h hauteur de la fenêtre
+     * @return renvoi un stackpane
+     */
     public static StackPane getMenu(Double w, Double h) {
         initMenu(w, h);
-
         return stackPane;
     }
 }
