@@ -18,25 +18,25 @@ import java.util.ArrayList;
  */
 public class Adjacents03 extends Technique {
 
-    //TODO
     /**
-     *
+     * Booléen qui permet de vérifier de façon verticale
      */
     private boolean VERTI = true;
 
-    // TODO
+
     /**
-     *
+     * Booléen qui permet de vérifier de façon horizontale
      */
     private boolean HORIZ = false;
 
     /**
      * Constructeur de la classe de la zeroTroisAdjacents
+     *
      */
     public Adjacents03() {
         super(
-            DifficulteTechnique.BASIQUE,
-            "zéro et trois adjacents"
+                DifficulteTechnique.BASIQUE,
+                "zéro et trois adjacents"
         );
     }
 
@@ -48,51 +48,91 @@ public class Adjacents03 extends Technique {
      */
     @Override
     public ResultatTechnique run(Partie partie, int idxTechnique) {
+        System.out.println("test detec zero trois adjacents");
         Puzzle grille = partie.getPuzzle();
-        for(int i = 0; i < grille.getLargeur(); i++){
-            for(int j = 0; j < grille.getLongueur(); j++){
-                int valeur = grille.getCellule(i, j).getValeur();
-                if(valeur == 0){
-                    int gauche = grille.getCellule(i, j-1).getValeur();
-                    int bas = grille.getCellule(i+1, j).getValeur();
-                    int droite = grille.getCellule(i, j+1).getValeur();
-                    int haut = grille.getCellule(i-1, j).getValeur();
-                    if(gauche == 3){
-                        Coordonnee trois = new Coordonnee(i, j-1);
-                        Coordonnee zero = new Coordonnee(i, j);
-                        if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), HORIZ)) {
-                            ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
-                            if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
-                                return result;
-                            }
-                        }
-                    } else if(haut == 3){
-                        Coordonnee zero = new Coordonnee(i, j);
-                        Coordonnee trois = new Coordonnee(i-1, j);
-                        if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), VERTI)){
-                            ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
-                            if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
-                                return result;
-                            }
-                        }
-                    } else if (droite == 3){
-                        Coordonnee zero = new Coordonnee(i, j);
-                        Coordonnee trois = new Coordonnee(i, j+1);
-                        if(verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), HORIZ)){
-                            ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
-                            if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
-                                return result;
-                            }
-                        }
-                    } else if (bas == 3){
-                        Coordonnee zero = new Coordonnee(i, j);
-                        Coordonnee trois = new Coordonnee(i+1, j);
-                        if(verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), VERTI)){
-                            ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
-                            if ( !partie.getHistoriqueAide().aideDejaPresente(result)) {
-                                return result;
-                            }
-                        }
+
+        List<Coordonnee> numero = rechercherNumero(grille, 0);
+        if(numero.size() == 0){
+            return new ResultatTechnique(false);
+        }
+
+        // Parcours des coordonnées des 0 trouvées
+        for(int i = 0; i < numero.size(); i++) {
+            int x = numero.get(i).getX();
+            int y = numero.get(i).getY();
+
+            int haut;
+            int bas;
+            int droite;
+            int gauche;
+
+            if (grille.estDansGrille(y - 1, x)) {
+                haut = grille.getCellule(y - 1, x).getValeur();
+            } else {
+                haut = -1;
+            }
+
+            if (grille.estDansGrille(y + 1, x)) {
+                bas = grille.getCellule(y + 1, x).getValeur();
+            } else {
+                bas = -1;
+            }
+
+            if (grille.estDansGrille(y, x + 1)) {
+                droite = grille.getCellule(y, x + 1).getValeur();
+            } else {
+                droite = -1;
+            }
+
+            if (grille.estDansGrille(y, x - 1)) {
+                gauche = grille.getCellule(y, x - 1).getValeur();
+            } else {
+                gauche = -1;
+            }
+            if (gauche == 3) {
+                System.out.println("gauche = 3");
+                Coordonnee trois = new Coordonnee(y, x - 1);
+                Coordonnee zero = new Coordonnee(y, x);
+                if (verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), HORIZ)) {
+                    System.out.println("verifZeroTroisAdjacents1");
+                    ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
+                    if (!partie.getHistoriqueAide().aideDejaPresente(result)) {
+                        return result;
+                    }
+                }
+            } else if (haut == 3) {
+                System.out.println("haut = 3");
+                Coordonnee zero = new Coordonnee(y, x);
+                Coordonnee trois = new Coordonnee(y - 1, x);
+                if (verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), VERTI)) {
+                    System.out.println("verifZeroTroisAdjacents2");
+                    ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
+                    if (!partie.getHistoriqueAide().aideDejaPresente(result)) {
+                        return result;
+                    }
+                }
+            } else if (droite == 3) {
+                System.out.println("droite = 3");
+                Coordonnee zero = new Coordonnee(y, x);
+                Coordonnee trois = new Coordonnee(y, x + 1);
+                if (verifZeroTroisAdjacent(grille, Arrays.asList(zero, trois), HORIZ)) {
+                    System.out.println("verifZeroTroisAdjacents3");
+                    ResultatTechnique result = creerResultat(Arrays.asList(zero, trois), idxTechnique);
+                    if (!partie.getHistoriqueAide().aideDejaPresente(result)) {
+                        return result;
+                    }
+                }
+            } else if (bas == 3) {
+                System.out.println("bas = 3");
+                Coordonnee zero = new Coordonnee(y, x);
+                Coordonnee trois = new Coordonnee(y + 1, x);
+                if (verifZeroTroisAdjacent(grille, Arrays.asList(trois, zero), VERTI)) {
+                    System.out.println("verifZeroTroisAdjacents4");
+                    ResultatTechnique result = creerResultat(Arrays.asList(trois, zero), idxTechnique);
+                    System.out.println("res :" + result);
+                    if (!partie.getHistoriqueAide().aideDejaPresente(result)) {
+                        System.out.println("zeroTroisAdjacents existe pas encore");
+                        return result;
                     }
                 }
             }
@@ -113,12 +153,12 @@ public class Adjacents03 extends Technique {
         ListePositions.add(positions.get(1));
 
         return new ResultatTechnique(
-            true,
-            new HashSet<>(ListePositions),
-            idxTechnique,
-            nomTechnique,
-            nomTechniqueStylise,
-            difficulte
+                true,
+                new HashSet<>(ListePositions),
+                idxTechnique,
+                nomTechnique,
+                nomTechniqueStylise,
+                difficulte
         );
     }
 
@@ -138,11 +178,11 @@ public class Adjacents03 extends Technique {
         if(sens){
             if(grille.getCellule(coord1.getY(), coord2.getX()).getValeur() == 0){ // Le trois est au dessus
                 if(grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) == ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX() - 1).getCote(Cellule.BAS) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX() + 1).getCote(Cellule.BAS) != ValeurCote.TRAIT){
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) == ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX() - 1).getCote(Cellule.BAS) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX() + 1).getCote(Cellule.BAS) != ValeurCote.TRAIT){
                     return true;
                 } else {
                     return false;
@@ -162,22 +202,22 @@ public class Adjacents03 extends Technique {
         } else {
             if(grille.getCellule(coord1.getY(), coord1.getX()).getValeur() == 0){ // Le trois est à droite
                 if(grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) == ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY() - 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
-                || grille.getCellule(coord2.getY() + 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT){
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY(), coord2.getX()).getCote(Cellule.GAUCHE) == ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY() - 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord2.getY() + 1, coord2.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT){
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 if(grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.GAUCHE) != ValeurCote.TRAIT
-                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
-                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
-                || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.DROITE) == ValeurCote.TRAIT
-                || grille.getCellule(coord1.getY() - 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
-                || grille.getCellule(coord1.getY() + 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT) {
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.BAS) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY(), coord1.getX()).getCote(Cellule.DROITE) == ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY() - 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                        || grille.getCellule(coord1.getY() + 1, coord1.getX()).getCote(Cellule.DROITE) != ValeurCote.TRAIT) {
                     return true;
                 } else {
                     return false;
