@@ -40,9 +40,6 @@ public class TestPuzzle extends ModelTest {
     grilleCellules[2][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
     TestPuzzle.puzzle = new Puzzle(largeur, longueur, grilleCellules, grilleCellules, DifficultePuzzle.FACILE);
-
-    System.out.println("Puzzle utilisé pour les tests :\n"+TestPuzzle.puzzle);
-
   }
 
   @Test

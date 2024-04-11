@@ -250,7 +250,6 @@ public class Main extends Application {
             Launcher.dossierTechniques + "/description/" + techniqueName + ".desc"
         );
         File fichierDescriptionTechnique = new File(cheminTxtTechnique);
-        System.out.println(cheminTxtTechnique);
         String descriptionTechnique = "";
         if ( !fichierDescriptionTechnique.exists()) {
             throw new IllegalArgumentException("Le fichier " + cheminTxtTechnique + " n'existe pas");

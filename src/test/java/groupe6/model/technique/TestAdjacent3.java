@@ -10,6 +10,7 @@ import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import groupe6.model.profil.Profil;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +18,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAdjacent3 extends ModelTest {
     private static Puzzle puzzle;
+
     private static Adjacents3 techniqueAdjacents3;
+
     private static Partie partie;
+
     private static Profil profil;
 
-    //@BeforeAll
+    @BeforeAll
     public static void initAll(){
+
+        ModelTest.afficherNomDebut(TestAdjacent3.class);
+
         int largeur = 6;
         int longueur = 6;
 
@@ -80,21 +87,29 @@ public class TestAdjacent3 extends ModelTest {
     }
 
 
-    //@Test
+    @Test
     public void testDetectionTroisTrois(){
         ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
         assertTrue(resultat.isTechniqueTrouvee());
     }
 
-    //@Test
+    @Test
     public void testDetectionTroisTroisBonnesCoordonnees(){
         ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
         assertEquals(resultat.getCoordonnees().size(),2);
+        // Vérification des coordonnées dans le résultat
         assertTrue(resultat.getCoordonnees().contains(new Coordonnee(0,2)));
         assertTrue(resultat.getCoordonnees().contains(new Coordonnee(1,2)));
+        // Vérifie si l'aide trouvé est bien ajouté dans l'historique
         partie.getHistoriqueAide().ajouterAide(new AideInfos(resultat));
-        resultat = techniqueAdjacents3.run(partie, 1);
         assertTrue(partie.getHistoriqueAide().aideDejaPresente(resultat));
+        // Test si une deuxième aide est trouvée ( elle ne doit pas être trouvée )
+        resultat = techniqueAdjacents3.run(partie, 1);
         assertFalse(resultat.isTechniqueTrouvee());
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestAdjacent3.class);
     }
 }

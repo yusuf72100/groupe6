@@ -251,7 +251,6 @@ public class CelluleNode extends Node {
      * @param buttonIndex le bouton qu'on veut remettre à l'état précédent ( coté )
      */
     public void resetButtonCss(int buttonIndex) {
-        System.out.println("\n\nBouton n°" + buttonIndex + " : " + this.buttonsOldCss[buttonIndex]);
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight");
         if(this.buttonsOldCss[buttonIndex] != null) {
             this.cellule[buttonIndex].getStyleClass().add(this.buttonsOldCss[buttonIndex]);

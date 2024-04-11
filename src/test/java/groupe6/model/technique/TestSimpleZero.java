@@ -6,6 +6,7 @@ import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.profil.Profil;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,14 +18,17 @@ public class TestSimpleZero extends ModelTest {
     private static Partie partie;
     private static Profil profil;
 
-    //@BeforeAll
+    @BeforeAll
     public static void initAll(){
+
+        ModelTest.afficherNomDebut(TestSimpleZero.class);
+
         techniqueSimpleZero = techniqueSimpleZero.getInstance();
         partie = PartieTest.getPartieTest();
     }
 
 
-    //@Test
+    @Test
     public void testDetectionSimpleZero(){
         HistoriqueAides historiqueAides = partie.getHistoriqueAide();
         ResultatTechnique resultatTechnique;
@@ -64,5 +68,10 @@ public class TestSimpleZero extends ModelTest {
 //        resultatTechnique = techniqueSimpleZero.run(partie, 0);
 //        assertFalse(resultatTechnique.isTechniqueTrouvee());
 
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestSimpleZero.class);
     }
 }

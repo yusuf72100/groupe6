@@ -9,6 +9,7 @@ import groupe6.model.partie.puzzle.TestPuzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import groupe6.model.profil.Profil;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import groupe6.model.partie.aide.AideInfos;
@@ -23,9 +24,11 @@ public class TestBoucleUn extends ModelTest{
     private static Partie partieTrue;
     private static Profil profil;
 
-    //@BeforeAll
+    @BeforeAll
     public static void initAll(){
-        ModelTest.afficherNomDebut(TestPuzzle.class);
+
+        ModelTest.afficherNomDebut(TestBoucleUn.class);
+
         int largeur3 = 3;
         int longueur3 = 3;
 
@@ -72,13 +75,13 @@ public class TestBoucleUn extends ModelTest{
         partieTrue = new Partie(puzzleTrue, ModeJeu.CLASSIQUE, profil);
     }
 
-    //@Test
+    @Test
     public void testDetectionBoucleUnFalse(){
         ResultatTechnique resultat = techniqueBoucleUn.run(partie, 4);
         assertFalse(resultat.isTechniqueTrouvee());
     }
 
-    //@Test
+    @Test
     public void testDetectionBoucleUnTrue(){
         ResultatTechnique resultatTrue = techniqueBoucleUn.run(partieTrue, 4);
         assertTrue(resultatTrue.isTechniqueTrouvee());
@@ -86,9 +89,14 @@ public class TestBoucleUn extends ModelTest{
         assertTrue(partieTrue.getHistoriqueAide().aideDejaPresente(resultatTrue));
     }
 
-    //@Test
+    @Test
     public void testDetectionBoucleUnDejaPresente(){
         ResultatTechnique resultat = techniqueBoucleUn.run(partieTrue, 4);
         assertFalse(resultat.isTechniqueTrouvee());
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        ModelTest.afficherNomFin(TestBoucleUn.class);
     }
 }
