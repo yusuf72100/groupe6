@@ -339,7 +339,6 @@ public class SaveSelectionMenu extends MainMenu {
         double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
         backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
         backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
-        backButton.getStyleClass().add("button-rounded");
         StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
 
         backButton.setOnMouseClicked(e -> {

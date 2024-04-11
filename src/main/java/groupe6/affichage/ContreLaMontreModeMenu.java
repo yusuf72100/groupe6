@@ -331,7 +331,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     StackPane.setMargin(backButton, new javafx.geometry.Insets(0, 0, 0.05 * windowHeight, 0));
     backButton.getStyleClass().add("button-rounded");
     backButton.getStyleClass().add("button-text");
-//    backButton.setStyle( backButton.getStyle() + "-fx-cursor: hand;");
+
     // Adaptation de la taille du texte en fonction de la taille de la fenêtre
     double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
     backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
