@@ -243,7 +243,7 @@ public class CelluleNode extends Node {
             this.buttonsOldCss[buttonIndex] = cssClass;
         }
 
-        System.out.println("Before : " + this.cellule[buttonIndex].getStyleClass());
+        //System.out.println("Before : " + this.cellule[buttonIndex].getStyleClass());
     }
 
     /**
@@ -256,7 +256,7 @@ public class CelluleNode extends Node {
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-red");
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-blue");
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-orange");
-        System.out.println("After : " + this.cellule[buttonIndex].getStyleClass() + " removed : " + this.buttonsOldCss[buttonIndex] );
+        //System.out.println("After : " + this.cellule[buttonIndex].getStyleClass() + " removed : " + this.buttonsOldCss[buttonIndex] );
         this.buttonsOldCss[buttonIndex] = null;
     }
 
