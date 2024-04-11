@@ -540,6 +540,8 @@ public class MainMenu implements Menu {
 
         mainPane.setOnKeyPressed(keyEventHandler);
 
+        mainPane.setPadding(new Insets(10, 10, 10, 10));
+
         return mainPane;
     }
 }
