@@ -111,6 +111,7 @@ public class Main extends Application {
             grid.saveGame();
         }
         Platform.exit();
+        return;
     }
 
     /**
