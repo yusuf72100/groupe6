@@ -3,6 +3,7 @@ package groupe6.tools.puzzleGenerator;
 import java.util.function.UnaryOperator;
 
 import groupe6.affichage.Menu;
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,10 +82,6 @@ public class MainMenu implements Menu {
                 String largeurValue = largeur.getText();
 
                 try {
-                    System.out.println("Bouton Valider cliqué !");
-                    System.out.println("Longueur: " + Integer.parseInt(longueurValue));
-                    System.out.println("Largeur: " + Integer.parseInt(largeurValue));
-
                     DifficultePuzzle diff = switch (comboBox.getValue()) {
                         case "Moyen" -> DifficultePuzzle.MOYEN;
                         case "Difficile" -> DifficultePuzzle.DIFFICILE;
@@ -93,7 +90,7 @@ public class MainMenu implements Menu {
 
                     main.showNewPuzzle(Integer.parseInt(largeurValue), Integer.parseInt(longueurValue), diff);
                 } catch (NumberFormatException e) {
-                    System.out.println("Erreur de conversion en entier.");
+                    System.err.println("Erreur de conversion en entier.");
                 }
             }
         });
@@ -110,10 +107,14 @@ public class MainMenu implements Menu {
                 java.io.File selectedFile = fileChooser.showOpenDialog(main.getStage());
 
                 if (selectedFile != null) {
-                    System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
+                    if (Launcher.getVerbose() ) {
+                        System.out.println("Log : Fichier sélectionné : " + selectedFile.getAbsolutePath());
+                    }
                     main.showLoadedPuzzle(selectedFile);
                 } else {
-                    System.out.println("Aucun fichier sélectionné.");
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("Log : Aucun fichier sélectionné.");
+                    }
                 }
             }
         });

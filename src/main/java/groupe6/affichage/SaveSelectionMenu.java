@@ -243,12 +243,15 @@ public class SaveSelectionMenu extends MainMenu {
                 Menu.adaptTextSize(descriptionText[i], 18, windowWidth, windowHeigth);
                 descriptionText[i].setWrapText(true);
 
-                // labels[i].setStyle("-fx-padding: 0 0 10 0;"); // Ajouter un padding pour
                 // déplacer le texte vers le bas
                 buttonsContainer[i] = new StackPane();
                 buttonsContainer[i].setAlignment(Pos.CENTER);
                 buttonsContainer[i].getChildren().addAll(buttons[i], buttonsText[i], descriptionText[i]);
+                buttonsContainer[i].setMinWidth(buttons[i].getMaxWidth());
+                buttonsContainer[i].setMaxWidth(buttons[i].getMaxWidth());
+                buttonsContainer[i].setMinHeight(buttons[i].getMaxHeight());
                 buttonsContainer[i].setMaxHeight(buttons[i].getMaxHeight());
+                buttonsContainer[i].setPadding(new Insets(10, 10, 10, 10));
 
                 // translation text animation
                 fadeTransition[i] = new FadeTransition(Duration.seconds(0.3), descriptionText[i]);
@@ -335,7 +338,8 @@ public class SaveSelectionMenu extends MainMenu {
         // Adaptation de la taille du texte en fonction de la taille de la fenêtre
         double nouvelleTaille = 35 * Math.min(windowWidth / 1920, windowHeight / 1080);
         backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
-        backButton.setPrefSize(Menu.toPourcentWidth(200.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+        backButton.setPrefSize(Menu.toPourcentWidth(300.0, windowWidth), Menu.toPourcentHeight(100.0, windowHeight));
+        backButton.getStyleClass().add("button-rounded");
         StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
 
         backButton.setOnMouseClicked(e -> {

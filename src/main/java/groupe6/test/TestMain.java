@@ -19,12 +19,7 @@ public class TestMain {
      */
     public static void main(String[] args) {
 
-//        TestProfils.main(args);
-
-//        Puzzle puzzle = Puzzle.chargerPuzzle("Slitherlink/puzzles/FACILE_6x6_F.puzzle");
-//        puzzle.genererGrillePropre();
-//        Puzzle.sauvegarderPuzzle(puzzle, "Slitherlink/puzzles/FACILE_6x6.puzzle");
-
+        System.out.println("TestMain");
 
     }
 }

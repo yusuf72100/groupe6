@@ -185,7 +185,6 @@ public class MainMenu implements Menu {
      */
     protected static void updateProfilsSelector() {
         profils = Launcher.catalogueProfils.getListeProfils();
-        System.out.println("\n\n\n" + profils.size() + " profils");
         profilSelector = new ComboBox<>();
 
         if (profils != null) {
@@ -237,7 +236,6 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
-                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -272,7 +270,6 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
-                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -313,7 +310,6 @@ public class MainMenu implements Menu {
             if(CatalogueProfil.nomProfilValide(nom)) {
                 try {
                     Launcher.catalogueProfils.creerNouveauProfil(nom);
-                    System.out.println("Nouveau profil : " + nom);
                     profilSelector.getItems().add(profilSelector.getItems().size()-1, nom);
                     profilSelector.setValue(nom);
                 } catch (IOException e) {
@@ -337,7 +333,7 @@ public class MainMenu implements Menu {
         windowHeight = h;
         title.getStyleClass().add("title");
         title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
-        mainHbox.setSpacing(200); // espacement entre les éléments
+        mainHbox.setSpacing(200);
 
         updateProfilsSelector();
 
@@ -355,6 +351,7 @@ public class MainMenu implements Menu {
             buttonsText[finalI].setMouseTransparent(true);
             buttonsText[finalI].setTextAlignment(TextAlignment.CENTER);
             Menu.adaptTextSize(buttonsText[finalI], 35, windowWidth, windowHeight);
+            buttonsText[finalI].setWrapText(true);
 
             descriptionsBackground[finalI] = new HBox();
             descriptionsBackground[finalI].setMaxSize(buttons[finalI].getPrefWidth(),
@@ -370,6 +367,7 @@ public class MainMenu implements Menu {
             descriptionText[finalI].setTranslateY(Menu.toPourcentHeight(200.0, windowHeight));
             descriptionText[finalI].getStyleClass().add("description-text");
             Menu.adaptTextSize(descriptionText[finalI], 18, windowWidth, windowHeight);
+            descriptionText[finalI].setWrapText(true);
 
             // déplacer le texte vers le bas
             buttonsContainer[finalI] = new StackPane();
@@ -424,7 +422,6 @@ public class MainMenu implements Menu {
                                 } else {
                                     System.out.println("Aucune sauvegarde trouvée");
                                 }
-
                             }
                         });
                         descriptionText[finalI].setText("Charger une partie existante");
@@ -448,7 +445,7 @@ public class MainMenu implements Menu {
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                // Lance le mode entrainement
+                                // TODO : Lance le mode entrainement
                             }
                         });
                         break;
@@ -481,7 +478,7 @@ public class MainMenu implements Menu {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Platform.exit();
+                Main.exitAll();
             }
         });
 

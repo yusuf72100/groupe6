@@ -7,6 +7,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
 import groupe6.model.technique.DifficulteTechnique;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -92,6 +93,7 @@ public class Main extends Application {
                 if(grid!=null) {
                     grid.saveGame();
                 }
+                Platform.exit();
             });
 
             // Gestion de l'icône
@@ -102,6 +104,17 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Arrête les threads du grid menu
+     */
+    public static void exitAll() {
+        if(grid!=null) {
+            grid.saveGame();
+        }
+        Platform.exit();
+        return;
     }
 
     /**
@@ -162,6 +175,8 @@ public class Main extends Application {
         alert.setTitle(title);
         alert.setHeaderText(headerTexte);
         alert.setContentText(contentTexte);
+        alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
+        alert.setY(0);
 
         alert.showAndWait();
     }
@@ -235,7 +250,6 @@ public class Main extends Application {
             Launcher.dossierTechniques + "/description/" + techniqueName + ".desc"
         );
         File fichierDescriptionTechnique = new File(cheminTxtTechnique);
-        System.out.println(cheminTxtTechnique);
         String descriptionTechnique = "";
         if ( !fichierDescriptionTechnique.exists()) {
             throw new IllegalArgumentException("Le fichier " + cheminTxtTechnique + " n'existe pas");
