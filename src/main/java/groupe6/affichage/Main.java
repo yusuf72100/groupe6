@@ -128,6 +128,9 @@ public class Main extends Application {
      * Méthode statique pour afficher le menu principal
      */
     public static void showMainMenu() {
+        if(grid != null) {
+            grid.saveGame();
+        }
         Main.setRoot(MainMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 

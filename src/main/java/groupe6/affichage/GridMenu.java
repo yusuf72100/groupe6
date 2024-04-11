@@ -33,6 +33,10 @@ import java.util.Timer;
  */
 public class GridMenu implements Menu {
 
+    private final AnchorPane anchorPane;
+
+    private final StackPane stackPane;
+
     /**
      * La partie en cours
      */
@@ -163,6 +167,8 @@ public class GridMenu implements Menu {
      * @param partie la partie auquel est lié l'inteface graphique
      */
     public GridMenu(Partie partie, Double w, Double h){
+        this.stackPane = new StackPane();
+        this.anchorPane = new AnchorPane();
         this.compteur = 0;
         buttonHoverLabel = new Label();
         this.chronoLabel = new Label();
@@ -402,8 +408,8 @@ public class GridMenu implements Menu {
             ValeurCote valeurCote = partie.getPuzzle().getCellule(i, j).getCote(cote);
             partie.actionBasculeTroisEtat(i,j,cote);
 
-            //updateAffichage();
-            updateNode(i, j);
+            updateAffichage();
+            //updateNode(i, j);
         }
     }
 
@@ -415,7 +421,7 @@ public class GridMenu implements Menu {
      * @param h hauteur de la fenêtre
      * @return T le menu à afficher
      */
-    public <T> AnchorPane getMenu(boolean isNew, Double w, Double h) {
+    public <T> StackPane getMenu(boolean isNew, Double w, Double h) {
         this.historiqueAides = new HistoriqueAidesArea(this,w, h);
         this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
@@ -600,8 +606,18 @@ public class GridMenu implements Menu {
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                //partie.pause();
                 // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
+                partie.getChrono().stop();
+                StackPane menu = PauseMenu.getMenu(w, h);
+                stackPane.getChildren().add(menu);
+
+                menu.visibleProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue) {
+                        // Le menu pause est devenu visible
+                    } else {
+                        partie.getChrono().start();
+                    }
+                });
             }
         });
 
@@ -609,7 +625,6 @@ public class GridMenu implements Menu {
         home.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                saveGame();
                 Main.showMainMenu();
             }
         });
@@ -647,13 +662,16 @@ public class GridMenu implements Menu {
         this.partie.getChrono().start();
         this.thread.start();
 
-        AnchorPane anchorPane = new AnchorPane(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
+        anchorPane.getChildren().addAll(this.container, buttonContainer, this.historiqueAidesStackPane, buttonHoverLabel);
         AnchorPane.setTopAnchor(container, buttonContainer.getPrefHeight());
         AnchorPane.setLeftAnchor(container, (anchorPane.getPrefWidth() - container.getPrefWidth()) / 2.0);
         AnchorPane.setRightAnchor(container, 0.0);
         AnchorPane.setBottomAnchor(container, 0.0);
 
-        return anchorPane;
+        stackPane.getChildren().add(anchorPane);
+        StackPane.setAlignment(anchorPane, Pos.TOP_CENTER);
+
+        return stackPane;
     }
 
     /**

@@ -77,7 +77,6 @@ public class GameModeSelectionMenu extends MainMenu {
             @Override
             public void handle(ActionEvent event) {
                 // TODO : Menu aventure
-                MainMenu.mainPane.getChildren().add(PauseMenu.getMenu(windowWidth, windowHeigth));
             }
         });
 

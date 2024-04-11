@@ -1,9 +1,14 @@
 package groupe6.affichage;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class PauseMenu implements Menu {
     /**
@@ -19,12 +24,17 @@ public class PauseMenu implements Menu {
 
     private static Button exitMenu;
 
+    /**
+     * Initialise le menu de pause
+     * @param w largeur de la fenêtre
+     * @param h hauteur de la fenêtre
+     */
     public static void initMenu(Double w, Double h) {
         vBox = new VBox();
         stackPane = new StackPane();
         reprendre = new Button("Reprendre");
         options = new Button("Option");
-        exitMenu = new Button("Exit");
+        exitMenu = new Button("Menu principal");
 
         reprendre.getStyleClass().addAll("button-rounded", "button-text");
         options.getStyleClass().addAll("button-rounded", "button-text");
@@ -40,7 +50,44 @@ public class PauseMenu implements Menu {
 
         // TODO : Mettre un background noir transparent 0.7 avec une animation et mettre en pause le chrono
 
+        stackPane.setStyle("-fx-background-color: white;");
         stackPane.getChildren().add(vBox);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+
+        stackPane.setVisible(true);
+        stackPane.setManaged(true);
+
+        // handler bouton reprendre la partie
+        reprendre.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                hideMenu();
+            }
+        });
+
+        // handler bouton menu principal
+        exitMenu.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                Main.showMainMenu();
+            }
+        });
+    }
+
+    private static void hideMenu() {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), stackPane);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
+
+        fadeTransition.setOnFinished(event -> {
+            stackPane.setVisible(false);
+            stackPane.setManaged(false);
+        });
     }
 
     public static StackPane getMenu(Double w, Double h) {
