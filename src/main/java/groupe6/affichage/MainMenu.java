@@ -185,7 +185,6 @@ public class MainMenu implements Menu {
      */
     protected static void updateProfilsSelector() {
         profils = Launcher.catalogueProfils.getListeProfils();
-        System.out.println("\n\n\n" + profils.size() + " profils");
         profilSelector = new ComboBox<>();
 
         if (profils != null) {
@@ -237,7 +236,6 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
-                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -272,7 +270,6 @@ public class MainMenu implements Menu {
 
                     if(cheminImageAvatar != null) {
                         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
-                        System.out.println(cheminImageAvatar);
                         imageView.setFitWidth(50);
                         imageView.setFitHeight(50);
                         setGraphic(imageView);
@@ -313,7 +310,6 @@ public class MainMenu implements Menu {
             if(CatalogueProfil.nomProfilValide(nom)) {
                 try {
                     Launcher.catalogueProfils.creerNouveauProfil(nom);
-                    System.out.println("Nouveau profil : " + nom);
                     profilSelector.getItems().add(profilSelector.getItems().size()-1, nom);
                     profilSelector.setValue(nom);
                 } catch (IOException e) {
