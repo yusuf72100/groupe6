@@ -36,8 +36,32 @@ public class GestionnaireTechnique{
      * Méthode pour charger les techniques
      */
     private void chargerTechniques() {
-        // Charger les techniques
+        /*
+         * Techniques DEMARRAGE
+         */
+        /// this.ajouterTechnique(SimpleZero.getInstance());
         this.ajouterTechnique(new Adjacents03());
+        /// TODO : this.ajouterTechnique(new Diagonales03());
+        this.ajouterTechnique(new Adjacents03());
+        /// TODO : this.ajouterTechnique(new Diagonales3());
+        /// this.ajouterTechnique(AnyNumberCorner.getInstance());
+        /*
+         * Techniques BASIQUES
+         */
+        /// this.ajouterTechnique(Coin03.getInstance());
+        /// this.ajouterTechnique(new BoucleAu3());
+        this.ajouterTechnique(new BoucleAu1());
+        // TODO : this.ajouterTechnique(new ConstraintOn2());
+        // TODO : this.ajouterTechnique(new AvoidSeparateLoop());
+        /*
+         * Techniques AVANCEES
+         */
+        // TODO : this.ajouterTechnique(new Advanced1());
+        // TODO : this.ajouterTechnique(new Advanced2());
+        // TODO : this.ajouterTechnique(new Advanced3());
+        // TODO : this.ajouterTechnique(new Advanced4());
+        // TODO : this.ajouterTechnique(new Advanced5());
+        // TODO : this.ajouterTechnique(new Advanced6());
     }
 
     /**
@@ -87,6 +111,7 @@ public class GestionnaireTechnique{
                 try {
                     Future<ResultatTechnique> future = completionService.take();
                     ResultatTechnique resultat = future.get();
+                    System.out.println(resultat.toString());
                     lstResultats.add(resultat);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

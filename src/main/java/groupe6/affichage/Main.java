@@ -21,8 +21,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.time.Duration;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -92,6 +92,7 @@ public class Main extends Application {
             primary.setOnCloseRequest(event -> {
                 if(grid!=null) {
                     grid.saveGame();
+                    resetGrid();
                 }
                 Platform.exit();
             });
@@ -107,11 +108,19 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour reset le grid à null qu'an on à fini une partie
+     */
+    public static void resetGrid() {
+        grid = null;
+    }
+
+    /**
      * Arrête les threads du grid menu
      */
     public static void exitAll() {
         if(grid!=null) {
             grid.saveGame();
+            resetGrid();
         }
         Platform.exit();
         return;
@@ -176,7 +185,7 @@ public class Main extends Application {
         alert.setHeaderText(headerTexte);
         alert.setContentText(contentTexte);
         alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
-        alert.setY(0);
+        alert.setY(Screen.getPrimary().getVisualBounds().getHeight() * 0.02);
 
         alert.showAndWait();
     }
@@ -224,11 +233,12 @@ public class Main extends Application {
         String nomSyliseTechnique, String techniqueName, DifficulteTechnique difficulteTechnique,
         double width, double height
     ) {
+        // Création de la pop up
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information sur la technique");
         alert.setContentText("Appuyez sur OK pour continuer");
 
-        // Ajoute les images
+        // Ajoute les images de la technique
         HBox imagesTechniqueHBox = new HBox();
         int nbImage = 2;
         if ( difficulteTechnique == DifficulteTechnique.AVANCEE ) {
@@ -245,24 +255,23 @@ public class Main extends Application {
         }
         imagesTechniqueHBox.setSpacing(50);
 
-        // Récupération de la description de la technique
+        // Chemin du fichier de description de la technique
         String cheminTxtTechnique = Launcher.normaliserChemin(
             Launcher.dossierTechniques + "/description/" + techniqueName + ".desc"
         );
-        File fichierDescriptionTechnique = new File(cheminTxtTechnique);
-        String descriptionTechnique = "";
-        if ( !fichierDescriptionTechnique.exists()) {
-            throw new IllegalArgumentException("Le fichier " + cheminTxtTechnique + " n'existe pas");
-        }
-        try {
-            Scanner scanner = new Scanner(fichierDescriptionTechnique);
-            while (scanner.hasNextLine()) {
-                descriptionTechnique += scanner.nextLine() + "\n";
+
+        // Récupération de la description de la technique à partir du fichier .desc
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cheminTxtTechnique), "UTF-8"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
             }
-            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String descriptionTechnique = contentBuilder.toString();
+        System.out.println(descriptionTechnique);
 
         // Le label qui montre le nom de la technique
         Label labelNomTech = new Label(nomSyliseTechnique);
@@ -328,6 +337,102 @@ public class Main extends Application {
 
 
         alert.showAndWait();
+    }
+
+    /**
+     * Méthode statique pour afficher une pop-up de fin de partie
+     *
+     * @param partie la partie qui vient d'être finie
+     */
+    public static void afficherPopUpFinPartie(Partie partie, double width, double height) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Fin de la partie");
+        alert.setContentText("Appuyez sur OK pour revenir au menu principal");
+
+        boolean partieGagnee = partie.getInfos().getGagnee();
+
+        // Gestion du message de fin de partie
+
+        String endingMessageTexte = "Bravo, vous avez terminé la partie !";
+        if ( !partieGagnee ) {
+            endingMessageTexte = "Dommage, vous avez dépassé le temps limite !";
+        }
+
+        // Le label qui contient le message de fin de partie
+        Label endingMessage = new Label(endingMessageTexte);
+        endingMessage.setWrapText(true);
+        Menu.adaptTextSize(endingMessage, 28, width, height);
+
+        endingMessage.setAlignment(Pos.CENTER);
+
+        // Le label qui contient le score de la partie
+        String scoreTexte = "Score : " + partie.getScore();
+        Label scoreLabel = new Label(scoreTexte);
+        Menu.adaptTextSize(scoreLabel, 26, width, height);
+        scoreLabel.setAlignment(Pos.CENTER);
+
+        // Vbox qui contient les informations de la partie
+        VBox infoPartieVBox = new VBox();
+        infoPartieVBox.getChildren().addAll(
+            endingMessage,
+            new Label("\n"),
+            scoreLabel
+        );
+
+        // Gestion de l'affichage du temps de la partie
+        if ( !partieGagnee ) {
+            // Gestion de l'affichage du temps limite
+            Duration limiteTemps = partie.getInfos().getLimiteTemps();
+            String limiteTempsTexte;
+            if ( limiteTemps.toHours() > 0 ) {
+                limiteTempsTexte = limiteTemps.toHours() + "h " + limiteTemps.toMinutesPart() + "m et " + limiteTemps.toSecondsPart() + "s";
+            } else {
+                limiteTempsTexte = limiteTemps.toMinutesPart() + "m et " + limiteTemps.toSecondsPart() + "s";
+            }
+            Label labelLimiteTemps = new Label("Temps limite : " + limiteTempsTexte);
+            Menu.adaptTextSize(labelLimiteTemps, 26, width, height);
+            labelLimiteTemps.setAlignment(Pos.CENTER);
+            infoPartieVBox.getChildren().add(labelLimiteTemps);
+        }
+
+        // Ajout saut de ligne pour la présentation
+        infoPartieVBox.getChildren().add(new Label("\n"));
+
+        infoPartieVBox.setAlignment(Pos.CENTER);
+
+        // HBox centrée horizontalement le contenu
+        HBox centerHBox = new HBox();
+        centerHBox.getChildren().addAll(
+            infoPartieVBox
+        );
+        centerHBox.setAlignment(Pos.CENTER);
+
+        // VBox pour centrer verticalement le contenu
+        VBox centerVBox = new VBox();
+        centerVBox.getChildren().addAll(
+            centerHBox
+        );
+        centerVBox.setAlignment(Pos.CENTER);
+
+
+        // VBox principale pour mettre en place le contenu et le séparateur
+        VBox mainVBox = new VBox();
+        mainVBox.getChildren().addAll(
+            new Label("\n"),
+            centerVBox,
+            new Label("\n"),
+            new Separator()
+        );
+
+        // Gestion du dialogPane
+        alert.getDialogPane().setHeader(mainVBox);
+        alert.getDialogPane().setMinWidth(0.4 * width);
+
+        // Affichage de la pop-up et attente de la réponse
+        alert.showAndWait();
+
+        // Retour au menu principal
+        showMainMenu();
     }
 
     /**

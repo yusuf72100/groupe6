@@ -53,24 +53,31 @@ public class PartieInfos implements Serializable{
     private boolean complete;
 
     /**
-     * Constructeur de la classe PartieInfos ( pas de limite de temps )
-     *
-     * @param chrono le chrono de la partie
-     * @param score le score de la partie
-     * @param mode le mode de jeu de la partie
-     * @param complete boolean qui indique si la partie est complète
+     * Boolean qui indique si la partie est gagnée
      */
-    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete){
-        this.date = new Date();
-        this.score = score;
-        this.chrono = chrono;
-        this.modeJeu = mode;
-        this.limiteTemps = null;
-        this.complete = complete;
-    }
+    private boolean gagnee;
+
+    // TODO : A supprimer
+//    /**
+//     * Constructeur de la classe PartieInfos ( pas de limite de temps )
+//     *
+//     * @param chrono le chrono de la partie
+//     * @param score le score de la partie
+//     * @param mode le mode de jeu de la partie
+//     * @param complete boolean qui indique si la partie est complète
+//     */
+//    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete, boolean gagnee){
+//        this.date = new Date();
+//        this.score = score;
+//        this.chrono = chrono;
+//        this.modeJeu = mode;
+//        this.limiteTemps = null;
+//        this.complete = complete;
+//        this.gagnee = gagnee;
+//    }
 
     /**
-     * Constructeur de la classe PartieInfos ( avec limite de temps )
+     * Constructeur de la classe PartieInfos ( sans la date )
      * 
      * @param chrono le chrono de la partie
      * @param score le score de la partie
@@ -78,13 +85,35 @@ public class PartieInfos implements Serializable{
      * @param complete boolean qui indique si la partie est complète
      * @param limiteTemps la limite de temps de la partie
      */
-    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps){
+    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps, boolean gagnee){
         this.date = new Date();
         this.score = score;
         this.chrono = chrono;
         this.modeJeu = mode;
         this.limiteTemps = limiteTemps;
         this.complete = complete;
+        this.gagnee = gagnee;
+    }
+
+    /**
+     * Constructeur de la classe PartieInfos ( avec la date )
+     *
+     * @param chrono le chrono de la partie
+     * @param score le score de la partie
+     * @param mode le mode de jeu de la partie
+     * @param complete boolean qui indique si la partie est complète
+     * @param limiteTemps la limite de temps de la partie
+     */
+    public PartieInfos(
+        Date date, Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps, boolean gagnee
+    ){
+        this.date = date;
+        this.score = score;
+        this.chrono = chrono;
+        this.modeJeu = mode;
+        this.limiteTemps = limiteTemps;
+        this.complete = complete;
+        this.gagnee = gagnee;
     }
 
     /**
@@ -191,6 +220,24 @@ public class PartieInfos implements Serializable{
     }
 
     /**
+     * Méthode pour obtenir le boolean qui indique si la partie est gagnée
+     *
+     * @return le boolean qui indique si la partie est gagnée
+     */
+    public boolean getGagnee(){
+        return gagnee;
+    }
+
+    /**
+     * Méthode pour définir si la partie est gagnée
+     *
+     * @param gagnee le boolean qui indique si la partie est gagnée
+     */
+    public void setGagnee(boolean gagnee){
+        this.gagnee = gagnee;
+    }
+
+    /**
      * Méthode statique pour obtenir une représentation textuelle d'une durée
      *
      * @param duration la durée a formater
@@ -228,5 +275,15 @@ public class PartieInfos implements Serializable{
         if ( this.score < Score.MIN_SCORE ){
             this.score = Score.MIN_SCORE;
         }
+    }
+
+    /**
+     * Méthode statique pour obtenir le nombre de minutes d'une durée
+     *
+     * @param duration la durée à convertir
+     * @return le nombre de minutes de la durée
+     */
+    public static int numberOfMinutes(Duration duration) {
+        return duration.toHoursPart() * 60 + duration.toMinutesPart();
     }
 }

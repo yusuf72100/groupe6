@@ -142,7 +142,7 @@ public class Cellule implements Serializable, Cloneable {
    * @return vrai si le nombre de trait maximal est atteint, faux sinon
    */
   public boolean maxTrait() {
-    return nbTrait() >= this.valeur;
+    return this.valeur != -1 && nbTrait() >= this.valeur;
   }
 
 

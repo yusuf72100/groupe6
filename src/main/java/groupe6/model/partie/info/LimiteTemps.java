@@ -5,7 +5,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import java.time.Duration;
 
 /**
- * Classe qui correspond au limite de temps
+ * Classe qui correspond aux limites de temps
  *
  * @author Yamis
  */

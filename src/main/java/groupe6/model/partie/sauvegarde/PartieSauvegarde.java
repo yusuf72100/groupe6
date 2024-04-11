@@ -1,16 +1,19 @@
 package groupe6.model.partie.sauvegarde;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.erreur.GestionnaireErreur;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.info.PartieInfos;
 import groupe6.model.partie.action.GestionnaireAction;
+import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
 import groupe6.model.partie.puzzle.Puzzle;
 
 import java.io.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,6 +119,42 @@ public class PartieSauvegarde implements Serializable {
   }
 
   /**
+   * Méthode pour obtenir le nom de la sauvegarde
+   *
+   * @param partie la partie dont on veut obtenir le nom de la sauvegarde
+   * @return le nom de la sauvegarde
+   */
+  public static String getNomSauvegarde(Partie partie) {
+    return getNomSauvegarde(
+      partie.getPuzzle().getDifficulte(),
+      partie.getInfos().getModeJeu(),
+      partie.getPuzzle().getLargeur(),
+      partie.getPuzzle().getLongueur(),
+      partie.getInfos().getDate()
+    );
+  }
+
+  /**
+   * Méthode pour obtenir le nom de la sauvegarde d'une partie
+   *
+   * @param difficulte la difficulté du puzzle
+   * @param modeJeu le mode de jeu de la partie
+   * @param largeur la largeur du puzzle
+   * @param longueur la longueur du puzzle
+   * @param date la date de la partie
+   * @return
+   */
+  public static String getNomSauvegarde(
+      DifficultePuzzle difficulte, ModeJeu modeJeu, int largeur, int longueur, Date date
+  ) {
+    return
+      difficulte.toString() + "_" +
+      modeJeu.toString() + "_" +
+      largeur + "x" + longueur + "_" +
+      PartieInfos.dateToStringTiret(date);
+  }
+
+  /**
    * Méthode statique pour créer une sauvegarde d'une partie
    *
    * @param partie la partie à sauvegarder
@@ -131,15 +170,9 @@ public class PartieSauvegarde implements Serializable {
 
     String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + partie.getProfil().getNom() + "/saves/");
 
-    StringBuilder nomFichier = new StringBuilder();
-    nomFichier.append(partie.getPuzzle().getDifficulte().toString());
-    nomFichier.append("_");
-    nomFichier.append(partie.getPuzzle().getLargeur() + "x" + partie.getPuzzle().getLongueur());
-    nomFichier.append("_");
-    nomFichier.append(PartieInfos.dateToStringTiret(partie.getInfos().getDate()));
-    nomFichier.append(".save");
+    String nomFichier = PartieSauvegarde.getNomSauvegarde(partie) + ".save";
 
-    String cheminFichier = cheminDossier + nomFichier.toString();
+    String cheminFichier = cheminDossier + nomFichier;
     try {
       FileOutputStream fileOut = new FileOutputStream(cheminFichier);
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
