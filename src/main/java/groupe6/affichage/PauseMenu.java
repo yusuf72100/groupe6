@@ -45,7 +45,7 @@ public class PauseMenu implements Menu {
         vBox = new VBox();
         stackPane = new StackPane();
         reprendre = new Button("Reprendre");
-        options = new Button("Option");
+        options = new Button("Options");
         exitMenu = new Button("Menu principal");
 
         reprendre.getStyleClass().addAll("button-rounded", "button-text");

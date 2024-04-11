@@ -236,13 +236,13 @@ public class HistoriqueAidesArea {
     private void montrerCoordonneesTechnique(Set<Coordonnee> coordonnees, String nomSyliseTechnique) {
         // Highlight les coordonnées de la technique
         for ( Coordonnee coord : coordonnees ) {
-            this.gridMenu.highlightCellule(coord.getY(), coord.getX());
-            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX());
+            this.gridMenu.highlightCellule(coord.getY(), coord.getX(), "highlight-blue", "bg_custom-blue");
+            this.gridMenu.setCellulesAdjacentesCss(coord.getY(), coord.getX(), "highlight-blue");
         }
 
         Main.afficherPopUpInformation(
             "Aide de niveau 2",
-            "Les cellules où à été détectée la technique " + nomSyliseTechnique + " sont mises en évidence en bleu.",
+            "Les cellules où a été détectée la technique " + nomSyliseTechnique + " sont mises en évidence en bleu.",
             "Appuyez sur OK pour continuer"
 
         );

@@ -1,5 +1,15 @@
-.bg_custom {
+.bg_custom-blue {
     -fx-background-color: blue;
+    -fx-opacity: 0.7;
+}
+
+.bg_custom-red {
+    -fx-background-color: red;
+    -fx-opacity: 0.7;
+}
+
+.bg_custom-orange {
+    -fx-background-color: orange;
     -fx-opacity: 0.7;
 }
 
@@ -277,8 +287,18 @@
     -fx-border-radius: 0;
 }
 
-.button-top.highlight, .button-bottom.highlight, .button-left.highlight, .button-right.highlight {
+.button-top.highlight-blue, .button-bottom.highlight-blue, .button-left.highlight-blue, .button-right.highlight-blue {
     -fx-background-color: blue;
+    -fx-opacity: 0.7;
+}
+
+.button-top.highlight-red, .button-bottom.highlight-red, .button-left.highlight-red, .button-right.highlight-red {
+    -fx-background-color: red;
+    -fx-opacity: 0.7;
+}
+
+.button-top.highlight-orange, .button-bottom.highlight-orange, .button-left.highlight-orange, .button-right.highlight-orange {
+    -fx-background-color: orange;
     -fx-opacity: 0.7;
 }
 

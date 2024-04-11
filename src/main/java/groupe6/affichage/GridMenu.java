@@ -206,8 +206,8 @@ public class GridMenu implements Menu {
      * @param x la position x de la cellule
      * @param y la position y de la cellule
      */
-    public static void highlightCellule(int y, int x) {
-        celluleNodes[y][x].changeCellulesCss();
+    public static void highlightCellule(int y, int x, String buttonCss, String centerCss) {
+        celluleNodes[y][x].changeCellulesCss(buttonCss, centerCss);
     }
 
     /**
@@ -246,22 +246,22 @@ public class GridMenu implements Menu {
      * @param y la position y de la cellule
      * @param x la position x de la cellule
      */
-    public void setCellulesAdjacentesCss(int y, int x) {
+    public void setCellulesAdjacentesCss(int y, int x, String css) {
 
         if ( estDansGrille(y, x-1) ) {
-            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3);
+            if(this.celluleNodes[y][x-1] != null) this.celluleNodes[y][x-1].changeButtonCss(3, css);
         }
 
         if ( estDansGrille(y, x+1) ) {
-            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2);
+            if(this.celluleNodes[y][x+1] != null) this.celluleNodes[y][x+1].changeButtonCss(2, css);
         }
 
         if ( estDansGrille(y-1, x) ) {
-            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1);
+            if(this.celluleNodes[y-1][x] != null) this.celluleNodes[y-1][x].changeButtonCss(1, css);
         }
 
         if ( estDansGrille(y+1, x) ) {
-            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0);
+            if(this.celluleNodes[y+1][x] != null) this.celluleNodes[y+1][x].changeButtonCss(0, css);
         }
 
     }
@@ -501,6 +501,7 @@ public class GridMenu implements Menu {
                         "Appuyez sur OK pour continuer"
                     );
                 }
+                updateAffichage();
             }
         });
 
@@ -515,13 +516,13 @@ public class GridMenu implements Menu {
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
                         System.out.println("Première erreur : "+coords);
-                        highlightCellule(coords.getY(), coords.getX());
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
+                        highlightCellule(coords.getY(), coords.getX(), "highlight-red", "bg_custom-red");
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-red");
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
                         System.out.println("Erreur suivante : "+coords);
-                        highlightCellule(coords.getY(), coords.getX());
-                        setCellulesAdjacentesCss(coords.getY(), coords.getX());
+                        highlightCellule(coords.getY(), coords.getX(),"highlight-orange", "bg_custom-orange" );
+                        setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-orange");
                     }
 
                     // Affiche une popup pour demander si l'utilisateur accepte la correction
@@ -543,8 +544,6 @@ public class GridMenu implements Menu {
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
-
-                    // updateAffichage();
                 }
                 else {
                     Main.afficherPopUpInformation(
@@ -555,6 +554,7 @@ public class GridMenu implements Menu {
                         "Appuyez sur OK pour continuer"
                     );
                 }
+                updateAffichage();
             }
         });
 
@@ -612,9 +612,7 @@ public class GridMenu implements Menu {
                 stackPane.getChildren().add(menu);
 
                 menu.visibleProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue) {
-                        // Le menu pause est devenu visible
-                    } else {
+                    if (!newValue) {
                         partie.getChrono().start();
                     }
                 });
