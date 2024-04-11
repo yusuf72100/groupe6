@@ -2,7 +2,7 @@ package groupe6.model.partie;
 
 /**
  * Enumération des différents modes de jeu
- * Les valeurs possibles sont NORMAL, AVENTURE, CONTRELAMONTRE et ENTRAINEMENT
+ * Les valeurs possibles sont : NORMAL, AVENTURE, CONTRELAMONTRE et ENTRAINEMENT
  *
  * @author Tom MARSURA
  */

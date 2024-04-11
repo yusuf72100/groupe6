@@ -2,6 +2,7 @@ package groupe6.model.profil;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.info.PartieFinieInfos;
+import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -84,6 +85,10 @@ public class Historique implements Serializable {
         this.historique.add(partie);
         // Lance un thread séparé pour sauvegarder le profil actuel qui vient de modifier son historique
         new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
+        // Lance un thread séparé pour supprimer la sauvegarde de la partie si elle existe
+        Profil profil = Launcher.catalogueProfils.getProfilActuel();
+        System.out.println("ajoutResultPartie : ");
+        new Thread(() -> CatalogueSauvegarde.suppimerAnciennesSauvegardes(profil,partie)).start();
     }
 
     /**
@@ -97,7 +102,7 @@ public class Historique implements Serializable {
 
         int nbPartiesGagnees = 0;
         for (PartieFinieInfos partieFinieInfos : this.historique) {
-            if (partieFinieInfos.getComplete())
+            if (partieFinieInfos.getGagnee())
                 nbPartiesGagnees++;
         }
 
@@ -105,7 +110,7 @@ public class Historique implements Serializable {
         int meilleurScore = 0;
         for (PartieFinieInfos partieFinieInfos : this.historique) {
             if (
-                partieFinieInfos.getComplete() &&
+                partieFinieInfos.getGagnee() &&
                 partieFinieInfos.getScore() > meilleurScore
             ) {
                 meilleurScore = partieFinieInfos.getScore();

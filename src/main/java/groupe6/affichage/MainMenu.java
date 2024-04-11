@@ -472,12 +472,12 @@ public class MainMenu implements Menu {
                     // bouton entrainement
                     case 2:
                         descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
-                        Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
-
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 // TODO : Lance le mode entrainement
+                                Launcher.catalogueProfils.getProfilActuel().getParametre().setAideTechniqueDemarrage(true, DifficultePuzzle.FACILE);
+                                Launcher.catalogueProfils.getProfilActuel().getParametre().setAideRemplissageCroix(true);
                             }
                         });
                         break;

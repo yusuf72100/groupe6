@@ -1,5 +1,6 @@
 package groupe6.model.partie;
 
+import groupe6.affichage.GridMenu;
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
@@ -75,6 +76,11 @@ public class Partie {
   private final Chronometre chrono;
 
   /**
+   * Le GridMenu qui observe la partie
+   */
+  private GridMenu gridMenu;
+
+  /**
    * Constructeur de la classe Partie
    *
    * @param puzzle le puzzle sur lequel la partie est jouée
@@ -88,7 +94,8 @@ public class Partie {
         Score.getScoreDebut(this.puzzle.getDifficulte()),
         modeJeu,
         false,
-        LimiteTemps.getLimiteTemps(this.puzzle.getDifficulte())
+        LimiteTemps.getLimiteTemps(this.puzzle.getDifficulte()),
+        false
     );
     this.gestionnaireAction = new GestionnaireAction(this.puzzle);
     this.historiqueAide = new HistoriqueAides();
@@ -96,6 +103,7 @@ public class Partie {
     this.hypothese = null;
     this.gestionnaireErreur = new GestionnaireErreur();
     this.chrono = new Chronometre();
+    this.gridMenu = null;
   }
 
   /**
@@ -113,6 +121,25 @@ public class Partie {
     this.hypothese = null;
     this.gestionnaireErreur = save.getGestionnaireErreur();
     this.chrono = new Chronometre(this.infos.getChrono());
+    this.gridMenu = null;
+  }
+
+  /**
+   * Méthode pour définir le GridMenu qui observe la partie
+   *
+   * @param gridMenu le GridMenu qui observe la partie
+   */
+  public void setObservateurGridMenu(GridMenu gridMenu) {
+    this.gridMenu = gridMenu;
+  }
+
+  /**
+   * Méthode pour notifier le GridMenu qu'il faut mettre à jour l'affichage
+   */
+  public void notifierObservateur() {
+    if ( this.gridMenu != null ) {
+      this.gridMenu.updateAffichage();
+    }
   }
 
   /**
@@ -228,7 +255,7 @@ public class Partie {
   /**
    * Méthode pour verifier si le temps est écoulé
    *
-   * @return vrai si le temps est écoulé et que le mode de jeu est contre la montre, faux sinon
+   * @return vrai si le temps est écoulé et que le mode de jeu est contre-la-montre, faux sinon
    */
   public boolean verifierTemps() {
     return this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
@@ -244,6 +271,9 @@ public class Partie {
     this.gestionnaireErreur.supprimerErreurs();
     // Sauvegarde de la partie
     this.sauvegarder();
+
+    // Notifier d'un besoin d'update de l'affichage
+    this.notifierObservateur();
   }
 
   /**
@@ -314,11 +344,19 @@ public class Partie {
       cellule2 = puzzle.getCellule(coordsCell2.getY(),coordsCell2.getX());
     }
 
+    boolean besoinDeUpdate = false;
     if ( cellule1.maxTrait() ) {
       completerCroix(cellule1,coordsCell1);
+      besoinDeUpdate = true;
     }
     if ( cellule2 != null && cellule2.maxTrait() ) {
       completerCroix(cellule2,coordsCell2);
+      besoinDeUpdate = true;
+    }
+
+    // Notifie si besoin d'un update de l'affichage
+    if ( besoinDeUpdate ) {
+      this.notifierObservateur();
     }
 
   }
@@ -514,7 +552,7 @@ public class Partie {
    *
    * @return vrai si la partie est terminée, faux sinon
    */
-  private boolean estTermine() {
+  public boolean estTermine() {
     if (
         this.infos.getModeJeu() == ModeJeu.CONTRELAMONTRE &&
         this.infos.getChrono().compareTo(this.infos.getLimiteTemps()) >= 0
@@ -524,6 +562,12 @@ public class Partie {
 
       // Update du chronometre
       this.infos.setChrono(this.chrono.getTempsEcoule());
+
+      // Update indice completiton
+      this.infos.setComplete(true);
+
+      // Update indice gagnee
+      this.infos.setGagnee(false);
 
       // Partie non complète et perdue car temps limite atteint
       PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
@@ -544,6 +588,9 @@ public class Partie {
       // Update indice completiton
       this.infos.setComplete(true);
 
+      // Update indice gagnee
+      this.infos.setGagnee(true);
+
       PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
@@ -555,6 +602,15 @@ public class Partie {
     } else {
       return false;
     }
+  }
+
+  /**
+   * Méthode pour obtenir le booléen qui indique si la partie est terminée
+   *
+   * @return vrai si la partie est terminée, faux sinon
+   */
+  public boolean estComplet() {
+    return this.infos.getComplete();
   }
 
   /**
@@ -580,6 +636,9 @@ public class Partie {
 
     // Sauvegarde de la partie après chaque action
     this.sauvegarder();
+
+    // Notifier d'un besoin d'update de l'affichage
+    this.notifierObservateur();
   }
 
   /**
@@ -591,8 +650,12 @@ public class Partie {
       detectionErreur(action);
     }
     System.out.println("Erreur : \n - "+this.gestionnaireErreur.toString());
+
     // Sauvegarde de la partie
     this.sauvegarder();
+
+    // Notifier d'un besoin d'update de l'affichage
+    this.notifierObservateur();
   }
 
   /**
