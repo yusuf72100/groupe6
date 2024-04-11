@@ -1,6 +1,5 @@
 package groupe6.affichage;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -16,7 +15,7 @@ public class PauseMenu implements Menu {
 
     private static Button reprendre;
 
-    private static Button option;
+    private static Button options;
 
     private static Button exitMenu;
 
@@ -24,19 +23,19 @@ public class PauseMenu implements Menu {
         vBox = new VBox();
         stackPane = new StackPane();
         reprendre = new Button("Reprendre");
-        option = new Button("Option");
+        options = new Button("Option");
         exitMenu = new Button("Exit");
 
         reprendre.getStyleClass().addAll("button-rounded", "button-text");
-        option.getStyleClass().addAll("button-rounded", "button-text");
+        options.getStyleClass().addAll("button-rounded", "button-text");
         exitMenu.getStyleClass().addAll("button-rounded", "button-text");
 
         reprendre.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
-        option.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
+        options.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
         exitMenu.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
 
         vBox.setSpacing(50);
-        vBox.getChildren().addAll(reprendre, option, exitMenu);
+        vBox.getChildren().addAll(reprendre, options, exitMenu);
         vBox.setAlignment(Pos.CENTER);
 
         // TODO : Mettre un background noir transparent 0.7 avec une animation et mettre en pause le chrono
