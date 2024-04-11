@@ -285,7 +285,6 @@ public class Main extends Application {
         centeredTechName.getChildren().add(labelNomTech);
         centeredTechName.setAlignment(Pos.CENTER);
 
-
         // Vbox qui contient les informations sur la technique
         VBox infoTechniqueVBox = new VBox();
         infoTechniqueVBox.getChildren().addAll(
@@ -323,12 +322,10 @@ public class Main extends Application {
             new Separator()
         );
 
-
         // Gestion du dialogPane
         alert.getDialogPane().setHeader(mainVBox);
         alert.getDialogPane().setMinWidth(0.5 * width);
         alert.getDialogPane().setMinHeight(0.5 * height);
-
 
         alert.showAndWait();
     }

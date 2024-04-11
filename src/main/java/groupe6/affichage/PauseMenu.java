@@ -60,10 +60,8 @@ public class PauseMenu implements Menu {
         vBox.getChildren().addAll(reprendre, options, exitMenu);
         vBox.setAlignment(Pos.CENTER);
 
-        // TODO : Mettre un background noir transparent 0.7 avec une animation et mettre en pause le chrono
-
         stackPane.setStyle("-fx-background-color: white;");
-        stackPane.getChildren().add(vBox);
+        stackPane.getChildren().addAll(vBox, OptionsMenu.getMenu());
 
         stackPane.setVisible(false);
         stackPane.setManaged(false);
@@ -73,6 +71,13 @@ public class PauseMenu implements Menu {
             @Override
             public void handle(MouseEvent event){
                 hideMenu();
+            }
+        });
+
+        options.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                OptionsMenu.showMenu();
             }
         });
 

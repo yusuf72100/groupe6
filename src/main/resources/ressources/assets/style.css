@@ -41,7 +41,6 @@
     -fx-fill: black;
     -fx-stroke: black;
     -fx-stroke-width: 2;
-    /*-fx-effect: dropshadow(gaussian, #ff005b, 30, 0.1, 0, 0);*/
 }
 
 .title_help {
@@ -174,9 +173,9 @@
     -fx-padding: 5 10;
 }
 
-.button-more {
+.settingsButton {
     -fx-background-color: rgba(208, 208, 208, 0);
-    -fx-background-image: url('icon/more.png');
+    -fx-background-image: url('icon/parametres.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: contain;

@@ -194,6 +194,9 @@ public class GridMenu implements Menu {
         this.puzzle = partie.getPuzzle();
         updateAffichage();
 
+        OptionsMenu.initMenu(w,h);
+        OptionsMenu.setProfil(Launcher.catalogueProfils.getProfilActuel());
+
         this.chronoThread = new ChronoThread(this.partie, this.chronoLabel);
         this.thread = new Thread(chronoThread);
 
@@ -609,7 +612,6 @@ public class GridMenu implements Menu {
         pause.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                // TODO : Affiche le menu de pause ( unpause doit appeller partie.reprendre() )
                 if(!PauseMenu.getMenu().isVisible()) {
                     PauseMenu.showMenu();
                 } else {
@@ -677,14 +679,17 @@ public class GridMenu implements Menu {
         stackPane.getChildren().addAll(anchorPane, PauseMenu.getMenu());
         StackPane.setAlignment(anchorPane, Pos.TOP_CENTER);
 
+        // config des touches
         EventHandler<KeyEvent> keyEventHandler = event -> {
             KeyCode keyCode = event.getCode();
 
             if (keyCode == KeyCode.ESCAPE) {
                 if(!PauseMenu.getMenu().isVisible()) {
                     PauseMenu.showMenu();
-                } else {
+                } else if (!OptionsMenu.getMenu().isVisible() && PauseMenu.getMenu().isVisible()){
                     PauseMenu.hideMenu();
+                } else {
+                    OptionsMenu.hideMenu();
                 }
             }
         };
