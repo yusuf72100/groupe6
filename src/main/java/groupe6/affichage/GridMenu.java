@@ -303,6 +303,27 @@ public class GridMenu implements Menu {
     }
 
     /**
+     * Change le texte de survol du bouton en question
+     * @param button référence vers le bouton
+     * @param hoverText texte survol
+     */
+    public static void changeHeaderButtonHoverText(Button button, String hoverText) {
+        FadeTransition fadeButton = new FadeTransition(Duration.millis(150), button);
+        fadeButton.setFromValue(1.0);
+        fadeButton.setToValue(0.2);
+
+        button.removeEventHandler(MouseEvent.MOUSE_ENTERED, button.getOnMouseEntered());
+        button.setOnMouseEntered(event -> {
+            if ( button.getStyleClass().contains("button-disabled") ) {
+                button.setStyle("-fx-opacity: 1");
+            } else {
+                mouseEntered(fadeButton, button);
+            }
+            buttonHoverLabel.setText(hoverText);
+        });
+    }
+
+    /**
      * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
      *
      * @param style le style du bouton

@@ -542,6 +542,10 @@ public class MainMenu implements Menu {
             }
         };
 
+        profilMenusButton.setPrefSize(profilSelector.getPrefWidth(), profilSelector.getPrefHeight());
+        profilMenusButton.setTranslateY(profilSelector.getPrefHeight());
+        profilMenusButton.getStyleClass().add("button-rounded");
+
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
         mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
                 profilSelector, backButton, backText, settingsButton, OptionsMenu.getMenu());
