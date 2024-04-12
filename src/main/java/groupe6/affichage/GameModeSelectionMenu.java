@@ -33,7 +33,7 @@ public class GameModeSelectionMenu extends MainMenu {
      * @return le menu de sélection du mode de jeu
      */
     public static StackPane getMenu(Double windowWidth, Double windowHeigth) {
-        MainMenu.initMenu(windowWidth, windowHeigth);
+        MainMenu.initMenu();
         MainMenu.getMenu(windowWidth, windowHeigth);
 
         MainMenu.buttonTextsLabels = new String[]{"CLASSIQUE", "AVENTURE", "CONTRE\nLA\nMONTRE"};
