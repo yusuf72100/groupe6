@@ -2,14 +2,11 @@ package groupe6.affichage;
 
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -80,7 +77,7 @@ public class OptionsMenu implements Menu {
         checkBox[0].setSelected(profile.getParametre().getAideTechniqueDemarrage(DifficultePuzzle.FACILE));
         checkBox[1].setSelected(profile.getParametre().getAideTechniqueDemarrage(DifficultePuzzle.MOYEN));
         checkBox[2].setSelected(profile.getParametre().getAideTechniqueDemarrage(DifficultePuzzle.DIFFICILE));
-        checkBox[2].setSelected(profile.getParametre().getAideRemplissageCroix());
+        checkBox[3].setSelected(profile.getParametre().getAideRemplissageCroix());
 
         // handlers
         checkBox[0].setOnAction(event -> {

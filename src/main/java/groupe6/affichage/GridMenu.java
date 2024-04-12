@@ -1,7 +1,6 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.partie.Chronometre;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.erreur.ResultatVerificationErreur;
@@ -9,8 +8,8 @@ import groupe6.model.partie.puzzle.Coordonnee;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
-import groupe6.model.technique.ResultatTechnique;
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -24,9 +23,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Timer;
 
 /**
  * Classe qui correspond a l'inteface graphique d'une partie joué de Slitherlink
@@ -163,12 +159,20 @@ public class GridMenu implements Menu {
 
     private Label chronoLabel;
 
+    private final HBox hypotheseHbox;
+
+    private final Label hypotheseLabel;
+
     /**
      * Constructeur de la classe GridMenu
      *
      * @param partie la partie à laquelle est liée l'interface graphique
      */
     public GridMenu(Partie partie, Double w, Double h){
+        this.hypotheseHbox = new HBox();
+        this.hypotheseLabel = new Label("Mode hypothèse actif");
+        this.hypotheseHbox.setVisible(false);
+        this.hypotheseLabel.getStyleClass().add("title_help");
         this.stackPane = new StackPane();
         this.anchorPane = new AnchorPane();
         this.compteur = 0;
@@ -196,7 +200,7 @@ public class GridMenu implements Menu {
         updateAffichage();
 
         OptionsMenu.initMenu(w,h);
-        OptionsMenu.setProfil(Launcher.catalogueProfils.getProfilActuel());
+        OptionsMenu.setProfil(partie.getProfil());
 
         this.chronoThread = new ChronoThread(this.partie, this.chronoLabel, w, h);
         this.thread = new Thread(chronoThread);
@@ -425,6 +429,7 @@ public class GridMenu implements Menu {
      */
     public <T> StackPane getMenu(boolean isNew, Double w, Double h) {
         PauseMenu.initMenu(w,h);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), hypotheseHbox);
         this.historiqueAides = new HistoriqueAidesArea(this,w, h);
         this.historiqueAidesStackPane = this.historiqueAides.getHistoriqueAidesStackPane();
 
@@ -573,6 +578,11 @@ public class GridMenu implements Menu {
             public void handle(MouseEvent event){
                 if ( !partie.modeHypotheseActif() ) {
                     partie.activerHypothese();
+
+                    hypotheseHbox.setVisible(true);
+                    translateTransition.setByY(hypotheseHbox.getMaxHeight() + Menu.toPourcentHeight(10.0, h));
+                    translateTransition.play();
+
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Activation du mode hypothèse");
                     }
@@ -589,6 +599,9 @@ public class GridMenu implements Menu {
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Désactivation du mode hypothèse");
                     }
+
+                    translateTransition.setByY(-(hypotheseHbox.getMaxHeight() + Menu.toPourcentHeight(10.0, h)));
+                    translateTransition.play();
 
                     boolean validerHypothese = Main.afficherPopUpChoixOuiNon(
                         "Validation de l'hypothèse",
@@ -675,8 +688,9 @@ public class GridMenu implements Menu {
         AnchorPane.setRightAnchor(container, 0.0);
         AnchorPane.setBottomAnchor(container, 0.0);
 
-        stackPane.getChildren().addAll(anchorPane, PauseMenu.getMenu());
+        stackPane.getChildren().addAll(this.hypotheseHbox, anchorPane, PauseMenu.getMenu());
         StackPane.setAlignment(anchorPane, Pos.TOP_CENTER);
+        StackPane.setAlignment(this.hypotheseHbox, Pos.TOP_CENTER);
 
         // config des touches
         EventHandler<KeyEvent> keyEventHandler = event -> {
@@ -694,6 +708,15 @@ public class GridMenu implements Menu {
         };
 
         stackPane.setOnKeyPressed(keyEventHandler);
+
+        Menu.adaptTextSize(this.hypotheseLabel, 15.0, w, h);
+        this.hypotheseHbox.getChildren().add(this.hypotheseLabel);
+        this.hypotheseHbox.setAlignment(Pos.CENTER);
+        this.hypotheseHbox.setStyle("-fx-background-color: #e0ac1e; -fx-background-radius: 10; -fx-padding: 5 20 5 20;");
+        this.hypotheseHbox.setMaxHeight(help.getPrefHeight());
+        this.hypotheseHbox.setMaxWidth(Menu.toPourcentWidth(200.0, w));
+        this.hypotheseHbox.setTranslateY(buttonContainer.getTranslateY() + Menu.toPourcentHeight(30.0, h));
+        this.hypotheseLabel.setAlignment(Pos.CENTER);
 
         return stackPane;
     }

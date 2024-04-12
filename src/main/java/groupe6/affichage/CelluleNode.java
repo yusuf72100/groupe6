@@ -247,26 +247,24 @@ public class CelluleNode extends Node {
      * @param buttonIndex le bouton qu'on veut changer ( coté )
      */
     public void changeButtonCss(int buttonIndex, String cssClass) {
-        if(this.cellule[buttonIndex].getStyleClass().size() == 3) {
-            this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1);
-            this.cellule[buttonIndex].getStyleClass().removeAll(this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
+        if(!this.cellule[buttonIndex].getStyleClass().contains(cssClass)) {
+            this.cellule[buttonIndex].getStyleClass().add(cssClass);
+            this.buttonsOldCss[buttonIndex] = cssClass;
         }
-        this.cellule[buttonIndex].getStyleClass().add(cssClass);
-    }
 
+
+    }
     /**
      * Méthode qui remet l'affichage d'un bouton à l'état précédent
      *
      * @param buttonIndex le bouton qu'on veut remettre à l'état précédent ( coté )
      */
     public void resetButtonCss(int buttonIndex) {
-        if(this.cellule[buttonIndex].getStyleClass().size() == 3) {
-            this.cellule[buttonIndex].getStyleClass().removeAll(this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
-        }
-        if(this.buttonsOldCss[buttonIndex] != null) {
-            this.cellule[buttonIndex].getStyleClass().add(this.buttonsOldCss[buttonIndex]);
-            this.buttonsOldCss[buttonIndex] = null;
-        }
+        this.cellule[buttonIndex].getStyleClass().removeAll(this.buttonsOldCss[buttonIndex]);
+        this.cellule[buttonIndex].getStyleClass().removeAll("highlight-red");
+        this.cellule[buttonIndex].getStyleClass().removeAll("highlight-blue");
+        this.cellule[buttonIndex].getStyleClass().removeAll("highlight-orange");
+        this.buttonsOldCss[buttonIndex] = null;
     }
 
     /**

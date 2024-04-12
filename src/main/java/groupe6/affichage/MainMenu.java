@@ -159,10 +159,13 @@ public class MainMenu implements Menu {
 
     private static Button settingsButton;
 
+    private static Button profilMenusButton;
+
     /**
      * Méthode d'initialisation du menu qui fait office de constructeur
      */
     public static void initMenu() {
+        profilMenusButton = new Button("...");
         settingsButton = new Button();
         backText = new Label("QUITTER");
         buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
@@ -313,11 +316,12 @@ public class MainMenu implements Menu {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(nom -> {
-            if(CatalogueProfil.nomProfilValide(nom)) {
+            if(CatalogueProfil.nomProfilValide(nom) && nom != "Ajouter" && !CatalogueProfil.profilExiste(nom)) {
                 try {
                     Launcher.catalogueProfils.creerNouveauProfil(nom);
                     profilSelector.getItems().add(profilSelector.getItems().size()-1, nom);
                     profilSelector.setValue(nom);
+                    return;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -325,6 +329,14 @@ public class MainMenu implements Menu {
                 creerNouveauProfil();
             }
         });
+
+        // on remet l'ancien
+        for (String item : profilSelector.getItems()) {
+            if (item.equals(Launcher.catalogueProfils.getProfilActuel().getNom())) {
+                profilSelector.setValue(item);
+                break;
+            }
+        }
     }
 
     /**
@@ -537,7 +549,6 @@ public class MainMenu implements Menu {
         StackPane.setAlignment(settingsButton, Pos.TOP_LEFT);
 
         mainPane.setOnKeyPressed(keyEventHandler);
-
         mainPane.setPadding(new Insets(10, 10, 10, 10));
 
         return mainPane;
