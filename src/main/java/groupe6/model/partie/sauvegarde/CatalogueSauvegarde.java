@@ -81,23 +81,19 @@ public class CatalogueSauvegarde {
   }
 
   public static void suppimerAnciennesSauvegardes(Profil profil, PartieFinieInfos partieFinieInfos) {
-    System.out.println("supprimerAnciennesSauvegardes");
     // Récupérer les fichiers de sauvegardes
     String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
     File dossierSauvegardes = new File(cheminDossier);
     File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
-    System.out.println("fichiersSauvegardes : "+ Arrays.toString(fichiersSauvegardes));
 
     // Nom attendu de la sauvegarde
     String nomSauvegarde = PartieFinieInfos.getNomSauvegarde(partieFinieInfos);
-    System.out.println("nomSauvegarde : "+nomSauvegarde);
 
-    // Parcourir les fichiers de sauvegardes a la recherche de la sauvegarde a supprimer
+    // Parcourir les fichiers de sauvegardes a la recherche de la sauvegarde à supprimer
     for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
       if (fichier.getName().endsWith(".save")) {
-        // Ajouter a la liste le nom du fichier sans .save
+        // Ajouter à la liste le nom du fichier sans .save
         String nom = fichier.getName().substring(0, fichier.getName().length() - 5); //
-        System.out.println("nom           : "+nom);
         if (nom.equals(nomSauvegarde)) {
           fichier.delete();
         }

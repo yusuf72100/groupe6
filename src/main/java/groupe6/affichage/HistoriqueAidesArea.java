@@ -234,6 +234,19 @@ public class HistoriqueAidesArea {
     }
 
     private void montrerCoordonneesTechnique(Set<Coordonnee> coordonnees, String nomSyliseTechnique) {
+        // Vérifie si ce n'est pas une aide sans niveau 2
+        if (coordonnees.contains(new Coordonnee(-999,-999))) {
+            Main.afficherPopUpInformation(
+                "Aide de niveau 2",
+                "\n\n" +
+                    "Cette aide ne dispose pas de niveau 2." +
+                    "\n\n" +
+                    "Vous pouvez toujours consulter les informations supplémentaires pour plus de détails.",
+                "Appuyez sur OK pour continuer"
+            );
+            return;
+        }
+
         // Highlight les coordonnées de la technique
         for ( Coordonnee coord : coordonnees ) {
             this.gridMenu.highlightCellule(coord.getY(), coord.getX(), "highlight-blue", "bg_custom-blue");

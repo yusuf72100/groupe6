@@ -1,5 +1,6 @@
 package groupe6.model.technique;
 
+import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class GestionnaireTechnique{
         /// this.ajouterTechnique(SimpleZero.getInstance());
         this.ajouterTechnique(new Adjacents03());
         /// TODO : this.ajouterTechnique(new Diagonales03());
-        this.ajouterTechnique(new Adjacents03());
+        this.ajouterTechnique(new Adjacents3());
         /// TODO : this.ajouterTechnique(new Diagonales3());
         /// this.ajouterTechnique(AnyNumberCorner.getInstance());
         /*
@@ -56,12 +57,12 @@ public class GestionnaireTechnique{
         /*
          * Techniques AVANCEES
          */
-        // TODO : this.ajouterTechnique(new Advanced1());
-        // TODO : this.ajouterTechnique(new Advanced2());
-        // TODO : this.ajouterTechnique(new Advanced3());
-        // TODO : this.ajouterTechnique(new Advanced4());
-        // TODO : this.ajouterTechnique(new Advanced5());
-        // TODO : this.ajouterTechnique(new Advanced6());
+        this.ajouterTechnique(Advanced1.getInstance());
+        this.ajouterTechnique(Advanced2.getInstance());
+        this.ajouterTechnique(Advanced3.getInstance());
+        this.ajouterTechnique(Advanced4.getInstance());
+        this.ajouterTechnique(Advanced5.getInstance());
+        this.ajouterTechnique(Advanced6.getInstance());
     }
 
     /**
@@ -71,6 +72,9 @@ public class GestionnaireTechnique{
      */
     public void ajouterTechnique(Technique technique) {
         listeTechnique.add(technique);
+        if (Launcher.getVerbose() ) {
+            System.out.println("Ajout de la technique : " + technique.getNomTechnique());
+        }
     }
 
     /**
@@ -103,6 +107,9 @@ public class GestionnaireTechnique{
             for (int i = 0; i < 4 && index < listeTechnique.size(); i++, index++) {
                 final int currentIndex = index;
                 completionService.submit(() -> listeTechnique.get(currentIndex).run(partie,currentIndex));
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Lancement de la technique : " + listeTechnique.get(currentIndex).getNomTechnique());
+                }
             }
 
             // Attends le résultat de chaque technique et renvoie la technique la moins complexe
@@ -111,7 +118,7 @@ public class GestionnaireTechnique{
                 try {
                     Future<ResultatTechnique> future = completionService.take();
                     ResultatTechnique resultat = future.get();
-                    System.out.println(resultat.toString());
+                    System.out.println("resultat : " + resultat.toString());
                     lstResultats.add(resultat);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

@@ -130,6 +130,15 @@ public class CelluleNode extends Node {
     }
 
     /**
+     * Méthode qui permet de définir les cotes de la cellule
+     *
+     * @param cotes les nouveaux cotés de la cellule
+     */
+    public void setCotes(ValeurCote[] cotes) {
+        this.cotes = cotes;
+    }
+
+    /**
      * Méthode qui met a jour le styles des boutons en fonction des cotes
      *
      * @param cotes les cotes de la cellule
@@ -240,11 +249,9 @@ public class CelluleNode extends Node {
     public void changeButtonCss(int buttonIndex, String cssClass) {
         if(this.cellule[buttonIndex].getStyleClass().size() == 3) {
             this.buttonsOldCss[buttonIndex] = this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1);
-            System.out.println("Old css : " + this.buttonsOldCss[buttonIndex]);
             this.cellule[buttonIndex].getStyleClass().removeAll(this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
         }
         this.cellule[buttonIndex].getStyleClass().add(cssClass);
-        System.out.println("Nouveau css : " + this.cellule[buttonIndex].getStyleClass());
     }
 
     /**
@@ -254,12 +261,10 @@ public class CelluleNode extends Node {
      */
     public void resetButtonCss(int buttonIndex) {
         if(this.cellule[buttonIndex].getStyleClass().size() == 3) {
-            System.out.println("Reset Old css : " + this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
             this.cellule[buttonIndex].getStyleClass().removeAll(this.cellule[buttonIndex].getStyleClass().get(this.cellule[buttonIndex].getStyleClass().size()-1));
         }
         if(this.buttonsOldCss[buttonIndex] != null) {
             this.cellule[buttonIndex].getStyleClass().add(this.buttonsOldCss[buttonIndex]);
-            System.out.println("Reset Nouveau css : " + this.cellule[buttonIndex].getStyleClass());
             this.buttonsOldCss[buttonIndex] = null;
         }
     }

@@ -176,6 +176,13 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu d'entraînement
+     */
+    public static void showEntrainementMenu() {
+        Main.setRoot(EntrainementMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher une pop-up d'information
      *
      * @param title le titre de la pop-up
@@ -433,6 +440,25 @@ public class Main extends Application {
 
         // Retour au menu principal
         showMainMenu();
+    }
+
+    /**
+     * Méthode statique pour afficher une pop-up qui indique que le mode hypothèse est actif
+     *
+     */
+    public static void afficherPopUpModeHypotheseActif() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Mode Hypothèse Actif");
+        alert.setHeaderText(
+            "Le mode hypothèse est actif !" +
+            "\n\n" +
+            "Vous ne pouvez accéder à cette fonctionnalité dans le mode hypothèse."
+        );
+        alert.setContentText("Appuyez sur OK pour continuer");
+        alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
+        alert.setY(Screen.getPrimary().getVisualBounds().getHeight() * 0.02);
+
+        alert.showAndWait();
     }
 
     /**

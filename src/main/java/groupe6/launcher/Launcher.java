@@ -13,6 +13,7 @@ import java.util.jar.JarFile;
 import groupe6.affichage.Main;
 import groupe6.model.profil.CatalogueProfil;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
+import groupe6.model.technique.GestionnaireTechnique;
 import groupe6.test.TestMain;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -351,6 +352,7 @@ public class Launcher {
   public static void loadModel() {
     cataloguePuzzles = CataloguePuzzle.chargerCataloguePuzzle();
     catalogueProfils = CatalogueProfil.chargerCatalogueProfil();
+    GestionnaireTechnique.getInstance();
   }
 
   /**

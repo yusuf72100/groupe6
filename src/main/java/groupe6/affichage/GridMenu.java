@@ -386,10 +386,6 @@ public class GridMenu implements Menu {
         @Override
         public void handle(ActionEvent event) {
 
-            if ( Launcher.getVerbose() ) {
-                System.out.println("Bouton cliqué en (" + i + ", " + j + ")");
-            }
-
             Button clickedButton = (Button) event.getSource();
             Partie partie = GridMenu.this.getPartie();
 
@@ -459,11 +455,7 @@ public class GridMenu implements Menu {
                         GridMenu.this.undo.getStyleClass().add("button-disabled");
                     }
                 }
-                else {
-                    if ( Launcher.getVerbose() ) {
-                        System.out.println("Début de la liste d'actions");
-                    }
-                }
+
                 updateAffichage();
             }
         });
@@ -482,11 +474,7 @@ public class GridMenu implements Menu {
                         GridMenu.this.redo.getStyleClass().add("button-disabled");
                     }
                 }
-                else {
-                    if ( Launcher.getVerbose() ) {
-                        System.out.println("Fin de la liste d'actions");
-                    }
-                }
+
                 updateAffichage();
             }
         });
@@ -495,9 +483,16 @@ public class GridMenu implements Menu {
         help.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+
+                // Désactive la fonctionnalité si le mode hypothèse est actif
+                if ( partie.modeHypotheseActif() ) {
+                    Main.afficherPopUpModeHypotheseActif();
+                    return;
+                }
+
                 AideInfos aide = partie.chercherAide();
+                // Détecte si une aide a été trouvée
                 if ( aide != null ) {
-                    // TODO : Update l'affichage de l'historique d'aide
                     historiqueAides.ajouterNouvelleAide(aide);
                 }
                 else {
@@ -517,23 +512,29 @@ public class GridMenu implements Menu {
         check.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
+
+                // Désactive la fonctionnalité si le mode hypothèse est actif
+                if ( partie.modeHypotheseActif() ) {
+                    Main.afficherPopUpModeHypotheseActif();
+                    return;
+                }
+
                 ResultatVerificationErreur resultat = partie.verifierErreur();
-                System.out.println("Résultat de la vérification : \n"+ resultat.toString());
-                System.out.println(partie.getGestionnaireErreur());
+                if ( Launcher.getVerbose() ) {
+                    System.out.println("Résultat de la vérification : \n"+ resultat.toString());
+                }
 
                 if ( resultat.isErreurTrouvee() ) {
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
-                        System.out.println("Première erreur : "+coords);
                         highlightCellule(coords.getY(), coords.getX(), "highlight-red", "bg_custom-red");
                         setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-red");
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
-                        System.out.println("Erreur suivante : "+coords);
                         highlightCellule(coords.getY(), coords.getX(),"highlight-orange", "bg_custom-orange" );
                         setCellulesAdjacentesCss(coords.getY(), coords.getX(), "highlight-orange");
                     }
 
-                    // Affiche une popup pour demander si l'utilisateur accepte la correction
+                    // Affiche une pop up pour demander si l'utilisateur accepte la correction
                     String titlePopUp = "Correction des erreurs";
                     String headerPopUp = "Les cellules en rouge et orange seront modifiées si vous acceptez la correction!";
                     String contentPopUp = "Acceptez de revenir sur la première erreur trouvée?";
@@ -543,12 +544,12 @@ public class GridMenu implements Menu {
                     }
 
                     for (Coordonnee coords : resultat.getPremiereErreur() ) {
-                        // Enleve la couleurs rouge sur les cellules au coordonnées coords
+                        // Enlève la couleur rouge sur les cellules aux coordonnées coords
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
                     for ( Coordonnee coords : resultat.getErreursSuivantes() ) {
-                        // Enleve la couleurs orange sur les cellules au coordonnées coords
+                        // Enlève la couleur orange sur les cellules aux coordonnées coords
                         celluleNodes[coords.getY()][coords.getX()].resetCellulesCss();
                         resetCellulesAdjacentesCss(coords.getY(), coords.getX());
                     }
@@ -570,7 +571,7 @@ public class GridMenu implements Menu {
         hypothese.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                if ( partie.getHypothese() == null ) {
+                if ( !partie.modeHypotheseActif() ) {
                     partie.activerHypothese();
                     if ( Launcher.getVerbose() ) {
                         System.out.println("Activation du mode hypothèse");
@@ -640,10 +641,6 @@ public class GridMenu implements Menu {
         });
 
         afficher(isNew);
-
-        if ( Launcher.getVerbose() ) {
-            System.out.println("Compteurs de barres : "+compteur);
-        }
 
         gridPane.setAlignment(Pos.CENTER);
         container.setAlignment(Pos.CENTER);
@@ -832,11 +829,28 @@ public class GridMenu implements Menu {
     }
 
     /**
+     * Met à jour les référencement vers le puzzle et les cellules
+     */
+    public void updatePuzzle() {
+        System.out.println("Update puzzle");
+        this.puzzle = this.partie.getPuzzle();
+        this.cellulesData = this.partie.getPuzzle().getGrilleJeu();
+        System.out.println("=== Puzzle ===");
+        System.out.println(this.cellulesData);
+        // Update des cellules
+        for ( int y = 0; y < this.largeur; y++ ) {
+            for (int x = 0; x < this.longueur; x++) {
+                this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
+            }
+        }
+    }
+
+    /**
      * Met à jour l'affichage du puzzle en fonction du modèle
      */
     public void updateAffichage() {
         if ( Launcher.getVerbose() ) {
-            System.out.printf(this.partie.getPuzzle().toString());
+            System.out.println("Update de l'affichage");
         }
 
         // Update des cellules
@@ -845,7 +859,6 @@ public class GridMenu implements Menu {
                 this.celluleNodes[y][x].updateCotes(cellulesData[y][x].getCotes());
             }
         }
-
 
         // Update btn undo
         if ( this.partie.getGestionnaireAction().debutListe() ) {

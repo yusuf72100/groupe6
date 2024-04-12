@@ -29,6 +29,13 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
    */
   protected static Label tempsLimite;
 
+  /**
+   * Méthode pour obtenir le panneau du menu du mode contre-la-montre
+   *
+   * @param w la largeur de la fenêtre
+   * @param h la hauteur de la fenêtre
+   * @return le panneau du menu du mode contre-la-montre
+   */
   public static StackPane getMenu(Double w, Double h) {
     windowWidth = w;
     windowHeight = h;
