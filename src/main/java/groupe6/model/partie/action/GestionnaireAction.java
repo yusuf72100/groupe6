@@ -111,14 +111,6 @@ public class GestionnaireAction implements Serializable,Cloneable {
    * @return l'action annulée
    */
   public Action annulerAction() {
-    if (Launcher.getVerbose() ) {
-      System.out.println("Annulation de l'action à l'index "+this.index + ": ");
-      if (this.index >= 0) {
-        System.out.println(" : "+ listeAction.get(index));
-      } else {
-        System.out.println();
-      }
-    }
     Action action = null;
     if (index >= 0) {
       action = listeAction.get(index);
@@ -234,10 +226,10 @@ public class GestionnaireAction implements Serializable,Cloneable {
   /**
    * Méthode pour annuler toutes les actions effectuées après une erreur
    *
-   * @param idxActionPremiereErreur l'index de l'action qui a causé l'erreur
+   * @param idxARejoindre l'index de l'action qui a causé l'erreur
    */
-  public void annulerActionApresErreur(int idxActionPremiereErreur) {
-    while ( this.index >= idxActionPremiereErreur ) {
+  public void annulerActionApresIndice(int idxARejoindre) {
+    while ( this.index >= idxARejoindre ) {
       this.annulerAction();
     }
     this.effacerActionsSuivantes();

@@ -155,6 +155,13 @@ public class ClassicModeMenu implements Menu {
     imgPreviewInfo.setFitHeight(Math.round(0.16 * windowWidth));
   }
 
+  /**
+   * Méthode pour obtenir le panneau du menu du mode classique
+   *
+   * @param w la largeur de la fenêtre
+   * @param h la hauteur de la fenêtre
+   * @return le panneau du menu du mode classique
+   */
   public static StackPane getMenu(Double w, Double h) {
     windowWidth = w;
     windowHeight = h;

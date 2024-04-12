@@ -333,8 +333,8 @@ public class Puzzle implements Serializable, Cloneable {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
       puzzle = (Puzzle) ois.readObject();
     } catch (IOException | ClassNotFoundException e) {
-      System.out.println("Erreur : le puzzle n'a pas pu être chargé");
-      System.out.println("  - Chemin : " + chemin);
+      System.err.println("Erreur : le puzzle n'a pas pu être chargé");
+      System.err.println("  - Chemin : " + chemin);
       e.printStackTrace();
       return null;
     }

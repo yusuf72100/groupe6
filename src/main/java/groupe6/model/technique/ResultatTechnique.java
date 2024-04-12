@@ -152,6 +152,9 @@ public class ResultatTechnique implements Serializable {
         return "ResultatTechnique{" +
                 "techniqueTrouvee=" + techniqueTrouvee +
                 ", coordonnees=" + coordonnees +
+                ", nomTechnique='" + nomTechnique + '\'' +
+                ", nomTechniqueStylise='" + nomTechniqueStylise + '\'' +
+                ", difficulte=" + difficulte +
                 ", idx=" + idx +
                 '}';
     }

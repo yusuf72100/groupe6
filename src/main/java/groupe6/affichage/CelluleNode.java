@@ -130,6 +130,15 @@ public class CelluleNode extends Node {
     }
 
     /**
+     * Méthode qui permet de définir les cotes de la cellule
+     *
+     * @param cotes les nouveaux cotés de la cellule
+     */
+    public void setCotes(ValeurCote[] cotes) {
+        this.cotes = cotes;
+    }
+
+    /**
      * Méthode qui met a jour le styles des boutons en fonction des cotes
      *
      * @param cotes les cotes de la cellule
@@ -243,9 +252,8 @@ public class CelluleNode extends Node {
             this.buttonsOldCss[buttonIndex] = cssClass;
         }
 
-        //System.out.println("Before : " + this.cellule[buttonIndex].getStyleClass());
-    }
 
+    }
     /**
      * Méthode qui remet l'affichage d'un bouton à l'état précédent
      *
@@ -256,7 +264,6 @@ public class CelluleNode extends Node {
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-red");
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-blue");
         this.cellule[buttonIndex].getStyleClass().removeAll("highlight-orange");
-        //System.out.println("After : " + this.cellule[buttonIndex].getStyleClass() + " removed : " + this.buttonsOldCss[buttonIndex] );
         this.buttonsOldCss[buttonIndex] = null;
     }
 
