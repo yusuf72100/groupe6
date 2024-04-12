@@ -33,7 +33,13 @@ public class Coordonnee implements Serializable,Cloneable {
    * @param unY la position en y de la coordonnée
    * @param unX la position en x de la coordonnée
    */
-  public Coordonnee(int unY, int unX){
+  public Coordonnee(int unY, int unX) {
+
+    // Vérifie si c'est une coordonnée valide
+    if ( unY != -999 && unX != -999 && (unY < 0 || unX < 0) ) {
+      throw new IllegalArgumentException("Coordonnée invalide");
+    }
+
     this.y=unY;
     this.x=unX;
   }
@@ -98,6 +104,15 @@ public class Coordonnee implements Serializable,Cloneable {
         "y=" + y +
         ", x=" + x +
         '}';
+  }
+
+  /**
+   * Méthode pour vérifier si une coordonnée correspond à une coordonnée qui indique qu'aucune aide de niveau 2 n'est disponible
+   *
+   * @return vrai si la coordonnée correspond à une coordonnée spéciale, faux sinon
+   */
+  public boolean coordonneeSpecialeAucunNiv2(){
+    return this.y == -999 && this.x == -999;
   }
 
   /**

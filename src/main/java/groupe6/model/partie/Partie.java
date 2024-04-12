@@ -663,7 +663,6 @@ public class Partie {
   public void annulerHypothese() {
     this.puzzle = hypothese.getPuzzle();
     System.out.println("annuler hypothese");
-    System.out.println(puzzle);
     this.gestionnaireAction = hypothese.getGestionnaireAction();
     this.gestionnaireErreur = hypothese.getGestionnaireErreur();
     this.hypothese = null;

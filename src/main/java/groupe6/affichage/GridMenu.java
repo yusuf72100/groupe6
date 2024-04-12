@@ -491,6 +491,7 @@ public class GridMenu implements Menu {
                 }
 
                 AideInfos aide = partie.chercherAide();
+                // Détecte si une aide a été trouvée
                 if ( aide != null ) {
                     historiqueAides.ajouterNouvelleAide(aide);
                 }
@@ -849,7 +850,7 @@ public class GridMenu implements Menu {
      */
     public void updateAffichage() {
         if ( Launcher.getVerbose() ) {
-            System.out.printf(this.partie.getPuzzle().toString());
+            System.out.println("Update de l'affichage");
         }
 
         // Update des cellules
