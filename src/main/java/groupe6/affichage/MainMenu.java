@@ -165,7 +165,7 @@ public class MainMenu implements Menu {
      * Méthode d'initialisation du menu qui fait office de constructeur
      */
     public static void initMenu() {
-        profilMenusButton = new Button("...");
+        profilMenusButton = new Button();
         settingsButton = new Button();
         backText = new Label("QUITTER");
         buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
@@ -542,13 +542,21 @@ public class MainMenu implements Menu {
             }
         };
 
-        profilMenusButton.setPrefSize(profilSelector.getPrefWidth(), profilSelector.getPrefHeight());
-        profilMenusButton.setTranslateY(profilSelector.getPrefHeight());
-        profilMenusButton.getStyleClass().add("button-rounded");
+        profilMenusButton.setPrefSize(profilSelector.getPrefWidth(), Menu.toPourcentHeight(60.0, h));
+        profilMenusButton.setTranslateY(profilSelector.getTranslateY());
+        profilMenusButton.setTranslateX(profilSelector.getTranslateX() + Menu.toPourcentWidth(150.0, w));
+        profilMenusButton.getStyleClass().add("button-carre");
+
+        profilMenusButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.showProfileMenu();
+            }
+        });
 
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
         mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
-                profilSelector, backButton, backText, settingsButton, OptionsMenu.getMenu());
+                profilSelector, profilMenusButton, backButton, backText, settingsButton, OptionsMenu.getMenu());
         StackPane.setAlignment(title, Pos.TOP_CENTER);
         StackPane.setAlignment(settingsButton, Pos.TOP_LEFT);
 
