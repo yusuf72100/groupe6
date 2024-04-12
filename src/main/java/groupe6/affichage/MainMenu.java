@@ -159,10 +159,13 @@ public class MainMenu implements Menu {
 
     private static Button settingsButton;
 
+    private static Button profilMenusButton;
+
     /**
      * Méthode d'initialisation du menu qui fait office de constructeur
      */
     public static void initMenu() {
+        profilMenusButton = new Button("...");
         settingsButton = new Button();
         backText = new Label("QUITTER");
         buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
