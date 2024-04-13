@@ -242,7 +242,7 @@ public class GlossaireMenu {
 
     // Chargement des headers
     String[] headersName = new String[4];
-    headersName[0] = "Regles du jeu";
+    headersName[0] = "REGLES DU JEU";
     for (int i = 0; i < DifficulteTechnique.values().length; i++) {
       headersName[i + 1] = DifficulteTechnique.values()[i].toString();
     }

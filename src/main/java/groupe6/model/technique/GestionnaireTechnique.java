@@ -97,9 +97,6 @@ public class GestionnaireTechnique{
      */
     public void ajouterTechnique(Technique technique) {
         listeTechnique.add(technique);
-        if (Launcher.getVerbose() ) {
-            System.out.println("Ajout de la technique : " + technique.getNomTechnique());
-        }
     }
 
     /**

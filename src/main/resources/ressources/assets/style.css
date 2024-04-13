@@ -50,6 +50,19 @@
     -fx-underline: true;
 }
 
+.title2_help {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 30;
+}
+
+.avertissement_help {
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20;
+    -fx-fill: #525668;
+    -fx-text-alignment: center;
+}
+
 .description-background {
     -fx-background-color: transparent;
     -fx-background-radius: 0 0 10px 10px;
@@ -386,4 +399,48 @@
     -fx-background-position: center;
     -fx-background-size: contain;
     -fx-padding: 5 10;
+}
+
+.custom-checkbox-on {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-background-color: #ffc107; /* Jaune moutarde */
+    -fx-text-fill: black;
+}
+
+.custom-checkbox-on:hover{
+    -fx-text-fill: white;
+}
+
+.custom-checkbox-on.selected {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-background-color: #ffc107; /* Jaune moutarde */
+    -fx-text-fill: black;
+}
+
+.custom-checkbox-off {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-background-color: #343a40;
+    -fx-text-fill: white;
+}
+
+.custom-checkbox-off.selected {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-background-color: #343a40;
+    -fx-text-fill: white;;
+}
+
+.custom-checkbox-off:hover {
+    -fx-text-fill: #ffc107;
 }

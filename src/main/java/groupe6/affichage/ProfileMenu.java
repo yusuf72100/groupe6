@@ -55,11 +55,11 @@ public class ProfileMenu implements Menu {
     public static void initMenu(Double w, Double h) {
         classementStack = new StackPane();
         photoButton = new Button();
-        backButton = new Button("QUITTER");
+        backButton = new Button("RETOUR");
         description = new Label[5];
         descriptionVbox = new VBox();
         content = new StackPane();
-        profile = new Button("Profile");
+        profile = new Button("Profil");
         classement = new Button("Classement");
         hBox = new HBox();
         profilVbox = new VBox();
@@ -142,6 +142,7 @@ public class ProfileMenu implements Menu {
 
         List<Integer> stats = Launcher.catalogueProfils.getProfilActuel().getHistorique().calculerStat();
         description[0] = new Label(Launcher.catalogueProfils.getProfilActuel().getNom());
+        description[0].setStyle("-fx-font-weight: bold;");
         description[1] = new Label("Niveau en mode aventure : " + (Launcher.catalogueProfils.getProfilActuel().getNiveauAventure()+1));
         description[2] = new Label("Nombre de parties jouées : " + stats.get(0));
         description[3] = new Label("Nombre de parties gagnées : " + stats.get(1));
