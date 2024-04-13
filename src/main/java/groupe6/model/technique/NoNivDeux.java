@@ -7,21 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Classe abstraite qui représente une technique avancée.
- * <br>
- * Cette catégorie de technique ne dispose pas d'aide de niveau 2.
+ * Classe abstraite qui représente une technique qui ne dispose pas d'aide de niveau 2
  *
  * @author Yamis
  */
-public abstract class Advanced extends Technique {
+public abstract class NoNivDeux extends Technique {
 
   /**
-   * Constructeur de la classe abstraite Advanced
+   * Constructeur de la classe abstraite NoNivDeux
    *
    * @param uneDifficulte la difficulté de la technique
    * @param nomTechniqueStylise le nom stylisé de la technique
    */
-  public Advanced(DifficulteTechnique uneDifficulte, String nomTechniqueStylise) {
+  public NoNivDeux(DifficulteTechnique uneDifficulte, String nomTechniqueStylise) {
     super(uneDifficulte, nomTechniqueStylise);
   }
 

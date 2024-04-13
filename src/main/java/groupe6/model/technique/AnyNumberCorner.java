@@ -11,7 +11,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Classe de la technique nombre dans les coins
+ *
+ * @author Nathan
+ */
 public class AnyNumberCorner extends Technique{
+
+    /**
+     * Instance unique de la classe AnyNumberCorner
+     */
     private static AnyNumberCorner instance;
 
     /**

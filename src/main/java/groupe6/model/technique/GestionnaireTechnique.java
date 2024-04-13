@@ -3,6 +3,7 @@ package groupe6.model.technique;
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.Partie;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.*;
@@ -53,7 +54,7 @@ public class GestionnaireTechnique{
         this.ajouterTechnique(BoucleAu3.getInstance());
         this.ajouterTechnique(BoucleAu1.getInstance());
         this.ajouterTechnique(ConstraintOn2.getInstance());
-        // TODO : this.ajouterTechnique(new AvoidSeparateLoop());
+        this.ajouterTechnique(AvoidSeparateLoop.getInstance());
         /*
          * Techniques AVANCEES
          */
@@ -123,18 +124,25 @@ public class GestionnaireTechnique{
         // Index actuel dans la liste des techniques
         int index = 0;
 
+        System.out.println("=====================================");
+
         // Tant qu'il reste des techniques à lancer
         while (index < listeTechnique.size()) {
             CompletionService<ResultatTechnique> completionService = new ExecutorCompletionService<>(executor);
+
 
             // Lancer jusqu'à 4 techniques en même temps ou jusqu'à ce que toutes les techniques aient été lancées
             for (int i = 0; i < 4 && index < listeTechnique.size(); i++, index++) {
                 final int currentIndex = index;
                 completionService.submit(() -> listeTechnique.get(currentIndex).run(partie,currentIndex));
+                System.out.println(" - " + index + "(" + i + ") : " + listeTechnique.get(currentIndex).getNomTechnique());
+                System.out.println();
                 if ( Launcher.getVerbose() ) {
                     System.out.println("Lancement de la technique : " + listeTechnique.get(currentIndex).getNomTechnique());
                 }
             }
+
+            System.out.println("-------------------------------------");
 
             // Attends le résultat de chaque technique et renvoie la technique la moins complexe
             List <ResultatTechnique> lstResultats = new ArrayList<>();
@@ -149,11 +157,20 @@ public class GestionnaireTechnique{
             }
 
             // Tri la liste des résultats par l'index dans ResultatTechnique
-            lstResultats.sort((r1, r2) -> r1.getIdx() - r2.getIdx());
+//          lstResultats.sort((r1, r2) -> r1.getIdx() - r2.getIdx());
+            lstResultats.sort(Comparator.comparingInt(ResultatTechnique::getIdx));
+
+            if ( index >= 10 ) {
+                for (ResultatTechnique resultat : lstResultats) {
+                    System.out.println(" - " + resultat.toString());
+                    System.out.println();
+                }
+            }
 
             // Retourne le premier résultat technique trouvé
             for (ResultatTechnique resultat : lstResultats) {
                 if (resultat.isTechniqueTrouvee()) {
+                    System.out.println("=====================================");
                     if ( Launcher.getVerbose() ) {
                         System.out.println("resultat : " + resultat.toString());
                     }
@@ -161,6 +178,8 @@ public class GestionnaireTechnique{
                 }
             }
         }
+
+        System.out.println("=====================================");
 
         // Arrêter l'exécuteur de tâches
         executor.shutdown();

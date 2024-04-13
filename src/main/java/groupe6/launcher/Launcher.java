@@ -4,9 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -59,6 +57,11 @@ public class Launcher {
    * Le chemin du dossier des techniques à partir du dossier de l'application
    */
   public static String dossierTechniques = Launcher.dossierSlitherlink + "/techniques";
+
+  /**
+   * Le chemin du dossier des règles à partir du dossier de l'application
+   */
+  public static String dossierRegles = Launcher.dossierSlitherlink + "/regles";
 
   /**
    * Le chemin du dossier des ressources de l'outil PuzzleGenerator à partir du dossier de l'application
@@ -353,6 +356,28 @@ public class Launcher {
     cataloguePuzzles = CataloguePuzzle.chargerCataloguePuzzle();
     catalogueProfils = CatalogueProfil.chargerCatalogueProfil();
     GestionnaireTechnique.getInstance();
+  }
+
+  /**
+   * Méthode statique pour obtenir le nom des fichiers qui contiennent les règles du jeu
+   *
+   * @return la liste des noms des fichiers qui contiennent les règles du jeu
+   */
+  public static List<String> getRulesInfoNames() {
+    String cheminDossier = Launcher.dossierRegles + "/img";
+    File dossier = new File(cheminDossier);
+
+    String[] listeFichiers = dossier.list();
+    List<String> listeNomImageRegles = new ArrayList<String>();
+
+    for ( String fichier : listeFichiers ) {
+      if ( !fichier.endsWith(".png") ) {
+        String nomRegle = fichier.substring(0, fichier.length() - 4);
+        listeNomImageRegles.add(nomRegle);
+      }
+    }
+
+    return listeNomImageRegles;
   }
 
   /**
