@@ -60,7 +60,6 @@ public class Diagonales3 extends TechniquePattern3{
                             nomTechniqueStylise,
                             difficulte
                     );
-                    System.out.println(resultat);
                     if(!(partie.getHistoriqueAide().aideDejaPresente(resultat)))return resultat;
                 }
             }

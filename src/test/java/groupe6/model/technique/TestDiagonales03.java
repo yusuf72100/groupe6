@@ -34,21 +34,21 @@ public class TestDiagonales03 extends ModelTest {
         int longueur = 6;
 
         Cellule[][] grilleCellules = new Cellule[largeur][longueur];
-        // Haut ,        Bas,             Gauche,           Droite
+                                                                                // Haut ,        Bas,             Gauche,           Droite
         grilleCellules[0][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[0][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-
+                                                                                // Haut ,        Bas,             Gauche,           Droite
         grilleCellules[1][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-
+                                                                                // Haut ,        Bas,             Gauche,           Droite
         grilleCellules[2][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[2][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[2][2] = new Cellule(0, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
@@ -58,8 +58,8 @@ public class TestDiagonales03 extends ModelTest {
 
         grilleCellules[3][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[3][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[3][3] = new Cellule(3, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+        grilleCellules[3][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.TRAIT});
+        grilleCellules[3][3] = new Cellule(3, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.TRAIT, ValeurCote.VIDE});
         grilleCellules[3][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
@@ -88,15 +88,19 @@ public class TestDiagonales03 extends ModelTest {
 
     @Test
     public void testDetectionTroisTroisDiagBonnesCoordonnees(){
+        System.out.println(partie.getPuzzle());
         ResultatTechnique resultat = techniqueDiagonales03.run(partie, 1);
         assertTrue(resultat.isTechniqueTrouvee());
         assertEquals(resultat.getCoordonnees().size(),2);
+
         // Vérification des coordonnées dans le résultat
         assertTrue(resultat.getCoordonnees().contains(new Coordonnee(2,2)));
         assertTrue(resultat.getCoordonnees().contains(new Coordonnee(3,3)));
+
         // Vérifie si l'aide trouvé est bien ajouté dans l'historique
         partie.getHistoriqueAide().ajouterAide(new AideInfos(resultat));
         assertTrue(partie.getHistoriqueAide().aideDejaPresente(resultat));
+
         // Test si une deuxième aide est trouvée ( elle ne doit pas être trouvée )
         resultat = techniqueDiagonales03.run(partie, 1);
         assertFalse(resultat.isTechniqueTrouvee());

@@ -221,62 +221,60 @@ public abstract class Technique{
      * @return Renvoie vrai si les schemas d'aides n'ont pas été completés.
      */
     public static boolean verificationMultidir(Puzzle grille, List<Coordonnee> listeCoordonnee, boolean zero) {
-        Coordonnee coordonneeA = listeCoordonnee.get(0);
-        Coordonnee coordonneeB = listeCoordonnee.get(1);
-        int yA = coordonneeA.getY(), yB = coordonneeB.getY();
-        int xA = coordonneeA.getX(), xB = coordonneeB.getX();
-        Cellule celluleA = grille.getCellule(yA,xA);
-        Cellule celluleB = grille.getCellule(yB,xB);
 
         if(zero){
-            boolean montant = (yA+xA) == (yB+xB);
-            if(yA < yB){
-                if(celluleA.getValeur() == 3){
-                    return (celluleA.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
-                        (montant ?
-                            celluleA.getCote(Cellule.DROITE) != ValeurCote.TRAIT :
-                            celluleA.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT)
-                    );
+            Coordonnee coordonnee3 = listeCoordonnee.get(0);
+            Coordonnee coordonnee0 = listeCoordonnee.get(1);
+            int y3 = coordonnee3.getY(), y0 = coordonnee0.getY();
+            int x3 = coordonnee3.getX(), x0 = coordonnee0.getX();
+            Cellule cellule3 = grille.getCellule(y3,x3);
+            Cellule cellule0 = grille.getCellule(y0,x0);
+
+            boolean montant = (y3+x3) == (y0+x0);
+
+            if(y3 < y0) {
+                if(montant){
+                    return( cellule3.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
+                            cellule3.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT);
                 }else{
-                    return (celluleB.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
-                        (montant ?
-                            celluleB.getCote(Cellule.DROITE) != ValeurCote.TRAIT :
-                            celluleB.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT)
-                    );
+                    return( cellule3.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
+                            cellule3.getCote(Cellule.DROITE) != ValeurCote.TRAIT);
                 }
-            }else{
-                if(celluleA.getValeur() == 3){
-                    return (celluleA.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
-                        (montant ?
-                            celluleA.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT :
-                            celluleA.getCote(Cellule.DROITE) != ValeurCote.TRAIT)
-                    );
+            }else {
+                if(montant){
+                    return( cellule3.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
+                            cellule3.getCote(Cellule.DROITE) != ValeurCote.TRAIT);
                 }else{
-                    return (celluleB.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
-                        (montant ?
-                            celluleB.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT :
-                            celluleB.getCote(Cellule.DROITE) != ValeurCote.TRAIT)
-                    );
+                    return( cellule3.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
+                            cellule3.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT);
                 }
             }
         }else{
-            boolean adjacent = xA == xB || yA == yB;
+
+            Coordonnee coordonneeA = listeCoordonnee.get(0);
+            Coordonnee coordonneeB = listeCoordonnee.get(1);
+            int yA = coordonneeA.getY(), yB = coordonneeB.getY();
+            int xA = coordonneeA.getX(), xB = coordonneeB.getX();
+            Cellule celluleA = grille.getCellule(yA,xA);
+            Cellule celluleB = grille.getCellule(yB,xB);
+
+            boolean adjacent = (xA == xB || yA == yB);
             if(adjacent){
                 if(yA == yB){
                     Cellule cellule1 = (xA < xB ? celluleA : celluleB);
                     Cellule cellule2 = (xA < xB ? celluleB : celluleA);
                     return (
-                        cellule1.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
-                            cellule1.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
-                            cellule2.getCote(Cellule.HAUT) != ValeurCote.TRAIT
+                        cellule1.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT ||
+                            cellule1.getCote(Cellule.DROITE) != ValeurCote.TRAIT ||
+                            cellule2.getCote(Cellule.DROITE) != ValeurCote.TRAIT
                     );
                 }else{
                     Cellule cellule1 = (yA < yB ? celluleA : celluleB);
                     Cellule cellule2 = (yA < yB ? celluleB : celluleA);
                     return (
-                        cellule1.getCote(Cellule.GAUCHE) != ValeurCote.TRAIT ||
-                            cellule1.getCote(Cellule.DROITE) != ValeurCote.TRAIT ||
-                            cellule2.getCote(Cellule.DROITE) != ValeurCote.TRAIT
+                        cellule1.getCote(Cellule.HAUT) != ValeurCote.TRAIT ||
+                            cellule1.getCote(Cellule.BAS) != ValeurCote.TRAIT ||
+                            cellule2.getCote(Cellule.BAS) != ValeurCote.TRAIT
                     );
                 }
             }else{
