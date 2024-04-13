@@ -54,7 +54,7 @@ public class Adjacents3 extends TechniquePattern3{
             int x = coordCellule.getX();
             List<Coordonnee> adjacents = Technique.rechercherNumeroAutour(partie.getPuzzle(), 3, coordCellule, Direction.ADJACENT);
             for(Coordonnee adj : adjacents) {
-                if(Technique.verificationMultidir(partie.getPuzzle(), Arrays.asList(coordCellule,adj), ZERO )){
+                if(Technique.verificationMultidir(partie.getPuzzle(), Arrays.asList(coordCellule,adj), TROIS )){
                     Set<Coordonnee> casesConcernees = new HashSet<Coordonnee>(Arrays.asList(coordCellule,adj));
                     ResultatTechnique resultat =  new ResultatTechnique(
                         true,
