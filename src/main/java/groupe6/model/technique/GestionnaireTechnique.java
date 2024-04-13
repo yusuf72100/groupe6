@@ -121,8 +121,6 @@ public class GestionnaireTechnique{
         // Index actuel dans la liste des techniques
         int index = 0;
 
-        System.out.println("=====================================");
-
         // Tant qu'il reste des techniques à lancer
         while (index < listeTechnique.size()) {
             CompletionService<ResultatTechnique> completionService = new ExecutorCompletionService<>(executor);
@@ -132,11 +130,8 @@ public class GestionnaireTechnique{
             for (int i = 0; i < 4 && index < listeTechnique.size(); i++, index++) {
                 final int currentIndex = index;
                 completionService.submit(() -> listeTechnique.get(currentIndex).run(partie,currentIndex));
-                System.out.println(" - " + index + "(" + i + ") : " + listeTechnique.get(currentIndex).getNomTechnique());
-                System.out.println();
             }
 
-            System.out.println("-------------------------------------");
 
             // Attends le résultat de chaque technique et renvoie la technique la moins complexe
             List <ResultatTechnique> lstResultats = new ArrayList<>();
@@ -153,31 +148,18 @@ public class GestionnaireTechnique{
             // Tri la liste des résultats par l'index dans ResultatTechnique
             lstResultats.sort(Comparator.comparingInt(ResultatTechnique::getIdx));
 
-            if ( index >= 10 ) {
-                for (ResultatTechnique resultat : lstResultats) {
-                    System.out.println(" - " + resultat.toString());
-                    System.out.println();
-                }
-            }
-
             // Retourne le premier résultat technique trouvé
             for (ResultatTechnique resultat : lstResultats) {
                 if (resultat.isTechniqueTrouvee()) {
-                    System.out.println("=====================================");
-                    if ( Launcher.getVerbose() ) {
-                        System.out.println("resultat : " + resultat.toString());
-                    }
                     return resultat;
                 }
             }
         }
 
-        System.out.println("=====================================");
-
         // Arrêter l'exécuteur de tâches
         executor.shutdown();
 
-        // Si aucune technique n'a été trouvée on retourne un résultat technique avec trouvé à faux
+        // Si aucune technique n'a été trouvée, on retourne un résultat technique avec trouvé à faux
         return new ResultatTechnique(false);
     }
 

@@ -50,21 +50,6 @@ public class CataloguePuzzle {
   }
 
   /**
-   * Méthode pour obtenir la liste de toutes les sauvegardes de puzzles du catalogue
-   *
-   * @return la liste de toutes les sauvegardes de puzzles du catalogue
-   */
-  public List<PuzzleSauvegarde> getListePuzzle() {
-    List<PuzzleSauvegarde> liste = new ArrayList<PuzzleSauvegarde>();
-
-    for (DifficultePuzzle d : DifficultePuzzle.values()) {
-      liste.addAll(cataloguePuzzle.get(d));
-    }
-
-    return liste;
-  }
-
-  /**
    * Méthode pour obtenir une sauvegarde de puzzle depuis le catalogue
    *
    * @param difficulte la difficulté de la sauvegarde de puzzle à obtenir
@@ -108,9 +93,17 @@ public class CataloguePuzzle {
 
     // Affichage pôur chaque puzzle de chaque difficulté sa difficulté et sa taille
     for (DifficultePuzzle d : DifficultePuzzle.values()) {
-      strBuilder.append("=> Difficulté " + d + " : \n");
+      strBuilder.append("=> Difficulté ");
+      strBuilder.append(d);
+      strBuilder.append(" : \n");
       for (PuzzleSauvegarde p : cataloguePuzzle.get(d)) {
-        strBuilder.append("  - " + p.getDifficulte().toString().toUpperCase() + "_" + p.getLargeur() + "x" + p.getLongueur() + "\n");
+        strBuilder.append("  - ");
+        strBuilder.append(p.getDifficulte().toString().toUpperCase());
+        strBuilder.append("_");
+        strBuilder.append(p.getLargeur());
+        strBuilder.append("x");
+        strBuilder.append(p.getLongueur());
+        strBuilder.append("\n");
       }
     }
 
@@ -222,7 +215,7 @@ public class CataloguePuzzle {
       }
     }
 
-    // Trié le catalogue de puzzles ( par taille croissante dans chaque difficulté )
+    // Trié le catalogue de puzzles (par taille croissante dans chaque difficulté)
     trierCataloguePuzzle(catalogue);
 
     return catalogue;

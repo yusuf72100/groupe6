@@ -3,7 +3,7 @@ package groupe6.model.partie.info;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 
 /**
- * Classe qui correspond au constante de score
+ * Classe qui correspond aux constantes de score
  *
  * @author Yamis
  */

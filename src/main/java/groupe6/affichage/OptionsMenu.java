@@ -8,8 +8,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 
+/**
+ * Classe qui représente le menu des options
+ *
+ * @author Yamis, Yusuf
+ */
 public class OptionsMenu implements Menu {
 
   /**

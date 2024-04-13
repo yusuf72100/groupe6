@@ -16,7 +16,7 @@ public enum ModeJeu {
      */
     AVENTURE,
     /**
-     * Mode de jeu contre la montre
+     * Mode de jeu contre-la-montre
      */
     CONTRELAMONTRE,
     /**

@@ -37,12 +37,12 @@ public class Action implements Serializable {
   private final int coteCellule1;
 
   /**
-   * Ancienne valeur du coté avant l'action
+   * Ancienne valeur du côté avant l'action
    */
   private final ValeurCote ancienneValeurCote;
 
   /**
-   * Nouvelle valeur du coté après l'action
+   * Nouvelle valeur du côté après l'action
    */
   private final ValeurCote nouvelleValeurCote;
 
@@ -62,9 +62,9 @@ public class Action implements Serializable {
    */
   public Action(Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote,
                 Coordonnee coordsCellule1) {
-    // On verifie qu'on a bien une deuxieme cellule ( cas bord de grille )
+    // On vérifie qu'on a bien une deuxième cellule (cas bord de grille)
     if ( cellule2 != null ) {
-      // On verifie que les cotés des deux cellules correspondent bien
+      // On vérifie que les côtés des deux cellules correspondent bien
       if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
         throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
       }
@@ -90,9 +90,9 @@ public class Action implements Serializable {
    */
   public Action(Cellule cellule1, Cellule cellule2, int coteCellule1, ValeurCote nouvelleValeurCote,
                 ValeurCote ancienneValeurCote, Coordonnee coordsCellule1) {
-    // On verifie qu'on a bien une deuxieme cellule ( cas bord de grille )
+    // On vérifie qu'on a bien une deuxieme cellule (cas bord de grille)
     if ( cellule2 != null ) {
-      // On verifie que les cotés des deux cellules correspondent bien
+      // On vérifie que les côtés des deux cellules correspondent bien
       if (cellule1.getCote(coteCellule1) != cellule2.getCote(Cellule.getCoteAdjacent(coteCellule1))) {
         throw new IllegalArgumentException("Les cotés des cellules ne sont pas equivalentes");
       }

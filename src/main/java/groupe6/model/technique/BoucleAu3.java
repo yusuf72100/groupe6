@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Classe concrete qui représente la technique a appliquer lorsque la boucle atteint un 3
+ * Classe concrete qui représente la technique à appliquer lorsque la boucle atteint un 3
  *
  * @author Mateo
  */

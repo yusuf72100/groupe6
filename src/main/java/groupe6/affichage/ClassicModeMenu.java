@@ -6,7 +6,6 @@ import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
-import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -70,7 +69,7 @@ public class ClassicModeMenu implements Menu {
   protected static VBox VBoxDifficulteContainer;
 
   /**
-   * Les boite horizontale par difficulté qui contiennent les previews des puzzles
+   * Les boites horizontales par difficulté qui contiennent les previews des puzzles
    */
   protected static HBox[] PuzzlePreviewContainer;
 
@@ -137,6 +136,9 @@ public class ClassicModeMenu implements Menu {
    */
   protected ClassicModeMenu() {}
 
+  /**
+   * Méthode pour initialiser les éléments graphiques du menu classique
+   */
   public static void initMenuSelectionPuzzle() {
     // Création du panneau principal
     mainPane = new StackPane();
@@ -227,7 +229,7 @@ public class ClassicModeMenu implements Menu {
             "-fx-font-weight: bold;"
     );
 
-    // Element qui sert a faire un espace entre l'image et les informations textuelles
+    // Element qui sert à faire un espace entre l'image et les informations textuelles
     Pane espace = new Pane();
     espace.setMinHeight(0.02 * windowHeight);
 
@@ -300,12 +302,6 @@ public class ClassicModeMenu implements Menu {
     // Met la croix en haut à droite
     StackPane.setAlignment(croix, Pos.TOP_RIGHT);
 
-//    // Cente le titre
-//    StackPane.setAlignment(titre, Pos.TOP_CENTER);
-//
-//    // Centre les informations sur le puzzle
-//    StackPane.setAlignment(infoPuzzle, Pos.CENTER);
-
     // ==========================================================================
     // Création du selecteur de puzzle
     // ==========================================================================
@@ -331,7 +327,7 @@ public class ClassicModeMenu implements Menu {
         HBoxPreviewContainer.getChildren().add(imgNoPuzzle);
       }
 
-      // Sinon on affiche les previews des puzzles disponibles pour la difficulté
+      // Sinon, on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
           final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
@@ -356,7 +352,7 @@ public class ClassicModeMenu implements Menu {
               infoPane.setManaged(!isVisible);
             }
 
-            // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
+            // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else {
               previewSelectionne = imgPreviewPuzzle;
               difficulteSelectionne = finalI;
@@ -505,6 +501,11 @@ public class ClassicModeMenu implements Menu {
     return mainPane;
   }
 
+  /**
+   * Méthode pour mettre à jour les informations sur le puzzle sélectionné
+   *
+   * @param puzzleSelectionne le puzzle sélectionné
+   */
   public static void updateInfoPuzzleSelectionneClassique(PuzzleSauvegarde puzzleSelectionne) {
     // Change les info textuel du puzzle sélectionné
     infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());

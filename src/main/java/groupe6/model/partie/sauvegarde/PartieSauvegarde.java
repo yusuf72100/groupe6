@@ -2,7 +2,6 @@ package groupe6.model.partie.sauvegarde;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.ModeJeu;
-import groupe6.model.partie.aide.AideInfos;
 import groupe6.model.partie.aide.HistoriqueAides;
 import groupe6.model.partie.erreur.GestionnaireErreur;
 import groupe6.model.partie.Partie;
@@ -14,7 +13,6 @@ import groupe6.model.partie.puzzle.Puzzle;
 
 import java.io.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Classe qui représente une sauvegarde de partie
@@ -142,7 +140,7 @@ public class PartieSauvegarde implements Serializable {
    * @param largeur la largeur du puzzle
    * @param longueur la longueur du puzzle
    * @param date la date de la partie
-   * @return
+   * @return le nom de la sauvegarde
    */
   public static String getNomSauvegarde(
       DifficultePuzzle difficulte, ModeJeu modeJeu, int largeur, int longueur, Date date

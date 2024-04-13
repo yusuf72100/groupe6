@@ -1,11 +1,22 @@
 /**
  * Le module Slitherlink est le module principal de l'application.
  * <br>
+ * <br>
+ * Ce projet est réalisé par :
+ * <ul>
+ *   <li>Nathan Raccouard</li>
+ *   <li>Yusuf Ulas</li>
+ *   <li>Yamis Manfaloti</li>
+ *   <li>Emmanuel Ntame</li>
+ *   <li>Tom Marsura</li>
+ * 	 <li>William Sardon Arraz</li>
+ *   <li>Matéo Gallais	Oussama Boudallaa</li>
+ * </ul>
+ * <br>
  * Il contient les packages suivants :
  * <ul>
  *   <li>affichage</li>
  *   <li>launcher</li>
- *   <li>model.entrainement</li>
  *   <li>model.partie</li>
  *   <li>model.partie.action</li>
  *   <li>model.partie.aide</li>
@@ -26,7 +37,6 @@ module Slitherlink {
 
     exports groupe6.affichage;
     exports groupe6.launcher;
-    exports groupe6.model.entrainement;
     exports groupe6.model.partie;
     exports groupe6.model.partie.action;
     exports groupe6.model.partie.aide;
@@ -37,6 +47,5 @@ module Slitherlink {
     exports groupe6.model.partie.sauvegarde;
     exports groupe6.model.profil;
     exports groupe6.model.technique;
-    exports groupe6.test;
     exports groupe6.tools.puzzleGenerator;
 }

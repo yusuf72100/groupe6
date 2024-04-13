@@ -31,12 +31,12 @@ public class Profil implements Serializable {
 
 
     /**
-     * Le niveaux de progression de l'utilisateur dans le mode aventure
+     * Le niveau de progression de l'utilisateur dans le mode aventure
      */
     private int niveauAventure;
 
     /**
-     * L'historique des parties terminées par l'utilisateur ( gagnées ou perdues )
+     * L'historique des parties terminées par l'utilisateur (gagnées ou perdues)
      */
     private final Historique historique;
 

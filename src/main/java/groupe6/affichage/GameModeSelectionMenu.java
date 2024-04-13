@@ -1,13 +1,7 @@
 package groupe6.affichage;
 
-import groupe6.launcher.Launcher;
-import groupe6.model.partie.puzzle.DifficultePuzzle;
-import groupe6.model.partie.ModeJeu;
-import groupe6.model.partie.Partie;
-import groupe6.model.profil.Profil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -82,7 +76,7 @@ public class GameModeSelectionMenu extends MainMenu {
             }
         });
 
-        // Bouton menu contre la montre
+        // Bouton menu contre-la-montre
         MainMenu.buttons[2].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

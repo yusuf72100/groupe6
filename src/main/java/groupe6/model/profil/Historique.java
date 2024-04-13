@@ -34,39 +34,6 @@ public class Historique implements Serializable {
     }
 
     /**
-     * Méthode de sauvegarde de l'historique des parties
-     *
-     * @param hist l'historique des parties
-     * @param chemin le chemin du fichier de sauvegarde
-     */
-    public static void sauvegardeHistorique(Historique hist, String chemin){
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))){
-            oos.writeObject(hist);
-            System.out.println("Historique des parties sauvegardé avec succès !");
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Méthode de chargement de l'historique des parties
-     *
-     * @param chemin le chemin du fichier de sauvegarde a charger
-     * @throws ClassNotFoundException si la classe n'est pas trouvée
-     * @return l'historique des parties
-     */
-    public static Historique chargerHistorique (String chemin) throws ClassNotFoundException{
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))){
-            Historique historique = (Historique) ois.readObject();
-            System.out.println("Historique des parties chargé avec succès !");
-            return historique;
-        } catch(IOException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
      * Méthode pour obtenir l'historique des parties
      *
      * @return l'historique des parties

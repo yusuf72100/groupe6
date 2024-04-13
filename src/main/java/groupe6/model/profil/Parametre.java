@@ -9,7 +9,7 @@ import groupe6.model.partie.puzzle.DifficultePuzzle;
 import javafx.scene.input.KeyCode;
 
 /**
- * Classe Parametre qui gère les paramètres de l'application
+ * Classe Paramètre qui gère les paramètres de l'application
  *
  * @author Tom MARSURA
  */
@@ -73,7 +73,7 @@ public class Parametre implements Serializable{
      *  Méthode pour obtenir le tableau de booléens qui indique si l'application automatique des techniques
      *  de démarrage est activée
      *
-     * @return le tableau de booléens de l'aide a l'application des techniques de démarrage
+     * @return le tableau de booléens de l'aide à l'application des techniques de démarrage
      */
     public boolean[] getAideTechniqueDemarrage(){
         return aideTechniqueDemarrage;

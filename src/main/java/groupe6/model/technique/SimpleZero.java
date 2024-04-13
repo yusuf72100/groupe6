@@ -10,8 +10,16 @@ import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import groupe6.model.partie.aide.HistoriqueAides;
 
+/**
+ * Classe qui représente la technique des simples zeros
+ *
+ * @author Yamis
+ */
 public class SimpleZero extends Technique{
 
+    /**
+     * Instance unique de la classe SimpleZero
+     */
     private static SimpleZero instance;
 
     /**

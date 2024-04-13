@@ -3,7 +3,6 @@ package groupe6.affichage;
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.info.LimiteTemps;
-import groupe6.model.partie.info.Score;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
@@ -113,7 +112,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     );
 
 
-    // Element qui sert a faire un espace entre l'image et les informations textuelles
+    // Element qui sert à faire un espace entre l'image et les informations textuelles
     Pane espace = new Pane();
     espace.setMinHeight(0.02 * windowHeight);
 
@@ -183,12 +182,6 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     // Met la croix en haut à droite
     StackPane.setAlignment(croix, Pos.TOP_RIGHT);
 
-//    // Cente le titre
-//    StackPane.setAlignment(titre, Pos.TOP_CENTER);
-//
-//    // Centre les informations sur le puzzle
-//    StackPane.setAlignment(infoPuzzle, Pos.CENTER);
-
     // ==========================================================================
     // Création du selecteur de puzzle
     // ==========================================================================
@@ -212,7 +205,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
         imgNoPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
         HBoxPreviewContainer.getChildren().add(imgNoPuzzle);
       }
-      // Sinon on affiche les previews des puzzles disponibles pour la difficulté
+      // Sinon, on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
           final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
@@ -235,7 +228,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
               infoPane.setVisible(!isVisible);
               infoPane.setManaged(!isVisible);
             }
-            // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
+            // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else {
               previewSelectionne = imgPreviewPuzzle;
               difficulteSelectionne = finalI;
@@ -378,7 +371,7 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     // Met le bouton de retour en bas du panneau
     StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
 
-    // Met le paneau lateral d'information à droite
+    // Met le panneau lateral d'information à droite
     StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
 
     // config des touches
@@ -396,13 +389,12 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
   }
 
   /**
+   * Méthode pour mettre à jour les informations sur le puzzle sélectionné
    *
-   * @param puzzleSelectionne
+   * @param puzzleSelectionne le puzzle sélectionné
    */
   public static void updateInfoPuzzleSelectionneContreLaMontre(PuzzleSauvegarde puzzleSelectionne) {
-    infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());
-    infoTaille.setText("Taille : " + puzzleSelectionne.getLargeur() + "x" + puzzleSelectionne.getLongueur());
-    infoPointsDepart.setText("Points de départ : " + Score.getScoreDebut(puzzleSelectionne.getDifficulte()));
+    updateInfoPuzzleSelectionneClassique(puzzleSelectionne);
     tempsLimite.setText("Temps limite : " +
         LimiteTemps.convertDurationToMinSec(
           LimiteTemps.getLimiteTemps(puzzleSelectionne.getDifficulte())

@@ -12,7 +12,7 @@ import java.util.Set;
 public class ResultatVerificationErreur {
 
   /**
-   * Booléen qui indique si des erreurs on été trouvées
+   * Booléen qui indique si des erreurs ont été trouvées
    */
   private final boolean erreurTrouvee;
 
@@ -22,16 +22,16 @@ public class ResultatVerificationErreur {
   private final Set<Coordonnee> premiereErreur;
 
   /**
-   * L'ensemble des coordonnées qui correspondent au erreurs qui découlent de la première erreur
+   * L'ensemble des coordonnées qui correspondent aux erreurs qui découlent de la première erreur
    */
   private final Set<Coordonnee> erreursSuivantes;
 
   /**
    * Constructeur de la classe ResultatVerificationErreur
    *
-   * @param erreurTrouvee booléen qui indique si des erreurs on été trouvées
+   * @param erreurTrouvee booléen qui indique si des erreurs ont été trouvées
    * @param premiereErreur l'ensemble des coordonnées qui correspondent à la première erreur
-   * @param erreursSuivantes l'ensemble des coordonnées qui correspondent au erreurs qui en découlent
+   * @param erreursSuivantes l'ensemble des coordonnées qui correspondent aux erreurs qui en découlent
    */
   public ResultatVerificationErreur(boolean erreurTrouvee, Set<Coordonnee> premiereErreur, Set<Coordonnee> erreursSuivantes) {
     this.erreurTrouvee = erreurTrouvee;
@@ -40,9 +40,9 @@ public class ResultatVerificationErreur {
   }
 
   /**
-   * Méthode pour obtenir le booléen qui indique si des erreurs on été trouvées
+   * Méthode pour obtenir le booléen qui indique si des erreurs ont été trouvées
    *
-   * @return le booléen qui indique si des erreurs on été trouvées
+   * @return le booléen qui indique si des erreurs ont été trouvées
    */
   public boolean isErreurTrouvee() {
     return erreurTrouvee;

@@ -303,24 +303,6 @@ public class Partie {
   }
 
   /**
-   * Méthode upgrade une aide de niveau 1 en une aide de niveau 2
-   *
-   * @param idxAide l'index de l'aide à upgrader
-   */
-  public void upgradeAide(int idxAide) {
-    // Verification de l'index de l'aide
-    if ( idxAide < 0 || idxAide >= this.historiqueAide.getListeAides().size() ) {
-      throw new IllegalArgumentException("Index de l'aide invalide !");
-    }
-
-    // Augmente le niveau de l'aide
-    this.historiqueAide.getListeAides().get(idxAide).upgradeNiveau();
-
-    // Malus supplémentaire pour avoir demandé une aide de niveau 2
-    this.infos.enleverPoints(Score.MALUSE_SUPPLEMENTAIRE_AIDE_NIVEAU_2);
-  }
-
-  /**
    * Méthode pour completer automatiquement les croix d'une case au nombre de traits maximum
    *
    * @param action l'action effectuée par l'utilisateur
@@ -462,58 +444,7 @@ public class Partie {
   }
 
   /**
-   * Méthode pour effectuer une action de type coté vide
-   *
-   * @param y la position en y de la cellule
-   * @param x la position en x de la cellule
-   * @param cote le côté de la cellule sur lequel l'action est effectuée
-   */
-  public void actionVide(int y, int x, int cote) {
-    Cellule cellule = puzzle.getCellule(y, x);
-    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-
-    Action action = new Action(cellule, cellule2, cote, ValeurCote.VIDE,new Coordonnee(y, x));
-    gestionnaireAction.ajouterAction(action);
-
-    pourChaqueAction(action);
-  }
-
-  /**
-   * Méthode pour effectuer une action de type coté trait
-   *
-   * @param y la position en y de la cellule
-   * @param x la position en x de la cellule
-   * @param cote le côté de la cellule sur lequel l'action est effectuée
-   */
-  public void actionTrait(int y, int x, int cote) {
-    Cellule cellule = puzzle.getCellule(y, x);
-    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-
-    Action action = new Action(cellule, cellule2, cote, ValeurCote.TRAIT,new Coordonnee(y, x));
-    gestionnaireAction.ajouterAction(action);
-
-    pourChaqueAction(action);
-  }
-
-  /**
-   * Méthode pour effectuer une action de type coté croix
-   *
-   * @param y la position en y de la cellule
-   * @param x la position en x de la cellule
-   * @param cote le côté de la cellule sur lequel l'action est effectuée
-   */
-  public void actionCroix(int y, int x, int cote) {
-    Cellule cellule = puzzle.getCellule(y, x);
-    Cellule cellule2 = puzzle.getCelluleAdjacente(y, x, cote);
-
-    Action action = new Action(cellule, cellule2, cote, ValeurCote.CROIX, new Coordonnee(y, x));
-    gestionnaireAction.ajouterAction(action);
-
-    pourChaqueAction(action);
-  }
-
-  /**
-   * Méthode qui verifie si la partie est terminée ( le puzzle est complet )
+   * Méthode qui verifie si la partie est terminée (le puzzle est complet)
    *
    * @return vrai si la partie est terminée, faux sinon
    */
@@ -534,7 +465,7 @@ public class Partie {
       // Update indice gagnee
       this.infos.setGagnee(false);
 
-      // Partie non complète et perdue car temps limite atteint
+      // Partie non complète et perdue, car temps limite atteint
       PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
       this.profil.getHistorique().addResultParties(partieFinieInfos);
 
