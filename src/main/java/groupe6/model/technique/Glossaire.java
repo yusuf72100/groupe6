@@ -14,7 +14,7 @@ import java.util.List;
 public class Glossaire {
 
     /**
-     * La listes des informations sur les techniques
+     * La liste des informations sur les techniques
      */
     private final List<TechniqueInfos> listeInfoTechnique;
 

@@ -1,0 +1,1 @@
+Chaque case numérotée doit être entourée d’un nombre de trait égal à son numéro. Les chiffres pouvant être dans ces cases sont donc soit 0,1, 2 ou 3. En effet, les cases étant rectangulaires, elles ne peuvent pas être entourées par plus de quatre traits.

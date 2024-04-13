@@ -10,9 +10,16 @@ import java.util.HashSet;
 import java.util.List;
 
 
-
+/**
+ * Classe de la technique coin 03
+ *
+ * @author Nathan
+ */
 public class Coin03 extends Technique{
 
+    /**
+     * Instance unique de la classe Coin03
+     */
     private static Coin03 instance;
 
     /**
