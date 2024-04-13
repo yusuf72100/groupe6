@@ -2,6 +2,7 @@ package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.ModeJeu;
+import groupe6.model.profil.Profil;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -48,7 +50,10 @@ public class ProfileMenu implements Menu {
 
     private static Button photoButton;
 
+    private static StackPane classementStack;
+
     public static void initMenu(Double w, Double h) {
+        classementStack = new StackPane();
         photoButton = new Button();
         backButton = new Button("QUITTER");
         description = new Label[5];
@@ -65,8 +70,8 @@ public class ProfileMenu implements Menu {
         String cheminImageAvatar = Launcher
                 .normaliserChemin(Launcher.catalogueProfils.getProfilActuel().getIMG());
         imageView.setImage(Launcher.chargerImage(cheminImageAvatar));
-        imageView.setFitWidth(Menu.toPourcentWidth(70.0, w));
-        imageView.setFitHeight(Menu.toPourcentHeight(70.0, h));
+        imageView.setFitWidth(Menu.toPourcentWidth(100.0, w));
+        imageView.setFitHeight(Menu.toPourcentHeight(100.0, h));
     }
 
     /**
@@ -85,7 +90,49 @@ public class ProfileMenu implements Menu {
     public static AnchorPane getMenu(Stage primaryStage, Double w, Double h) {
         initMenu(w,h);
 
+        content.getChildren().addAll(scrollPane, classementStack);
+        content.setMinSize(Menu.toPourcentWidth(1200.0, w), Menu.toPourcentHeight(700.0, h));
+        content.setMaxSize(Menu.toPourcentWidth(1200.0, w), Menu.toPourcentHeight(700.0, h));
+        content.setAlignment(Pos.CENTER);
+        content.setStyle("-fx-background-color: transparent; -fx-background-radius: 5;");
+        StackPane.setAlignment(profilVbox, Pos.CENTER);
+
         // Classement
+        classementStack.setVisible(false);
+        classementStack.setManaged(false);
+        classementStack.setStyle("-fx-background-color: lightgray");
+        classementStack.setPadding(new Insets(10, 10, 10, 10));
+
+        Rectangle[] classementRectangles = new Rectangle[Launcher.catalogueProfils.getListeProfils().size()];
+        HBox classementHBox = new HBox();
+        VBox[] elementVbox = new VBox[Launcher.catalogueProfils.getListeProfils().size()];
+        classementHBox.setSpacing(20);
+
+        int maxScore = 0;
+
+        // on récupère le score max
+        for ( Profil profil : Launcher.catalogueProfils.getListeProfils())
+            maxScore = maxScore < profil.getHistorique().calculerStat().get(2) ? profil.getHistorique().calculerStat().get(2) : maxScore;
+
+        for(int i = 0 ; i < Launcher.catalogueProfils.getListeProfils().size(); i++) {
+            elementVbox[i] = new VBox();
+            if(maxScore >= content.getMinHeight()) {
+                classementRectangles[i] = new Rectangle(30, Launcher.catalogueProfils.getListeProfils().get(i).getHistorique().calculerStat().get(2)*0.5);
+            } else {
+                classementRectangles[i] = new Rectangle(30, Launcher.catalogueProfils.getListeProfils().get(i).getHistorique().calculerStat().get(2));
+            }
+
+            classementRectangles[i].setFill(Color.valueOf("#e0ac1e"));
+            elementVbox[i].setSpacing(10);
+
+            elementVbox[i].getChildren().addAll(new Label(Launcher.catalogueProfils.getListeProfils().get(i).getNom()), classementRectangles[i]);
+            classementHBox.getChildren().add(elementVbox[i]);
+            elementVbox[i].setAlignment(Pos.BOTTOM_CENTER);
+        }
+
+        classementHBox.setAlignment(Pos.CENTER);
+        classementStack.getChildren().add(classementHBox);
+        classementStack.setAlignment(Pos.CENTER);
 
         // Statistiques
         photoButton.setGraphic(imageView);
@@ -127,13 +174,6 @@ public class ProfileMenu implements Menu {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        content.getChildren().add(scrollPane);
-        content.setMinSize(Menu.toPourcentWidth(1200.0, w), Menu.toPourcentHeight(700.0, h));
-        content.setMaxSize(Menu.toPourcentWidth(1200.0, w), Menu.toPourcentHeight(700.0, h));
-        content.setAlignment(Pos.CENTER);
-        content.setStyle("-fx-background-color: transparent; -fx-background-radius: 5;");
-        StackPane.setAlignment(profilVbox, Pos.CENTER);
-
         anchorPane.getChildren().addAll(hBox, content);
         AnchorPane.setTopAnchor(content, (h - content.getMinHeight()) / 2);
         AnchorPane.setLeftAnchor(content, (w - content.getMinWidth()) / 2);
@@ -162,11 +202,12 @@ public class ProfileMenu implements Menu {
         historique.setAlignment(Pos.CENTER);
         historique.setSpacing(20);
         historique.setPadding(new Insets(30, 0, 0, 0));
+
         for(int i = 0; i < stats.get(1); i++) {
             VBox descriptionBox = new VBox();
             Pane pane = new Pane();
             pane.getStyleClass().add("button-rounded");
-            pane.setStyle("-fx-background-color: #d24100;");
+            pane.setStyle("-fx-background-color: #e0ac1e;");
             pane.setMinSize(700, 100);
             pane.setMaxSize(700, 100);
 
@@ -237,6 +278,8 @@ public class ProfileMenu implements Menu {
         profile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                classementStack.setVisible(false);
+                classementStack.setManaged(false);
                 scrollPane.setVisible(true);
                 scrollPane.setManaged(true);
             }
@@ -247,6 +290,8 @@ public class ProfileMenu implements Menu {
             public void handle(ActionEvent actionEvent) {
                 scrollPane.setVisible(false);
                 scrollPane.setManaged(false);
+                classementStack.setVisible(true);
+                classementStack.setManaged(true);
             }
         });
 
