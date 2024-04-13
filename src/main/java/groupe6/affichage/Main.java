@@ -198,7 +198,7 @@ public class Main extends Application {
      * Méthode statique pour afficher le menu d'entraînement
      */
     public static void showProfileMenu() {
-        Main.setRoot(ProfileMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+        Main.setRoot(ProfileMenu.getMenu(primaryStage, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
     /**
