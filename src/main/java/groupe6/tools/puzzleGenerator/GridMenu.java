@@ -36,7 +36,7 @@ public class GridMenu implements Menu {
     private final Button sauvegarder;
 
     /**
-     * Bouton pour changer de grille
+     * Le bouton pour changer de grille
      */
     private final Button switchGrille;
 
@@ -181,8 +181,8 @@ public class GridMenu implements Menu {
         }
 
         /**
-         * Méthode qui execute l'action demandée sur le bouton
-         * 
+         * Méthode qui exécute l'action demandée sur le bouton
+         *
          * @param event l'événement qui a déclenché l'action
          */
         @Override

@@ -29,7 +29,7 @@ public class Launcher {
   private static Launcher instance;
 
   /**
-   * Boolean pour indiquer si le mode verbose est actif
+   * Le booléen pour indiquer si le mode verbose est actif
    */
   public static boolean verbose = false;
 

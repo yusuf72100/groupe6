@@ -76,9 +76,6 @@ public class GridMenu implements Menu {
     private final Button hypothese;
 
     /**
-     * ScrollPane de la zone d'affichage d'aides
-     */
-    /**
      * Le bouton pour demander de l'aide
      */
     private final Button help;
@@ -211,7 +208,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui highlight une cellule
+     * Méthode qui surligne une cellule
      *
      * @param x la position x de la cellule
      * @param y la position y de la cellule
@@ -240,7 +237,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui verifie si des coordonnées sont dans la grille
+     * Méthode qui vérifie si des coordonnées sont dans la grille
      *
      * @param y la position y
      * @param x la position x
@@ -404,7 +401,7 @@ public class GridMenu implements Menu {
         }
 
         /**
-         * Execute l'action demandée sur le bouton
+         * Exécute l'action demandée sur le bouton
          *
          * @param event l'événement qui a déclenché l'action
          */

@@ -34,7 +34,7 @@ public class CelluleNode extends Node {
     private Rectangle[] coins;
 
     /**
-     * Le paneau central de la cellule qui contient le label de la valeur numérique de la cellule
+     * Le panneau central de la cellule qui contient le label de la valeur numérique de la cellule
      */
     private StackPane centerPane;
 
@@ -44,7 +44,7 @@ public class CelluleNode extends Node {
     private TextField centerTextField;
 
     /**
-     * Les cotes de la cellule
+     * Les côtes de la cellule
      */
     private ValeurCote[] cotes;
 
@@ -57,7 +57,7 @@ public class CelluleNode extends Node {
      * Constructeur de la classe CelluleNode du puzzle generator
      *
      * @param label La valeur numérique de la cellule
-     * @param cotes Les cotes de la cellule
+     * @param cotes Les côtés de la cellule
      */
     public CelluleNode(int label, ValeurCote[] cotes) {
         this.label = -1;
@@ -107,9 +107,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Méthode qui met a jour le styles des boutons en fonction des cotes
+     * Méthode qui met à jour le style des boutons en fonction des côtés
      *
-     * @param cotes les cotes de la cellule
+     * @param cotes les côtés de la cellule
      */
     public void updateCotes(ValeurCote[] cotes) {
         for ( int i = 0; i < 4; i++ ) {
@@ -167,9 +167,9 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Méthode qui ajoute une croix sur un coté de la cellule
+     * Méthode qui ajoute une croix sur un côté de la cellule
      *
-     * @param cote le coté de la cellule
+     * @param cote le côté de la cellule
      */
     public void addCroix(int cote) {
         this.image[cote].setVisible(true);
@@ -264,17 +264,17 @@ public class CelluleNode extends Node {
     public Rectangle getCoin(int c) { return coins[c]; }
 
     /**
-     * Méthode qui permet d'obtenir l'image qui correspond à un coté
+     * Méthode qui permet d'obtenir l'image qui correspond à un côté
      *
-     * @param i le coté qu'on veut obtenir
-     * @return l'image qui correspond au coté
+     * @param i le côté que l’on veut obtenir
+     * @return l'image qui correspond au côté
      */
     public ImageView getImage(int i) { return this.image[i]; }
 
     /**
      * Méthode pour obtenir un bouton de la cellule
      *
-     * @param c le bouton qu'on veut obtenir ( coté )
+     * @param c le bouton que l’on veut obtenir (côté)
      * @return le bouton de la cellule
      */
     public Button getButton(int c) {

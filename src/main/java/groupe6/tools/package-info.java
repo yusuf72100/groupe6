@@ -1,8 +1,9 @@
 /**
  * Package des outils liés à l'application.
  * <br>
- * Il contient toute le code qui correspond aux outils qui on été crée pour l'application.
- * Ces outils sont des programmes appart de l'application principale, et permettent de completer ou de faciliter la
- * customisation ou la création d'éléments pour l'application.
+ * Il contient l’ensemble du code correspondant aux outils créés pour l'application.
+ * Ces outils sont des programmes séparés de l'application principale. Ils permettent
+ * d’aider à la modification ou à la création d'éléments nécessaires à l'application.
  */
+
 package groupe6.tools;

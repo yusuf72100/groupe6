@@ -55,7 +55,7 @@ public class Main extends Application {
     public static String secondaryColorCSS = "#e0ac1e";
 
     /**
-     * Métode qui démarre l'application
+     * Méthode qui démarre l'application
      *
      * @param primary la scène principale
      * @throws IOException si une erreur d'entrée/sortie se produit
