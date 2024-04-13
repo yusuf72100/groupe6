@@ -202,14 +202,14 @@ public abstract class Technique{
         Cellule basDroit = null;
 
         if(uneGrille.estDansGrille(positionY-1,positionX-1))hautGauche = uneGrille.getCellule(positionY-1,positionX-1);
-        if(uneGrille.estDansGrille(positionY+1,positionX-1))hautDroit = uneGrille.getCellule(positionY+1,positionX-1);
-        if(uneGrille.estDansGrille(positionY-1,positionX+1))basGauche = uneGrille.getCellule(positionY-1,positionX+1);
+        if(uneGrille.estDansGrille(positionY+1,positionX-1))basGauche = uneGrille.getCellule(positionY+1,positionX-1);
+        if(uneGrille.estDansGrille(positionY-1,positionX+1))hautDroit = uneGrille.getCellule(positionY-1,positionX+1);
         if(uneGrille.estDansGrille(positionY+1,positionX+1))basDroit = uneGrille.getCellule(positionY+1,positionX+1);
 
-        if(hautGauche != null && (hautGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || hautGauche.getCote(Cellule.BAS) == ValeurCote.TRAIT)) return true;
-        if(hautDroit != null && (hautDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || hautDroit.getCote(Cellule.BAS) == ValeurCote.TRAIT)) return true;
-        if(basGauche != null && (basGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || basGauche.getCote(Cellule.HAUT) == ValeurCote.TRAIT)) return true;
-        if(basDroit != null && (basDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || basDroit.getCote(Cellule.HAUT) == ValeurCote.TRAIT)) return true;
+        if(hautGauche != null && ((hautGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || hautGauche.getCote(Cellule.BAS) == ValeurCote.TRAIT))) return true;
+        if(hautDroit != null && ((hautDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || hautDroit.getCote(Cellule.BAS) == ValeurCote.TRAIT))) return true;
+        if(basGauche != null && ((basGauche.getCote(Cellule.DROITE) == ValeurCote.TRAIT || basGauche.getCote(Cellule.HAUT) == ValeurCote.TRAIT))) return true;
+        if(basDroit != null && ((basDroit.getCote(Cellule.GAUCHE) == ValeurCote.TRAIT || basDroit.getCote(Cellule.HAUT) == ValeurCote.TRAIT))) return true;
         return false;
     }
 

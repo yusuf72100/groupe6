@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBoucleAu3 extends ModelTest {
     private static Puzzle puzzle;
-    private static Adjacents3 techniqueAdjacents3;
+    private static BoucleAu3 techniqueBoucleAu3;
     private static Partie partie;
     private static Profil profil;
 
@@ -43,21 +43,21 @@ public class TestBoucleAu3 extends ModelTest {
         grilleCellules[1][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[1][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+        grilleCellules[1][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.TRAIT, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[1][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
         grilleCellules[2][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[2][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[2][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.TRAIT, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[2][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+        grilleCellules[2][2] = new Cellule(3, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+        grilleCellules[2][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.TRAIT, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[2][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[2][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
         grilleCellules[3][0] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
-        grilleCellules[3][3] = new Cellule(3, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
+        grilleCellules[3][3] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[3][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
@@ -75,7 +75,7 @@ public class TestBoucleAu3 extends ModelTest {
         grilleCellules[5][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[5][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
-        techniqueAdjacents3 = Adjacents3.getInstance();
+        techniqueBoucleAu3 = BoucleAu3.getInstance();
 
         profil = new Profil("Test",null);
 
@@ -83,36 +83,26 @@ public class TestBoucleAu3 extends ModelTest {
 
         partie = new Partie(puzzle, ModeJeu.CLASSIQUE,profil );
 
-//        System.out.println(puzzle);
+        System.out.println(puzzle);
     }
 
 
-    @Test
-    public void testDetectionBoucleAu3(){
-        System.out.println(CouleursANSI.RED + "Test à corriger" + CouleursANSI.RESET);
-
-        // La technique n'est pas trouvée
-
-//        ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
-//        System.out.println("res 1 : "+ resultat);
-//        assertTrue(resultat.isTechniqueTrouvee());
-
-    }
 
     @Test
     public void testDetectionBoucleAu3BonnesCoordonnees(){
-        System.out.println(CouleursANSI.RED + "Test à corriger" + CouleursANSI.RESET);
 
-        // La technique n'est pas trouvée
+        ResultatTechnique resultat = techniqueBoucleAu3.run(partie, 1);
+        System.out.println(resultat);
+        assertTrue(resultat.isTechniqueTrouvee());
+        assertEquals(resultat.getCoordonnees().size(),1);
 
-//        ResultatTechnique resultat = techniqueAdjacents3.run(partie, 1);
-//        System.out.println("res 2 : "+ resultat);
-//        assertEquals(resultat.getCoordonnees().size(),2);
-//        assertTrue(resultat.getCoordonnees().contains(new Coordonnee(3,3)));
-//        partie.getHistoriqueAide().ajouterAide(new AideInfos(resultat));
-//        resultat = techniqueAdjacents3.run(partie, 1);
-//        assertTrue(partie.getHistoriqueAide().aideDejaPresente(resultat));
-//        assertFalse(resultat.isTechniqueTrouvee());
+        assertTrue(resultat.getCoordonnees().contains(new Coordonnee(2,2)));
+
+        partie.getHistoriqueAide().ajouterAide(new AideInfos(resultat));
+        resultat = techniqueBoucleAu3.run(partie, 1);
+        System.out.println(resultat);
+        System.out.println(partie.getHistoriqueAide());
+        assertFalse(resultat.isTechniqueTrouvee());
     }
 
     @AfterAll
