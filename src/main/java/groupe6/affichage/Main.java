@@ -200,6 +200,13 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu d'entraînement
+     */
+    public static void showProfileMenu() {
+        Main.setRoot(ProfileMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher une pop-up d'information
      *
      * @param title le titre de la pop-up

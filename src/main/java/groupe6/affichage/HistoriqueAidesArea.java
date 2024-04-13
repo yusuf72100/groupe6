@@ -118,8 +118,9 @@ public class HistoriqueAidesArea {
     public void ajouterNouvelleAide(AideInfos aide) {
         int level = aide.getNiveau();
         String description = aide.getResultatTechnique().getNomTechniqueStylise();
+        Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", (level == 1) ? "Améliorer l'aide" : "Voir l'aide", this.width, this.height);
         boolean[] eye_opened = {true};
-        Button upgradeHelp = GridMenu.initHeaderButton("button-upgradeLevel", "Améliorer l'aide", this.width, this.height);
+
         Button more = GridMenu.initHeaderButton("button-more", "Plus d'informations", this.width, this.height);
         String cheminLevel = Launcher.normaliserChemin(Launcher.dossierAssets + "/icon/level" + level + ".png");
         final ImageView[] imageLevel = {new ImageView(Launcher.chargerImage(cheminLevel))};
@@ -181,9 +182,7 @@ public class HistoriqueAidesArea {
 
         eye_opened[0] = updateUpgradeButtonDisplay(lvl[0], upgradeHelp, eye_opened[0]);
 
-        // Handler de la variable de niveau
-        IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);      //TEST
-        //TODO : IntegerProperty niveauProperty = new SimpleIntegerProperty(aidesInfosList.get(index).getNiveau());
+        IntegerProperty niveauProperty = new SimpleIntegerProperty(lvl[0]);
         niveauProperty.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -196,6 +195,7 @@ public class HistoriqueAidesArea {
         final String nomSyliseTechnique = description;
         final String nomTechnique = aide.getResultatTechnique().getNomTechnique();
         final DifficulteTechnique difficulteTechnique = aide.getResultatTechnique().getDifficulte();
+
         // handler bouton upgrade niveau
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -210,18 +210,19 @@ public class HistoriqueAidesArea {
                     upgradeHelp.getStyleClass().clear();
                     upgradeHelp.getStyleClass().add("eye_opened");
                     montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
+                    GridMenu.changeHeaderButtonHoverText(upgradeHelp, "Voir l'aide");
                 }
                 else {
                     montrerCoordonneesTechnique(coordonnees,nomSyliseTechnique);
+                    GridMenu.changeHeaderButtonHoverText(upgradeHelp, "Voir l'aide");
                 }
-
             }
         });
+
         // handler bouton d'affichage des informations supplémentaires
         more.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO : Popup avec les schémas explicatifs ...
                 Main.afficherPopUpInfoTechnique(
                     nomSyliseTechnique,
                     nomTechnique,
