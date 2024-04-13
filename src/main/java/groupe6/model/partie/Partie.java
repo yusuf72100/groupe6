@@ -289,7 +289,6 @@ public class Partie {
    */
   public AideInfos chercherAide() {
     ResultatTechnique result = GestionnaireTechnique.getInstance().rechercheAideTechnique(this);
-    System.out.println("result rechercheAideTechnique : " + result);
 
     if ( result.isTechniqueTrouvee() ) {
       // Malus pour avoir demandé une aide de niveau 1

@@ -200,7 +200,6 @@ public class HistoriqueAidesArea {
         upgradeHelp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(aide.getNiveau());
                 if ( aide.getNiveau() < 2 ) {
                     // Augmente le niveau de l'aide
                     aide.upgradeNiveau();

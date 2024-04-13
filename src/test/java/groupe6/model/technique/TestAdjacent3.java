@@ -77,7 +77,7 @@ public class TestAdjacent3 extends ModelTest {
         grilleCellules[5][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[5][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
-        techniqueAdjacents3 = new Adjacents3();
+        techniqueAdjacents3 = Adjacents3.getInstance();
 
         profil = new Profil("Test",null);
 

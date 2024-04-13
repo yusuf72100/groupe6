@@ -5,8 +5,6 @@ import groupe6.model.partie.puzzle.Coordonnee;
 
 import java.util.*;
 
-import static groupe6.model.technique.Technique.ADJ;
-
 /**
  * Classe concrete qui représente la technique des 3 adjacents
  *
@@ -15,11 +13,28 @@ import static groupe6.model.technique.Technique.ADJ;
 public class Adjacents3 extends TechniquePattern3{
 
     /**
+     * L'instance unique de la classe Adjacents3
+     */
+    private static Adjacents3 instance;
+
+    /**
+     * Méthode pour obtenir l'instance de la classe Adjacents3 (singleton)
+     *
+     * @return singleton Adjacents3
+     */
+    public static Adjacents3 getInstance(){
+        if(instance==null){
+            instance = new Adjacents3();
+        }
+        return instance;
+    }
+
+    /**
      * Constructeur de la classe Adjacents3
      */
-    public Adjacents3() {
+    private Adjacents3() {
         super(
-            DifficulteTechnique.BASIQUE,
+            DifficulteTechnique.DEMARRAGE,
             "3 adjacents"
         );
     }
@@ -39,7 +54,7 @@ public class Adjacents3 extends TechniquePattern3{
             int x = coordCellule.getX();
             List<Coordonnee> adjacents = Technique.rechercherNumeroAutour(partie.getPuzzle(), 3, coordCellule, Direction.ADJACENT);
             for(Coordonnee adj : adjacents) {
-                if(Technique.verificationMultidir(partie.getPuzzle(), Arrays.asList(coordCellule,adj), ADJ)){
+                if(Technique.verificationMultidir(partie.getPuzzle(), Arrays.asList(coordCellule,adj), ZERO )){
                     Set<Coordonnee> casesConcernees = new HashSet<Coordonnee>(Arrays.asList(coordCellule,adj));
                     ResultatTechnique resultat =  new ResultatTechnique(
                         true,

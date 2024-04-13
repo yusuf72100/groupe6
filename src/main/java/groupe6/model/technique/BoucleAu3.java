@@ -16,9 +16,26 @@ import java.util.Set;
 public class BoucleAu3 extends TechniquePattern3{
 
     /**
+     * Instance unique de la classe BoucleAu3
+     */
+    private static BoucleAu3 instance;
+
+    /**
+     * Méthode pour obtenir l'instance unique de la classe BoucleAu3
+     *
+     * @return l'instance unique de la classe BoucleAu3
+     */
+    public static BoucleAu3 getInstance(){
+        if(instance == null){
+            instance = new BoucleAu3();
+        }
+        return instance;
+    }
+
+    /**
      * Constructeur de la classe BoucleAu3
      */
-    public BoucleAu3() {
+    private BoucleAu3() {
         super(
             DifficulteTechnique.BASIQUE,
             "boucle atteint un 3"
@@ -26,7 +43,7 @@ public class BoucleAu3 extends TechniquePattern3{
     }
 
     /**
-     * Methode run exectuté lors de l'appelle de la technique
+     * Methode run exectuté lors de l'appel de la technique
      *
      * @param partie La partie comportant la grille à analyser.
      * @param idx Index d'ordre de la technique

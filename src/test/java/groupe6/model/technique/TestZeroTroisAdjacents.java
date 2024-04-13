@@ -55,7 +55,7 @@ public class TestZeroTroisAdjacents extends ModelTest {
         grille[2][1] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grille[2][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
-        techniqueZeroTroisAdjacents = new Adjacents03();
+        techniqueZeroTroisAdjacents = Adjacents03.getInstance();
 
         puzzle = new Puzzle(largeur3, longueur3, grille, grille, DifficultePuzzle.FACILE);
         profil = new Profil("Test", null);
