@@ -168,7 +168,7 @@ public class MainMenu implements Menu {
         profilMenusButton = new Button();
         settingsButton = new Button();
         backText = new Label("QUITTER");
-        buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "ENTRAÎNEMENT" };
+        buttonTextsLabels = new String[] { "CHARGER\nUNE\nPARTIE", "NOUVELLE\nPARTIE", "GLOSSAIRE" };
         title = new Text("Slitherlink");
         backButton = new Button();
         profilSelector = new ComboBox<>();
@@ -478,7 +478,7 @@ public class MainMenu implements Menu {
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                Main.showEntrainementMenu();
+                                Main.showGlossaireMenu();
                             }
                         });
                         break;

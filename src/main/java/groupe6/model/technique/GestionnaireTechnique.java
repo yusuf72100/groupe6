@@ -11,7 +11,7 @@ import java.util.concurrent.*;
 /**
  * Classe qui représente le gestionnaire des techniques
  *
- * @author Nathan
+ * @author Nathan, Yamis
  */
 public class GestionnaireTechnique{
 
@@ -40,19 +40,19 @@ public class GestionnaireTechnique{
         /*
          * Techniques DEMARRAGE
          */
-        /// this.ajouterTechnique(SimpleZero.getInstance());
-        this.ajouterTechnique(new Adjacents03());
-        /// TODO : this.ajouterTechnique(new Diagonales03());
-        this.ajouterTechnique(new Adjacents3());
-        /// TODO : this.ajouterTechnique(new Diagonales3());
-        /// this.ajouterTechnique(AnyNumberCorner.getInstance());
+        this.ajouterTechnique(SimpleZero.getInstance());
+        this.ajouterTechnique(Adjacents03.getInstance());
+        this.ajouterTechnique(Diagonales03.getInstance());
+        this.ajouterTechnique(Adjacents3.getInstance());
+        this.ajouterTechnique(Diagonales3.getInstance());
+        this.ajouterTechnique(AnyNumberCorner.getInstance());
         /*
          * Techniques BASIQUES
          */
-        /// this.ajouterTechnique(Coin03.getInstance());
-        /// this.ajouterTechnique(new BoucleAu3());
-        this.ajouterTechnique(new BoucleAu1());
-        // TODO : this.ajouterTechnique(new ConstraintOn2());
+        this.ajouterTechnique(Coin03.getInstance());
+        this.ajouterTechnique(BoucleAu3.getInstance());
+        this.ajouterTechnique(BoucleAu1.getInstance());
+        this.ajouterTechnique(ConstraintOn2.getInstance());
         // TODO : this.ajouterTechnique(new AvoidSeparateLoop());
         /*
          * Techniques AVANCEES
@@ -154,7 +154,9 @@ public class GestionnaireTechnique{
             // Retourne le premier résultat technique trouvé
             for (ResultatTechnique resultat : lstResultats) {
                 if (resultat.isTechniqueTrouvee()) {
-                    System.out.println("resultat : " + resultat.toString());
+                    if ( Launcher.getVerbose() ) {
+                        System.out.println("resultat : " + resultat.toString());
+                    }
                     return resultat;
                 }
             }

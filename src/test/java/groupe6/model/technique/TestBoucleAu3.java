@@ -1,5 +1,6 @@
 package groupe6.model.technique;
 
+import groupe6.CouleursANSI;
 import groupe6.ModelTest;
 import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
@@ -74,7 +75,7 @@ public class TestBoucleAu3 extends ModelTest {
         grilleCellules[5][4] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
         grilleCellules[5][5] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE});
 
-        techniqueAdjacents3 = new Adjacents3();
+        techniqueAdjacents3 = Adjacents3.getInstance();
 
         profil = new Profil("Test",null);
 
@@ -88,7 +89,7 @@ public class TestBoucleAu3 extends ModelTest {
 
     @Test
     public void testDetectionBoucleAu3(){
-        System.out.println("Test à corriger");
+        System.out.println(CouleursANSI.RED + "Test à corriger" + CouleursANSI.RESET);
 
         // La technique n'est pas trouvée
 
@@ -100,7 +101,7 @@ public class TestBoucleAu3 extends ModelTest {
 
     @Test
     public void testDetectionBoucleAu3BonnesCoordonnees(){
-        System.out.println("Test à corriger");
+        System.out.println(CouleursANSI.RED + "Test à corriger" + CouleursANSI.RESET);
 
         // La technique n'est pas trouvée
 

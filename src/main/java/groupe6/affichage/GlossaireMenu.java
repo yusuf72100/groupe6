@@ -1,10 +1,6 @@
 package groupe6.affichage;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.partie.ModeJeu;
-import groupe6.model.partie.puzzle.CataloguePuzzle;
-import groupe6.model.partie.puzzle.DifficultePuzzle;
-import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.technique.DifficulteTechnique;
 import groupe6.model.technique.GestionnaireTechnique;
 import javafx.animation.TranslateTransition;
@@ -29,12 +25,12 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * Classe qui représente le menu d'entrainement
+ * Classe qui représente le menu du glossaire
  *
  * @author Yamis
 
  */
-public class EntrainementMenu {
+public class GlossaireMenu {
 
   /**
    * Image de preview sélectionnée
@@ -42,7 +38,7 @@ public class EntrainementMenu {
   private static ImageView previewSelectionne = null;
 
   /**
-   * Méthode pour obtenir le panneau du menu entrainement
+   * Méthode pour obtenir le panneau du menu glossaire
    *
    * @param w la largeur de la fenêtre
    * @param h la hauteur de la fenêtre
@@ -55,27 +51,26 @@ public class EntrainementMenu {
 
     // Création du paneau lateral d'information
     VBox infoPaneVBox =  new VBox();
+    infoPaneVBox.setVisible(false);
+    infoPaneVBox.setManaged(false);
 
-    ScrollPane infoPane = new ScrollPane(infoPaneVBox);
-    infoPane.setVisible(false);
-    infoPane.setManaged(false);
-    infoPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    infoPaneVBox.setStyle(
+        "-fx-background-color: "+Main.mainColorCSS+";" +
+            " -fx-padding: "+Math.round(0.02 * h)+"px;" +
+            " -fx-background-radius: 10px 0px 0px 10px;" +
+            "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
+    );
+
 
     // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
     infoPaneVBox.setSpacing(0.08 * h);
 
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPane.setStyle(
-        "-fx-background-color: "+Main.mainColorCSS+";" +
-        " -fx-padding: "+Math.round(0.02 * h)+"px;" +
-        " -fx-background-radius: 10px 0px 0px 10px;" +
-        "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
-    );
+    infoPaneVBox.setMinWidth(0.30 * w);
+    infoPaneVBox.setMaxWidth(0.30 * w);
 
     // Definition de la taille du paneau lateral d'information
-    infoPane.setMinWidth(0.30 * w);
-    infoPane.setMaxWidth(0.30 * w);
-//    infoPaneVBox.setMinHeight(h);
+
 
     Label titre = new Label("Information sur la technique");
     Menu.adaptTextSize(titre, 35, w, h);
@@ -168,17 +163,27 @@ public class EntrainementMenu {
     HBoxCroix.setAlignment(Pos.TOP_RIGHT);
 
     // Detecte les clics sur la croix pour fermer le paneau lateral d'information
-    final ScrollPane finalInfoPane = infoPane;
+    final VBox finalInfoPane = infoPaneVBox;
     croix.setOnMouseClicked(e -> {
       finalInfoPane.setVisible(false);
       finalInfoPane.setManaged(false);
     });
 
+    VBox infoPaneInfoVbox = new VBox();
+    infoPaneInfoVbox.getChildren().addAll(
+        titre,
+        infoTechnique
+    );
+    infoPaneInfoVbox.setSpacing(0.02 * h);
+    infoPaneInfoVbox.setAlignment(Pos.CENTER);
+
+    ScrollPane infoPaneScroll = new ScrollPane(infoPaneInfoVbox);
+    infoPaneScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
     // Ajout des informations dans le paneau lateral d'information
     infoPaneVBox.getChildren().addAll(
         HBoxCroix,
-        titre,
-        infoTechnique
+        infoPaneScroll
     );
     infoPaneVBox.setSpacing(0.05 * h);
     // Met les elements du paneau lateral d'information au centre
@@ -242,9 +247,9 @@ public class EntrainementMenu {
           imgView.setOnMouseClicked(e -> {
             // Change la visibilité du panneau lateral si on vient de sélectionner le même preview que précédemment
             if ( previewSelectionne == imgView ) {
-              boolean isVisible = infoPane.isVisible();
-              infoPane.setVisible(!isVisible);
-              infoPane.setManaged(!isVisible);
+              boolean isVisible = infoPaneVBox.isVisible();
+              infoPaneVBox.setVisible(!isVisible);
+              infoPaneVBox.setManaged(!isVisible);
             }
             // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else {
@@ -252,8 +257,8 @@ public class EntrainementMenu {
               nomTechnique.setText(cleanNomStylise);
               imgTechnique.setImage(image);
               descriptionTechnique.setText(descTechnique);
-              infoPane.setVisible(true);
-              infoPane.setManaged(true);
+              infoPaneVBox.setVisible(true);
+              infoPaneVBox.setManaged(true);
             }
           });
           VBox vBoxPreview = new VBox();
@@ -389,7 +394,7 @@ public class EntrainementMenu {
     });
 
     // Gestion du titre
-    Label title = new Label("Entrainement");
+    Label title = new Label("Glossaire");
     title.getStyleClass().add("title");
     title.setTranslateY(Menu.toPourcentHeight(50.0, w));
     StackPane.setAlignment(title, Pos.TOP_CENTER);
@@ -405,7 +410,7 @@ public class EntrainementMenu {
         title,
         mainVbox,
         backButton,
-        infoPane
+        infoPaneVBox
     );
 
     // Met le titre en haut de la boite verticale principale
@@ -418,7 +423,7 @@ public class EntrainementMenu {
     StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
 
     // Met le paneau lateral d'information à droite
-    StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
+    StackPane.setAlignment(infoPaneVBox, Pos.CENTER_RIGHT);
 
     // config des touches
     EventHandler<KeyEvent> keyEventHandler = event -> {

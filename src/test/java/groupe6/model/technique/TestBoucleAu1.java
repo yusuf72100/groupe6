@@ -5,7 +5,6 @@ import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.Puzzle;
-import groupe6.model.partie.puzzle.TestPuzzle;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
 import groupe6.model.profil.Profil;
@@ -16,7 +15,7 @@ import groupe6.model.partie.aide.AideInfos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestBoucleUn extends ModelTest{
+public class TestBoucleAu1 extends ModelTest {
     private static Puzzle puzzle;
     private static Puzzle puzzleTrue;
     private static BoucleAu1 techniqueBoucleUn;
@@ -27,7 +26,7 @@ public class TestBoucleUn extends ModelTest{
     @BeforeAll
     public static void initAll(){
 
-        ModelTest.afficherNomDebut(TestBoucleUn.class);
+        ModelTest.afficherNomDebut(TestBoucleAu1.class);
 
         int largeur3 = 3;
         int longueur3 = 3;
@@ -64,7 +63,7 @@ public class TestBoucleUn extends ModelTest{
         grilleTrue[2][1] = new Cellule(1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.VIDE, ValeurCote.TRAIT});
         grilleTrue[2][2] = new Cellule(-1, new ValeurCote[]{ValeurCote.VIDE, ValeurCote.TRAIT, ValeurCote.TRAIT, ValeurCote.VIDE});
 
-        techniqueBoucleUn = new BoucleAu1();
+        techniqueBoucleUn = BoucleAu1.getInstance();
 
         profil = new Profil("Test", null);
 
@@ -97,6 +96,6 @@ public class TestBoucleUn extends ModelTest{
 
     @AfterAll
     public static void tearDownAll() {
-        ModelTest.afficherNomFin(TestBoucleUn.class);
+        ModelTest.afficherNomFin(TestBoucleAu1.class);
     }
 }

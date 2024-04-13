@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Classe de la technique zéro et trois adjacent
- * Numéro de technique : 1
+ *
  * @author Tom MARSURA
  */
 public class Adjacents03 extends Technique {
@@ -30,12 +30,32 @@ public class Adjacents03 extends Technique {
     private boolean HORIZ = false;
 
     /**
+     * Instance unique de la classe Adjacents03
+     */
+    private static Adjacents03 instance = null;
+
+    /**
+     * Méthode qui permet de récupérer l'instance unique de la classe Adjacents03
+     *
+     * @return instance unique de la classe Adjacents03
+     */
+    public static Adjacents03 getInstance() {
+        if ( instance == null){
+            instance = new Adjacents03();
+            return instance;
+        }
+        else {
+            return instance;
+        }
+    }
+
+    /**
      * Constructeur de la classe de la zeroTroisAdjacents
      *
      */
-    public Adjacents03() {
+    private Adjacents03() {
         super(
-                DifficulteTechnique.BASIQUE,
+                DifficulteTechnique.DEMARRAGE,
                 "zéro et trois adjacents"
         );
     }

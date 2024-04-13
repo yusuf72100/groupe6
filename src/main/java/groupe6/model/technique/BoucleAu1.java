@@ -11,14 +11,32 @@ import java.util.HashSet;
 
 /**
  * Classe de la technique boucle qui rejoint un 1
+ *
  * @author Tom MARSURA
  */
 public class BoucleAu1 extends Technique {
 
     /**
+     * Instance unique de la classe BoucleAu1
+     */
+    private static BoucleAu1 instance = null;
+
+    /**
+     * Méthode qui renvoit l'instance unique de la classe BoucleAu1
+     *
+     * @return l'instance unique de la classe BoucleAu1
+     */
+    public static BoucleAu1 getInstance(){
+        if(instance == null){
+            instance = new BoucleAu1();
+        }
+        return instance;
+    }
+
+    /**
      * Constructeur de la classe BoucleAu1
      */
-    public BoucleAu1(){
+    private BoucleAu1(){
         super(
             DifficulteTechnique.BASIQUE,
             "boucle atteignant le 1"
