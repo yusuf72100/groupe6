@@ -327,6 +327,11 @@ public class Partie {
    * @param action l'action effectuée par l'utilisateur
    */
   public void autoCompletionCroix(Action action) {
+
+    if ( action.getNouvelleValeurCote() != ValeurCote.TRAIT ) {
+      return;
+    }
+
     Coordonnee coordsCell1 = action.getCoordsCellule1();
     Coordonnee coordsCell2 = puzzle.getCoordoneeAdjacente(coordsCell1.getY(),coordsCell1.getX(),action.getCoteCellule1());
 
@@ -557,6 +562,12 @@ public class Partie {
 
       PartieFinieInfos partieFinieInfos = new PartieFinieInfos(this.infos, difficulte, this.puzzle.getLargeur(), this.puzzle.getLongueur());
       this.profil.getHistorique().addResultParties(partieFinieInfos);
+
+      if ( this.getInfos().getModeJeu() == ModeJeu.AVENTURE ) {
+        if ( Launcher.cataloguePuzzles.estDernierPuzzleDeverrouille(difficulte.ordinal(),this.getPuzzle().getNumeroPuzzle(), this.profil) ) {
+          this.profil.augmenterNiveauAventure();
+        }
+      }
 
       if ( Launcher.getVerbose() ) {
         System.out.println("Partie terminée : Le puzzle est complet !");

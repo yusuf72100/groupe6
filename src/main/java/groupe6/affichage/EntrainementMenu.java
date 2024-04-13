@@ -6,6 +6,7 @@ import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.technique.DifficulteTechnique;
+import groupe6.model.technique.GestionnaireTechnique;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,6 +22,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+
 /**
  * Classe qui représente le menu d'entrainement
  *
@@ -30,6 +37,11 @@ import javafx.util.Duration;
 public class EntrainementMenu {
 
   /**
+   * Image de preview sélectionnée
+   */
+  private static ImageView previewSelectionne = null;
+
+  /**
    * Méthode pour obtenir le panneau du menu entrainement
    *
    * @param w la largeur de la fenêtre
@@ -37,46 +49,33 @@ public class EntrainementMenu {
    * @return le panneau du menu entrainement
    */
   public static StackPane getMenu(Double w, Double h) {
-
-    // Initialisation des éléments graphiques
-    // Création du panneau principal
-    StackPane mainPane = new StackPane();
-    // Création des éléments graphiques pour le selecteur de puzzle
-    VBox mainVbox = new VBox();
-    VBox VBoxDifficulteContainer = new VBox();
-    HBox[] PuzzlePreviewContainer = new HBox[]{new HBox(), new HBox(), new HBox()};
-    StackPane stackPaneSelecteurPuzzle = new StackPane();
-    // Création des éléments graphiques pour le panneau d'information sur le puzzle sélectionné
-    VBox infoPane = new VBox();
-    infoPane.setVisible(false);
-    infoPane.setManaged(false);
-    VBox infoTechnique = new VBox();
-    ImageView imgTechnique = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
-    imgTechnique.setFitWidth(Math.round(0.16 * w));
-    imgTechnique.setFitHeight(Math.round(0.16 * w));
-    ImageView previewSelectionne = null;
-
     // ==========================================================================
     // Création des éléments du panneau d'information sur le puzzle sélectionné
     // ==========================================================================
 
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPane.setSpacing(0.08 * h);
+    // Création du paneau lateral d'information
+    VBox infoPaneVBox =  new VBox();
 
-    // Ajout du padding dans le paneau lateral d'information
-    infoPane.setPadding(new Insets(0.04 * h,0.02 * h,0.04 * h,0.02 * h));
+    ScrollPane infoPane = new ScrollPane(infoPaneVBox);
+    infoPane.setVisible(false);
+    infoPane.setManaged(false);
+    infoPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
+    infoPaneVBox.setSpacing(0.08 * h);
 
     // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
     infoPane.setStyle(
         "-fx-background-color: "+Main.mainColorCSS+";" +
-            " -fx-padding: "+Math.round(0.02 * h)+"px;" +
-            " -fx-background-radius: 10px 0px 0px 10px;" +
-            "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
+        " -fx-padding: "+Math.round(0.02 * h)+"px;" +
+        " -fx-background-radius: 10px 0px 0px 10px;" +
+        "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
     );
 
     // Definition de la taille du paneau lateral d'information
-    infoPane.setMinWidth(0.25 * w);
-    infoPane.setMaxWidth(0.25 * w);
+    infoPane.setMinWidth(0.30 * w);
+    infoPane.setMaxWidth(0.30 * w);
+//    infoPaneVBox.setMinHeight(h);
 
     Label titre = new Label("Information sur la technique");
     Menu.adaptTextSize(titre, 35, w, h);
@@ -104,6 +103,9 @@ public class EntrainementMenu {
         descriptionTechnique.getStyle() +
             "-fx-text-fill: black;"
     );
+    descriptionTechnique.setMinWidth(0.25 * w);
+    descriptionTechnique.setMaxWidth(0.25 * w);
+    descriptionTechnique.setWrapText(true);
 
     // Element qui sert à faire un espace pour l'affichage
     Pane espace = new Pane();
@@ -119,7 +121,7 @@ public class EntrainementMenu {
 
     // Bouton pour lancer l'entrainement
     Button btnEntrainement = new Button("ENTRAINEMENT");
-    btnEntrainement.setPrefSize(Menu.toPourcentWidth(200.0, w), Menu.toPourcentHeight(100.0, h));
+    btnEntrainement.setPrefSize(Menu.toPourcentWidth(250.0, w), Menu.toPourcentHeight(100.0, h));
     // Style du bouton pour lancer l'entrainement
     btnEntrainement.getStyleClass().add("button-rounded-play");
     btnEntrainement.getStyleClass().add("button-text");
@@ -133,7 +135,14 @@ public class EntrainementMenu {
     // Ajoute une marge de 5% en bas au bouton pour lancer entrainement
     StackPane.setMargin(btnEntrainement, new Insets(0, 0, 0.05 * h, 0));
 
+    // Image de la technique
+    ImageView imgTechnique = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
+    imgTechnique.setFitWidth(Math.round(0.16 * w));
+    imgTechnique.setFitHeight(Math.round(0.16 * w));
+
+
     // Ajout de l'image et des informations textuelles sur l'entrainement
+    VBox infoTechnique = new VBox();
     infoTechnique.getChildren().addAll(
         nomTechnique,
         espace,
@@ -159,21 +168,21 @@ public class EntrainementMenu {
     HBoxCroix.setAlignment(Pos.TOP_RIGHT);
 
     // Detecte les clics sur la croix pour fermer le paneau lateral d'information
-    VBox finalInfoPane = infoPane;
+    final ScrollPane finalInfoPane = infoPane;
     croix.setOnMouseClicked(e -> {
       finalInfoPane.setVisible(false);
       finalInfoPane.setManaged(false);
     });
 
     // Ajout des informations dans le paneau lateral d'information
-    infoPane.getChildren().addAll(
+    infoPaneVBox.getChildren().addAll(
         HBoxCroix,
         titre,
         infoTechnique
     );
-    infoPane.setSpacing(0.05 * h);
+    infoPaneVBox.setSpacing(0.05 * h);
     // Met les elements du paneau lateral d'information au centre
-    infoPane.setAlignment(Pos.TOP_CENTER);
+    infoPaneVBox.setAlignment(Pos.CENTER_RIGHT);
 
     // Met la croix en haut à droite
     StackPane.setAlignment(croix, Pos.TOP_RIGHT);
@@ -182,53 +191,109 @@ public class EntrainementMenu {
     // Création du selecteur de puzzle
     // ==========================================================================
 
+    HBox[] previewContainer = new HBox[]{new HBox(), new HBox(), new HBox()};
+    List<String[]>[] listeNomTechnique = GestionnaireTechnique.getInstance().nomTechniques();
 
-    // Pour les 3 difficultés, on crée un conteneur de preview de puzzle
+    // Pour les 4 sections, on crée un conteneur de preview
     for (int i = 0; i < 3; i++) {
-      // HBox intermédiaire pour obtenir le style souhaité
+      final int finalI = i;
+      // VBox qui contient les lignes de preview
       VBox VBoxPreviewContainer = new VBox();
       VBoxPreviewContainer.setSpacing(0.015 * w);
-      // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       VBoxPreviewContainer.setStyle(
           "-fx-background-color: "+Main.mainColorCSS+";" +
               " -fx-padding: "+Math.round(0.04 * h)+"px;" +
               " -fx-background-radius: 10px;"
       );
-      int nbElem = 5;
+      // Pour chaque ligne de preview
       int idxElem = 0;
       for (int j = 0; j < 2; j++) {
+        // HBox qui correspond à une ligne de preview
         HBox HBoxPreviewContainer = new HBox();
         HBoxPreviewContainer.setSpacing(0.03 * w);
-        // Ajoute au maxim 3 element par ligne dans le conteneur de preview de puzzle
-        for ( int k = 0; k < 3  && idxElem < nbElem; k++, idxElem++) {
-          ImageView img = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
-          img.setFitWidth(Math.round(  0.15 * w));
-          img.setFitHeight(Math.round( 0.15 * w));
-          img.setOnMouseClicked(e -> {
-            // Change la visibilité du paneau lateral si on vient de reselectionner le même puzzle
-            if (  true ) {
+        // Liste nom technique
+        for ( int k = 0; k < 3  && idxElem < listeNomTechnique[i].size() ; k++, idxElem++) {
+          final int currentIdxElem = idxElem;
+          // Gestion nom stylisé de la technique
+          String cheminTxtTechnique = Launcher.normaliserChemin(
+              Launcher.dossierTechniques + "/description/" + listeNomTechnique[finalI].get(currentIdxElem)[0] + ".desc"
+          );
+          StringBuilder contentBuilder = new StringBuilder();
+          try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cheminTxtTechnique), "UTF-8"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+              contentBuilder.append(line).append("\n");
+            }
+          } catch (IOException exception) {
+            exception.printStackTrace();
+          }
+          String descTechnique = contentBuilder.toString();
+          String nomStylise = listeNomTechnique[finalI].get(currentIdxElem)[1];
+          final String cleanNomStylise = nomStylise.substring(0, 1).toUpperCase() + nomStylise.substring(1);
+          // Gestion image preview
+          String cheminImg = Launcher.normaliserChemin(Launcher.dossierTechniques+ "/img/" + listeNomTechnique[i].get(currentIdxElem)[0] + "_1.png");
+          final Image image = Launcher.chargerImage(cheminImg);
+          final ImageView imgView = new ImageView(image);
+          imgView.setFitWidth(Math.round(  0.15 * w));
+          imgView.setFitHeight(Math.round( 0.15 * w));
+          imgView.setStyle(
+              "-fx-cursor: hand;"
+          );
+          imgView.setOnMouseClicked(e -> {
+            // Change la visibilité du panneau lateral si on vient de sélectionner le même preview que précédemment
+            if ( previewSelectionne == imgView ) {
               boolean isVisible = infoPane.isVisible();
               infoPane.setVisible(!isVisible);
               infoPane.setManaged(!isVisible);
             }
-            // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
+            // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else {
+              previewSelectionne = imgView;
+              nomTechnique.setText(cleanNomStylise);
+              imgTechnique.setImage(image);
+              descriptionTechnique.setText(descTechnique);
               infoPane.setVisible(true);
               infoPane.setManaged(true);
             }
           });
-          HBoxPreviewContainer.getChildren().add(img);
+          VBox vBoxPreview = new VBox();
+          vBoxPreview.setSpacing(0.01 * h);
+          Label label = new Label(cleanNomStylise);
+          Menu.adaptTextSize(label, 25, w, h);
+          label.setAlignment(Pos.CENTER);
+          HBox centerLabel = new HBox(label);
+          centerLabel.setAlignment(Pos.CENTER);
+          vBoxPreview.getChildren().addAll(
+              imgView,
+              centerLabel
+          );
+          HBoxPreviewContainer.getChildren().add(vBoxPreview);
         }
         VBoxPreviewContainer.getChildren().add(HBoxPreviewContainer);
       }
 
-      PuzzlePreviewContainer[i].getChildren().add(VBoxPreviewContainer);
+      previewContainer[i].getChildren().add(VBoxPreviewContainer);
     }
+
+    // Change l'espacement entre les éléments du conteneur de preview des puzzles
+    VBox VBoxDifficulteContainer = new VBox();
+    VBoxDifficulteContainer.setSpacing(0.02 * h);
+
+    // Ajout du header des règles et des previews des règles
+    Label headerRegles = new Label("Règles du jeu");
+    headerRegles.setStyle(
+        "-fx-background-color: "+Main.secondaryColorCSS+";" +
+            "-fx-text-fill: black;" +
+            "-fx-font-weight: bold;" +
+            "-fx-padding: 10px;" +
+            "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+            "-fx-background-radius: 10px;" +
+            "-fx-cursor: hand;"
+    );
 
     // Ajoute les headers de chaque difficulté et ses conteneurs de preview des puzzles
     for (int i = 0; i < 3; i++) {
       Label header = new Label(DifficulteTechnique.values()[i].toString());
-
       // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
       header.setStyle(
           "-fx-background-color: "+Main.secondaryColorCSS+";" +
@@ -250,27 +315,27 @@ public class EntrainementMenu {
       int finalI = i;
       header.setOnMouseClicked(e -> {
         // Change la visibilité des previews des puzzles de la difficulté
-        boolean isVisible = !PuzzlePreviewContainer[finalI].isVisible();
+        boolean isVisible = !previewContainer[finalI].isVisible();
 
         TranslateTransition transitionElement;
         if(!isVisible) {
-          transitionElement = new TranslateTransition(Duration.seconds(0.5), PuzzlePreviewContainer[finalI]);
+          transitionElement = new TranslateTransition(Duration.seconds(0.5), previewContainer[finalI]);
           transitionElement.setFromX(0);
           transitionElement.setToX(-(w));
           transitionElement.play();
 
           transitionElement.setOnFinished(event -> {
-            PuzzlePreviewContainer[finalI].setVisible(isVisible);
-            PuzzlePreviewContainer[finalI].setManaged(isVisible);
+            previewContainer[finalI].setVisible(isVisible);
+            previewContainer[finalI].setManaged(isVisible);
           });
         } else {
-          transitionElement = new TranslateTransition(Duration.seconds(0.5), PuzzlePreviewContainer[finalI]);
+          transitionElement = new TranslateTransition(Duration.seconds(0.5), previewContainer[finalI]);
           transitionElement.setFromX(-(w));
           transitionElement.setToX(0);
           transitionElement.play();
 
-          PuzzlePreviewContainer[finalI].setVisible(isVisible);
-          PuzzlePreviewContainer[finalI].setManaged(isVisible);
+          previewContainer[finalI].setVisible(isVisible);
+          previewContainer[finalI].setManaged(isVisible);
         }
       });
 
@@ -278,15 +343,12 @@ public class EntrainementMenu {
       VBoxDifficulteContainer.getChildren().add(headerPane);
 
       // Ajoute le conteneur de preview des puzzles de la difficulté dans le conteneur
-      VBoxDifficulteContainer.getChildren().add(PuzzlePreviewContainer[i]);
+      VBoxDifficulteContainer.getChildren().add(previewContainer[i]);
 
       // Met le conteneur de preview des puzzles de la difficulté en invisible
-      PuzzlePreviewContainer[finalI].setVisible(false);
-      PuzzlePreviewContainer[finalI].setManaged(false);
+      previewContainer[finalI].setVisible(false);
+      previewContainer[finalI].setManaged(false);
     }
-
-    // Change l'espacement entre les éléments du conteneur de preview des puzzles
-    VBoxDifficulteContainer.setSpacing(0.02 * h);
 
     // Création d'un ScrollPane pour afficher les previews des puzzles
     ScrollPane scrollPane = new ScrollPane(VBoxDifficulteContainer);
@@ -297,20 +359,15 @@ public class EntrainementMenu {
     // Met le fond du ScrollPane en transparent pour laisser voir l'image de fond
     scrollPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
-    // Ajoute le ScrollPane au StackPane qui contient le selecteur de puzzle
+    // Ajoute le ScrollPane au StackPane qui contient le selecteur
+    StackPane stackPaneSelecteurPuzzle = new StackPane();
     stackPaneSelecteurPuzzle.getChildren().add(scrollPane);
 
     // Ajouter une marge de 7% à gauche et 12% en bas au scrollPane
-    StackPane.setMargin(scrollPane, new Insets(0.08 * w,  0, 0.17 * h, 0.08 * w));
+    StackPane.setMargin(scrollPane, new Insets(0.12 * w,  0, 0.17 * h, 0.08 * w));
 
-    // Gestion du titre
-    Label title = new Label("Entrainement");
-    title.getStyleClass().add("title");
-    title.setTranslateY(Menu.toPourcentHeight(50.0, h));
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
-    Menu.adaptTextSize(title,60, w, h);
-
-    // Boite verticale principale qui contient le titre et le selecteur de puzzle
+    // Boite verticale principale qui centre les éléments graphiques
+    VBox mainVbox = new VBox();
     mainVbox.setSpacing(0.10 * h);
     mainVbox.getChildren().add(stackPaneSelecteurPuzzle);
     mainVbox.setAlignment(Pos.CENTER);
@@ -331,11 +388,18 @@ public class EntrainementMenu {
       Main.showMainMenu();
     });
 
+    // Gestion du titre
+    Label title = new Label("Entrainement");
+    title.getStyleClass().add("title");
+    title.setTranslateY(Menu.toPourcentHeight(50.0, w));
+    StackPane.setAlignment(title, Pos.TOP_CENTER);
+
     // Chargement de l'image de fond
     String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
     ImageView backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
 
     // Ajout des éléments graphiques au panneau principal
+    StackPane mainPane = new StackPane();
     mainPane.getChildren().addAll(
         backgroundImage,
         title,

@@ -413,3 +413,12 @@
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.button-more {
+    -fx-background-color: rgba(208, 208, 208, 0);
+    -fx-background-image: url('icon/more.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 5 10;
+}

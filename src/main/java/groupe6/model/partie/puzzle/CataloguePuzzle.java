@@ -1,6 +1,7 @@
 package groupe6.model.partie.puzzle;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.profil.Profil;
 
 import java.io.File;
 import java.util.*;
@@ -94,7 +95,7 @@ public class CataloguePuzzle {
    */
   public Puzzle getNouveauPuzzle(DifficultePuzzle difficulte, int numero, boolean optionTechDemarrage) {
     PuzzleSauvegarde puzzleSauvegarde = getPuzzleSauvegarde(difficulte, numero);
-    return new Puzzle(puzzleSauvegarde, optionTechDemarrage);
+    return new Puzzle(puzzleSauvegarde, optionTechDemarrage, numero);
   }
 
   /**
@@ -114,6 +115,44 @@ public class CataloguePuzzle {
     }
 
     return strBuilder.toString();
+  }
+
+  /**
+   * Méthode pour savoir si un puzzle est verrouillé
+   *
+   * @param i l'indice qui représente la difficulté du puzzle
+   * @param j le numéro du puzzle
+   * @param profil le profil du joueur
+   * @return vrai si le puzzle est déverrouillé, faux sinon
+   */
+  public boolean puzzleEstDeverrouille(int i, int j,Profil profil) {
+    if ( i < 0 || i >= DifficultePuzzle.values().length || j < 0 || j >= cataloguePuzzle.get(DifficultePuzzle.values()[i]).size()) {
+      throw new IllegalArgumentException("Index de puzzle invalide");
+    }
+    int sum = 0;
+    for (int k = 0; k < i ; k++) {
+      sum += cataloguePuzzle.get(DifficultePuzzle.values()[k]).size();
+    }
+    return (sum + j) <= profil.getNiveauAventure();
+  }
+
+  /**
+   * Méthode pour savoir si un puzzle est le dernier puzzle déverrouillé
+   *
+   * @param i l'indice qui représente la difficulté du puzzle
+   * @param j le numéro du puzzle
+   * @param profil le profil du joueur
+   * @return vrai si le puzzle est le dernier puzzle déverrouillé, faux sinon
+   */
+  public boolean estDernierPuzzleDeverrouille(int i, int j, Profil profil) {
+    if ( i < 0 || i >= DifficultePuzzle.values().length || j < 0 || j >= cataloguePuzzle.get(DifficultePuzzle.values()[i]).size()) {
+      throw new IllegalArgumentException("Index de puzzle invalide");
+    }
+    int sum = 0;
+    for (int k = 0; k < i ; k++) {
+      sum += cataloguePuzzle.get(DifficultePuzzle.values()[k]).size();
+    }
+    return (sum + j) == profil.getNiveauAventure();
   }
 
   /**

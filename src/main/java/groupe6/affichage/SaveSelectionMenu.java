@@ -3,6 +3,7 @@ package groupe6.affichage;
 import java.util.List;
 
 import groupe6.launcher.Launcher;
+import groupe6.model.partie.ModeJeu;
 import groupe6.model.partie.Partie;
 import groupe6.model.partie.sauvegarde.CatalogueSauvegarde;
 import groupe6.model.partie.sauvegarde.PartieSauvegarde;
@@ -17,10 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -32,80 +34,28 @@ import javafx.util.Duration;
  * @author Yusuf
  */
 public class SaveSelectionMenu extends MainMenu {
-    // TODO : supprimer si pas utilisé
     /**
      * Le bouton de back
      */
     private static Button backButton;
 
-    // TODO : supprimer si pas utilisé
-    /**
-     * Le texte du bouton de back
-     */
-    private static Label backText;
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * Le sélecteur de profil
-     */
-    private static ComboBox<String> profilSelector;
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * La boîte horizontale principale
-     */
-    private static HBox mainHbox;
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * Le panneau d'affichage principal
-     */
-    private static StackPane mainPane;
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * La description des backgrounds
-     */
-    private static HBox[] descriptionsBackground;
-
-    // TODO
     /**
      * Le conteneur des boutons
      */
     private static StackPane[] buttonsContainer;
 
-    /**
-     * Les textes des boutons du menu de sélection de sauvegarde
-     */
-    private static String[] buttonTextsLabels;
 
     /**
      * Les boutons du menu de sélection de sauvegarde
      */
     private static Button[] buttons;
 
-    /**
-     * Les textes des descriptions dans les boutons du menu de sélection de sauvegarde
-     */
-    private static Label[] descriptionText;
 
     /**
-     * L.es labels des boutons du menu de sélection de sauvegarde
+     * Les labels des boutons du menu de sélection de sauvegarde
      */
     private static Label[] buttonsText;
 
-    // animations
-    // TODO : supprimer si pas utilisé
-    /**
-     * Les transitions de translation des rectangles
-     */
-    private static TranslateTransition[] rectangleTransition;
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * Les transitions de translation des rectangles en sens inverse
-     */
-    private static TranslateTransition[] rectangleTransitionReverse;
 
     /**
      * Les transitions de fade des rectangles
@@ -117,23 +67,10 @@ public class SaveSelectionMenu extends MainMenu {
      */
     private static FadeTransition[] fadeTransitionReverse;
 
-    // TODO : supprimer si pas utilisé
-    /**
-     * Les rectangles pour l'animation de l'affichage des descriptions
-     */
-    private static Rectangle[] clipRectangle;
-
-    // TODO : supprimer si pas utilisé
     /**
      * Le titre de la fenêtre
      */
-    private static Text title = new Text("Slitherlink");
-
-    // TODO : supprimer si pas utilisé
-    /**
-     * La liste des profils chargés dans le catalogue de profils
-     */
-    private static List<Profil> profils;
+    private static Text title;
 
     /**
      * La liste des noms des sauvegardes du profil actuel
@@ -150,7 +87,7 @@ public class SaveSelectionMenu extends MainMenu {
      */
     public static void initMenu() {
         lstSave = CatalogueSauvegarde.listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-        title = new Text("Choisissez une partie");
+        title = new Text("Sauvegardes");
         backButton = new Button("RETOUR");
         mainHbox = new HBox();
         mainPane = new StackPane();
@@ -165,7 +102,6 @@ public class SaveSelectionMenu extends MainMenu {
         profils = Launcher.catalogueProfils.getListeProfils();
 
         backText = new Label("RETOUR");
-        buttonTextsLabels = new String[lstSave.size()];
         buttons = new Button[lstSave.size()];
     }
 
@@ -173,7 +109,7 @@ public class SaveSelectionMenu extends MainMenu {
      * Méthode qui extrait la difficulté depuis le nom de la sauvegarde
      *
      * @param data le nom de la sauvegarde
-     * @return la difficulté de la sauvegarde ( String )
+     * @return la difficulté de la sauvegarde (String)
      */
     private static String extraireDifficulte(String data) {
         String difficulte = data.split("_")[0];
@@ -183,23 +119,53 @@ public class SaveSelectionMenu extends MainMenu {
     }
 
     /**
+     * Méthode qui extrait le mode de jeu depuis le nom de la sauvegarde
+     *
+     * @param data le nom de la sauvegarde
+     * @return le mode de jeu de la sauvegarde (String)
+     */
+    private static String extraireModeDeJeu(String data) {
+        String modeDeJeu = data.split("_")[1];
+
+        // Change le format du mode de jeu
+        if ( modeDeJeu.equals(ModeJeu.CONTRELAMONTRE.toString()) ) {
+            return "Contre la montre";
+        }
+        else {
+            String premiereLettre = modeDeJeu.substring(0, 1).toUpperCase();
+            String resteDuMot = modeDeJeu.substring(1).toLowerCase();
+            return premiereLettre + resteDuMot;
+        }
+    }
+
+    /**
      * Méthode qui extrait la taille depuis le nom de la sauvegarde
      *
      * @param data le nom de la sauvegarde
-     * @return la taille de la sauvegarde ( String )
+     * @return la taille de la sauvegarde (String)
      */
     private static String extraireTaille(String data) {
-        return data.split("_")[1];
+        return data.split("_")[2];
     }
 
     /**
      * Méthode qui extrait la date depuis le nom de la sauvegarde
      *
      * @param data le nom de la sauvegarde
-     * @return la date de la sauvegarde ( String )
+     * @return la date de la sauvegarde (String)
      */
     private static String extraireDate(String data) {
-        return (data.split("_")[2] + "-" + data.split("_")[3] + "-" + data.split("_")[4]);
+        return (data.split("_")[3] + "/" + data.split("_")[4] + "/" + data.split("_")[5]);
+    }
+
+    /**
+     * Méthode qui extrait l'heure depuis le nom de la sauvegarde
+     *
+     * @param data le nom de la sauvegarde
+     * @return l'heure de la sauvegarde (String)
+     */
+    private static String extraireHeure(String data) {
+        return (data.split("_")[6] + ":" + data.split("_")[7] + ":" + data.split("_")[8]);
     }
 
     /**
@@ -219,16 +185,26 @@ public class SaveSelectionMenu extends MainMenu {
 
         if(!lstSave.isEmpty()) {
             for (int i = 0; i < lstSave.size(); i++) {
-                buttonTextsLabels[i] = lstSave.get(i);
 
                 buttons[i] = new Button();
                 buttons[i].setMinSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
                 buttons[i].setMaxSize(Menu.toPourcentWidth(350.0, windowWidth), Menu.toPourcentHeight(500.0, windowHeigth));
-                // buttons[i].setPrefSize(Menu.toPourcentWidth(350.0, windowWidth),
-                // Menu.toPourcentHeight(500.0, windowHeigth));
                 buttons[i].getStyleClass().add("button-rounded");
 
-                buttonsText[i] = new Label(buttonTextsLabels[i]);
+                int finalI = i;
+                String modeDeJeu = extraireModeDeJeu(lstSave.get(finalI));
+                String difficulte = extraireDifficulte(lstSave.get(finalI));
+                String taille = extraireTaille(lstSave.get(finalI));
+                String date = extraireDate(lstSave.get(finalI));
+                String heure = extraireHeure(lstSave.get(finalI));
+                String description =
+                    "Mode de jeu : " + modeDeJeu + "\n" +
+                        "Difficulté : " + difficulte + "\n" +
+                        "Taille : " + taille + "\n" +
+                        "Date : " + date + "\n" +
+                        "Heure : " + heure + "\n";
+
+                buttonsText[i] = new Label(description);
                 buttonsText[i].getStyleClass().add("button-text");
                 buttonsText[i].setFocusTraversable(false);
                 buttonsText[i].setMouseTransparent(true);
@@ -236,19 +212,9 @@ public class SaveSelectionMenu extends MainMenu {
                 Menu.adaptTextSize(buttonsText[i], 20, windowWidth, windowHeigth);
                 buttonsText[i].setWrapText(true);
 
-                // positionnement de la description
-                descriptionText[i] = new Label();
-                descriptionText[i].setFocusTraversable(false);
-                descriptionText[i].setMouseTransparent(true);
-                descriptionText[i].setTranslateY(Menu.toPourcentHeight(200.0, windowHeigth));
-                descriptionText[i].getStyleClass().add("description-text");
-                Menu.adaptTextSize(descriptionText[i], 18, windowWidth, windowHeigth);
-                descriptionText[i].setWrapText(true);
-
-                // déplacer le texte vers le bas
                 buttonsContainer[i] = new StackPane();
                 buttonsContainer[i].setAlignment(Pos.CENTER);
-                buttonsContainer[i].getChildren().addAll(buttons[i], buttonsText[i], descriptionText[i]);
+                buttonsContainer[i].getChildren().addAll(buttons[i], buttonsText[i]);
                 buttonsContainer[i].setMinWidth(buttons[i].getMaxWidth());
                 buttonsContainer[i].setMaxWidth(buttons[i].getMaxWidth());
                 buttonsContainer[i].setMinHeight(buttons[i].getMaxHeight());
@@ -264,20 +230,7 @@ public class SaveSelectionMenu extends MainMenu {
                 fadeTransitionReverse[i].setFromValue(1.0);
                 fadeTransitionReverse[i].setToValue(0.0);
 
-                // hover on
-                int finalI = i;
                 buttonsContainer[i].setOnMouseEntered(e -> {
-                    descriptionText[finalI].setTextAlignment(TextAlignment.CENTER);
-                    if (finalI >= lstSave.size())
-                        descriptionText[finalI].setText("Rien");
-                    else {
-                        String difficulte = extraireDifficulte(lstSave.get(finalI));
-                        String taille = extraireTaille(lstSave.get(finalI));
-                        String date = extraireDate(lstSave.get(finalI));
-                        String description = "Difficulté : " + difficulte + "\nTaille : " + taille + "\nDate : " + date;
-                        descriptionText[finalI].setText(description);
-                    }
-
                     buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
@@ -300,15 +253,6 @@ public class SaveSelectionMenu extends MainMenu {
                             }
                         }
                     });
-
-                    fadeTransition[finalI].play();
-                });
-
-                // hover off
-                int finalI1 = i;
-                buttonsContainer[i].setOnMouseExited(e -> {
-                    fadeTransition[finalI1].stop();
-                    fadeTransitionReverse[finalI1].play();
                 });
             }
         } else {
@@ -328,8 +272,28 @@ public class SaveSelectionMenu extends MainMenu {
         scrollPane.setFitToHeight(true);
         scrollPane.setPadding(new Insets(10, 10, 10, 10));
 
+        // Met le fond du ScrollPane en transparent pour laisser voir l'image de fond
+        scrollPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        // Chargement de l'image de fond
+        String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
+        ImageView backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
+
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(scrollPane, backButton, noSavesLabel);
+        stackPane.getChildren().addAll(
+            backgroundImage,
+            scrollPane
+        );
+        if ( !lstSave.isEmpty() ) {
+            stackPane.getChildren().add(title);
+        }
+        stackPane.getChildren().addAll(
+            backButton,
+            noSavesLabel
+        );
+        title.getStyleClass().add("title");
+        title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
+        StackPane.setAlignment(title, Pos.TOP_CENTER);
         stackPane.setAlignment(Pos.CENTER);
         StackPane.setAlignment(scrollPane, Pos.CENTER);
 

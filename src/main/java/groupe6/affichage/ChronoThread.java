@@ -107,7 +107,6 @@ public class ChronoThread implements Runnable {
             if ( !this.partieFinie && this.partie.getInfos().getChrono().compareTo(Duration.ofMinutes(this.derniereMinute+1)) >= 0) {
                 this.partie.getInfos().enleverPoints(Score.MALUS_PAR_MINUTE);
                 this.derniereMinute++;
-                System.out.println(this.partie.getInfos().getScore());
             }
 
             try {
