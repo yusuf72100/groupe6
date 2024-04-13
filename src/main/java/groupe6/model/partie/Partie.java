@@ -457,9 +457,6 @@ public class Partie {
     ValeurCote nouvelleValeurCote = cellule1.basculeTroisEtats(cote);
 
     Action action = new Action(cellule1, cellule2, cote, nouvelleValeurCote,new Coordonnee(y, x));
-    if ( Launcher.getVerbose() ) {
-      System.out.println("Nouvelle action bascule a trois etats :\n  - "+action);
-    }
 
     pourChaqueAction(action);
   }
