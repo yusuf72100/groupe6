@@ -22,6 +22,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * Classe qui correspond au menu du mode contre-la-montre qui permet de choisir sur quel puzzle l'utilisateur veut jouer
+ *
+ * @author Yamis
+ */
 public class ContreLaMontreModeMenu extends ClassicModeMenu {
 
   /**
@@ -62,8 +67,8 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     );
 
     // Definition de la taille du paneau lateral d'information
-    infoPane.setMinWidth(0.25 * windowWidth);
-    infoPane.setMaxWidth(0.25 * windowWidth);
+    infoPane.setMinWidth(0.30 * windowWidth);
+    infoPane.setMaxWidth(0.30 * windowWidth);
 
     Label titre = new Label("Information sur le puzzle");
     Menu.adaptTextSize(titre, 35, windowWidth, windowHeight);
@@ -325,11 +330,10 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
     StackPane.setMargin(scrollPane, new javafx.geometry.Insets(0.08 * windowWidth,  0, 0.17 * windowHeight, 0.08 * windowWidth));
 
     // Gestion du titre
-    title = new Label("Mode Contre La Montre");
+    title = new Label("Contre La Montre");
     title.getStyleClass().add("title");
     title.setTranslateY(Menu.toPourcentHeight(50.0, windowHeight));
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
-    Menu.adaptTextSize(title,60, windowWidth, windowHeight);
+    StackPane.setAlignment(title, Pos.TOP_CENTER);
 
     // Boite verticale principale qui contient le titre et le selecteur de puzzle
     mainVbox.setSpacing(0.10 * windowHeight);

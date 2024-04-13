@@ -66,6 +66,30 @@ public class GestionnaireTechnique{
     }
 
     /**
+     * Méthode pour obtenir les noms des techniques par difficulté
+     *
+     * @return les noms des techniques par difficulté
+     */
+    public List<String[]>[] nomTechniques() {
+        List<String[]>[] res = new List[]{
+            new ArrayList<String>(),
+            new ArrayList<String>(),
+            new ArrayList<String>()
+        };
+
+        for (Technique t : listeTechnique) {
+            // Tableau avec nomTechnique et nomStylise
+            String[] noms = new String[]{
+                t.getNomTechnique(),
+                t.getNomTechniqueStylise()
+            };
+            res[t.getDifficulte().ordinal()].add(noms);
+        }
+
+        return res;
+    }
+
+    /**
      * Méthode pour ajouter une technique à la liste des techniques
      *
      * @param technique la technique à ajouter
@@ -118,7 +142,6 @@ public class GestionnaireTechnique{
                 try {
                     Future<ResultatTechnique> future = completionService.take();
                     ResultatTechnique resultat = future.get();
-                    System.out.println("resultat : " + resultat.toString());
                     lstResultats.add(resultat);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -131,6 +154,7 @@ public class GestionnaireTechnique{
             // Retourne le premier résultat technique trouvé
             for (ResultatTechnique resultat : lstResultats) {
                 if (resultat.isTechniqueTrouvee()) {
+                    System.out.println("resultat : " + resultat.toString());
                     return resultat;
                 }
             }

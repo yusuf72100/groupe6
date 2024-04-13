@@ -20,12 +20,12 @@ public class Puzzle implements Serializable, Cloneable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * La largeur du puzzle ( nombre de lignes )
+   * La largeur du puzzle (nombre de lignes)
    */
   private final int largeur;
 
   /**
-   * La longueur du puzzle ( nombre de colonnes )
+   * La longueur du puzzle (nombre de colonnes)
    */
   private final int longueur;
 
@@ -33,6 +33,11 @@ public class Puzzle implements Serializable, Cloneable {
    * La difficulté du puzzle
    */
   private final DifficultePuzzle difficulte;
+
+  /**
+   * Le numéro du puzzle dans le catalogue (dans sa difficulté)
+   */
+  private int numeroPuzzle;
 
   /**
    * La grille avec la solution du puzzle
@@ -50,11 +55,12 @@ public class Puzzle implements Serializable, Cloneable {
    * @param puzzleSauvegarde le PuzzleSauvegarde à partir duquel créer le puzzle
    * @param optionTechDemarrage boolean pour savoir si on doit utiliser la grille de tech demarrage ou la grille vide
    */
-  public Puzzle(PuzzleSauvegarde puzzleSauvegarde, boolean optionTechDemarrage) {
+  public Puzzle(PuzzleSauvegarde puzzleSauvegarde, boolean optionTechDemarrage, int numeroPuzzle) {
     this.largeur = puzzleSauvegarde.getLargeur();
     this.longueur = puzzleSauvegarde.getLongueur();
     this.grilleSolution = Cellule.clonerMatriceCellule(puzzleSauvegarde.getGrilleSolution());
     this.difficulte = puzzleSauvegarde.getDifficulte();
+    this.numeroPuzzle = numeroPuzzle;
     if ( optionTechDemarrage ) {
       this.grilleJeu = Cellule.clonerMatriceCellule(puzzleSauvegarde.getGrilleTechDemarrage());
     } else {
@@ -129,6 +135,15 @@ public class Puzzle implements Serializable, Cloneable {
    */
   public DifficultePuzzle getDifficulte() {
     return difficulte;
+  }
+
+  /**
+   * Méthode pour obtenir le numéro du puzzle dans le catalogue
+   *
+   * @return le numéro du puzzle dans le catalogue
+   */
+  public int getNumeroPuzzle() {
+    return numeroPuzzle;
   }
 
   /**

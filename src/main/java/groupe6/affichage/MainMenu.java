@@ -452,23 +452,9 @@ public class MainMenu implements Menu {
                     case 0:
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
-                            public void handle(ActionEvent actionEvent) {
-                                List<String> lstSave = CatalogueSauvegarde
-                                        .listerSauvegarde(Launcher.catalogueProfils.getProfilActuel());
-                                Main.showSaveSelectionMenu();
-                                if (!lstSave.isEmpty()) {
-                                    String saveName = lstSave.get(0);
-                                    System.out.println("Chargement de la sauvegarde : " + saveName);
-                                    PartieSauvegarde save = PartieSauvegarde.chargerSauvegarde(saveName,
-                                            Launcher.catalogueProfils.getProfilActuel());
-                                    Partie partie = Partie.chargerPartie(save,
-                                            Launcher.catalogueProfils.getProfilActuel());
-                                } else {
-                                    System.out.println("Aucune sauvegarde trouvée");
-                                }
-                            }
+                            public void handle(ActionEvent actionEvent) { Main.showSaveSelectionMenu(); }
                         });
-                        descriptionText[finalI].setText("Charger une partie existante");
+                        descriptionText[finalI].setText("Charger une partie en cours");
                         break;
                     // bouton nouvelle partie
                     case 1:
@@ -483,7 +469,12 @@ public class MainMenu implements Menu {
                         break;
                     // bouton entrainement
                     case 2:
-                        descriptionText[finalI].setText("Entraînez-vous à devenir \nmeilleur au jeu");
+                        descriptionText[finalI].setText(
+                            "Decouvrez les règles et apprenez" +
+                            "\n" +
+                            "des techniques"
+                        );
+
                         buttons[finalI].setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
@@ -543,8 +534,16 @@ public class MainMenu implements Menu {
         };
 
         String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
-        mainPane.getChildren().addAll(new ImageView(Launcher.chargerImage(cheminBgImage)), title, mainHbox,
-                profilSelector, backButton, backText, settingsButton, OptionsMenu.getMenu());
+        mainPane.getChildren().addAll(
+            new ImageView(Launcher.chargerImage(cheminBgImage)),
+            title,
+            mainHbox,
+            profilSelector,
+            backButton,
+            backText,
+            settingsButton,
+            OptionsMenu.getMenu()
+        );
         StackPane.setAlignment(title, Pos.TOP_CENTER);
         StackPane.setAlignment(settingsButton, Pos.TOP_LEFT);
 
