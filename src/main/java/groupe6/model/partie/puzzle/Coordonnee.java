@@ -107,15 +107,6 @@ public class Coordonnee implements Serializable,Cloneable {
   }
 
   /**
-   * Méthode pour vérifier si une coordonnée correspond à une coordonnée qui indique qu'aucune aide de niveau 2 n'est disponible
-   *
-   * @return vrai si la coordonnée correspond à une coordonnée spéciale, faux sinon
-   */
-  public boolean coordonneeSpecialeAucunNiv2(){
-    return this.y == -999 && this.x == -999;
-  }
-
-  /**
    * Méthode pour cloner une coordonnée
    *
    * @return la coordonnée clonée

@@ -151,16 +151,8 @@ public class GlossaireMenu {
         descriptionPreview.getStyle() +
         "-fx-text-fill: black;"
     );
-    // Bouton pour lancer l'entrainement
-    Button btnEntrainement = new Button("ENTRAINEMENT");
-    btnEntrainement.setPrefSize(Menu.toPourcentWidth(250.0, w), Menu.toPourcentHeight(100.0, h));
-    btnEntrainement.getStyleClass().add("button-rounded-play");
-    btnEntrainement.getStyleClass().add("button-text");
-    btnEntrainement.setStyle(btnEntrainement.getStyle() + "-fx-font-size: " + (28 * Math.min(w / 1920, h / 1080)) + "px;");
-    btnEntrainement.setOnMouseClicked(e -> {
-      // TODO : Lancer entrainement
-    });
-    StackPane.setMargin(btnEntrainement, new Insets(0, 0, 0.05 * h, 0));
+
+
     // Boite verticale qui contient le contenu du panneau d'information
     VBox VBoxContenueInfoPane = new VBox();
     VBoxContenueInfoPane.getChildren().addAll(
@@ -222,8 +214,7 @@ public class GlossaireMenu {
         imgPreview,
         espace[1],
         descriptionPreview,
-        espace[2],
-        btnEntrainement
+        espace[2]
     );
 
     // Ajout de la croix dans la boite horizontale
@@ -339,9 +330,6 @@ public class GlossaireMenu {
         // HBox qui centre le label
         HBox HBoxCenterLabelPreviewName = new HBox(labelPreviewName);
         HBoxCenterLabelPreviewName.setAlignment(Pos.CENTER);
-        // Verifie si c'est une technique
-        /// boolean estTechnique = estTechnique(info[1]);
-        boolean estTechnique = false; // False car entrainement non disponible
         // Description de dy preview
         final String description = getDescriptionPreview(info[2]);
         // Image de la technique
@@ -353,13 +341,6 @@ public class GlossaireMenu {
             "-fx-cursor: hand;"
         );
         imgView.setOnMouseClicked(e -> {
-          if ( !estTechnique ) {
-            btnEntrainement.setVisible(false);
-            btnEntrainement.setManaged(false);
-          } else {
-            btnEntrainement.setVisible(true);
-            btnEntrainement.setManaged(true);
-          }
           if ( previewSelectionne == imgView ) {
             boolean isVisible = infoPane.isVisible();
             infoPane.setVisible(!isVisible);
@@ -493,20 +474,6 @@ public class GlossaireMenu {
       exception.printStackTrace();
     }
     return contentBuilder.toString();
-  }
-
-  /**
-   * Méthode pour savoir si c'est le chemin d'une technique
-   *
-   * @param chemin le chemin
-   * @return vrai si c'est une technique, faux sinon
-   */
-  public static boolean estTechnique(String chemin) {
-    // Si le chemmin comment pas Launcher.dossierTechniques
-    if ( chemin.startsWith(Launcher.normaliserChemin(Launcher.dossierTechniques)) ) {
-      return true;
-    }
-    return false;
   }
 
 }

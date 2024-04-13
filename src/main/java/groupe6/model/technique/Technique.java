@@ -45,6 +45,7 @@ public abstract class Technique{
      * Constructeur de la classe Technique
      *
      * @param uneDifficulte la difficulté de la technique
+     * @param nomTechniqueStylise le nom stylisé de la technique
      */
     public Technique(DifficulteTechnique uneDifficulte, String nomTechniqueStylise){
         this.difficulte = uneDifficulte;
@@ -109,7 +110,7 @@ public abstract class Technique{
     }
 
     /**
-     * Recherche d'un numero en diagonal, cette méthode connait:
+     * Recherche d'un numero en diagonal, cette méthode connait :
      *
      * @param uneGrille La grille dans laquelle on cherche le numéro.
      * @param unNumero Le numéro qu'il faut rechercher.
@@ -136,7 +137,7 @@ public abstract class Technique{
     }
 
     /**
-     * Recherche d'un numero adjacent, cette méthode connait:
+     * Recherche d'un numero adjacent, cette méthode connait :
      *
      * @param uneGrille La grille dans laquelle on cherche le numéro.
      * @param unNumero Le numéro qu'il faut rechercher.
@@ -162,13 +163,13 @@ public abstract class Technique{
     }
 
     /**
-     * Recherche d'un numero en diagonal, cette méthode connait:
+     * Recherche d'un numero en diagonal, cette méthode connait :
      *
      * @param uneGrille La grille dans laquelle on cherche le numéro.
      * @param unNumero Le numéro qu'il faut rechercher.
      * @param unePosition Les coordonées de la position autour de laquelle chercher.
      * @param direction Une précision sur la recherche (uniquement en diagonal, adjacent ou les deux)
-     * @return Une liste dans laquelle on été concaténé les listes de coordonnées soit diagonale, adjacente ou bien les deux.
+     * @return Une liste dans laquelle ont été concaténé les listes de coordonnées soit diagonale, adjacente ou bien les deux.
      */
     public static List<Coordonnee> rechercherNumeroAutour(Puzzle uneGrille, int unNumero, Coordonnee unePosition, Direction direction) {
         List<Coordonnee> coord = new ArrayList<>();
@@ -190,7 +191,7 @@ public abstract class Technique{
      *
      * @param uneGrille Une grille dans laquelle on recherche la boucle.
      * @param unePosition Une position autour de laquelle on cherche une extremité de boucle.
-     * @return Renvoie vrai si on trouve une boucle sur un coté de cellule rejoignant un coin de la cellule sur unPosition.
+     * @return Renvoie vrai si on trouve une boucle sur un côté de cellule rejoignant un coin de la cellule sur unPosition.
      */
     public boolean rechercherBoucleAutour(Puzzle uneGrille, Coordonnee unePosition) {
         int positionY = unePosition.getY();

@@ -2,7 +2,7 @@ package groupe6.model.partie.puzzle;
 
 /**
  * Enumération qui correspond à la difficulté d'un puzzle
- * Les valeurs possibles sont FACILE, MOYEN et DIFFICILE
+ * Les valeurs possibles sont : FACILE, MOYEN et DIFFICILE
  *
  * @author Yamis
  */

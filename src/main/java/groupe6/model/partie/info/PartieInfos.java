@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Classe PartieInfos
- * Cette classe permet de stocker les informations d'une partie
+ * Classe qui permet de stocker les informations d'une partie terminée
+ *
  * @author Tom MARSURA
  */
 public class PartieInfos implements Serializable{
@@ -57,33 +57,15 @@ public class PartieInfos implements Serializable{
      */
     private boolean gagnee;
 
-    // TODO : A supprimer
-//    /**
-//     * Constructeur de la classe PartieInfos ( pas de limite de temps )
-//     *
-//     * @param chrono le chrono de la partie
-//     * @param score le score de la partie
-//     * @param mode le mode de jeu de la partie
-//     * @param complete boolean qui indique si la partie est complète
-//     */
-//    public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete, boolean gagnee){
-//        this.date = new Date();
-//        this.score = score;
-//        this.chrono = chrono;
-//        this.modeJeu = mode;
-//        this.limiteTemps = null;
-//        this.complete = complete;
-//        this.gagnee = gagnee;
-//    }
-
     /**
-     * Constructeur de la classe PartieInfos ( sans la date )
+     * Constructeur de la classe PartieInfos (sans la date)
      * 
      * @param chrono le chrono de la partie
      * @param score le score de la partie
      * @param mode le mode de jeu de la partie
      * @param complete boolean qui indique si la partie est complète
      * @param limiteTemps la limite de temps de la partie
+     * @param gagnee boolean qui indique si la partie est gagnée
      */
     public PartieInfos(Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps, boolean gagnee){
         this.date = new Date();
@@ -96,13 +78,15 @@ public class PartieInfos implements Serializable{
     }
 
     /**
-     * Constructeur de la classe PartieInfos ( avec la date )
+     * Constructeur de la classe PartieInfos (avec la date)
      *
+     * @param date la date de la partie
      * @param chrono le chrono de la partie
      * @param score le score de la partie
      * @param mode le mode de jeu de la partie
      * @param complete boolean qui indique si la partie est complète
      * @param limiteTemps la limite de temps de la partie
+     * @param gagnee boolean qui indique si la partie est gagnée
      */
     public PartieInfos(
         Date date, Duration chrono, int score, ModeJeu mode, boolean complete,Duration limiteTemps, boolean gagnee
@@ -141,17 +125,6 @@ public class PartieInfos implements Serializable{
      */
     public Date getDate(){
         return date;
-    }
-
-    /**
-     * Méthode statique qui permet de convertir une date en String
-     *
-     * @param date la date à convertir
-     * @return la date au format String ( dd/MM/yyyy HH:mm:ss )
-     */
-    public static String dateToString(Date date){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        return dateFormat.format(date);
     }
 
     /**
@@ -240,8 +213,8 @@ public class PartieInfos implements Serializable{
     /**
      * Méthode statique pour obtenir une représentation textuelle d'une durée
      *
-     * @param duration la durée a formater
-     * @return la durée formatée ( HH:mm:ss )
+     * @param duration la durée à formater
+     * @return la durée formatée (HH:mm:ss)
      */
     public static String formatDuration(Duration duration) {
         long hours = duration.toHoursPart();

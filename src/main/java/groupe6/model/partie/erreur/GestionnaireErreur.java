@@ -52,21 +52,6 @@ public class GestionnaireErreur implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour obtenir une erreur de la liste
-   *
-   * @param idx l'index de l'erreur dans la liste
-   * @return l'erreur à l'index donné
-   */
-  public ErreurInfos getErreur(int idx) {
-    if ( this.lstErreurs.size() < idx ) {
-      return null;
-    }
-    else {
-      return this.lstErreurs.get(idx);
-    }
-  }
-
-  /**
    * Méthode pour verifier si la liste des erreurs est vide
    *
    * @return vrai si la liste est vide, faux sinon
@@ -114,8 +99,6 @@ public class GestionnaireErreur implements Serializable, Cloneable {
    * @return l'index de l'erreur dans la liste, -1 si l'erreur n'existe pas
    */
   public int existe(Action action) {
-
-    int coteAdjAction = Cellule.getCoteAdjacent(action.getCoteCellule1());
 
     // Cherche une erreur dans la liste qui a les mêmes coordonnées et le même côté
     for (int i = 0; i < this.lstErreurs.size(); i++ ) {
@@ -167,7 +150,9 @@ public class GestionnaireErreur implements Serializable, Cloneable {
     StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("GestionnaireErreur : \n");
     for (ErreurInfos e : this.lstErreurs) {
-      strBuilder.append("  - " + e.toString() + "\n");
+      strBuilder.append("  - ");
+      strBuilder.append(e.toString());
+      strBuilder.append("\n");
     }
     return strBuilder.toString();
 

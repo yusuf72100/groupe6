@@ -7,16 +7,16 @@ package groupe6.model.technique;
  * @author Nathan
  */
 public enum DifficulteTechnique {
-    /**
-     * Difficulté : démarrage
-     */
-    DEMARRAGE,
-    /**
-     * Difficulté : basique
-     */
-    BASIQUE,
-    /**
-     * Difficulté : avancée
-     */
-    AVANCEE;
+  /**
+   * Difficulté : démarrage
+   */
+  DEMARRAGE,
+  /**
+   * Difficulté : basique
+   */
+  BASIQUE,
+  /**
+   * Difficulté : avancée
+   */
+  AVANCEE;
 }

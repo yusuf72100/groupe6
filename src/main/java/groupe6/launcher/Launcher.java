@@ -12,7 +12,6 @@ import groupe6.affichage.Main;
 import groupe6.model.profil.CatalogueProfil;
 import groupe6.model.partie.puzzle.CataloguePuzzle;
 import groupe6.model.technique.GestionnaireTechnique;
-import groupe6.test.TestMain;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 
@@ -212,7 +211,7 @@ public class Launcher {
    * Méthode pour obtenir la liste des ressources locales
    *
    * @param cheminDossierRessourcesLocal le chemin du dossier qui contient les ressources locales
-   * @return un esemble de chemins vers les ressources locales
+   * @return un ensemble de chemins vers les ressources locales
    * @throws IOException si une erreur d'entrée/sortie se produit
    */
   private static Set<String> getRessourcesLocales(String cheminDossierRessourcesLocal) throws IOException {
@@ -370,6 +369,10 @@ public class Launcher {
     String[] listeFichiers = dossier.list();
     List<String> listeNomImageRegles = new ArrayList<String>();
 
+    if ( listeFichiers == null ) {
+      return listeNomImageRegles;
+    }
+
     for ( String fichier : listeFichiers ) {
       if ( !fichier.endsWith(".png") ) {
         String nomRegle = fichier.substring(0, fichier.length() - 4);
@@ -417,7 +420,7 @@ public class Launcher {
     final String cheminDossierRessourcesJAR = "BOOT-INF/classes/ressources";
     final String cheminDossierDestinationRessourceSlitherLink = Launcher.dossierSlitherlink;
 
-    // Vérifie si le programme est lancé dans le même dossier que le .jar ( compare les dossier parent du .jar et du dossier de ressources local )
+    // Vérifie si le programme est lancé dans le même dossier que le .jar (compare le dossier parent du .jar et du dossier de ressources local)
     int lastIdx = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().lastIndexOf(File.separator);
     String cheminDossierParentRessourcesLocal = Paths.get(cheminDossierDestinationRessourceSlitherLink).toAbsolutePath().toString().substring(0, lastIdx + 1);
 
@@ -454,22 +457,10 @@ public class Launcher {
       // Fermeture de l'accès au contenu du fichier JAR
       fichierJar.close();
 
-      // Detection du paramètre --tools-puzzle-generator ( seulement ce paramètre )
+      // Detection du paramètre --tools-puzzle-generator (seulement ce paramètre)
       for (String arg : args) {
         if (arg.equals("--tools-puzzle-generator")) {
           Application.launch(groupe6.tools.puzzleGenerator.Main.class, args);
-          return;
-        }
-      }
-
-      // Detection du paramètre --test ( seulement ce paramètre )
-      for (String arg : args) {
-        if (arg.equals("--test")) {
-          if ( verbose ) {
-            System.out.println("Lancement des tests");
-            System.out.println("---------------------------");
-          }
-          TestMain.main(args);
           return;
         }
       }

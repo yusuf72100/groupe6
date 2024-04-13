@@ -23,8 +23,8 @@ public class FenetreMauvaisDossier extends Application {
         // Création d'un texte à afficher
         Text text = new Text(
                 "Veillez à lancer l'application depuis" +
-                    "\n"+
-                    "    le dossier parent du .jar !"
+                "\n"+
+                "    le dossier parent du .jar !"
         );
 
         // Création d'un conteneur StackPane pour centrer le texte

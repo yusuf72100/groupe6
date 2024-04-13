@@ -1,7 +1,6 @@
 package groupe6.model.profil;
 
 import groupe6.launcher.Launcher;
-import groupe6.model.partie.Partie;
 import groupe6.model.partie.info.PartieFinieInfos;
 
 import java.io.File;
@@ -135,10 +134,7 @@ public class CatalogueProfil {
       return false;
     }
     // Vérifie si le nom contient des accents
-    if (nom.matches(".*[éèêëàâäôöûüîïç].*")) {
-      return false;
-    }
-    return true;
+    return !nom.matches(".*[éèêëàâäôöûüîïç].*");
   }
 
   /**
@@ -174,33 +170,6 @@ public class CatalogueProfil {
     }
 
     return false;
-  }
-
-  public void cleanAncienPartiesFinies() {
-    // Parcours les profils
-    for (Profil profil : listeProfil) {
-      // Liste des parties finies
-      Set<String> partiesFinies = new HashSet<String>();
-      for (PartieFinieInfos p : profil.getHistorique().getReultatPartie() ) {
-        partiesFinies.add(PartieFinieInfos.getNomSauvegarde(p));
-      }
-      // Vérifie s'il existe encore des sauvegardes de parties finies
-      String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
-      File dossierSauvegardes = new File(cheminDossier);
-      File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
-      for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
-        if (fichier.getName().endsWith(".save")) {
-          // Ajouter à la liste le nom du fichier sans .save
-          String nom = fichier.getName().substring(0, fichier.getName().length() - 5); //
-          if (!partiesFinies.contains(nom)) {
-            fichier.delete();
-            if ( Launcher.getVerbose() ) {
-              System.out.println("Suppression de l'ancienne sauvegarde : " + nom);
-            }
-          }
-        }
-      }
-    }
   }
 
   /**

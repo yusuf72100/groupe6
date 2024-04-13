@@ -1,11 +1,9 @@
 package groupe6.model.partie.aide;
 
 import groupe6.model.technique.ResultatTechnique;
-import groupe6.model.technique.TechniqueInfos;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.Duration;
 
 /**
  * Classe AideInfos qui permet de stocker les informations d'une aide de technique
@@ -31,11 +29,6 @@ public class AideInfos implements Serializable {
     private int niveau;
 
     /**
-     * La durrée du chrono au moment où on a obtenue l'aide
-     */
-    private Duration chronoObtentionAide;
-
-    /**
      * Constructeur de la classe AideInfos
      *
      * @param unResultatTechnique le résultat de la technique
@@ -43,7 +36,6 @@ public class AideInfos implements Serializable {
     public AideInfos(ResultatTechnique unResultatTechnique){
         this.resultatTechnique=unResultatTechnique;
         this.niveau=1;
-        // TODO : ajoute temps dans constructeur
     }
 
     /**
@@ -62,14 +54,6 @@ public class AideInfos implements Serializable {
      */
     public int getNiveau() {
         return niveau;
-    }
-
-    /**
-     * Méthode pour obtenir la durrée du chrono au moment où on a obtenue l'aide
-     * @return la durrée du chrono au moment où on a obtenue l'aide
-     */
-    public Duration getChronoObtentionAide() {
-        return chronoObtentionAide;
     }
 
     /**

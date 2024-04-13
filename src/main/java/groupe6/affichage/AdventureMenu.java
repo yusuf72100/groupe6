@@ -106,7 +106,7 @@ public class AdventureMenu extends ClassicModeMenu {
     );
 
 
-    // Element qui sert a faire un espace entre l'image et les informations textuelles
+    // Element qui sert à faire un espace entre l'image et les informations textuelles
     Pane espace = new Pane();
     espace.setMinHeight(0.02 * windowHeight);
 
@@ -191,7 +191,6 @@ public class AdventureMenu extends ClassicModeMenu {
               " -fx-background-radius: 10px;"
       );
       int nbPuzzleParDifficulte = Launcher.cataloguePuzzles.getNombrePuzzleParDifficulte(DifficultePuzzle.values()[i]);
-      final int idxDifficulte = i;
       // Si il n'y a pas de puzzle pour la difficulté, on affiche une image spéciale
       if ( nbPuzzleParDifficulte <= 0 ) {
         ImageView imgNoPuzzle = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
@@ -199,7 +198,7 @@ public class AdventureMenu extends ClassicModeMenu {
         imgNoPuzzle.setFitHeight(Math.round(0.10 * windowWidth));
         HBoxPreviewContainer.getChildren().add(imgNoPuzzle);
       }
-      // Sinon on affiche les previews des puzzles disponibles pour la difficulté
+      // Sinon, on affiche les previews des puzzles disponibles pour la difficulté
       else {
         for (int j = 0; j < nbPuzzleParDifficulte ; j++) {
           final PuzzleSauvegarde puzzle = Launcher.cataloguePuzzles.getPuzzleSauvegarde(DifficultePuzzle.values()[i], j);
@@ -212,11 +211,9 @@ public class AdventureMenu extends ClassicModeMenu {
               "-fx-cursor: hand;"
           );
 
-          final int numeroPuzzle = j;
-
           final boolean puzzleUnlocked = Launcher.cataloguePuzzles.puzzleEstDeverrouille(
-              idxDifficulte,
-              numeroPuzzle,
+              i,
+              j,
               Launcher.catalogueProfils.getProfilActuel()
           );
 
@@ -267,13 +264,13 @@ public class AdventureMenu extends ClassicModeMenu {
               infoPane.setVisible(!isVisible);
               infoPane.setManaged(!isVisible);
             }
-            // Sinon on change le puzzle sélectionné et on affiche les informations sur le puzzle
+            // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
             else if ( puzzleUnlocked ) {
               previewSelectionne = imgPreviewPuzzle;
               difficulteSelectionne = finalI;
               numeroPuzzleSelectionne = finalJ;
               imgPreviewInfo.setImage(Launcher.chargerImage(cheminImgPreviewPuzzle));
-              updateInfoPuzzleSelectionneContreLaMontre(puzzle);
+              updateInfoPuzzleSelectionneAventure(puzzle);
               infoPane.setVisible(true);
               infoPane.setManaged(true);
             }
@@ -437,12 +434,10 @@ public class AdventureMenu extends ClassicModeMenu {
   /**
    * Méthode qui met à jour les informations sur le puzzle sélectionné
    *
-   * @param puzzleSelectionne
+   * @param puzzleSelectionne le puzzle sélectionné
    */
-  public static void updateInfoPuzzleSelectionneContreLaMontre(PuzzleSauvegarde puzzleSelectionne) {
-    infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());
-    infoTaille.setText("Taille : " + puzzleSelectionne.getLargeur() + "x" + puzzleSelectionne.getLongueur());
-    infoPointsDepart.setText("Points de départ : " + Score.getScoreDebut(puzzleSelectionne.getDifficulte()));
+  public static void updateInfoPuzzleSelectionneAventure(PuzzleSauvegarde puzzleSelectionne) {
+    updateInfoPuzzleSelectionneClassique(puzzleSelectionne);
   }
 }
 

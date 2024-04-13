@@ -21,22 +21,22 @@ public class CelluleNode extends Node {
     /**
      * Les boutons qui correspondent aux côtés de la cellule
      */
-    private Button[] cellule;
+    private final Button[] cellule;
 
     /**
      * Les images qui correspondent aux croix sur les côtés de la cellule
      */
-    private ImageView[] image;
+    private final ImageView[] image;
 
     /**
      * Les rectangles qui correspondent aux coins de la cellule
      */
-    private Rectangle[] coins;
+    private final Rectangle[] coins;
 
     /**
      * Le panneau central de la cellule qui contient le label de la valeur numérique de la cellule
      */
-    private StackPane centerPane;
+    private final StackPane centerPane;
 
     /**
      * Le label de la valeur numérique de la cellule
@@ -49,24 +49,14 @@ public class CelluleNode extends Node {
     private ValeurCote[] cotes;
 
     /**
-     * Sauvegarde des anciens css des boutons ( côtés de la cellule )
+     * Sauvegarde des anciens css des boutons (côtés de la cellule)
      */
-    private String[] buttonsOldCss;
+    private final String[] buttonsOldCss;
 
     /**
-     * Sauvegarde des anciens css des images ( croix sur les côtés de la cellule )
+     * Sauvegarde des anciens css des images (croix sur les côtés de la cellule)
      */
     private String centerOldCss;
-
-    /**
-     * Sauvegarde des anciens css du paneau central de la cellule
-     */
-    private String centerPaneOldCss;
-
-    /**
-     * Sauvegarde des anciens css du label de la valeur numérique de la cellule
-     */
-    private String centerTextFieldOldCss;
 
     /**
      * La valeur numérique de la cellule
@@ -85,7 +75,6 @@ public class CelluleNode extends Node {
         this.image = new ImageView[4];
         this.label = label;
         this.cotes = cotes;
-        double cellSize = 50;
         this.cellule = new Button[4];
         this.coins = new Rectangle[4];
         this.centerPane = new StackPane();
@@ -113,7 +102,7 @@ public class CelluleNode extends Node {
             this.image[i].setMouseTransparent(true);
             this.image[i].setVisible(false);
 
-            this.coins[i] = createBlackSquare(cellSize / 5);
+            this.coins[i] = createBlackSquare();
             switch (this.cotes[i]) {
                 case VIDE:
                     break;
@@ -193,32 +182,22 @@ public class CelluleNode extends Node {
         return new StackPane(this.centerTextField);
     }
 
-    // TODO: param "v" non utilisé
     /**
      * Méthode qui crée un carré noir
      *
-     * @param v la taille du carré
      * @return le carré noir créé
      */
-    private Rectangle createBlackSquare(double v) {
+    private Rectangle createBlackSquare() {
         Rectangle square = new Rectangle(7, 7);
         square.getStyleClass().add("black-square");
         return square;
     }
 
     /**
-     * Méthode pour obtenir la valeur numérique de la cellule
-     *
-     * @param i le coté qu'on veut obtenir
-     * @return la valeur du coté de la cellule
-     */
-    public ValeurCote getValeurCote(int i) {
-        return this.cotes[i];
-    }
-
-    /**
      * Méthode pour changer l'affichage css de la cellule
      *
+     * @param buttonClass la classe css du bouton
+     * @param centerClass la classe css du centre
      */
     public void changeCellulesCss(String buttonClass, String centerClass) {
         for ( int i = 0; i < 4; i++ ) {
@@ -244,7 +223,8 @@ public class CelluleNode extends Node {
     /**
      * Méthode qui change l'affichage css d'un bouton
      *
-     * @param buttonIndex le bouton qu'on veut changer ( coté )
+     * @param buttonIndex le bouton qu'on veut changer (côté)
+     * @param cssClass la classe css du bouton
      */
     public void changeButtonCss(int buttonIndex, String cssClass) {
         if(!this.cellule[buttonIndex].getStyleClass().contains(cssClass)) {
@@ -257,7 +237,7 @@ public class CelluleNode extends Node {
     /**
      * Méthode qui remet l'affichage d'un bouton à l'état précédent
      *
-     * @param buttonIndex le bouton qu'on veut remettre à l'état précédent ( coté )
+     * @param buttonIndex le bouton qu'on veut remettre à l'état précédent (côté)
      */
     public void resetButtonCss(int buttonIndex) {
         this.cellule[buttonIndex].getStyleClass().removeAll(this.buttonsOldCss[buttonIndex]);

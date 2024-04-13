@@ -50,10 +50,11 @@ public class Puzzle implements Serializable, Cloneable {
   private Cellule[][] grilleJeu;
 
   /**
-   * Constructeur de la classe Puzzle ( Nouveau puzzle )
+   * Constructeur de la classe Puzzle (Nouveau puzzle)
    *
    * @param puzzleSauvegarde le PuzzleSauvegarde à partir duquel créer le puzzle
-   * @param optionTechDemarrage boolean pour savoir si on doit utiliser la grille de tech demarrage ou la grille vide
+   * @param optionTechDemarrage boolean pour savoir si on doit utiliser la grille de tech démarrage ou la grille vide
+   * @param numeroPuzzle le numéro du puzzle dans le catalogue
    */
   public Puzzle(PuzzleSauvegarde puzzleSauvegarde, boolean optionTechDemarrage, int numeroPuzzle) {
     this.largeur = puzzleSauvegarde.getLargeur();
@@ -70,7 +71,7 @@ public class Puzzle implements Serializable, Cloneable {
   }
 
   /**
-   * Constructeur de la classe Puzzle ( puzzle déjà existant )
+   * Constructeur de la classe Puzzle (puzzle déjà existant)
    *
    * @param largeur la largeur du puzzle (nombre de lignes)
    * @param longueur la longueur du puzzle (nombre de colonnes)
@@ -269,7 +270,7 @@ public class Puzzle implements Serializable, Cloneable {
    * @param y la position en y
    * @param x la position en x
    * @param cote le côté de la cellule
-   * @return les coordonnées adjacente à la position (y,x) dans la direction du côté donné
+   * @return les coordonnées adjacentes à la position (y,x) dans la direction du côté donné
    */
   public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
     int yAdj = y;
@@ -320,40 +321,5 @@ public class Puzzle implements Serializable, Cloneable {
     nouveauPuzzle.grilleSolution = Cellule.clonerMatriceCellule(grilleSolution);
     nouveauPuzzle.grilleJeu = Cellule.clonerMatriceCellule(grilleJeu);
     return nouveauPuzzle;
-  }
-
-
-  /**
-   * Méthode statique pour sauvegarder un puzzle
-   *
-   * @param puzzle le puzzle à sauvegarder
-   * @param chemin le chemin où sauvegarder le puzzle
-   */
-  public static void sauvegarderPuzzle(Puzzle puzzle, String chemin) {
-    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(chemin))) {
-      oos.writeObject(puzzle);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * Méthode statique pour charger un puzzle
-   *
-   * @param chemin le chemin du fichier de sauvegarde du puzzle
-   * @return le puzzle chargé
-   */
-  public static Puzzle chargerPuzzle(String chemin) {
-    Puzzle puzzle = null;
-    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(chemin))) {
-      puzzle = (Puzzle) ois.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-      System.err.println("Erreur : le puzzle n'a pas pu être chargé");
-      System.err.println("  - Chemin : " + chemin);
-      e.printStackTrace();
-      return null;
-    }
-    puzzle.genererGrillePropre();
-    return puzzle;
   }
 }

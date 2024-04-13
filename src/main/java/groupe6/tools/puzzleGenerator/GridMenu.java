@@ -1,9 +1,7 @@
 package groupe6.tools.puzzleGenerator;
 
 import groupe6.affichage.Menu;
-import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
-import groupe6.model.partie.puzzle.Puzzle;
 import groupe6.model.partie.puzzle.PuzzleSauvegarde;
 import groupe6.model.partie.puzzle.cellule.Cellule;
 import groupe6.model.partie.puzzle.cellule.ValeurCote;
@@ -12,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -48,17 +45,17 @@ public class GridMenu implements Menu {
     /**
      * Le label pour afficher les informations du puzzle
      */
-    private Label infos;
+    private final Label infos;
 
     /**
      * Le gridPane qui contient les cellules
      */
-    private GridPane gridPane;
+    private final GridPane gridPane;
 
     /**
-     * Le container qui contient le gridPane
+     * Le conteneur qui contient le gridPane
      */
-    private VBox container;
+    private final VBox container;
 
     /**
      * La grille des nodes des cellules
@@ -96,7 +93,7 @@ public class GridMenu implements Menu {
         this.infos = new Label();
         this.infos.setAlignment(Pos.CENTER);
 
-        // boutons panneaux latéral
+        // boutons panneaux latéraux
         this.home = initHeaderButton("button-home");
         this.sauvegarder = initHeaderButton("button-sauvegarder");
         this.switchGrille = initHeaderButton("button-switchGrille");
@@ -111,7 +108,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui permet d'ajouter une bouton parmis les boutons headers du menu de grille
+     * Méthode qui permet d'ajouter un bouton parmi les boutons headers du menu de grille
      *
      * @param style le style du bouton
      * @return renvoi un bouton initialisé
@@ -245,10 +242,9 @@ public class GridMenu implements Menu {
                     puzzle.modifierValeurCoteCelluleEtAdjGrille(i, j, Cellule.DROITE, cellulesData, valeur);
                     break;
 
-                default: // rien
+                default:
                     break;
             }
-            //updateAffichage();
         }
     }
 
@@ -339,7 +335,7 @@ public class GridMenu implements Menu {
     }
 
     /**
-     * Méthode qui affiche la popup pour demander si l'utilisateur accepte la correction
+     * Méthode qui affiche la pop-up pour demander si l'utilisateur accepte la correction
      */
     private void afficherPopup(){
         boolean resultat = false;

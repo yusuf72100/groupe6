@@ -99,7 +99,7 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
-   * Méthode pour initialiser une grille avec des cellules vides ( -1, ValeurCote.VIDE )
+   * Méthode pour initialiser une grille avec des cellules vides (-1, ValeurCote.VIDE)
    *
    * @return la grille initialisée avec des cellules vides
    */
@@ -146,28 +146,13 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
-   * Méthode pour obtenir la valeur d'une cellule d'une grille
+   * Méthode pour obtenir la valeur d'un côté d'une cellule d'une grille
    *
    * @param y la position en y de la cellule
    * @param x la position en x de la cellule
    * @param grille la grille à lire
-   * @return la valeur de la cellule
-   */
-  public int getValeurCelluleGrille(int y, int x, Cellule[][] grille) {
-    if ( !estDansGrille(y,x) ) {
-      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
-    }
-    return grille[y][x].getValeur();
-  }
-
-  /**
-   * Méthode pour obtenir la valeur d'un cote d'une cellule d'une grille
-   *
-   * @param y la position en y de la cellule
-   * @param x la position en x de la cellule
-   * @param grille la grille à lire
-   * @param cote le cote à lire
-   * @return la valeur du cote
+   * @param cote le côté à lire
+   * @return la valeur du côté
    */
   public ValeurCote getCoteCelluleGrille(int y, int x, Cellule[][] grille, int cote) {
     if (!estDansGrille(y, x)) {
@@ -195,28 +180,13 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
-   * Méthode pour modifier la valeur d'une cellule d'une grille
+   * Méthode pour modifier un côté d'une cellule d'une grille
    *
    * @param y la position en y de la cellule
    * @param x la position en x de la cellule
    * @param grille la grille à modifier
-   * @param valeur la nouvelle valeur de la cellule
-   */
-  public void modifierValeurCelluleGrille(int y, int x, Cellule[][] grille, int valeur) {
-    if ( !estDansGrille(y,x) ) {
-      throw new IllegalArgumentException("Les coordonnées de la cellule ne sont pas valides");
-    }
-    grille[y][x].setValeur(valeur);
-  }
-
-  /**
-   * Méthode pour modifier un cote d'une cellule d'une grille
-   *
-   * @param y la position en y de la cellule
-   * @param x la position en x de la cellule
-   * @param grille la grille à modifier
-   * @param cote le cote à modifier
-   * @param valeur la nouvelle valeur du cote
+   * @param cote le côté à modifier
+   * @param valeur la nouvelle valeur du côté
    */
   public void modifierCoteCelluleGrille(int y, int x, int cote, Cellule[][] grille, ValeurCote valeur) {
     if ( !estDansGrille(y,x) ) {
@@ -230,13 +200,13 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
-   * Méthode pour modifier la valeur d'un cote d'une cellule et de sa cellule adjacente dans une grille
+   * Méthode pour modifier la valeur d'un côté d'une cellule et de sa cellule adjacente dans une grille
    *
    * @param y la position en y
    * @param x la position en x
-   * @param cote le cote à modifier
+   * @param cote le côté à modifier
    * @param grille la grille à modifier
-   * @param valeur la nouvelle valeur du cote
+   * @param valeur la nouvelle valeur du côté
    */
   public void modifierValeurCoteCelluleEtAdjGrille(int y, int x, int cote, Cellule[][] grille, ValeurCote valeur) {
     if ( !estDansGrille(y,x) ) {
@@ -376,7 +346,7 @@ public class PuzzleSauvegarde implements Serializable {
    * @param y la position en y
    * @param x la position en x
    * @param cote le côté de la cellule
-   * @return les coordonnées adjacente à la position (y,x) dans la direction du côté donné
+   * @return les coordonnées adjacentes à la position (y,x) dans la direction du côté donné
    */
   public Coordonnee getCoordoneeAdjacente(int y, int x, int cote) {
     int yAdj = y;

@@ -185,11 +185,14 @@ public class GestionnaireAction implements Serializable,Cloneable {
    */
   @Override
   public String toString() {
-    StringBuilder strBuilder = new StringBuilder("");
+    StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("GestionnaireAction :\n");
-    strBuilder.append("  - index = " + index + '\n');
+    strBuilder.append("  - index = ");
+    strBuilder.append(index).append('\n');
     for ( Action a : listeAction ) {
-      strBuilder.append("  - " + a.toString()+"\n");
+      strBuilder.append("  - ");
+      strBuilder.append(a.toString());
+      strBuilder.append("\n");
     }
 
     return  strBuilder.toString();

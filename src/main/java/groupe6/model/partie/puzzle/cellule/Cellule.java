@@ -23,17 +23,17 @@ public class Cellule implements Serializable, Cloneable {
   public static final int HAUT = 0;
 
   /**
-   * Constantes BAS = 1 qui représente le côté bas de la cellule
+   * Constante BAS = 1 qui représente le côté bas de la cellule
    */
   public static final int BAS = 1;
 
   /**
-   * Constantes GAUCHE = 2 qui représente le côté gauche de la cellule
+   * Constante GAUCHE = 2 qui représente le côté gauche de la cellule
    */
   public static final int GAUCHE = 2;
 
   /**
-   * Constantes DROITE = 3 qui représente le côté droit de la cellule
+   * Constante DROITE = 3 qui représente le côté droit de la cellule
    */
   public static final int DROITE = 3;
 
@@ -45,7 +45,7 @@ public class Cellule implements Serializable, Cloneable {
   /**
    * Les côtés de la cellule
    */
-  private final ValeurCote[] cotes; // Tableau des ValeurCote des cotés
+  private final ValeurCote[] cotes;
 
   /**
    * Constructeur de la classe Cellule
@@ -54,7 +54,7 @@ public class Cellule implements Serializable, Cloneable {
    * @param cotes les côtés de la cellule
    */
   public Cellule(int valeur, ValeurCote[] cotes) {
-    // On vérifie que la valeur numérique soit correcte ( Vide, 0, 1, 2, 3 )
+    // On vérifie que la valeur numérique soit correcte (Vide, 0, 1, 2, 3)
     if (valeur < -1 || valeur > 3) {
       throw new IllegalArgumentException("La valeur de la cellule doit être entre -1 et 3");
     }
@@ -92,7 +92,7 @@ public class Cellule implements Serializable, Cloneable {
    */
   public ValeurCote getCote(int cote) {
     if (cote < 0 || cote > 3) {
-      throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
+      throw new IllegalArgumentException("Le côté doit être entre 0 et 3");
     }
     return this.cotes[cote];
   }
@@ -137,9 +137,9 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour verifier si le nombre de trait maximal est atteint
+   * Méthode pour verifier si le nombre de traits maximal est atteint
    *
-   * @return vrai si le nombre de trait maximal est atteint, faux sinon
+   * @return vrai si le nombre de traits maximal est atteint, faux sinon
    */
   public boolean maxTrait() {
     return this.valeur != -1 && nbTrait() >= this.valeur;
@@ -189,7 +189,7 @@ public class Cellule implements Serializable, Cloneable {
    * @return la valeur suivante du côté
    */
   public ValeurCote basculeTroisEtats(int cote) {
-    // On vérifie que le coté soit valide
+    // On vérifie que le côté soit valide
     if (cote < 0 || cote > 3) {
       throw new IllegalArgumentException("Le cote doit être entre 0 et 3");
     }

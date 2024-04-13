@@ -21,22 +21,22 @@ public class CelluleNode extends Node {
     /**
      * Les boutons qui correspondent aux côtés de la cellule
      */
-    private Button[] cellule;
+    private final Button[] cellule;
 
     /**
      * Les images qui correspondent aux croix sur les côtés de la cellule
      */
-    private ImageView[] image;
+    private final ImageView[] image;
 
     /**
      * Les rectangles qui correspondent aux coins de la cellule
      */
-    private Rectangle[] coins;
+    private final Rectangle[] coins;
 
     /**
      * Le panneau central de la cellule qui contient le label de la valeur numérique de la cellule
      */
-    private StackPane centerPane;
+    private final StackPane centerPane;
 
     /**
      * Le label de la valeur numérique de la cellule
@@ -46,7 +46,7 @@ public class CelluleNode extends Node {
     /**
      * Les côtes de la cellule
      */
-    private ValeurCote[] cotes;
+    private final ValeurCote[] cotes;
 
     /**
      * La valeur numérique de la cellule
@@ -61,7 +61,6 @@ public class CelluleNode extends Node {
      */
     public CelluleNode(int label, ValeurCote[] cotes) {
         this.label = -1;
-        double cellSize = 50;
         this.image = new ImageView[4];
         this.cotes = cotes;
         this.cellule = new Button[4];
@@ -90,7 +89,7 @@ public class CelluleNode extends Node {
             this.image[i].setMouseTransparent(true);
             this.image[i].setVisible(false);
 
-            this.coins[i] = createBlackSquare(cellSize / 5);
+            this.coins[i] = createBlackSquare();
             switch (this.cotes[i]) {
                 case VIDE:
                     break;
@@ -176,7 +175,7 @@ public class CelluleNode extends Node {
     }
 
     /**
-     * Méthode qui enlève une croix sur un coté de la cellule
+     * Méthode qui enlève une croix sur un côté de la cellule
      *
      * @param cote le coté de la cellule
      */
@@ -184,14 +183,13 @@ public class CelluleNode extends Node {
         this.image[cote].setVisible(false);
     }
 
-    // TODO: param "v" non utilisé
+
     /**
      * Méthode qui crée un carré noir
      *
-     * @param v la taille du carré
      * @return le carré noir créé
      */
-    private Rectangle createBlackSquare(double v) {
+    private Rectangle createBlackSquare() {
         Rectangle square = new Rectangle(7, 7);
         square.getStyleClass().add("black-square");
         return square;

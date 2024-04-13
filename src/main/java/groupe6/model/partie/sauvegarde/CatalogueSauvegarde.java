@@ -7,7 +7,6 @@ import groupe6.model.profil.Profil;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.*;
 
 /**
@@ -30,31 +29,12 @@ public class CatalogueSauvegarde {
   }
 
   /**
-   * Méthode pour ajouter une sauvegarde de partie au catalogue
-   *
-   * @param save la sauvegarde de partie à ajouter
-   */
-  public void ajouterSave(PartieSauvegarde save) {
-    this.catalogueSaves.add(save);
-  }
-
-  /**
    * Méthode pour obtenir la liste des sauvegardes de parties
    *
    * @return la liste des sauvegardes de parties
    */
   public List<PartieSauvegarde> getCatalogueSaves() {
     return this.catalogueSaves;
-  }
-
-  /**
-   * Méthode pour obtenir une sauvegarde de partie du catalogue
-   *
-   * @param index l'index de la sauvegarde à obtenir
-   * @return la sauvegarde de partie à l'index donné
-   */
-  public PartieSauvegarde getSave(int index) {
-    return this.catalogueSaves.get(index);
   }
 
   /**
@@ -72,7 +52,7 @@ public class CatalogueSauvegarde {
     File[] fichiersSauvegardes = dossierSauvegardes.listFiles();
     for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
       if (fichier.getName().endsWith(".save")) {
-        // Ajouter a la liste le nom du fichier sans .save
+        // Ajouter à la liste le nom du fichier sans .save
         String nom = fichier.getName().substring(0, fichier.getName().length() - 5); //
         listeSaves.add(nom);
       }
@@ -89,6 +69,12 @@ public class CatalogueSauvegarde {
     return listeSaves;
   }
 
+  /**
+   * Méthode pour extraire la date depuis le nom d'une sauvegarde de partie
+   *
+   * @param nomSauvegarde le nom de la sauvegarde de partie
+   * @return la date extraite de la sauvegarde
+   */
   public static Date extraireDateSauvegarde(String nomSauvegarde) {
     // Extraire les informations de la sauvegarde
     String[] infos = nomSauvegarde.split("_");
@@ -108,8 +94,7 @@ public class CatalogueSauvegarde {
 
     try {
       // Parse la chaîne de date en objet Date
-      Date date = formatter.parse(dateString);
-      return date;
+      return formatter.parse(dateString);
     } catch (ParseException e) {
       // Gérer l'exception de parsing
       e.printStackTrace();
@@ -118,6 +103,12 @@ public class CatalogueSauvegarde {
 
   }
 
+  /**
+   * Méthode pour supprimer une sauvegarde de partie terminée
+   *
+   * @param profil le profil du joueur qui a sauvegardé la partie
+   * @param partieFinieInfos la partie finie à supprimer
+   */
   public static void suppimerAnciennesSauvegardes(Profil profil, PartieFinieInfos partieFinieInfos) {
     // Récupérer les fichiers de sauvegardes
     String cheminDossier = Launcher.normaliserChemin(Launcher.dossierProfils + "/" + profil.getNom() + "/saves/");
@@ -126,7 +117,6 @@ public class CatalogueSauvegarde {
 
     // Nom attendu de la sauvegarde
     String nomSauvegarde = PartieFinieInfos.getNomSauvegarde(partieFinieInfos);
-    System.out.println("Nom de la sauvegarde à supprimer : " + nomSauvegarde);
 
     // Parcourir les fichiers de sauvegardes a la recherche de la sauvegarde à supprimer
     for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {
