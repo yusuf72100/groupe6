@@ -18,22 +18,22 @@ public class Cellule implements Serializable, Cloneable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Constantes HAUT = 0 qui représente le coté haut de la cellule
+   * Constantes HAUT = 0 qui représente le côté haut de la cellule
    */
   public static final int HAUT = 0;
 
   /**
-   * Constantes BAS = 1 qui représente le coté bas de la cellule
+   * Constantes BAS = 1 qui représente le côté bas de la cellule
    */
   public static final int BAS = 1;
 
   /**
-   * Constantes GAUCHE = 2 qui représente le coté gauche de la cellule
+   * Constantes GAUCHE = 2 qui représente le côté gauche de la cellule
    */
   public static final int GAUCHE = 2;
 
   /**
-   * Constantes DROITE = 3 qui représente le coté droit de la cellule
+   * Constantes DROITE = 3 qui représente le côté droit de la cellule
    */
   public static final int DROITE = 3;
 
@@ -43,7 +43,7 @@ public class Cellule implements Serializable, Cloneable {
   private int valeur;
 
   /**
-   * Les cotés de la cellule
+   * Les côtés de la cellule
    */
   private final ValeurCote[] cotes; // Tableau des ValeurCote des cotés
 
@@ -51,7 +51,7 @@ public class Cellule implements Serializable, Cloneable {
    * Constructeur de la classe Cellule
    *
    * @param valeur la valeur numérique de la cellule
-   * @param cotes les cotés de la cellule
+   * @param cotes les côtés de la cellule
    */
   public Cellule(int valeur, ValeurCote[] cotes) {
     // On vérifie que la valeur numérique soit correcte ( Vide, 0, 1, 2, 3 )
@@ -85,10 +85,10 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour obtenir la valeur d'un coté de la cellule
+   * Méthode pour obtenir la valeur d'un côté de la cellule
    *
-   * @param cote le coté de la cellule que l'on veut obtenir
-   * @return la valeur du coté de la cellule
+   * @param cote le côté de la cellule que l'on veut obtenir
+   * @return la valeur du côté de la cellule
    */
   public ValeurCote getCote(int cote) {
     if (cote < 0 || cote > 3) {
@@ -98,19 +98,19 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour obtenir les cotés de la cellule
+   * Méthode pour obtenir les côtés de la cellule
    *
-   * @return les cotés de la cellule
+   * @return les côtés de la cellule
    */
   public ValeurCote[] getCotes() {
     return cotes;
   }
 
   /**
-   * Méthode pour définir la valeur d'un coté de la cellule
+   * Méthode pour définir la valeur d'un côté de la cellule
    *
-   * @param cote   le coté de la cellule que l'on veut définir
-   * @param valeur la valeur du coté de la cellule
+   * @param cote   le côté de la cellule que l'on veut définir
+   * @param valeur la valeur du côté de la cellule
    */
   public void setCote(int cote, ValeurCote valeur) {
     if (cote < 0 || cote > 3) {
@@ -122,7 +122,7 @@ public class Cellule implements Serializable, Cloneable {
   /**
    * Méthode pour obtenir le nombre coté TRAIT d'une cellule
    *
-   * @return le nombre de coté TRAIT
+   * @return le nombre de côtés TRAIT
    */
   public int nbTrait() {
     int nbTrait = 0;
@@ -147,7 +147,7 @@ public class Cellule implements Serializable, Cloneable {
 
 
   /**
-   * Méthode pour verifier si deux cellules sont equivalentes
+   * Méthode pour vérifier si deux cellules sont équivalentes
    *
    * @param obj l'objet à comparer
    * @return vrai si les cellules sont équivalentes, faux sinon
@@ -183,10 +183,10 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour obtenir la valeur de coté suivante selon la bascule à trois états
+   * Méthode pour obtenir la valeur de côté suivante selon la bascule à trois états
    *
-   * @param cote la valeur actuelle du coté
-   * @return la valeur suivante du coté
+   * @param cote la valeur actuelle du côté
+   * @return la valeur suivante du côté
    */
   public ValeurCote basculeTroisEtats(int cote) {
     // On vérifie que le coté soit valide
@@ -209,10 +209,10 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour obtenir la valeur du cote adjacent à un cote donné
+   * Méthode pour obtenir la valeur du côté adjacent à un côté donné
    *
-   * @param cote le cote dont on veut obtenir le cote adjacent
-   * @return le cote adjacent
+   * @param cote le côté dont on veut obtenir le côté adjacent
+   * @return le côté adjacent
    */
   public static int getCoteAdjacent(int cote) {
     switch (cote) {
@@ -356,11 +356,11 @@ public class Cellule implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode statique pour comparer deux valeurs de coté
+   * Méthode statique pour comparer deux valeurs de côté
    *
-   * @param cote1 le premier coté à comparer
-   * @param cote2 le deuxième coté à comparer
-   * @return vrai si les valeurs de coté sont équivalentes, faux sinon
+   * @param cote1 le premier côté à comparer
+   * @param cote2 le deuxième côté à comparer
+   * @return vrai si les valeurs de côté sont équivalentes, faux sinon
    */
   public static boolean compareValeurCote(ValeurCote cote1, ValeurCote cote2){
     if(cote1 == cote2){

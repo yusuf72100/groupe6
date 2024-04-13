@@ -3,6 +3,7 @@ package groupe6.affichage;
 import groupe6.launcher.Launcher;
 import groupe6.model.partie.puzzle.DifficultePuzzle;
 import groupe6.model.profil.Profil;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -234,12 +235,24 @@ public class OptionsMenu implements Menu {
     VboxAide.setSpacing(0.02 * h);
     VboxAide.setAlignment(Pos.CENTER);
 
+    // Le bouton de retour
+    Button backButton = new Button("RETOUR");
+    StackPane.setMargin(backButton, new Insets(0, 0, 0.05 * h, 0));
+    backButton.getStyleClass().add("button-rounded");
+    backButton.getStyleClass().add("button-text");
+    backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + (35 * Math.min(w / 1920, h / 1080)) + "px;");
+    backButton.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
+    backButton.setOnMouseClicked(e -> {
+      OptionsMenu.hideMenu();
+    });
+
     // Ajout des éléments à la VBox
     vBox.getChildren().addAll(
         OptionsMenu.labelAide,
         VboxAide,
         OptionsMenu.keySettingsLabel,
-        controlesImage
+        controlesImage,
+        backButton
     );
     vBox.setAlignment(Pos.CENTER);
 

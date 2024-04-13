@@ -45,7 +45,7 @@ public class TechniqueInfos implements Serializable {
   }
 
   /**
-   * Methode pour obtenir la difficulte de la technique
+   * Méthode pour obtenir la difficulte de la technique
    *
    * @return la difficulte de la technique
    */
@@ -54,7 +54,7 @@ public class TechniqueInfos implements Serializable {
   }
 
   /**
-   * Methode pour obtenir l'explication textuelle de la technique
+   * Méthode pour obtenir l'explication textuelle de la technique
    *
    * @return l'explication textuelle de la technique
    */
@@ -63,7 +63,7 @@ public class TechniqueInfos implements Serializable {
   }
 
   /**
-   * Methode pour obtenir le chemin vers l'image demontrant l'utilisation de la technique
+   * Méthode pour obtenir le chemin vers l'image demontrant l'utilisation de la technique
    *
    * @return le chemin vers l'image demontrant l'utilisation de la technique
    */

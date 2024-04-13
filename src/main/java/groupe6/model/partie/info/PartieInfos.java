@@ -48,12 +48,12 @@ public class PartieInfos implements Serializable{
     private final Duration limiteTemps;
 
     /**
-     * Boolean qui indique si la partie est complète
+     * Booléen qui indique si la partie est complète
      */
     private boolean complete;
 
     /**
-     * Boolean qui indique si la partie est gagnée
+     * Booléen qui indique si la partie est gagnée
      */
     private boolean gagnee;
 
@@ -117,9 +117,9 @@ public class PartieInfos implements Serializable{
     }
 
     /**
-     * Méthode pour le boolean qui indique si la partie est complète
+     * Méthode pour le booléen qui indique si la partie est complète
      *
-     * @return le boolean qui indique si la partie est complète
+     * @return le booléen qui indique si la partie est complète
      */
     public boolean getComplete(){
         return complete;
@@ -128,7 +128,7 @@ public class PartieInfos implements Serializable{
     /**
      * Méthode pour définir si la partie est complète
      *
-     * @param complete le boolean qui indique si la partie est complète
+     * @param complete le booléen qui indique si la partie est complète
      */
     public void setComplete(boolean complete){
         this.complete = complete;

@@ -55,7 +55,7 @@ public class HistoriqueAidesArea {
     private final Label titre;
 
     /**
-     * Largeut de la fenêtre
+     * Largeur de la fenêtre
      */
     private final Double width;
 

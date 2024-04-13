@@ -209,7 +209,7 @@ public class Puzzle implements Serializable, Cloneable {
   }
 
   /**
-   * Méthode pour verifier si le puzzle est complet
+   * Méthode pour vérifier si le puzzle est complet
    *
    * @return vrai si le puzzle est complet, faux sinon
    */

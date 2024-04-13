@@ -33,17 +33,17 @@ public class Parametre implements Serializable{
     private final boolean[] aideTechniqueDemarrage;
 
     /**
-     * Touche pour l'action coté vide
+     * Touche pour l'action côté vide
      */
     private KeyCode toucheVide;
 
     /**
-     * Touche pour l'action coté trait
+     * Touche pour l'action côté trait
      */
     private KeyCode toucheTrait;
 
     /**
-     * Touche pour l'action coté croix
+     * Touche pour l'action côté croix
      */
     private KeyCode toucheCroix;
 
@@ -103,9 +103,9 @@ public class Parametre implements Serializable{
     }
 
     /**
-     * Méthode pour definir la touche pour l'action coté vide
+     * Méthode pour definir la touche pour l'action côté vide
      *
-     * @param toucheVide la touche pour l'action coté vide
+     * @param toucheVide la touche pour l'action côté vide
      */
     public void setToucheVide(KeyCode toucheVide){
         // Modification de la touche pour les actions vides
@@ -115,9 +115,9 @@ public class Parametre implements Serializable{
     }
 
     /**
-     * Méthode pour definir la touche pour l'action coté trait
+     * Méthode pour definir la touche pour l'action côté trait
      *
-     * @param toucheTrait la touche pour l'action coté trait
+     * @param toucheTrait la touche pour l'action côté trait
      */
     public void setToucheTrait(KeyCode toucheTrait){
         // Modification de la touche pour les actions traits
@@ -127,9 +127,9 @@ public class Parametre implements Serializable{
     }
 
     /**
-     * Méthode pour definir la touche pour l'action coté croix
+     * Méthode pour definir la touche pour l'action côté croix
      *
-     * @param toucheCroix la touche pour l'action coté croix
+     * @param toucheCroix la touche pour l'action côté croix
      */
     public void setToucheCroix(KeyCode toucheCroix){
         // Modification de la touche pour les actions croix
@@ -139,27 +139,27 @@ public class Parametre implements Serializable{
     }
 
     /**
-     * Méthode pour obtenir la touche pour l'action coté vide
+     * Méthode pour obtenir la touche pour l'action côté vide
      *
-     * @return la touche pour l'action coté vide
+     * @return la touche pour l'action côté vide
      */
     public KeyCode getToucheVide(){
         return toucheVide;
     }
 
     /**
-     * Méthode pour obtenir la touche pour l'action coté trait
+     * Méthode pour obtenir la touche pour l'action côté trait
      *
-     * @return la touche pour l'action coté trait
+     * @return la touche pour l'action côté trait
      */
     public KeyCode getToucheTrait(){
         return toucheTrait;
     }
 
     /**
-     * Méthode pour obtenir la touche pour l'action coté croix
+     * Méthode pour obtenir la touche pour l'action côté croix
      *
-     * @return la touche pour l'action coté croix
+     * @return la touche pour l'action côté croix
      */
     public KeyCode getToucheCroix(){
         return toucheCroix;

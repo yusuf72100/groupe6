@@ -134,9 +134,6 @@ public class GestionnaireTechnique{
                 completionService.submit(() -> listeTechnique.get(currentIndex).run(partie,currentIndex));
                 System.out.println(" - " + index + "(" + i + ") : " + listeTechnique.get(currentIndex).getNomTechnique());
                 System.out.println();
-                if ( Launcher.getVerbose() ) {
-                    System.out.println("Lancement de la technique : " + listeTechnique.get(currentIndex).getNomTechnique());
-                }
             }
 
             System.out.println("-------------------------------------");
@@ -154,7 +151,6 @@ public class GestionnaireTechnique{
             }
 
             // Tri la liste des résultats par l'index dans ResultatTechnique
-//          lstResultats.sort((r1, r2) -> r1.getIdx() - r2.getIdx());
             lstResultats.sort(Comparator.comparingInt(ResultatTechnique::getIdx));
 
             if ( index >= 10 ) {

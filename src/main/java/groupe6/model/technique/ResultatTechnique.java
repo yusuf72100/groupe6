@@ -26,7 +26,7 @@ public class ResultatTechnique implements Serializable {
     private final boolean techniqueTrouvee;
 
     /**
-     * La listes des coordonnées qui matchent avec la technique
+     * La liste des coordonnées qui concordent avec la technique
      */
     private final Set<Coordonnee> coordonnees;
 
@@ -98,9 +98,9 @@ public class ResultatTechnique implements Serializable {
     }
 
     /**
-     * Méthode pour obtenir la liste des coordonnées qui matchent avec la technique
+     * Méthode pour obtenir la liste des coordonnées qui concordent avec la technique
      *
-     * @return la liste des coordonnées qui matchent avec la technique
+     * @return la liste des coordonnées qui concordent avec la technique
      */
     public Set<Coordonnee> getCoordonnees() {
         return coordonnees;

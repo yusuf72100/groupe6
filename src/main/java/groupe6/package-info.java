@@ -1,6 +1,6 @@
 /**
  * Package principal de l'application.
  * <br>
- * Il contient toute le code qui correspond a l'application.
+ * Il contient l’ensemble du code source de l'application.
  */
 package groupe6;

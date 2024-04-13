@@ -20,12 +20,12 @@ public class PuzzleSauvegarde implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * La largeur du puzzle ( nombre de lignes )
+   * La largeur du puzzle (nombre de lignes)
    */
   private final int largeur;
 
   /**
-   * La longueur du puzzle ( nombre de colonnes )
+   * La longueur du puzzle (nombre de colonnes)
    */
   private final int longueur;
 
@@ -135,7 +135,7 @@ public class PuzzleSauvegarde implements Serializable {
   }
 
   /**
-   * Méthode pour verifier si une coordonnée est dans la grille
+   * Méthode pour vérifier si une coordonnée est dans la grille
    *
    * @param y la position en y
    * @param x la position en x
