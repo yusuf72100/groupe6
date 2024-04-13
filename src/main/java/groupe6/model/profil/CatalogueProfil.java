@@ -52,11 +52,8 @@ public class CatalogueProfil {
   public void ajouterProfil(Profil profil) {
     if(profil!=null) {
       listeProfil.add(profil);
-      if ( Launcher.getVerbose() ) {
-        System.out.println("Le profil " + profil.getNom() + " a été ajouté au catalogue des profils.");
-      }
     } else {
-      System.out.println("Erreur : le profil n'a pas pu être ajouté au catalogue des profils");
+      System.err.println("Erreur : le profil n'a pas pu être ajouté au catalogue des profils");
     }
   }
 
@@ -325,7 +322,13 @@ public class CatalogueProfil {
     }
 
     if ( Launcher.getVerbose() ) {
-      System.out.println("Le profil actuel est : "+catalogueProfil.getProfilActuel().getNom());
+      System.out.println("-------------------------------------");
+      System.out.println("Profils chargés :");
+      for ( Profil profil : catalogueProfil.getListeProfils() ) {
+        System.out.println(" - " + profil.getNom());
+      }
+      System.out.println("Profil actif : " + catalogueProfil.getProfilActuel().getNom());
+      System.out.println("-------------------------------------");
     }
 
     return catalogueProfil;

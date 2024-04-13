@@ -23,6 +23,6 @@ public class TestTechnique {
     public void testTechnique(){
         assertEquals(simpleZero.getDifficulte(),DifficulteTechnique.DEMARRAGE);
         assertEquals(simpleZero.getNomTechnique(),"SimpleZero");
-        assertEquals(simpleZero.getNomTechniqueStylise(),"Simple Zero");
+        assertEquals(simpleZero.getNomTechniqueStylise(),"simple zero");
     }
 }

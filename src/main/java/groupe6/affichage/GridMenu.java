@@ -890,9 +890,6 @@ public class GridMenu implements Menu {
      * Met à jour l'affichage du puzzle en fonction du modèle
      */
     public void updateAffichage() {
-        if ( Launcher.getVerbose() ) {
-            System.out.println("Update de l'affichage");
-        }
 
         // Update des cellules
         for ( int y = 0; y < this.largeur; y++ ) {

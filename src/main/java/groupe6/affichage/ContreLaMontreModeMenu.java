@@ -400,7 +400,6 @@ public class ContreLaMontreModeMenu extends ClassicModeMenu {
    * @param puzzleSelectionne
    */
   public static void updateInfoPuzzleSelectionneContreLaMontre(PuzzleSauvegarde puzzleSelectionne) {
-    System.out.println("Update Contre la montre");
     infoDifficulte.setText("Difficulté : " + puzzleSelectionne.getDifficulte().toString());
     infoTaille.setText("Taille : " + puzzleSelectionne.getLargeur() + "x" + puzzleSelectionne.getLongueur());
     infoPointsDepart.setText("Points de départ : " + Score.getScoreDebut(puzzleSelectionne.getDifficulte()));

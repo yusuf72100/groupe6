@@ -22,6 +22,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,280 +47,218 @@ public class GlossaireMenu {
    * @return le panneau du menu entrainement
    */
   public static StackPane getMenu(Double w, Double h) {
+
     // ==========================================================================
-    // Création des éléments du panneau d'information sur le puzzle sélectionné
+    // Initialisation des éléments graphiques du menu
     // ==========================================================================
 
-    // Création du paneau lateral d'information
-    VBox infoPaneVBox =  new VBox();
-    infoPaneVBox.setVisible(false);
-    infoPaneVBox.setManaged(false);
-
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPaneVBox.setStyle(
-        "-fx-background-color: "+Main.mainColorCSS+";" +
-            " -fx-padding: "+Math.round(0.02 * h)+"px;" +
-            " -fx-background-radius: 10px 0px 0px 10px;" +
-            "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
-    );
-
-
-    // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-    infoPaneVBox.setSpacing(0.08 * h);
-
-    infoPaneVBox.setMinWidth(0.30 * w);
-    infoPaneVBox.setMaxWidth(0.30 * w);
-
-    // Definition de la taille du paneau lateral d'information
-
-
-    Label titre = new Label("Information sur la technique");
-    Menu.adaptTextSize(titre, 35, w, h);
-    titre.setStyle(
-        titre.getStyle() +
-            " -fx-text-fill: black;" +
-            " -fx-padding: 10px;" +
-            " -fx-background-radius: 10px;" +
-            "-fx-font-weight: bold;"
-    );
-
-    // Le nom de la technique
-    Label nomTechnique = new Label("Nom de la technique");
-    Menu.adaptTextSize(nomTechnique, 30, w, h);
-    nomTechnique.setStyle(
-        nomTechnique.getStyle() +
-            "-fx-text-fill: black;" +
-            "-fx-font-weight: bold;"
-    );
-
-    // Les informations textuelles sur la technique
-    Label descriptionTechnique = new Label("Description de la technique");
-    Menu.adaptTextSize(descriptionTechnique, 28, w, h);
-    descriptionTechnique.setStyle(
-        descriptionTechnique.getStyle() +
-            "-fx-text-fill: black;"
-    );
-    descriptionTechnique.setMinWidth(0.25 * w);
-    descriptionTechnique.setMaxWidth(0.25 * w);
-    descriptionTechnique.setWrapText(true);
-
-    // Element qui sert à faire un espace pour l'affichage
-    Pane espace = new Pane();
-    espace.setMinHeight(0.02 * h);
-
-    // Element qui sert à faire un espace pour l'affichage
-    Pane espace1 = new Pane();
-    espace1.setMinHeight(0.02 * h);
-
-    // Element qui sert à faire un espace pour l'affichage
-    Pane espace2 = new Pane();
-    espace2.setMinHeight(0.02 * h);
-
-    // Bouton pour lancer l'entrainement
-    Button btnEntrainement = new Button("ENTRAINEMENT");
-    btnEntrainement.setPrefSize(Menu.toPourcentWidth(250.0, w), Menu.toPourcentHeight(100.0, h));
-    // Style du bouton pour lancer l'entrainement
-    btnEntrainement.getStyleClass().add("button-rounded-play");
-    btnEntrainement.getStyleClass().add("button-text");
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
-    double newSize = 28 * Math.min(w / 1920, h / 1080);
-    btnEntrainement.setStyle(btnEntrainement.getStyle() + "-fx-font-size: " + newSize + "px;");
-    // Detecte les clics sur le bouton pour lancer l'entrainement sur la technique
-    btnEntrainement.setOnMouseClicked(e -> {
-      // TODO : Lancer entrainement
+    // StackPane qui contient tout le menu
+    StackPane mainPane = new StackPane();
+    // Chargement de l'image de fond
+    String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
+    ImageView backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
+    // Le titre du menu
+    Label title = new Label("Glossaire");
+    title.getStyleClass().add("title");
+    title.setTranslateY(Menu.toPourcentHeight(50.0, w));
+    // La boite verticale qui centre verticalement le sélecteur de preview
+    VBox mainVbox = new VBox();
+    mainVbox.setSpacing(0.10 * h);
+    mainVbox.setAlignment(Pos.CENTER);
+    // Le bouton de retour
+    Button backButton = new Button("RETOUR");
+    StackPane.setMargin(backButton, new Insets(0, 0, 0.05 * h, 0));
+    backButton.getStyleClass().add("button-rounded");
+    backButton.getStyleClass().add("button-text");
+    backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + (35 * Math.min(w / 1920, h / 1080)) + "px;");
+    backButton.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
+    backButton.setOnMouseClicked(e -> {
+      Main.showMainMenu();
     });
-    // Ajoute une marge de 5% en bas au bouton pour lancer entrainement
-    StackPane.setMargin(btnEntrainement, new Insets(0, 0, 0.05 * h, 0));
 
-    // Image de la technique
-    ImageView imgTechnique = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
-    imgTechnique.setFitWidth(Math.round(0.16 * w));
-    imgTechnique.setFitHeight(Math.round(0.16 * w));
+    // ========================================================================
+    // Initialisation des éléments graphiques du panneau d'information
+    // ========================================================================
 
-
-    // Ajout de l'image et des informations textuelles sur l'entrainement
-    VBox infoTechnique = new VBox();
-    infoTechnique.getChildren().addAll(
-        nomTechnique,
-        espace,
-        imgTechnique,
-        espace1,
-        descriptionTechnique,
-        espace2,
-        btnEntrainement
+    // Le panneau lateral d'information
+    VBox infoPane =  new VBox();
+    infoPane.setVisible(false);
+    infoPane.setManaged(false);
+    infoPane.setStyle(
+        "-fx-background-color: "+Main.mainColorCSS+";" +
+        " -fx-padding: "+Math.round(0.02 * h)+"px;" +
+        " -fx-background-radius: 10px 0px 0px 10px;" +
+        "-fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);"
     );
-    infoTechnique.setSpacing(0.01 * h);
-    infoTechnique.setAlignment(Pos.CENTER);
-
+    infoPane.setSpacing(0.08 * h);
+    infoPane.setMinWidth(0.30 * w);
+    infoPane.setMaxWidth(0.30 * w);
+    infoPane.setSpacing(0.05 * h);
+    infoPane.setAlignment(Pos.CENTER_RIGHT);
     // Création de la croix pour fermer le paneau lateral d'information
     Label croix = new Label("✖");
     croix.setStyle(
         "-fx-text-fill: black;" +
-            "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-            "-fx-cursor: hand;"
+        "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+        "-fx-cursor: hand;"
     );
-
-    // Boite horizontale pour mettre la croix en haut à droite
-    HBox HBoxCroix = new HBox(croix);
-    HBoxCroix.setAlignment(Pos.TOP_RIGHT);
-
-    // Detecte les clics sur la croix pour fermer le paneau lateral d'information
-    final VBox finalInfoPane = infoPaneVBox;
+    final VBox finalInfoPane = infoPane;
     croix.setOnMouseClicked(e -> {
       finalInfoPane.setVisible(false);
       finalInfoPane.setManaged(false);
     });
-
-    VBox infoPaneInfoVbox = new VBox();
-    infoPaneInfoVbox.getChildren().addAll(
+    StackPane.setAlignment(croix, Pos.TOP_RIGHT);
+    // Boite horizontale pour mettre la croix en haut à droite
+    HBox HBoxCroix = new HBox();
+    HBoxCroix.setAlignment(Pos.TOP_RIGHT);
+    // Boite verticale qui contient les informations sur le puzzle sélectionné
+    VBox infoTechnique = new VBox();
+    infoTechnique.setSpacing(0.01 * h);
+    infoTechnique.setAlignment(Pos.CENTER);
+    // Element qui sert à faire un espace pour l'affichage
+    Pane[] espace = new Pane[3];
+    for (int i = 0; i < 3; i++) {
+      espace[i] = new Pane();
+      espace[i].setMinHeight(0.02 * h);
+    }
+    // Image du preview sélectionné
+    ImageView imgPreview = new ImageView(Launcher.chargerImage(Launcher.normaliserChemin(Launcher.dossierAssets + "/img/noPuzzle.png")));
+    imgPreview.setFitWidth(Math.round(0.16 * w));
+    imgPreview.setFitHeight(Math.round(0.16 * w));
+    // Label information sur le preview
+    Label titre = new Label("Information sur la technique");
+    Menu.adaptTextSize(titre, 35, w, h);
+    titre.setStyle(
+        titre.getStyle() +
+        " -fx-text-fill: black;" +
+        " -fx-padding: 10px;" +
+        " -fx-background-radius: 10px;" +
+        "-fx-font-weight: bold;"
+    );
+    Label nomPreview = new Label("Nom de la technique");
+    Menu.adaptTextSize(nomPreview, 30, w, h);
+    nomPreview.setStyle(
+        nomPreview.getStyle() +
+        "-fx-text-fill: black;" +
+        "-fx-font-weight: bold;"
+    );
+    Label descriptionPreview = new Label("Description de la technique");
+    Menu.adaptTextSize(descriptionPreview, 28, w, h);
+    descriptionPreview.setMinWidth(0.25 * w);
+    descriptionPreview.setMaxWidth(0.25 * w);
+    descriptionPreview.setWrapText(true);
+    descriptionPreview.setStyle(
+        descriptionPreview.getStyle() +
+        "-fx-text-fill: black;"
+    );
+    // Bouton pour lancer l'entrainement
+    Button btnEntrainement = new Button("ENTRAINEMENT");
+    btnEntrainement.setPrefSize(Menu.toPourcentWidth(250.0, w), Menu.toPourcentHeight(100.0, h));
+    btnEntrainement.getStyleClass().add("button-rounded-play");
+    btnEntrainement.getStyleClass().add("button-text");
+    btnEntrainement.setStyle(btnEntrainement.getStyle() + "-fx-font-size: " + (28 * Math.min(w / 1920, h / 1080)) + "px;");
+    btnEntrainement.setOnMouseClicked(e -> {
+      // TODO : Lancer entrainement
+    });
+    StackPane.setMargin(btnEntrainement, new Insets(0, 0, 0.05 * h, 0));
+    // Boite verticale qui contient le contenu du panneau d'information
+    VBox VBoxContenueInfoPane = new VBox();
+    VBoxContenueInfoPane.getChildren().addAll(
         titre,
         infoTechnique
     );
-    infoPaneInfoVbox.setSpacing(0.02 * h);
-    infoPaneInfoVbox.setAlignment(Pos.CENTER);
-
-    ScrollPane infoPaneScroll = new ScrollPane(infoPaneInfoVbox);
+    VBoxContenueInfoPane.setSpacing(0.02 * h);
+    VBoxContenueInfoPane.setAlignment(Pos.CENTER);
+    // ScrollPane pour le contenu du panneau d'information
+    ScrollPane infoPaneScroll = new ScrollPane(VBoxContenueInfoPane);
     infoPaneScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+    // ========================================================================
+    // Initialisation des éléments graphiques du sélecteur de preview
+    // ========================================================================
+
+    // StackPane qui contient le sélecteur de preview
+    StackPane stackPaneSelecteurPuzzle = new StackPane();
+    // Création d'un ScrollPane pour afficher les previews
+    ScrollPane scrollPaneSelecteur = new ScrollPane();
+    scrollPaneSelecteur.setFitToWidth(true);
+    scrollPaneSelecteur.setFitToHeight(true);
+    scrollPaneSelecteur.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPaneSelecteur.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    StackPane.setMargin(scrollPaneSelecteur, new Insets(0.12 * w,  0, 0.17 * h, 0.08 * w));
+    // Boite verticale qui contient les headers et les conteneurs de preview
+    VBox VBoxHeaderAndContent = new VBox();
+    // Les headers
+    StackPane[] header = new StackPane[4];
+    // Création du tableau qui contient les listes de previews
+    List<VBox>[] lstPreview = new List[]{
+        // Regles
+        new ArrayList<VBox>(),
+        // DEMARRAGE
+        new ArrayList<VBox>(),
+        // BASIQUE
+        new ArrayList<VBox>(),
+        // AVANCEE
+        new ArrayList<VBox>(),
+    };
+    // Création du tableau qui contient les conteneurs de previews
+    // Ajout des previews dans les conteneurs
+    HBox[] previewContainer = new HBox[]{
+        new HBox(),
+        new HBox(),
+        new HBox(),
+        new HBox()
+    };
+
+
+    // ==========================================================================
+    // Chargement des éléments graphiques du infoPane
+    // ==========================================================================
+
+    // Ajout des éléments graphiques dans la boite verticale d'information
+    infoTechnique.getChildren().addAll(
+        nomPreview,
+        espace[0],
+        imgPreview,
+        espace[1],
+        descriptionPreview,
+        espace[2],
+        btnEntrainement
+    );
+
+    // Ajout de la croix dans la boite horizontale
+    HBoxCroix.getChildren().add(croix);
+
     // Ajout des informations dans le paneau lateral d'information
-    infoPaneVBox.getChildren().addAll(
+    infoPane.getChildren().addAll(
         HBoxCroix,
         infoPaneScroll
     );
-    infoPaneVBox.setSpacing(0.05 * h);
-    // Met les elements du paneau lateral d'information au centre
-    infoPaneVBox.setAlignment(Pos.CENTER_RIGHT);
-
-    // Met la croix en haut à droite
-    StackPane.setAlignment(croix, Pos.TOP_RIGHT);
+    StackPane.setAlignment(HBoxCroix, Pos.TOP_RIGHT);
 
     // ==========================================================================
-    // Création du selecteur de puzzle
+    // Chargement des éléments graphiques du sélecteur de preview
     // ==========================================================================
 
-    HBox[] previewContainer = new HBox[]{new HBox(), new HBox(), new HBox()};
-    List<String[]>[] listeNomTechnique = GestionnaireTechnique.getInstance().nomTechniques();
-
-    // Pour les 4 sections, on crée un conteneur de preview
-    for (int i = 0; i < 3; i++) {
-      final int finalI = i;
-      // VBox qui contient les lignes de preview
-      VBox VBoxPreviewContainer = new VBox();
-      VBoxPreviewContainer.setSpacing(0.015 * w);
-      VBoxPreviewContainer.setStyle(
-          "-fx-background-color: "+Main.mainColorCSS+";" +
-              " -fx-padding: "+Math.round(0.04 * h)+"px;" +
-              " -fx-background-radius: 10px;"
-      );
-      // Pour chaque ligne de preview
-      int idxElem = 0;
-      for (int j = 0; j < 2; j++) {
-        // HBox qui correspond à une ligne de preview
-        HBox HBoxPreviewContainer = new HBox();
-        HBoxPreviewContainer.setSpacing(0.03 * w);
-        // Liste nom technique
-        for ( int k = 0; k < 3  && idxElem < listeNomTechnique[i].size() ; k++, idxElem++) {
-          final int currentIdxElem = idxElem;
-          // Gestion nom stylisé de la technique
-          String cheminTxtTechnique = Launcher.normaliserChemin(
-              Launcher.dossierTechniques + "/description/" + listeNomTechnique[finalI].get(currentIdxElem)[0] + ".desc"
-          );
-          StringBuilder contentBuilder = new StringBuilder();
-          try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cheminTxtTechnique), "UTF-8"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-              contentBuilder.append(line).append("\n");
-            }
-          } catch (IOException exception) {
-            exception.printStackTrace();
-          }
-          String descTechnique = contentBuilder.toString();
-          String nomStylise = listeNomTechnique[finalI].get(currentIdxElem)[1];
-          final String cleanNomStylise = nomStylise.substring(0, 1).toUpperCase() + nomStylise.substring(1);
-          // Gestion image preview
-          String cheminImg = Launcher.normaliserChemin(Launcher.dossierTechniques+ "/img/" + listeNomTechnique[i].get(currentIdxElem)[0] + "_1.png");
-          final Image image = Launcher.chargerImage(cheminImg);
-          final ImageView imgView = new ImageView(image);
-          imgView.setFitWidth(Math.round(  0.15 * w));
-          imgView.setFitHeight(Math.round( 0.15 * w));
-          imgView.setStyle(
-              "-fx-cursor: hand;"
-          );
-          imgView.setOnMouseClicked(e -> {
-            // Change la visibilité du panneau lateral si on vient de sélectionner le même preview que précédemment
-            if ( previewSelectionne == imgView ) {
-              boolean isVisible = infoPaneVBox.isVisible();
-              infoPaneVBox.setVisible(!isVisible);
-              infoPaneVBox.setManaged(!isVisible);
-            }
-            // Sinon, on change le puzzle sélectionné et on affiche les informations sur le puzzle
-            else {
-              previewSelectionne = imgView;
-              nomTechnique.setText(cleanNomStylise);
-              imgTechnique.setImage(image);
-              descriptionTechnique.setText(descTechnique);
-              infoPaneVBox.setVisible(true);
-              infoPaneVBox.setManaged(true);
-            }
-          });
-          VBox vBoxPreview = new VBox();
-          vBoxPreview.setSpacing(0.01 * h);
-          Label label = new Label(cleanNomStylise);
-          Menu.adaptTextSize(label, 25, w, h);
-          label.setAlignment(Pos.CENTER);
-          HBox centerLabel = new HBox(label);
-          centerLabel.setAlignment(Pos.CENTER);
-          vBoxPreview.getChildren().addAll(
-              imgView,
-              centerLabel
-          );
-          HBoxPreviewContainer.getChildren().add(vBoxPreview);
-        }
-        VBoxPreviewContainer.getChildren().add(HBoxPreviewContainer);
-      }
-
-      previewContainer[i].getChildren().add(VBoxPreviewContainer);
+    // Chargement des headers
+    String[] headersName = new String[4];
+    headersName[0] = "REGLES DU JEU";
+    for (int i = 0; i < DifficulteTechnique.values().length; i++) {
+      headersName[i + 1] = DifficulteTechnique.values()[i].toString();
     }
-
-    // Change l'espacement entre les éléments du conteneur de preview des puzzles
-    VBox VBoxDifficulteContainer = new VBox();
-    VBoxDifficulteContainer.setSpacing(0.02 * h);
-
-    // Ajout du header des règles et des previews des règles
-    Label headerRegles = new Label("Règles du jeu");
-    headerRegles.setStyle(
-        "-fx-background-color: "+Main.secondaryColorCSS+";" +
-            "-fx-text-fill: black;" +
-            "-fx-font-weight: bold;" +
-            "-fx-padding: 10px;" +
-            "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-            "-fx-background-radius: 10px;" +
-            "-fx-cursor: hand;"
-    );
-
-    // Ajoute les headers de chaque difficulté et ses conteneurs de preview des puzzles
-    for (int i = 0; i < 3; i++) {
-      Label header = new Label(DifficulteTechnique.values()[i].toString());
-      // Gestion du style avec des valeurs qui varient en fonction de la taille de la fenêtre
-      header.setStyle(
-          "-fx-background-color: "+Main.secondaryColorCSS+";" +
-              "-fx-text-fill: black;" +
-              "-fx-font-weight: bold;" +
-              "-fx-padding: 10px;" +
-              "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
-              "-fx-background-radius: 10px;" +
-              "-fx-cursor: hand;"
-      );
-
-      // Création d'un StackPane intermédiaire pour obtenir le style souhaité
-      StackPane headerPane = new StackPane(header);
-
-      // Met le text du header à gauche
-      StackPane.setAlignment(header, Pos.CENTER_LEFT);
-
-      // Detecte les clics sur le header pour afficher ou cacher les previews des puzzles
+    for (int i = 0; i < 4; i++) {
       int finalI = i;
-      header.setOnMouseClicked(e -> {
+      Label labelHeader = new Label(headersName[i]);
+      labelHeader.setStyle(
+          "-fx-background-color: "+Main.secondaryColorCSS+";" +
+          "-fx-text-fill: black;" +
+          "-fx-font-weight: bold;" +
+          "-fx-padding: 10px;" +
+          "-fx-font-size: "+Math.round(1080 * 0.03)+"px ;" +
+          "-fx-background-radius: 10px;" +
+          "-fx-cursor: hand;"
+      );
+      labelHeader.setOnMouseClicked(e -> {
         // Change la visibilité des previews des puzzles de la difficulté
         boolean isVisible = !previewContainer[finalI].isVisible();
 
@@ -343,89 +283,161 @@ public class GlossaireMenu {
           previewContainer[finalI].setManaged(isVisible);
         }
       });
-
-      // Ajoute le header de la difficulté dans le conteneur
-      VBoxDifficulteContainer.getChildren().add(headerPane);
-
-      // Ajoute le conteneur de preview des puzzles de la difficulté dans le conteneur
-      VBoxDifficulteContainer.getChildren().add(previewContainer[i]);
-
-      // Met le conteneur de preview des puzzles de la difficulté en invisible
-      previewContainer[finalI].setVisible(false);
-      previewContainer[finalI].setManaged(false);
+      header[i] = new StackPane(labelHeader);
+      StackPane.setAlignment(labelHeader, Pos.CENTER_LEFT);
     }
 
-    // Création d'un ScrollPane pour afficher les previews des puzzles
-    ScrollPane scrollPane = new ScrollPane(VBoxDifficulteContainer);
-    scrollPane.setFitToWidth(true);
-    scrollPane.setFitToHeight(true);
-    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    // Chargement des informations des previews
+    List<String> nomRegles = Launcher.getRulesInfoNames();
+    List<String[]>[] listeNomTechnique = GestionnaireTechnique.getInstance().nomTechniques();
+    List<String[]>[] infoPreview = new List[] {
+        new ArrayList<String[]>(),
+        new ArrayList<String[]>(),
+        new ArrayList<String[]>(),
+        new ArrayList<String[]>()
+    };
+    for (int i = 0; i < 4; i++) {
+      String nomFichier;
+      String nomStyle;
+      String cheminImg;
+      String cheminDesc;
+      if ( i == 0 ) {
+        for (String nomRegle : nomRegles) {
+          nomFichier = nomRegle;
+          nomStyle = cleanNomRegles(nomFichier);
+          cheminImg = Launcher.normaliserChemin(Launcher.dossierRegles + "/img/" + nomFichier + ".png");
+          cheminDesc = Launcher.normaliserChemin(Launcher.dossierRegles + "/description/" + nomFichier + ".desc");
+          infoPreview[i].add(new String[]{nomStyle, cheminImg, cheminDesc});
+        }
+      }
+      else {
+        for (int j = 0; j < listeNomTechnique[i-1].size(); j++) {
+          String[] techName = listeNomTechnique[i-1].get(j);
+          nomFichier = techName[0];
+          nomStyle = techName[1];
+          nomStyle = nomStyle.substring(0, 1).toUpperCase() + nomStyle.substring(1);
+          cheminImg = Launcher.normaliserChemin(Launcher.dossierTechniques + "/img/" + nomFichier + "_1.png");
+          cheminDesc = Launcher.normaliserChemin(Launcher.dossierTechniques + "/description/" + nomFichier + ".desc");
+          infoPreview[i].add(new String[]{nomStyle, cheminImg, cheminDesc});
+        }
+      }
+    }
 
-    // Met le fond du ScrollPane en transparent pour laisser voir l'image de fond
-    scrollPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    // Chargement des previews
+    for ( int i = 0; i < 4; i++) {
+      for (int j = 0; j < infoPreview[i].size(); j++) {
+        // VBox qui contient les informations du preview
+        VBox VBoxPreview = new VBox();
+        VBoxPreview.setSpacing(0.01 * h);
+        // Récupération des informations du preview
+        String[] info = infoPreview[i].get(j);
+        // Label qui contient le nom du preview
+        String nomStyilise = info[0];
+        Label labelPreviewName = new Label(nomStyilise);
+        Menu.adaptTextSize(labelPreviewName, 25, w, h);
+        labelPreviewName.setAlignment(Pos.CENTER);
+        // HBox qui centre le label
+        HBox HBoxCenterLabelPreviewName = new HBox(labelPreviewName);
+        HBoxCenterLabelPreviewName.setAlignment(Pos.CENTER);
+        // Verifie si c'est une technique
+        /// boolean estTechnique = estTechnique(info[1]);
+        boolean estTechnique = false; // False car entrainement non disponible
+        // Description de dy preview
+        final String description = getDescriptionPreview(info[2]);
+        // Image de la technique
+        final Image img = Launcher.chargerImage(info[1]);
+        final ImageView imgView = new ImageView(img);
+        imgView.setFitWidth(0.15 * w);
+        imgView.setFitHeight(0.15 * w);
+        imgView.setStyle(
+            "-fx-cursor: hand;"
+        );
+        imgView.setOnMouseClicked(e -> {
+          if ( !estTechnique ) {
+            btnEntrainement.setVisible(false);
+            btnEntrainement.setManaged(false);
+          } else {
+            btnEntrainement.setVisible(true);
+            btnEntrainement.setManaged(true);
+          }
+          if ( previewSelectionne == imgView ) {
+            boolean isVisible = infoPane.isVisible();
+            infoPane.setVisible(!isVisible);
+            infoPane.setManaged(!isVisible);
+          } else{
+            previewSelectionne = imgView;
+            nomPreview.setText(nomStyilise);
+            imgPreview.setImage(img);
+            descriptionPreview.setText(description);
+            infoPane.setVisible(true);
+            infoPane.setManaged(true);
+          }
+        });
+        // Ajout de l'image et du label dans la VBoxPreview
+        VBoxPreview.getChildren().addAll(
+            imgView,
+            HBoxCenterLabelPreviewName
+        );
+        // Ajout de la VBoxPreview dans la liste des previews
+        lstPreview[i].add(VBoxPreview);
+      }
+    }
 
-    // Ajoute le ScrollPane au StackPane qui contient le selecteur
-    StackPane stackPaneSelecteurPuzzle = new StackPane();
-    stackPaneSelecteurPuzzle.getChildren().add(scrollPane);
+    for (int i = 0; i < 4; i++) {
+      VBox VBoxLignePreviewContainer = new VBox();
+      VBoxLignePreviewContainer.setSpacing(0.02 * h);
+      VBoxLignePreviewContainer.setStyle(
+          "-fx-background-color: "+Main.mainColorCSS+";" +
+          " -fx-padding: "+Math.round(0.04 * h)+"px;" +
+          " -fx-background-radius: 10px;"
+      );
+      int index = 0;
+      for (int j = 0; j < 2; j++) {
+        HBox HBoxLignePreview = new HBox();
+        HBoxLignePreview.setSpacing(0.03 * w);
+        for (int k = 0; k < 3 && index < lstPreview[i].size(); k++, index++) {
+          HBoxLignePreview.getChildren().add(lstPreview[i].get(index));
+        }
+        VBoxLignePreviewContainer.getChildren().add(HBoxLignePreview);
+      }
+      previewContainer[i].getChildren().add(VBoxLignePreviewContainer);
+      previewContainer[i].setVisible(false);
+      previewContainer[i].setManaged(false);
+    }
 
-    // Ajouter une marge de 7% à gauche et 12% en bas au scrollPane
-    StackPane.setMargin(scrollPane, new Insets(0.12 * w,  0, 0.17 * h, 0.08 * w));
+    for (int i = 0; i < 4; i++) {
+      VBoxHeaderAndContent.getChildren().addAll(
+          header[i],
+          previewContainer[i]
+      );
+    }
+    VBoxHeaderAndContent.setSpacing(0.02 * h);
 
-    // Boite verticale principale qui centre les éléments graphiques
-    VBox mainVbox = new VBox();
-    mainVbox.setSpacing(0.10 * h);
+    // Ajoute la VBOX qui contients les headers et les conteneurs de preview
+    scrollPaneSelecteur.setContent(VBoxHeaderAndContent);
+
+    // Ajoute le ScrollPane au StackPane qui contient le sélecteur
+    stackPaneSelecteurPuzzle.getChildren().add(scrollPaneSelecteur);
+
+    // Ajout du StackPane du sélecteur à la boite verticale principale
     mainVbox.getChildren().add(stackPaneSelecteurPuzzle);
-    mainVbox.setAlignment(Pos.CENTER);
-
-    // Gestion du bouton de retour
-    Button backButton = new Button("RETOUR");
-    StackPane.setMargin(backButton, new Insets(0, 0, 0.05 * h, 0));
-    backButton.getStyleClass().add("button-rounded");
-    backButton.getStyleClass().add("button-text");
-
-    // Adaptation de la taille du texte en fonction de la taille de la fenêtre
-    double nouvelleTaille = 35 * Math.min(w / 1920, h / 1080);
-    backButton.setStyle(backButton.getStyle() + "-fx-font-size: " + nouvelleTaille + "px;");
-    // Adaptation de la taille du bouton en fonction de la taille de la fenêtre
-    backButton.setPrefSize(Menu.toPourcentWidth(300.0, w), Menu.toPourcentHeight(100.0, h));
-    // Action du bouton de retour
-    backButton.setOnMouseClicked(e -> {
-      Main.showMainMenu();
-    });
-
-    // Gestion du titre
-    Label title = new Label("Glossaire");
-    title.getStyleClass().add("title");
-    title.setTranslateY(Menu.toPourcentHeight(50.0, w));
-    StackPane.setAlignment(title, Pos.TOP_CENTER);
-
-    // Chargement de l'image de fond
-    String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
-    ImageView backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
 
     // Ajout des éléments graphiques au panneau principal
-    StackPane mainPane = new StackPane();
     mainPane.getChildren().addAll(
         backgroundImage,
         title,
         mainVbox,
         backButton,
-        infoPaneVBox
+        infoPane
     );
 
-    // Met le titre en haut de la boite verticale principale
+    // Positionnement des éléments graphiques
     StackPane.setAlignment(title, Pos.TOP_CENTER);
-
-    // Met la boite verticale principale au centre du panneau
     StackPane.setAlignment(mainVbox, Pos.CENTER);
-
-    // Met le bouton de retour en bas du panneau
     StackPane.setAlignment(backButton,Pos.BOTTOM_CENTER);
+    StackPane.setAlignment(infoPane, Pos.CENTER_RIGHT);
 
-    // Met le paneau lateral d'information à droite
-    StackPane.setAlignment(infoPaneVBox, Pos.CENTER_RIGHT);
-
-    // config des touches
+    // Detection touche action retour
     EventHandler<KeyEvent> keyEventHandler = event -> {
       KeyCode keyCode = event.getCode();
 
@@ -433,10 +445,68 @@ public class GlossaireMenu {
         Main.showGameModeMenu();
       }
     };
-
     mainPane.setOnKeyPressed(keyEventHandler);
 
+    // Renvoi le menu
     return mainPane;
+  }
+
+  /**
+   * Méthode pour nettoyer le nom d'une règle
+   *
+   * @param nomRegle le nom de la règle
+   * @return le nom de la règle nettoyé
+   */
+  public static String cleanNomRegles(String nomRegle) {
+
+    StringBuilder strBuilder = new StringBuilder();
+    for (int i = 0; i < nomRegle.length(); i++) {
+      if ( i != 0 && Character.isUpperCase(nomRegle.charAt(i)) ) {
+        strBuilder.append(" ");
+        strBuilder.append(Character.toLowerCase(nomRegle.charAt(i)));
+      }
+      else {
+        strBuilder.append(nomRegle.charAt(i));
+      }
+    }
+
+    String cleanNom = strBuilder.toString();
+    cleanNom = cleanNom.substring(0, 1).toUpperCase() + cleanNom.substring(1);
+
+    return cleanNom;
+  }
+
+  /**
+   * Méthode pour obtenir la description depuis un fichier .desc
+   *
+   * @param cheminDesc le chemin du fichier .desc
+   * @return la description
+   */
+  public static String getDescriptionPreview(String cheminDesc) {
+    StringBuilder contentBuilder = new StringBuilder();
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cheminDesc), StandardCharsets.UTF_8))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        contentBuilder.append(line).append("\n");
+      }
+    } catch (IOException exception) {
+      exception.printStackTrace();
+    }
+    return contentBuilder.toString();
+  }
+
+  /**
+   * Méthode pour savoir si c'est le chemin d'une technique
+   *
+   * @param chemin le chemin
+   * @return vrai si c'est une technique, faux sinon
+   */
+  public static boolean estTechnique(String chemin) {
+    // Si le chemmin comment pas Launcher.dossierTechniques
+    if ( chemin.startsWith(Launcher.normaliserChemin(Launcher.dossierTechniques)) ) {
+      return true;
+    }
+    return false;
   }
 
 }

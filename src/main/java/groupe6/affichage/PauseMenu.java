@@ -1,10 +1,12 @@
 package groupe6.affichage;
 
+import groupe6.launcher.Launcher;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -60,8 +62,16 @@ public class PauseMenu implements Menu {
         vBox.getChildren().addAll(reprendre, options, exitMenu);
         vBox.setAlignment(Pos.CENTER);
 
-        stackPane.setStyle("-fx-background-color: white;");
-        stackPane.getChildren().addAll(vBox, OptionsMenu.getMenu());
+        // Image de fond
+        String cheminBgImage = Launcher.normaliserChemin(Launcher.dossierAssets + "/img/bg.png");
+        ImageView backgroundImage = new ImageView(Launcher.chargerImage(cheminBgImage));
+
+//        stackPane.setStyle("-fx-background-color: white;");
+        stackPane.getChildren().addAll(
+            backgroundImage,
+            vBox,
+            OptionsMenu.getMenu()
+        );
 
         stackPane.setVisible(false);
         stackPane.setManaged(false);

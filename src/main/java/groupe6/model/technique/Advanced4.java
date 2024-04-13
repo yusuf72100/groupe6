@@ -6,7 +6,7 @@ package groupe6.model.technique;
  *
  * @author Yamis
  */
-public class Advanced4 extends Advanced {
+public class Advanced4 extends NoNivDeux {
 
   /**
    * Instance unique de la classe Advanced4

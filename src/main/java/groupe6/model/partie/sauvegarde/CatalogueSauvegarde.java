@@ -126,6 +126,7 @@ public class CatalogueSauvegarde {
 
     // Nom attendu de la sauvegarde
     String nomSauvegarde = PartieFinieInfos.getNomSauvegarde(partieFinieInfos);
+    System.out.println("Nom de la sauvegarde à supprimer : " + nomSauvegarde);
 
     // Parcourir les fichiers de sauvegardes a la recherche de la sauvegarde à supprimer
     for (File fichier : Objects.requireNonNull(fichiersSauvegardes)) {

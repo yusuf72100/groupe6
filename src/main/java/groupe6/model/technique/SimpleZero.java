@@ -20,7 +20,7 @@ public class SimpleZero extends Technique{
     private SimpleZero(){
         super(
             DifficulteTechnique.DEMARRAGE,
-            "Simple Zero"
+            "simple zero"
         );
     }
 
