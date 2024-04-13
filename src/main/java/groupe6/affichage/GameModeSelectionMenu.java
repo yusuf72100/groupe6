@@ -78,7 +78,7 @@ public class GameModeSelectionMenu extends MainMenu {
         MainMenu.buttons[1].setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO : Menu aventure
+                Main.showAdventureModeMenu();
             }
         });
 

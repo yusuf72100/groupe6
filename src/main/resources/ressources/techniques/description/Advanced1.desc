@@ -1,1 +1,1 @@
-Si la boucle située dans le coin inférieur gauche est poursuivie vers le haut, comme le montre le diagramme de gauche, les étapes suivantes créeront rapidement un conflit en boucle fermée. La boucle ne peut donc pas être poursuivie vers le haut, comme indiqué par le X.
+Si, comme le montre le diagramme de gauche, la boucle située dans le coin inférieur gauche continue vers le haut, les étapes suivantes créeront rapidement un conflit avec une boucle fermée séparée. La boucle ne peut donc pas continuer vers le haut, une croix peut donc être placée à cet emplacement.

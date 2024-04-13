@@ -87,7 +87,6 @@ public class Historique implements Serializable {
         new Thread(() -> Profil.sauvegarderProfil(Launcher.catalogueProfils.getProfilActuel())).start();
         // Lance un thread séparé pour supprimer la sauvegarde de la partie si elle existe
         Profil profil = Launcher.catalogueProfils.getProfilActuel();
-        System.out.println("ajoutResultPartie : ");
         new Thread(() -> CatalogueSauvegarde.suppimerAnciennesSauvegardes(profil,partie)).start();
     }
 

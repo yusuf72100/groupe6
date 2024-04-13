@@ -855,11 +855,8 @@ public class GridMenu implements Menu {
      * Met à jour les référencement vers le puzzle et les cellules
      */
     public void updatePuzzle() {
-        System.out.println("Update puzzle");
         this.puzzle = this.partie.getPuzzle();
         this.cellulesData = this.partie.getPuzzle().getGrilleJeu();
-        System.out.println("=== Puzzle ===");
-        System.out.println(this.cellulesData);
         // Update des cellules
         for ( int y = 0; y < this.largeur; y++ ) {
             for (int x = 0; x < this.longueur; x++) {

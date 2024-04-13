@@ -9,6 +9,7 @@ import groupe6.model.technique.DifficulteTechnique;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -95,6 +96,15 @@ public class Main extends Application {
                     resetGrid();
                 }
                 Platform.exit();
+                // Attend la fin des sauvegardes avant de fermer l'application
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                        System.exit(0);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             });
 
             // Gestion de l'icône
@@ -158,6 +168,13 @@ public class Main extends Application {
     }
 
     /**
+     * Méthode statique pour afficher le menu de sélection de puzzle en mode aventure
+     */
+    public static void showAdventureModeMenu() {
+        Main.setRoot(AdventureMenu.getMenu(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+    }
+
+    /**
      * Méthode statique pour afficher le menu de sélection de profil
      *
      * @param partie la partie à afficher
@@ -194,8 +211,6 @@ public class Main extends Application {
         alert.setTitle(title);
         alert.setHeaderText(headerTexte);
         alert.setContentText(contentTexte);
-        alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
-        alert.setY(Screen.getPrimary().getVisualBounds().getHeight() * 0.02);
 
         alert.showAndWait();
     }
@@ -251,7 +266,8 @@ public class Main extends Application {
         // Ajoute les images de la technique
         HBox imagesTechniqueHBox = new HBox();
         int nbImage = 2;
-        if ( difficulteTechnique == DifficulteTechnique.AVANCEE ) {
+        // Si la technique est avancée et que ce n'est pas la technique Advanced4, on affiche 3 images
+        if ( difficulteTechnique == DifficulteTechnique.AVANCEE && !techniqueName.equals("Advanced4") ) {
             nbImage = 3;
         }
         for (int i = 1; i <= nbImage; i++) {
@@ -281,7 +297,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
         String descriptionTechnique = contentBuilder.toString();
-        System.out.println(descriptionTechnique);
 
         // Le label qui montre le nom de la technique
         Label labelNomTech = new Label(nomSyliseTechnique);
@@ -455,8 +470,6 @@ public class Main extends Application {
             "Vous ne pouvez accéder à cette fonctionnalité dans le mode hypothèse."
         );
         alert.setContentText("Appuyez sur OK pour continuer");
-        alert.setX(Screen.getPrimary().getVisualBounds().getWidth() / 2 - alert.getDialogPane().getWidth() / 2);
-        alert.setY(Screen.getPrimary().getVisualBounds().getHeight() * 0.02);
 
         alert.showAndWait();
     }
